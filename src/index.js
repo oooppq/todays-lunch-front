@@ -8,7 +8,3 @@ root.render(
     <div>react project test!!!</div>
   </React.StrictMode>
 );
-
-const chicken = "test";
-const chicken1 = "test";
-const chicken2 = "test";

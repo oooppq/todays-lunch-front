@@ -51,10 +51,10 @@ module.exports = {
   plugins: [
     new webpack.BannerPlugin({
       banner: `
-    Build Time: ${new Date().toLocaleString()}
-    `,
-      // Commit Version: ${childProcess.execSync("git rev-parse --short HEAD")}
-      // Author: ${childProcess.execSync("git config user.name")}
+      Commit Version: ${childProcess.execSync("git rev-parse --short HEAD")}
+      Author: ${childProcess.execSync("git config user.name")}
+      Build Time: ${new Date().toLocaleString()}
+      `,
     }),
     new webpack.DefinePlugin({
       "api.domain": JSON.stringify("http:dev.api.domain.com/"),
