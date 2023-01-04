@@ -4,6 +4,7 @@ const childProcess = require("child_process");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
+const ESLintWebpackPlugin = require("eslint-webpack-plugin");
 
 const isDev = (process.env.NODE_ENV || "development") === "development";
 
@@ -64,6 +65,7 @@ module.exports = {
       template: "./public/index.html",
     }),
     new ReactRefreshWebpackPlugin(),
+    new ESLintWebpackPlugin(),
   ],
   devServer: {
     static: {
