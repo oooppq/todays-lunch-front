@@ -1,0 +1,57 @@
+{
+  "name": "lunch_project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack serve --mode=development --progress",
+    "build": "webpack --mode=production",
+    "prepare": "husky install",
+    "lint": "lint-staged"
+  },
+  "keywords": [],
+  "author": "",
+  "contributors": [
+    {
+      "name": "Daegyun Oh",
+      "email": "dheorbs8937@gmail.com"
+    }
+  ],
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.2.2",
+    "eslint-config-airbnb": "^19.0.4",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.6.1",
+    "react-scripts": "^2.1.3",
+    "react-slick": "^0.29.0",
+    "slick-carousel": "^1.8.1",
+    "styled-components": "^5.3.6"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.20.7",
+    "@babel/preset-env": "^7.20.2",
+    "@babel/preset-react": "^7.18.6",
+    "@pmmmwh/react-refresh-webpack-plugin": "^0.5.10",
+    "babel-loader": "^9.1.0",
+    "banner-plugin": "^1.0.10",
+    "clean-webpack-plugin": "^4.0.0",
+    "eslint": "^8.31.0",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.31.11",
+    "file-loader": "^6.2.0",
+    "html-webpack-plugin": "^5.5.0",
+    "husky": "^8.0.0",
+    "lint-staged": "^13.1.0",
+    "react-refresh": "^0.14.0",
+    "url-loader": "^4.1.1",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1",
+    "webpack-dev-server": "^4.11.1"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": "eslint --fix"
+  }
+}
