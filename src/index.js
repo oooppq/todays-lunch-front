@@ -11,3 +11,4 @@ root.render(
 
 const chicken = "test";
 const chicken1 = "test";
+const chicken2 = "test";
