@@ -1,7 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
 const childProcess = require('child_process');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const ESLintWebpackPlugin = require('eslint-webpack-plugin');
@@ -15,7 +14,8 @@ module.exports = {
   },
   output: {
     path: path.resolve('./build'),
-    filename: '[name].js',
+    filename: '[name].bundle.js',
+    clean: true,
   },
   module: {
     rules: [
@@ -74,7 +74,6 @@ module.exports = {
     new webpack.DefinePlugin({
       'api.domain': JSON.stringify('http:dev.api.domain.com/'),
     }),
-    new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: './public/index.html',
     }),

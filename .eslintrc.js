@@ -12,5 +12,9 @@ module.exports = {
         singleQuote: true,
       },
     ],
+    'react/function-component-definition': [
+      2,
+      { namedcomponents: 'arrow-function' },
+    ],
   },
 };
