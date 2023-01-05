@@ -3,20 +3,14 @@ module.exports = {
     browser: true,
     es2021: true,
   },
-  extends: [
-    "eslint:recommended",
-    "plugin:react/recommended",
-    "airbnb",
-    "plugin:prettier/recommended",
-  ],
-  overrides: [],
-  parserOptions: {
-    parser: "@babel/eslint-parser",
-    requireConfigFile: false,
-    ecmaVersion: "latest",
-    sourceType: "module",
-  },
+  extends: ['airbnb', 'airbnb/hooks', 'plugin:prettier/recommended'],
   rules: {
-    "react/jsx-filename-extension": [1, { extensions: [".js", ".jsx"] }],
+    'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
+    'prettier/prettier': [
+      'error',
+      {
+        singleQuote: true,
+      },
+    ],
   },
 };
