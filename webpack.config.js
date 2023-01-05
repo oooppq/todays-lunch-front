@@ -36,30 +36,29 @@ module.exports = {
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: [
-              [
-                '@babel/preset-env',
-                {
-                  targets: {
-                    esmodules: true,
-                    //   browsers: ["last 2 versions"],
-                  },
-                  useBuiltIns: 'usage',
-                  corejs: 3,
+
+        loader: 'babel-loader',
+        options: {
+          presets: [
+            [
+              '@babel/preset-env',
+              {
+                targets: {
+                  esmodules: true,
+                  //   browsers: ["last 2 versions"],
                 },
-              ],
-              [
-                '@babel/preset-react',
-                {
-                  runtime: 'automatic',
-                },
-              ],
+                useBuiltIns: 'usage',
+                corejs: 3,
+              },
             ],
-            plugins: [isDev && 'react-refresh/babel'].filter(Boolean),
-          },
+            [
+              '@babel/preset-react',
+              {
+                runtime: 'automatic',
+              },
+            ],
+          ],
+          plugins: [isDev && 'react-refresh/babel'].filter(Boolean),
         },
       },
     ],
@@ -79,17 +78,18 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './public/index.html',
     }),
-    new ReactRefreshWebpackPlugin(),
+    isDev && new ReactRefreshWebpackPlugin(),
     new ESLintWebpackPlugin(),
-  ],
+  ].filter(Boolean),
   devServer: {
+    static: './build',
     client: {
       overlay: true,
     },
     port: 3000,
     open: true,
     hot: true,
-    devtool: isDev ? 'inline-source-map' : false,
   },
   stats: 'errors-only',
+  // devtool: isDev ? 'inline-source-map' : false,
 };
