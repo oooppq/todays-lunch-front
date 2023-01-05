@@ -13,8 +13,11 @@ module.exports = {
       },
     ],
     'react/function-component-definition': [
-      2,
-      { namedcomponents: 'arrow-function' },
+      'error',
+      {
+        namedComponents: ['function-declaration', 'arrow-function'],
+        unnamedComponents: 'arrow-function',
+      },
     ],
   },
 };
