@@ -20,4 +20,7 @@ module.exports = {
       },
     ],
   },
+  globals: {
+    PUBLIC_URL: true,
+  },
 };

@@ -17,6 +17,9 @@ module.exports = {
     filename: '[name].bundle.js',
     clean: true,
   },
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js', '.jsx'],
+  },
   module: {
     rules: [
       {
@@ -72,6 +75,7 @@ module.exports = {
       `,
     }),
     new webpack.DefinePlugin({
+      PUBLIC_URL: JSON.stringify(path.resolve('./public')),
       'api.domain': JSON.stringify('http:dev.api.domain.com/'),
     }),
     new HtmlWebpackPlugin({
@@ -86,7 +90,7 @@ module.exports = {
       overlay: true,
     },
     port: 3000,
-    open: true,
+    // open: true,
     hot: true,
   },
   stats: 'errors-only',
