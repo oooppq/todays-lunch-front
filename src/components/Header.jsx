@@ -1,15 +1,31 @@
 import React from 'react';
-import { HeaderContainer, HeaderLogo } from './header.style';
+import { useNavigate } from 'react-router-dom';
+import {
+  HeaderContainer,
+  HeaderLogo,
+  HeaderMyPageIcon,
+  HeaderWishIcon,
+} from './header.style';
+import user from '../assets/img/user.png';
+import wish from '../assets/img/basket.png';
 
 const Header = () => {
+  const navigate = useNavigate();
+
+  const navOnClick = (e) => {
+    navigate(e.target.id);
+  };
+
   return (
     <HeaderContainer>
-      <HeaderLogo>
+      <HeaderLogo onClick={navOnClick} id="home">
         {/* 추후에 글자마다 색을 다르게 하기 위해 span으로 나눠 놓음 */}
-        <span>점</span>
-        <span>메</span>
-        <span>추</span>
+        <span className="first">점</span>
+        <span className="second">메</span>
+        <span className="third">추</span>
       </HeaderLogo>
+      <HeaderWishIcon src={wish} />
+      <HeaderMyPageIcon src={user} />
     </HeaderContainer>
   );
 };

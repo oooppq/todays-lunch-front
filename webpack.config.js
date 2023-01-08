@@ -4,6 +4,7 @@ const childProcess = require('child_process');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const ESLintWebpackPlugin = require('eslint-webpack-plugin');
+const apiMocker = require('connect-api-mocker');
 
 const isDev = (process.env.NODE_ENV || 'development') === 'development';
 
@@ -92,6 +93,13 @@ module.exports = {
     port: 3000,
     // open: true,
     hot: true,
+    historyApiFallback: true,
+    onBeforeSetupMiddleware(devServer) {
+      if (!devServer) {
+        throw new Error('webpack-dev-server is not defined');
+      }
+      devServer.app.use(apiMocker('/api', '/server/api'));
+    },
   },
   stats: 'errors-only',
   // devtool: isDev ? 'inline-source-map' : false,

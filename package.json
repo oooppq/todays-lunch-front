@@ -34,6 +34,7 @@
     "@babel/preset-react": "^7.18.6",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.10",
     "babel-loader": "^9.1.0",
+    "connect-api-mocker": "^1.10.0",
     "core-js": "^3.27.1",
     "css-loader": "^6.7.3",
     "eslint": "^8.31.0",

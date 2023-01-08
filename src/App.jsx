@@ -4,7 +4,10 @@ import { Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Nav from './components/Nav';
-import Home from './pages/Home';
+// import Home from './pages/Home/Home';
+import Map from './pages/Map/Map';
+import HomePage from './pages/HomePage/HomePage';
+import Play from './pages/Play/Play';
 
 // import Play from './pages/play/Play';
 
@@ -22,10 +25,13 @@ const App = () => {
   return (
     <AppContainer>
       <Header />
-      <Routes>
-        <Route path="/" element={<Home />} />
-      </Routes>
       <Nav />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/map" element={<Map />} />
+        <Route path="/play" element={<Play />} />
+        <Route path="/judge" element={<Map />} />
+      </Routes>
       <Footer />
     </AppContainer>
   );
