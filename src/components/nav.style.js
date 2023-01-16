@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { mainColor } from '../pages/common.stye';
+import { mainColor } from '../pages/common.style';
 
 export const NavContainer = styled.div`
   width: 100%;

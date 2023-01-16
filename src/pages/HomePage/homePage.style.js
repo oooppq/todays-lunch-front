@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { commonPageContainerStyle, mainColor } from '../common.stye';
+import { commonPageContainerStyle, mainColor } from '../common.style';
 
 export const HomePageContainer = styled.div`
   margin: ${commonPageContainerStyle};

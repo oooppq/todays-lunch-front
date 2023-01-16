@@ -12,8 +12,8 @@ import wish from '../assets/img/basket.png';
 const Header = () => {
   const navigate = useNavigate();
 
-  const navOnClick = (e) => {
-    navigate(e.target.id);
+  const navOnClick = () => {
+    navigate('/');
   };
 
   return (

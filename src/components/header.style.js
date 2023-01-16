@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { mainColor } from '../pages/common.stye';
+import { mainColor } from '../pages/common.style';
 // import logo from '../../../public/logo.png';
 
 export const HeaderContainer = styled.div`
