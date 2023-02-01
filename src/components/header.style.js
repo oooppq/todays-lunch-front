@@ -17,7 +17,8 @@ export const HeaderContainer = styled.div`
 
 export const HeaderLogo = styled.div`
   font-family: 'KOTRA_BOLD-Bold';
-  width: 200px;
+  width: 100px;
+  height: 40px;
   font-size: 30px;
   // margin: 0 auto;
   margin-left: 30px;
@@ -26,7 +27,8 @@ export const HeaderLogo = styled.div`
   }
 `;
 
-export const HeaderWishIcon = styled.img`
+export const HeaderBasketModal = styled.div``;
+export const HeaderBasketIcon = styled.img`
   width: 35px;
   height: 35px;
   padding-top: 1px;
@@ -34,6 +36,7 @@ export const HeaderWishIcon = styled.img`
   right: 40px;
   margin-right: 40px;
 `;
+
 export const HeaderMyPageIcon = styled.img`
   width: 30px;
   height: 30px;

@@ -11,6 +11,7 @@ export const NavContainer = styled.div`
 export const NavUl = styled.ul`
   font-size: 15px;
   width: 100%;
+  height: 100%;
   display: flex;
   justify-content: space-evenly;
   text-algin: center;
@@ -23,4 +24,6 @@ export const NavLi = styled.li`
   span {
     color: ${mainColor};
   }
+  border-bottom: 2px solid
+    ${(props) => (props.current ? mainColor : 'transparent')};
 `;

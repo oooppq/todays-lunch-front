@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { NavContainer, NavLi, NavUl } from './nav.style';
 
 const Nav = () => {
@@ -8,17 +8,34 @@ const Nav = () => {
   const navOnClick = (e) => {
     navigate(e.target.id);
   };
+  const location = useLocation();
+  const pathName = location.pathname;
 
   return (
     <NavContainer>
       <NavUl>
-        <NavLi id="map" onClick={navOnClick} className="bold">
+        <NavLi
+          current={pathName === '/map'}
+          id="map"
+          onClick={navOnClick}
+          className="bold"
+        >
           둘러보기
         </NavLi>
-        <NavLi id="play" onClick={navOnClick} className="bold">
+        <NavLi
+          current={pathName === '/play'}
+          id="play"
+          onClick={navOnClick}
+          className="bold"
+        >
           오늘의 <span>점심</span>은?
         </NavLi>
-        <NavLi id="judge" onClick={navOnClick} className="bold">
+        <NavLi
+          current={pathName === '/judge'}
+          id="judge"
+          onClick={navOnClick}
+          className="bold"
+        >
           맛집심사
         </NavLi>
       </NavUl>

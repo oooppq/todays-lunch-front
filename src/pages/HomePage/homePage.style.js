@@ -13,7 +13,7 @@ export const RecommendationContainer = styled.div`
 
 export const RecommendationTitle = styled.h3``;
 
-export const RecommendationMain = styled.div`
+export const RecommendationElem = styled.div`
   width: 100%;
 `;
 

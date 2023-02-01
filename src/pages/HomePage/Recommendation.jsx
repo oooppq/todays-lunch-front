@@ -1,56 +1,63 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react/no-unescaped-entities */
 import React from 'react';
 import { QueryClient, QueryClientProvider, useQuery } from 'react-query';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import {
   RecommendationContainer,
   RecommendationTitle,
-  RecommendationMain,
   RecommendationImage,
   RecommendationInfo,
+  RecommendationElem,
 } from './\bhomePage.style';
 import defaultImage from '../../assets/img/default-image.png';
+import { gotoDetailOnClick } from '../../libs/utils';
 
 const queryClient = new QueryClient();
 
-const SetData = () => {
-  const { isLoading, error, data } = useQuery('/api/restaurants', () =>
-    fetch('/api/restaurants').then((res) => res.json())
+const SetData = ({ navigate }) => {
+  const { isLoading, error, data } = useQuery(['recommends', 'list'], () =>
+    axios.get('/api/recommends').then((res) => res.data)
   );
+
   if (isLoading) return null;
   if (error) return 'error!';
+
   return (
     <RecommendationContainer>
       <RecommendationTitle className="bold">오늘의 맛집</RecommendationTitle>
-      <RecommendationMain>
-        <RecommendationImage src={defaultImage} />
-        <RecommendationInfo>
-          <div className="riL">
-            <span>{data[0].rest_name}</span>
-            <span className="rating"> 5.0</span>
-            <div>"모든 서강대생이 인정한 극강의 맛집"</div>
-          </div>
-          <div className="riR">
-            <div className="bold">찜하기</div>
-            <div className="bold">룰렛에 추가</div>
-          </div>
-        </RecommendationInfo>
-      </RecommendationMain>
+
+      {data.map((e) => (
+        <RecommendationElem
+          id={e.id}
+          key={e.id}
+          onClick={(event) => gotoDetailOnClick(event, navigate)}
+        >
+          <RecommendationImage src={defaultImage} />
+          <RecommendationInfo>
+            <div className="riL">
+              <span>{e.name}</span>
+              <span className="rating"> {e.rating}</span>
+              <div>"{e.comment}"</div>
+            </div>
+            <div className="riR">
+              <div className="bold">찜하기</div>
+              <div className="bold">룰렛에 추가</div>
+            </div>
+          </RecommendationInfo>
+        </RecommendationElem>
+      ))}
     </RecommendationContainer>
   );
 };
+
 const Recommendation = () => {
-  // const [isLoading, setLoading] = useState(true);
-  // const getData = async (url) => {
-  //   const res = await axios.get(url);
-  //   setLoading(false);
-  //   return res.data;
-  // };
-  // const data = getData('api/restaurants');
-  // // console.log(res.data);
+  const navigate = useNavigate();
 
   return (
     <QueryClientProvider client={queryClient}>
-      <SetData />
+      <SetData navigate={navigate} />
     </QueryClientProvider>
   );
 };
