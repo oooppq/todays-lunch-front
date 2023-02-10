@@ -1,6 +1,6 @@
 import React from 'react';
 import { HomePageContainer } from './\bhomePage.style';
-import Recommendation from './Recommendation';
+import Recommendation from '../Join/Recommendation';
 import Sale from './Sale';
 
 const HomePage = () => {

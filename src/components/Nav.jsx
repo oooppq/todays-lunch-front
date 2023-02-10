@@ -15,8 +15,8 @@ const Nav = () => {
     <NavContainer>
       <NavUl>
         <NavLi
-          current={pathName === '/map'}
-          id="map"
+          current={pathName === '/restaurants'}
+          id="restaurants"
           onClick={navOnClick}
           className="bold"
         >
@@ -31,8 +31,8 @@ const Nav = () => {
           오늘의 <span>점심</span>은?
         </NavLi>
         <NavLi
-          current={pathName === '/judge'}
-          id="judge"
+          current={pathName === '/restaurants-judge'}
+          id="restaurants-judge"
           onClick={navOnClick}
           className="bold"
         >
