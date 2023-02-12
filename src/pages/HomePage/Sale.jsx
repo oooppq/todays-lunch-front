@@ -3,7 +3,7 @@ import React from 'react';
 import { QueryClient, QueryClientProvider, useQuery } from 'react-query';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { SaleContainer, SaleTitle, SaleUl, SaleLi } from './\bhomePage.style';
+import { SaleContainer, SaleTitle, SaleUl, SaleLi } from './homePage.style';
 import defaultImage from '../../assets/img/default-image.png';
 import { convertNum, gotoDetailOnClick } from '../../libs/utils';
 

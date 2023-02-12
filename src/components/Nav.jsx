@@ -6,7 +6,7 @@ const Nav = () => {
   const navigate = useNavigate();
 
   const navOnClick = (e) => {
-    navigate(e.target.id);
+    navigate(e.currentTarget.id);
   };
   const location = useLocation();
   const pathName = location.pathname;

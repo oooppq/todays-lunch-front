@@ -10,7 +10,7 @@ import {
   RecommendationImage,
   RecommendationInfo,
   RecommendationElem,
-} from '../HomePage/homePage.style';
+} from './homePage.style';
 import defaultImage from '../../assets/img/default-image.png';
 import { gotoDetailOnClick } from '../../libs/utils';
 

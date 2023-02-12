@@ -2,11 +2,11 @@ import React from 'react';
 import { Map as KakaoMap } from 'react-kakao-maps-sdk';
 import { MapContainer } from './restaurant.style';
 
-const { kakao } = window;
+// const { kakao } = window;
 
 const Map = () => {
-  const ps = new kakao.maps.services.Places();
-  ps.keywordSearch();
+  // const ps = new kakao.maps.services.Places();
+  // ps.keywordSearch();
   return (
     <MapContainer>
       <KakaoMap

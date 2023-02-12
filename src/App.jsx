@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Routes, Route } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Nav from './components/Nav';
@@ -14,9 +15,9 @@ import Join from './pages/Join/Join';
 import MyPage from './pages/MyPage/MyPage';
 import Judge from './pages/Judge/Judge';
 
-// import Play from './pages/play/Play';
+const queryClient = new QueryClient();
 
-const AppContainer = styled.div`
+const AppContainer = styled(QueryClientProvider)`
   width: 400px;
   margin-left: auto;
   margin-right: auto;
@@ -28,7 +29,7 @@ const AppContainer = styled.div`
 
 const App = () => {
   return (
-    <AppContainer>
+    <AppContainer client={queryClient}>
       <Header />
       <Nav />
       <Routes>

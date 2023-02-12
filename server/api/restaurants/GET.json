@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "restaurant_name": "가츠벤또",
+    "restaurant_image": "",
+    "latitude": 126.937563,
+    "longitude": 37.5533674,
+    "location_category": "서강대학교",
+    "location_tag": "정문",
+    "food_category": "일식",
+    "rate": 4.7,
+    "review_number": 343
+  },
+  {
+    "id": 2,
+    "restaurant_name": "가츠벤또",
+    "restaurant_image": "",
+    "latitude": 126.937563,
+    "longitude": 37.5533674,
+    "location_category": "서강대학교",
+    "location_tag": "정문",
+    "food_category": "일식",
+    "rate": 4.7,
+    "review_number": 343
+  }
+]
