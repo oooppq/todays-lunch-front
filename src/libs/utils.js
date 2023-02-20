@@ -3,6 +3,6 @@ export const convertNum = (num) => {
   return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 };
 
-export const gotoDetailOnClick = (e, navigate) => {
-  navigate(`restaurants/${e.currentTarget.id}`);
+export const gotoDetailOnClick = (id, navigate) => {
+  navigate(`/restaurants/${id}`);
 };

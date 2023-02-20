@@ -1,22 +1,25 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/no-unescaped-entities */
 import React from 'react';
-import { QueryClient, QueryClientProvider, useQuery } from 'react-query';
+import { useQuery } from 'react-query';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import {
   RecommendationContainer,
   RecommendationTitle,
-  RecommendationImage,
-  RecommendationInfo,
+  RecommendationInfoUp,
+  RecommendationInfoDown,
   RecommendationElem,
 } from './homePage.style';
-import defaultImage from '../../assets/img/default-image.png';
-import { gotoDetailOnClick } from '../../libs/utils';
+// import defaultImage from '../../assets/img/default-image.png';
+import defaultImage from '../../assets/img/가츠벤또.png';
+import wishIcon from '../../assets/img/add-wish-icon.png';
+import rouletteIcon from '../../assets/img/add-roulette-icon.png';
+import { gotoDetailOnClick, convertNum } from '../../libs/utils';
 
-const queryClient = new QueryClient();
+const Recommendation = () => {
+  const navigate = useNavigate();
 
-const SetData = ({ navigate }) => {
   const { isLoading, error, data } = useQuery(['recommends', 'list'], () =>
     axios.get('/api/recommends').then((res) => res.data)
   );
@@ -26,39 +29,34 @@ const SetData = ({ navigate }) => {
 
   return (
     <RecommendationContainer>
-      <RecommendationTitle className="bold">오늘의 맛집</RecommendationTitle>
+      <RecommendationTitle className="bold">
+        🍚 <span>오늘의</span> 맛집
+      </RecommendationTitle>
 
       {data.map((e) => (
         <RecommendationElem
           id={e.id}
           key={e.id}
-          onClick={(event) => gotoDetailOnClick(event, navigate)}
+          onClick={() => gotoDetailOnClick(e.id, navigate)}
         >
-          <RecommendationImage src={defaultImage} />
-          <RecommendationInfo>
-            <div className="riL">
-              <span>{e.name}</span>
-              <span className="rating"> {e.rating}</span>
-              <div>"{e.comment}"</div>
+          <RecommendationInfoUp>
+            <img className="restaurantImage" src={defaultImage} alt="" />
+            <div className="infoUpInner">
+              <img className="icon" src={wishIcon} alt="" />
+              <img className="icon" src={rouletteIcon} alt="" />
+              <div>{convertNum(e.lowest_price)}원~</div>
             </div>
-            <div className="riR">
-              <div className="bold">찜하기</div>
-              <div className="bold">룰렛에 추가</div>
-            </div>
-          </RecommendationInfo>
+          </RecommendationInfoUp>
+          <RecommendationInfoDown>
+            <span>[{e.location_category}</span>
+            <span> {e.location_tag}] </span>
+            <span>{e.name}</span>
+            <span className="rating"> {e.rating}</span>
+            <div>"{e.comment}"</div>
+          </RecommendationInfoDown>
         </RecommendationElem>
       ))}
     </RecommendationContainer>
-  );
-};
-
-const Recommendation = () => {
-  const navigate = useNavigate();
-
-  return (
-    <QueryClientProvider client={queryClient}>
-      <SetData navigate={navigate} />
-    </QueryClientProvider>
   );
 };
 

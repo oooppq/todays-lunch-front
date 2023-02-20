@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from 'styled-components';
 import { Routes, Route } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import Header from './components/Header';
@@ -17,19 +16,9 @@ import Judge from './pages/Judge/Judge';
 
 const queryClient = new QueryClient();
 
-const AppContainer = styled(QueryClientProvider)`
-  width: 400px;
-  margin-left: auto;
-  margin-right: auto;
-
-  @media (max-width: 400px) {
-    width: 100%;
-  }
-`;
-
 const App = () => {
   return (
-    <AppContainer client={queryClient}>
+    <QueryClientProvider client={queryClient}>
       <Header />
       <Nav />
       <Routes>
@@ -43,7 +32,7 @@ const App = () => {
         <Route path="/restaurants/:id" element={<Detail />} />
       </Routes>
       <Footer />
-    </AppContainer>
+    </QueryClientProvider>
   );
 };
 

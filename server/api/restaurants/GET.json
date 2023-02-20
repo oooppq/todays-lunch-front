@@ -3,24 +3,24 @@
     "id": 1,
     "restaurant_name": "가츠벤또",
     "restaurant_image": "",
-    "latitude": 126.937563,
-    "longitude": 37.5533674,
-    "location_category": "서강대학교",
-    "location_tag": "정문",
+    "latitude": 37.5533674,
+    "longitude": 126.937563,
+    "location_category": ["서강대학교"],
+    "location_tag": ["정문"],
     "food_category": "일식",
     "rate": 4.7,
     "review_number": 343
   },
   {
     "id": 2,
-    "restaurant_name": "가츠벤또",
+    "restaurant_name": "마포돼지불백",
     "restaurant_image": "",
-    "latitude": 126.937563,
-    "longitude": 37.5533674,
-    "location_category": "서강대학교",
-    "location_tag": "정문",
-    "food_category": "일식",
-    "rate": 4.7,
-    "review_number": 343
+    "latitude": 37.5514818,
+    "longitude": 126.9373166,
+    "location_category": ["서강대학교"],
+    "location_tag": ["정문"],
+    "food_category": "한식",
+    "rate": 4.9,
+    "review_number": 4723
   }
 ]

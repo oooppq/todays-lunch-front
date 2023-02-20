@@ -19,22 +19,26 @@ const SetData = ({ navigate }) => {
 
   return (
     <SaleContainer>
-      <SaleTitle className="bold">할인 정보</SaleTitle>
+      <SaleTitle className="bold">
+        💸 할인 <span>정보</span>
+      </SaleTitle>
       <SaleUl>
         {data.map((e) => (
           <SaleLi
             id={e.id}
             key={e.id}
-            onClick={(event) => gotoDetailOnClick(event, navigate)}
+            onClick={() => gotoDetailOnClick(e.id, navigate)}
           >
             <img src={defaultImage} alt="" />
             <div className="info">
-              <div className="bold menu-name">{e.menu_name}</div>
-              <div className="store-name">{e.restaurant_name}</div>
-              <div className="original-price">
-                {convertNum(e.original_price)}원
+              <div className="storeName">{e.restaurant_name}</div>
+              <div className="menuName">{e.menu_name}</div>
+              <div className="priceDiv">
+                <div className="salePrice">{convertNum(e.sale_price)}원</div>
+                <div className="originalPrice">
+                  {convertNum(e.original_price)}원
+                </div>
               </div>
-              <div className="sale-price">{convertNum(e.sale_price)}원</div>
             </div>
           </SaleLi>
         ))}
