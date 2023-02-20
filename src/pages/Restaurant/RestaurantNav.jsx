@@ -1,5 +1,13 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  setIsMap,
+  setSelectedLocCat,
+  setSelectedLocTag,
+  setSelectedFoodCat,
+  setSearchKeyword,
+} from '../../stores/restaurant';
 import Dropdown from '../../components/Dropdown';
 import {
   RestaurantNavContainer,
@@ -12,25 +20,27 @@ import mapIcon from '../../assets/img/map-icon.png';
 import listIcon from '../../assets/img/list-icon.png';
 import searchIcon from '../../assets/img/search-icon.png';
 
-const RestaurantNav = ({ isMap, setIsMap }) => {
-  const locCategory = ['위치', '서강대학교', '신촌역', '대흥역'];
-  const locTag = ['상세위치', '정문', '남문', '후문'];
-  const foodCategory = ['음식종류', '한식', '일식', '중식'];
-  const [selectedLocCat, setSelectedLocCat] = useState(locCategory[0]);
-  const [selectedLocTag, setSelectedLocTag] = useState(locTag[0]);
-  const [selectedFoodCat, SetSelectedFoodCat] = useState(foodCategory[0]);
-  const [keyword, setKeyword] = useState('');
-  const searchOnSubmit = () => {
-    console.log(
-      `?keyword=${keyword}&location-category=${selectedLocCat}&location-tag=${selectedLocTag}&food-category=${selectedFoodCat}`
-    );
-  };
+const RestaurantNav = ({ locCategory, locTag, foodCategory }) => {
+  const isMap = useSelector((state) => state.restaurant.isMap);
+  const selectedLocCat = useSelector(
+    (state) => state.restaurant.selectedLocCat
+  );
+  const selectedLocTag = useSelector(
+    (state) => state.restaurant.selectedLocTag
+  );
+  const selectedFoodCat = useSelector(
+    (state) => state.restaurant.selectedFoodCat
+  );
+  const searchKeyword = useSelector((state) => state.restaurant.searchKeyword);
+  const [keyword, setKeyword] = useState(searchKeyword);
+  const dispatch = useDispatch();
+
   return (
     <RestaurantNavContainer>
       <RestaurantNavUp>
         <MapBtn
           onClick={() => {
-            setIsMap(!isMap);
+            dispatch(setIsMap());
           }}
         >
           <img src={isMap ? listIcon : mapIcon} alt="" />
@@ -42,8 +52,15 @@ const RestaurantNav = ({ isMap, setIsMap }) => {
             onChange={(e) => {
               setKeyword(e.target.value);
             }}
+            value={keyword}
           />
-          <button type="button" onClick={searchOnSubmit}>
+
+          <button
+            type="button"
+            onClick={() => {
+              dispatch(setSearchKeyword(keyword));
+            }}
+          >
             <img src={searchIcon} alt="" />
           </button>
         </SearchBox>
@@ -55,14 +72,16 @@ const RestaurantNav = ({ isMap, setIsMap }) => {
           setSelected={setSelectedLocCat}
         />
         <Dropdown
-          data={selectedLocCat !== locCategory[0] ? locTag : [locTag[0]]}
+          data={locTag.filter(
+            (tag) => tag.loc_category_id === selectedLocCat.id
+          )}
           selected={selectedLocTag}
           setSelected={setSelectedLocTag}
         />
         <Dropdown
           data={foodCategory}
           selected={selectedFoodCat}
-          setSelected={SetSelectedFoodCat}
+          setSelected={setSelectedFoodCat}
         />
       </RestaurantNavDown>
     </RestaurantNavContainer>

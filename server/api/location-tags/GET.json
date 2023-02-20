@@ -2,34 +2,41 @@
   {
     "id": 1,
     "loc_category_id": 1,
-    "name": "정문",
+    "name": "상세위치",
     "longitude": 126.9410023,
     "latitude": 37.5509442
   },
   {
     "id": 2,
-    "loc_category_id": 1,
-    "name": "남문",
+    "loc_category_id": 2,
+    "name": "정문",
     "longitude": 126.9410023,
     "latitude": 37.5509442
   },
   {
     "id": 3,
-    "loc_category_id": 1,
-    "name": "후문",
+    "loc_category_id": 2,
+    "name": "남문",
     "longitude": 126.9410023,
     "latitude": 37.5509442
   },
   {
     "id": 4,
     "loc_category_id": 2,
+    "name": "후문",
+    "longitude": 126.9410023,
+    "latitude": 37.5509442
+  },
+  {
+    "id": 4,
+    "loc_category_id": 3,
     "name": "신촌역",
     "longitude": 126.9364998,
     "latitude": 37.5550592
   },
   {
     "id": 5,
-    "loc_category_id": 3,
+    "loc_category_id": 4,
     "name": "대흥역",
     "longitude": 126.942332,
     "latitude": 37.547674

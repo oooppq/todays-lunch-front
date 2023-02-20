@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import {
   DropdownContainer,
   SelectedLabel,
@@ -11,11 +12,13 @@ import {
 // 위치 카테고리가 설정되지 않으면 상세위치에 아무 항목도 없게끔 만들려면...
 const Dropdown = ({ data, selected, setSelected }) => {
   const [isActive, setIsActive] = useState(false);
+
   const dropdownRef = useRef();
   const handleClickOutside = ({ target }) => {
     if (dropdownRef.current.contains(target)) setIsActive(!isActive);
     else setIsActive(false);
   };
+  const dispatch = useDispatch();
 
   useEffect(() => {
     window.addEventListener('click', handleClickOutside);
@@ -25,18 +28,18 @@ const Dropdown = ({ data, selected, setSelected }) => {
   });
   return (
     <DropdownContainer ref={dropdownRef}>
-      <SelectedLabel type="button">{selected}</SelectedLabel>
+      <SelectedLabel type="button">{selected.name}</SelectedLabel>
       {isActive ? (
         <OptionUl>
           {data.map((elem) => (
             <OptionLi
-              key={elem}
+              key={elem.id}
               onClick={() => {
-                setSelected(elem);
+                dispatch(setSelected(elem));
                 setIsActive(false);
               }}
             >
-              {elem}
+              {elem.name}
             </OptionLi>
           ))}
         </OptionUl>

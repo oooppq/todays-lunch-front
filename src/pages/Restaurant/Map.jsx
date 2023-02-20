@@ -5,6 +5,7 @@ import {
   Map as KakaoMap,
   MapMarker,
 } from 'react-kakao-maps-sdk';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { gotoDetailOnClick } from '../../libs/utils';
 import { MapContainer, CustomOverlayElem } from './restaurant.style';
@@ -58,21 +59,27 @@ const MapMarkerContainer = ({
 // 상위 컴포넌트에서 데이터를 넘겨받는다.
 const Map = ({ restaurants }) => {
   const [selectedMarker, setSelectedMarker] = useState(); // 선택된 마커를 상태로 관리한다.
-  // const defaultMapCenter = { lat: 37.5509442, lng: 126.9410023 };
   return (
     <MapContainer>
       <KakaoMap
         center={{
-          // 지도의 중심좌표
-          lat: 37.5509442,
-          lng: 126.9410023,
+          // 현재 설정된 위치를 기반으로 지도의 중심점을 설정
+          lat: useSelector((state) => state.restaurant.selectedLocTag.latitude),
+          lng: useSelector(
+            (state) => state.restaurant.selectedLocTag.longitude
+          ),
         }}
         style={{
           // 지도의 크기
           width: '100%',
           height: '450px',
         }}
-        level={5}
+        level={
+          // 세부 위치가 설정됐을 때 지도의 level에 변화를 줌
+          useSelector((state) => state.restaurant.selectedLocTag.id) === 1
+            ? 5
+            : 4
+        }
       >
         {restaurants.map((e) => {
           const position = { lat: e.latitude, lng: e.longitude };

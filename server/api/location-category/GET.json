@@ -1,18 +1,24 @@
 [
   {
     "id": 1,
-    "name": "서강대학교",
+    "name": "위치",
     "longitude": 126.9410023,
     "latitude": 37.5509442
   },
   {
     "id": 2,
+    "name": "서강대학교",
+    "longitude": 126.9410023,
+    "latitude": 37.5509442
+  },
+  {
+    "id": 3,
     "name": "신촌역",
     "longitude": 126.9364998,
     "latitude": 37.5550592
   },
   {
-    "id": 3,
+    "id": 4,
     "name": "대흥역",
     "longitude": 126.942332,
     "latitude": 37.547674
