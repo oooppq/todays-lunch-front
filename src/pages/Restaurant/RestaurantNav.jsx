@@ -7,7 +7,7 @@ import {
   setSelectedLocTag,
   setSelectedFoodCat,
   setSearchKeyword,
-} from '../../stores/restaurant';
+} from '../../redux/restaurant';
 import Dropdown from '../../components/Dropdown';
 import {
   RestaurantNavContainer,
@@ -53,6 +53,17 @@ const RestaurantNav = ({ locCategory, locTag, foodCategory }) => {
               setKeyword(e.target.value);
             }}
             value={keyword}
+            // 엔터키 누를 때 적용된 조건들이 반영된 상태로 요청되도록 함.
+            // onKeyPress는 deprecated 되었기 때문에 onKeyDown을 사용하였다.
+            onKeyDown={(e) => {
+              const key = e.code;
+              switch (key) {
+                case 'Enter':
+                  dispatch(setSearchKeyword(keyword));
+                  break;
+                default:
+              }
+            }}
           />
 
           <button
