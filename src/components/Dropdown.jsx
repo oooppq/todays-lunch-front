@@ -28,7 +28,9 @@ const Dropdown = ({ data, selected, setSelected }) => {
   });
   return (
     <DropdownContainer ref={dropdownRef}>
-      <SelectedLabel type="button">{selected.name}</SelectedLabel>
+      <SelectedLabel type="button">
+        <span className="label">{selected.name}</span> ▼
+      </SelectedLabel>
       {isActive ? (
         <OptionUl>
           {data.map((elem) => (

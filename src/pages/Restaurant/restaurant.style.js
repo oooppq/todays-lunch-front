@@ -6,20 +6,32 @@ export const RestaurantContainer = styled.div`
 `;
 
 export const RestaurantNavContainer = styled.div`
-  height: 50px;
+  height: 70px;
 `;
 
 export const RestaurantNavUp = styled.div`
   display: flex;
-  height: 30px;
+  height: 32px;
 `;
 
 export const RestaurantNavDown = styled.div`
   display: flex;
-  height: 20px;
-  padding-left: 40px;
-  margin-top: 5px;
+  justify-content: space-between;
+  height: 30px;
+  margin-top: 10px;
 `;
+export const OrderBtn = styled.button`
+-webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: transparent;
+  border: 0;
+  padding:0;
+  height: 25px;
+  img {
+    height: 100%;
+  }
+}`;
 
 export const MapBtn = styled.div`
   height: 100%;
@@ -29,7 +41,7 @@ export const MapBtn = styled.div`
   }
 `;
 
-export const SearchBox = styled.form`
+export const SearchBox = styled.div`
   display: flex;
 
   height: 30px;
@@ -63,7 +75,7 @@ export const SearchBox = styled.form`
 
 // elements for Map
 export const MapContainer = styled.div`
-  margin-top: 30px;
+  margin-top: 20px;
 `;
 
 export const CustomOverlayElem = styled.div`
@@ -82,20 +94,57 @@ export const CustomOverlayElem = styled.div`
 
 // elements for List
 export const ListUl = styled.ul`
-  margin: 30px 0 0 0;
+  margin: 20px 0 0 0;
   padding: 0;
 `;
 
 export const ListElem = styled.li`
   display: flex;
   height: 100px;
-  margin-bottom: 10px;
+  margin: 10px 0;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #f0f0f0;
 `;
 
 export const ListElemInfo = styled.div`
-  margin-right: auto;
+  width: 60%;
+  overflow: hidden;
+  white-space: nowrap;
+  .etc {
+    font-size: 13px;
+    color: #636363;
+    .reviewRate {
+      color: #356461;
+    }
+    .btnContainer {
+      margin-top: 10px;
+      button {
+        font-size: 11px;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        background-color: transparent;
+        border: 1px solid #bdbdbd;
+        border-radius: 10px;
+        margin-right: 10px;
+        height: 23px;
+        color: #5e5e5e;
+        a {
+          text-decoration: none;
+          color: #5e5e5e;
+        }
+      }
+    }
+  }
+  div {
+    padding: 1px 0;
+  }
 `;
 
 export const ListElemImg = styled.img`
   height: 100%;
+  width: 40%;
+  padding-right: 20px;
+  border-radius: 3px;
+  box-sizing: border-box;
 `;

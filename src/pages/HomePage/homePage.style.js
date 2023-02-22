@@ -47,7 +47,9 @@ export const RecommendationInfoUp = styled.div`
   }
 `;
 export const RecommendationInfoDown = styled.div`
-  margin: 10px 0 0 20px;
+  margin: 10px 20px 0 20px;
+  overflow: hidden;
+  white-space: nowrap;
   color: #4e4e4e;
   .rating {
     color: ${mainColor};
@@ -80,6 +82,8 @@ export const SaleUl = styled.ul`
 export const SaleLi = styled.li`
   // display: flex;
   box-sizing: border-box;
+  overflow: hidden;
+  white-space: nowrap;
   width: 50%;
   padding: 5px;
   margin-bottom: 10px;

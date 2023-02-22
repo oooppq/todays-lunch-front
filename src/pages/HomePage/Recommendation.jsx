@@ -13,8 +13,8 @@ import {
 } from './homePage.style';
 // import defaultImage from '../../assets/img/default-image.png';
 import defaultImage from '../../assets/img/가츠벤또.png';
-import wishIcon from '../../assets/img/add-wish-icon.png';
-import rouletteIcon from '../../assets/img/add-roulette-icon.png';
+import wishIcon from '../../assets/img/add-wish-icon.svg';
+import rouletteIcon from '../../assets/img/add-roulette-icon.svg';
 import { gotoDetailOnClick, convertNum } from '../../libs/utils';
 
 const Recommendation = () => {

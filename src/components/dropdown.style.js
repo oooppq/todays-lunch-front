@@ -2,6 +2,11 @@ import styled from 'styled-components';
 
 export const DropdownContainer = styled.div`
   width: 60px;
+  height: 25px;
+  border: 1px solid #bdbdbd;
+  border-radius: 30px;
+  text-align: center;
+  padding: 0 7px;
 `;
 export const SelectedLabel = styled.button`
   -webkit-appearance: none;
@@ -9,12 +14,22 @@ export const SelectedLabel = styled.button`
   appearance: none;
   background-color: white;
   border: none;
-  color: black;
+  color: #7c7c7c;
   width: 100%;
-  height: 20px;
-  text-align: left;
-  font-size: 13px;
+  height: 100%;
+  border-radius: 30px;
+  font-size: 11px;
   padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .label {
+    display: inline-block;
+    box-sizing: content-box;
+    white-space: nowrap;
+    width: 50px;
+    overflow: hidden;
+  }
 `;
 export const OptionUl = styled.ul`
   position: relative;

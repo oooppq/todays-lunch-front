@@ -7,12 +7,15 @@ import RestaurantNav from './RestaurantNav';
 import Map from './Map';
 import List from './List';
 
-const urlMaker = (locCat, locTag, foodCat, keyword) => {
+const urlMaker = (locCat, locTag, foodCat, keyword, sortBy, order, pageNum) => {
   let url = '/api/restaurants?';
   if (locCat.id !== 1) url += `location-category=${locCat.id}`;
   if (locTag.id !== 1) url += `&location-tag=${locTag.id}`;
   if (foodCat.id !== 1) url += `&food-category=${foodCat.id}`;
   if (keyword.length !== 0) url += `&keyword=${keyword}`;
+  url += `&sort=${sortBy.query}&page=${pageNum}`;
+  if (order) url += `&order=descending`;
+  else url += `&order=ascending`;
   return url;
 };
 
@@ -29,6 +32,9 @@ const Restaurant = () => {
     (state) => state.restaurant.selectedFoodCat
   );
   const searchKeyword = useSelector((state) => state.restaurant.searchKeyword);
+  const sortBy = useSelector((state) => state.restaurant.sortBy);
+  const order = useSelector((state) => state.restaurant.order);
+  const pageNum = useSelector((state) => state.restaurant.pageNum);
 
   const ress = useQueries([
     {
@@ -52,6 +58,9 @@ const Restaurant = () => {
       selectedLocTag,
       selectedFoodCat,
       searchKeyword,
+      sortBy,
+      order,
+      pageNum,
     ],
     () =>
       axios
@@ -61,7 +70,10 @@ const Restaurant = () => {
             selectedLocCat,
             selectedLocTag,
             selectedFoodCat,
-            searchKeyword
+            searchKeyword,
+            sortBy,
+            order,
+            pageNum
           )
         )
         .then((res) => res.data)
