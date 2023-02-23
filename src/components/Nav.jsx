@@ -18,23 +18,16 @@ const Nav = () => {
           current={pathName === '/restaurants'}
           id="restaurants"
           onClick={navOnClick}
-          className="bold"
         >
           둘러보기
         </NavLi>
-        <NavLi
-          current={pathName === '/play'}
-          id="play"
-          onClick={navOnClick}
-          className="bold"
-        >
+        <NavLi current={pathName === '/play'} id="play" onClick={navOnClick}>
           오늘의 <span>점심</span>은?
         </NavLi>
         <NavLi
           current={pathName === '/restaurants-judge'}
           id="restaurants-judge"
           onClick={navOnClick}
-          className="bold"
         >
           맛집심사
         </NavLi>

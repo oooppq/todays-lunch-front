@@ -7,8 +7,8 @@ import {
   HeaderBasketModal,
   HeaderBasketIcon,
 } from './header.style';
-import user from '../assets/img/user-icon.png';
-import basket from '../assets/img/basket-icon.png';
+import defaultUser from '../assets/img/default-icon.svg';
+import basket from '../assets/img/basket-icon.svg';
 
 const Header = () => {
   const navigate = useNavigate();
@@ -17,6 +17,7 @@ const Header = () => {
   return (
     <HeaderContainer>
       <HeaderLogo
+        className="headerLogo"
         onClick={() => {
           navigate('/');
         }}
@@ -30,7 +31,7 @@ const Header = () => {
       <HeaderBasketModal />
       <HeaderBasketIcon src={basket} />
       <HeaderMyPageIcon
-        src={user}
+        src={defaultUser}
         onClick={() => {
           navigate('/login');
         }}

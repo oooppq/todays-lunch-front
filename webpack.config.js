@@ -24,6 +24,10 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.(woff|woff2|eot|ttf|otf)$/i,
+        type: 'asset/resource',
+      },
+      {
         test: /\.css$/,
         use: ['style-loader', 'css-loader'],
       },
@@ -37,6 +41,7 @@ module.exports = {
           fallback: 'file-loader', // 명시하지 않아도, 자동으로 file-loader로 인식
         },
       },
+
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,

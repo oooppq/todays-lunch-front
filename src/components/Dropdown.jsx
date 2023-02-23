@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import {
   DropdownContainer,
   SelectedLabel,
+  OptionContainer,
   OptionUl,
   OptionLi,
 } from './dropdown.style';
@@ -29,22 +30,35 @@ const Dropdown = ({ data, selected, setSelected }) => {
   return (
     <DropdownContainer ref={dropdownRef}>
       <SelectedLabel type="button">
-        <span className="label">{selected.name}</span> ▼
+        <span className="label">{selected.name}</span>{' '}
+        <span className="triangle">▼</span>
       </SelectedLabel>
       {isActive ? (
-        <OptionUl>
-          {data.map((elem) => (
-            <OptionLi
-              key={elem.id}
-              onClick={() => {
-                dispatch(setSelected(elem));
-                setIsActive(false);
-              }}
-            >
-              {elem.name}
-            </OptionLi>
-          ))}
-        </OptionUl>
+        <OptionContainer
+          onClick={() => {
+            setIsActive(false);
+          }}
+        >
+          <OptionUl>
+            {data.map((elem) => (
+              <OptionLi
+                key={elem.id}
+                onClick={(e) => {
+                  dispatch(setSelected(elem));
+                  setIsActive(false);
+                  e.stopPropagation();
+                }}
+                style={
+                  selected.id === elem.id
+                    ? { color: 'black' }
+                    : { color: '#9a9a9a' }
+                }
+              >
+                {elem.name}
+              </OptionLi>
+            ))}
+          </OptionUl>
+        </OptionContainer>
       ) : null}
     </DropdownContainer>
   );

@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import { Map as KakaoMap } from 'react-kakao-maps-sdk';
+import { Map as KakaoMap, MarkerClusterer } from 'react-kakao-maps-sdk';
 import { useSelector } from 'react-redux';
 import { MapContainer } from './restaurant.style';
 import MapMarkerContainer from './MapMarkerContainer';
@@ -9,6 +9,7 @@ import MapMarkerContainer from './MapMarkerContainer';
 const Map = ({ restaurants }) => {
   return (
     <MapContainer>
+      <div className="emptyDiv" />
       <KakaoMap
         center={useSelector((state) => state.restaurant.mapCenter)}
         style={{
@@ -23,17 +24,19 @@ const Map = ({ restaurants }) => {
             : 4
         }
       >
-        {restaurants.map((e) => {
-          const position = { lat: e.latitude, lng: e.longitude };
-          return (
-            <MapMarkerContainer
-              key={e.id}
-              index={e.id}
-              position={position}
-              content={e.restaurant_name}
-            />
-          );
-        })}
+        <MarkerClusterer averageCenter minLevel={4}>
+          {restaurants.map((e) => {
+            const position = { lat: e.latitude, lng: e.longitude };
+            return (
+              <MapMarkerContainer
+                key={e.id}
+                index={e.id}
+                position={position}
+                content={e.restaurant_name}
+              />
+            );
+          })}
+        </MarkerClusterer>
       </KakaoMap>
     </MapContainer>
   );

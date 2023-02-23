@@ -89,7 +89,11 @@ const Restaurant = () => {
         locTag={ress[1].data.data}
         foodCategory={ress[2].data.data}
       />
-      {isMap ? <Map restaurants={data} /> : <List restaurants={data} />}
+      {isMap ? (
+        <Map restaurants={data} />
+      ) : (
+        <List restaurants={data} totalPageNum={10} />
+      )}
     </RestaurantContainer>
   );
 };

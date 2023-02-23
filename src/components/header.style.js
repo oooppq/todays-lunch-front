@@ -4,10 +4,9 @@ import { mainColor } from '../pages/common.style';
 
 export const HeaderContainer = styled.div`
   width: 100%;
-  height: 50px;
   display: flex;
   text-align: left;
-  padding: 15px 0 5px 0;
+  margin-bottom: 22px;
   position: relative;
 `;
 // export const HeaderLogo = styled.img`
@@ -16,32 +15,33 @@ export const HeaderContainer = styled.div`
 // `;
 
 export const HeaderLogo = styled.div`
-  font-family: 'KOTRA_BOLD-Bold';
-  width: 100px;
-  height: 40px;
-  font-size: 30px;
-  // margin: 0 auto;
-  margin-left: 30px;
+  font-family: 'Jejudoldam';
+  width: 96px;
+  height: 49px;
+  margin: 19px 0 0 30px;
+  font-size: 32px;
+  // line-height: 37.5px;
+
   .second {
-    color: ${mainColor};
+    // color: ${mainColor};
   }
 `;
 
 export const HeaderBasketModal = styled.div``;
 export const HeaderBasketIcon = styled.img`
-  width: 35px;
-  height: 35px;
-  padding-top: 1px;
+  width: 40px;
+  height: 40px;
   position: absolute;
-  right: 40px;
-  margin-right: 40px;
+  top: 0;
+  right: 0;
+  margin: 20px 85px 0 0;
 `;
 
 export const HeaderMyPageIcon = styled.img`
-  width: 30px;
-  height: 30px;
-  padding-top: 3px;
+  width: 41.7px;
+  height: 45.73px;
   position: absolute;
+  top: 0;
   right: 0;
-  margin-right: 30px;
+  margin: 17px 29.3px 0 0;
 `;

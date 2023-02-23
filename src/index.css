@@ -1,4 +1,4 @@
-@font-face {
+/* @font-face {
   font-family: 'KOTRA_BOLD-Bold';
   src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10-21@1.1/KOTRA_BOLD-Bold.woff')
     format('woff');
@@ -22,21 +22,48 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'Pretendard-Regular';
+  src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff')
+    format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Pretendard-SemiBold';
+  src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff')
+    format('woff');
+  font-weight: 600;
+  font-style: SemiBold;
+}
+
+@font-face {
+  font-family: 'Jejudoldam-regular';
+  src: url('./assets/font/EF_jejudoldam.ttf');
+  font-weight: 400;
+  font-style: normal;
+} */
+
 .bold {
-  font-family: 'LINESeedKR-Bd';
+  font-family: 'Pretendard-Bold';
+}
+.semiBold {
+  font-family: 'Pretendard-SemiBold';
 }
 
 body {
-  width: 400px;
+  width: 390px;
 
   margin-left: auto !important;
   margin-right: auto !important;
   border: 0;
   margin: 0;
 
-  font-family: 'LINESeedKR-Rg';
+  font-family: 'Pretendard-Regular';
 }
-@media (max-width: 400px) {
+
+@media (max-width: 390px) {
   body {
     width: 100%;
   }

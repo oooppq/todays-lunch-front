@@ -8,13 +8,16 @@ import {
   RecommendationContainer,
   RecommendationTitle,
   RecommendationInfoUp,
+  SliderDotContainer,
   RecommendationInfoDown,
   RecommendationElem,
 } from './homePage.style';
-// import defaultImage from '../../assets/img/default-image.png';
 import defaultImage from '../../assets/img/가츠벤또.png';
 import wishIcon from '../../assets/img/add-wish-icon.svg';
 import rouletteIcon from '../../assets/img/add-roulette-icon.svg';
+import selectedSliderDotIcon from '../../assets/img/selected-slider-dot-icon.svg';
+import sliderDotIcon from '../../assets/img/slider-dot-icon.svg';
+
 import { gotoDetailOnClick, convertNum } from '../../libs/utils';
 
 const Recommendation = () => {
@@ -29,7 +32,7 @@ const Recommendation = () => {
 
   return (
     <RecommendationContainer>
-      <RecommendationTitle className="bold">
+      <RecommendationTitle>
         🍚 <span>오늘의</span> 맛집
       </RecommendationTitle>
 
@@ -44,18 +47,33 @@ const Recommendation = () => {
             <div className="infoUpInner">
               <img className="icon" src={wishIcon} alt="" />
               <img className="icon" src={rouletteIcon} alt="" />
-              <div>{convertNum(e.lowest_price)}원~</div>
+              <div className="lowestPrice">
+                {convertNum(e.lowest_price)}원 ~
+              </div>
             </div>
           </RecommendationInfoUp>
           <RecommendationInfoDown>
-            <span>[{e.location_category}</span>
-            <span> {e.location_tag}] </span>
-            <span>{e.name}</span>
-            <span className="rating"> {e.rating}</span>
-            <div>"{e.comment}"</div>
+            <div className="title">
+              <span>[{e.location_category}</span>
+              <span> {e.location_tag}] </span>
+              <span>{e.name}</span>
+            </div>
+            <div className="comment">"{e.comment}"</div>
+            <div className="reviewRate">
+              <span className="reviewNum">리뷰 {e.rating}개</span>
+              {' | '}
+              <span className="rating">별점 {e.rating}</span>
+            </div>
           </RecommendationInfoDown>
         </RecommendationElem>
       ))}
+      <SliderDotContainer>
+        <img src={sliderDotIcon} alt="" />
+        <img src={sliderDotIcon} alt="" />
+        <img src={selectedSliderDotIcon} alt="" />
+        <img src={sliderDotIcon} alt="" />
+        <img src={sliderDotIcon} alt="" />
+      </SliderDotContainer>
     </RecommendationContainer>
   );
 };

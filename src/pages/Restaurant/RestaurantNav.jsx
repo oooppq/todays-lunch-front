@@ -21,7 +21,7 @@ import {
 } from './restaurant.style';
 import mapIcon from '../../assets/img/map-icon.svg';
 import listIcon from '../../assets/img/list-icon.svg';
-import searchIcon from '../../assets/img/search-icon.png';
+import searchIcon from '../../assets/img/search-icon.svg';
 import orderIcon from '../../assets/img/order-icon.png';
 
 const sortOptions = [
@@ -55,7 +55,12 @@ const RestaurantNav = ({ locCategory, locTag, foodCategory }) => {
             dispatch(setIsMap());
           }}
         >
-          <img src={isMap ? listIcon : mapIcon} alt="" />
+          <img
+            src={isMap ? listIcon : mapIcon}
+            alt=""
+            width={isMap ? '32px' : '40px'}
+            height={isMap ? '32px' : '40px'}
+          />
         </MapBtn>
         <SearchBox>
           <input

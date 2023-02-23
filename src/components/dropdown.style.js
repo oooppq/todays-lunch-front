@@ -1,12 +1,13 @@
 import styled from 'styled-components';
 
 export const DropdownContainer = styled.div`
-  width: 60px;
-  height: 25px;
+  width: 85px;
+  height: 100%;
   border: 1px solid #bdbdbd;
   border-radius: 30px;
-  text-align: center;
+
   padding: 0 7px;
+  position: relative;
 `;
 export const SelectedLabel = styled.button`
   -webkit-appearance: none;
@@ -18,7 +19,7 @@ export const SelectedLabel = styled.button`
   width: 100%;
   height: 100%;
   border-radius: 30px;
-  font-size: 11px;
+  font-size: 12px;
   padding: 0;
   display: flex;
   align-items: center;
@@ -30,16 +31,41 @@ export const SelectedLabel = styled.button`
     width: 50px;
     overflow: hidden;
   }
+  .triangle {
+    color: #cbcbcb;
+  }
 `;
-export const OptionUl = styled.ul`
-  position: relative;
-  list-style: none;
-  padding: 0;
-  margin-top: 3px 0 0 0;
+
+export const OptionContainer = styled.div`
+  position: fixed;
+  display: flex;
+  align-items: flex-end;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.4);
   font-size: 13px;
   z-index: 99;
-  background-color: white;
 `;
+
+export const OptionUl = styled.ul`
+  box-sizing: border-box;
+  width: 100%;
+  height: 364px;
+  list-style: none;
+  margin: 0;
+  padding: 32px 0 0 0;
+  background-color: white;
+  border-top-left-radius: 18px;
+  border-top-right-radius: 18px;
+  overflow: auto;
+`;
+
 export const OptionLi = styled.li`
-  margin: 2px 0;
+  font-family: Pretendard-Medium;
+  font-size: 19px;
+  margin: 0 34px;
+  padding: 20px 12px;
+  border-bottom: 1px solid #eaeaea;
 `;

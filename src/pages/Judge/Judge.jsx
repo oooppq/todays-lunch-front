@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { JudgeContainer, JudgeNav, SearchBox } from './judge.style';
-import searchIcon from '../../assets/img/search-icon.png';
-import leftArrowIcon from '../../assets/img/left-arrow-icon.png';
+import searchIcon from '../../assets/img/search-icon.svg';
+import leftArrowIcon from '../../assets/img/left-arrow-icon.svg';
 import SearchResult from './SearchResult';
 import JudgeOnGoing from './JudgeOnGoing';
 
