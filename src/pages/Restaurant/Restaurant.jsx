@@ -7,15 +7,14 @@ import RestaurantNav from './RestaurantNav';
 import Map from './Map';
 import List from './List';
 
-const urlMaker = (locCat, locTag, foodCat, keyword, sortBy, order, pageNum) => {
+const urlMaker = (locCat, locTag, foodCat, keyword, sortBy, pageNum) => {
   let url = '/api/restaurants?';
-  if (locCat.id !== 1) url += `location-category=${locCat.id}`;
-  if (locTag.id !== 1) url += `&location-tag=${locTag.id}`;
-  if (foodCat.id !== 1) url += `&food-category=${foodCat.id}`;
+  if (locCat) url += `location-category=${locCat.id}`;
+  if (locTag) url += `&location-tag=${locTag.id}`;
+  if (foodCat) url += `&food-category=${foodCat.id}`;
   if (keyword.length !== 0) url += `&keyword=${keyword}`;
-  url += `&sort=${sortBy.query}&page=${pageNum}`;
-  if (order) url += `&order=descending`;
-  else url += `&order=ascending`;
+  url += `&sort=${sortBy.query}&page=${pageNum}&size=10`;
+  url += `&order=descending`;
   return url;
 };
 
@@ -72,7 +71,6 @@ const Restaurant = () => {
             selectedFoodCat,
             searchKeyword,
             sortBy,
-            order,
             pageNum
           )
         )

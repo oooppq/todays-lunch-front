@@ -11,13 +11,13 @@ const initialState = {
     lat: defaultCenter.latitude,
     lng: defaultCenter.longitude,
   },
+  mapLevel: 4,
   // 검색 관련
-  selectedLocCat: { id: 1, name: '위치 필터', ...defaultCenter },
-  selectedLocTag: { id: 1, name: '상세 위치', ...defaultCenter },
-  selectedFoodCat: { id: 1, name: '음식 필터' },
+  selectedLocCat: null,
+  selectedLocTag: null,
+  selectedFoodCat: null,
   searchKeyword: '',
   sortBy: { id: 1, name: '평점순', query: 'rating' },
-  order: true,
   pageNum: 1,
   // 지도 관련
   selectedMarker: null,
@@ -36,24 +36,28 @@ export const restaurantSlice = createSlice({
         lng: action.payload.lng,
       };
     },
+    setMapLevel: (state, action) => {
+      state.mapLevel = action.payload;
+    },
     setSelectedLocCat: (state, action) => {
       state.selectedLocCat = action.payload;
       // location category가 변경될 때에는 location tag를 초기값으로 업데이트 해줘야 함.
       // 이 때, 좌표는 변경된 location category의 좌표로 설정하도록 한다.
-      state.selectedLocTag = {
-        ...initialState.selectedLocTag,
-      };
-      state.mapCenter = {
-        lat: action.payload.latitude,
-        lng: action.payload.longitude,
-      };
+      state.selectedLocTag = null;
+      if (action.payload)
+        state.mapCenter = {
+          lat: action.payload.latitude,
+          lng: action.payload.longitude,
+        };
     },
     setSelectedLocTag: (state, action) => {
       state.selectedLocTag = action.payload;
-      state.mapCenter = {
-        lat: action.payload.latitude,
-        lng: action.payload.longitude,
-      };
+      if (action.payload)
+        state.mapCenter = {
+          lat: action.payload.latitude,
+          lng: action.payload.longitude,
+        };
+      state.mapLevel = 4;
     },
     setSelectedFoodCat: (state, action) => {
       state.selectedFoodCat = action.payload;
@@ -63,9 +67,6 @@ export const restaurantSlice = createSlice({
     },
     setSortBy: (state, action) => {
       state.sortBy = action.payload;
-    },
-    setOrder: (state, action) => {
-      state.order = action.payload;
     },
     setPageNum: (state, action) => {
       state.pageNum = action.payload;
@@ -79,12 +80,12 @@ export const restaurantSlice = createSlice({
 export const {
   setIsMap,
   setMapCenter,
+  setMapLevel,
   setSelectedLocCat,
   setSelectedLocTag,
   setSelectedFoodCat,
   setSearchKeyword,
   setSortBy,
-  setOrder,
   setPageNum,
   setSelectedMarker,
 } = restaurantSlice.actions;

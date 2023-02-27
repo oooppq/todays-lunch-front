@@ -8,6 +8,7 @@
     "location_category": ["서강대학교"],
     "location_tag": ["정문"],
     "food_category": "일식",
+    "address": "짱짱주소",
     "rate": 4.7,
     "review_number": 343
   },
@@ -20,6 +21,7 @@
     "location_category": ["서강대학교"],
     "location_tag": ["정문"],
     "food_category": "한식",
+    "address": "짱짱주소",
     "rate": 4.9,
     "review_number": 4723
   }

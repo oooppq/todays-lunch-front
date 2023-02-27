@@ -20,6 +20,7 @@ import { gotoDetailOnClick } from '../../libs/utils';
 import {
   setIsMap,
   setMapCenter,
+  setMapLevel,
   setPageNum,
   setSelectedMarker,
 } from '../../redux/restaurant';
@@ -43,11 +44,11 @@ const List = ({ restaurants, totalPageNum }) => {
               </div>
               <div className="etc">
                 <div>
-                  <span>{e.food_category}</span>
-                  {' | '}
-                  <span>{e.location_category.map((locCa) => locCa)}</span>
-                  {' | '}
-                  <span>{e.location_tag.map((locTag) => locTag)}</span>
+                  #<span>{e.food_category}</span> #
+                  <span>{e.location_category}</span>
+                  {e.location_category !== e.logcation_tag ? (
+                    <span> #{e.location_tag}</span>
+                  ) : null}
                 </div>
                 <div className="reviewRate">
                   <span>리뷰 {e.review_number}개</span>
@@ -63,6 +64,7 @@ const List = ({ restaurants, totalPageNum }) => {
                       dispatch(
                         setMapCenter({ lat: e.latitude, lng: e.longitude })
                       );
+                      dispatch(setMapLevel(4));
                       event.stopPropagation();
                     }}
                   >

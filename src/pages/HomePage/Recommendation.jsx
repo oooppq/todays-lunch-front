@@ -4,19 +4,18 @@ import React from 'react';
 import { useQuery } from 'react-query';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { Carousel } from 'react-responsive-carousel';
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import {
   RecommendationContainer,
   RecommendationTitle,
   RecommendationInfoUp,
-  SliderDotContainer,
   RecommendationInfoDown,
   RecommendationElem,
 } from './homePage.style';
 import defaultImage from '../../assets/img/가츠벤또.png';
 import wishIcon from '../../assets/img/add-wish-icon.svg';
 import rouletteIcon from '../../assets/img/add-roulette-icon.svg';
-import selectedSliderDotIcon from '../../assets/img/selected-slider-dot-icon.svg';
-import sliderDotIcon from '../../assets/img/slider-dot-icon.svg';
 
 import { gotoDetailOnClick, convertNum } from '../../libs/utils';
 
@@ -35,45 +34,39 @@ const Recommendation = () => {
       <RecommendationTitle>
         🍚 <span>오늘의</span> 맛집
       </RecommendationTitle>
-
-      {data.map((e) => (
-        <RecommendationElem
-          id={e.id}
-          key={e.id}
-          onClick={() => gotoDetailOnClick(e.id, navigate)}
-        >
-          <RecommendationInfoUp>
-            <img className="restaurantImage" src={defaultImage} alt="" />
-            <div className="infoUpInner">
-              <img className="icon" src={wishIcon} alt="" />
-              <img className="icon" src={rouletteIcon} alt="" />
-              <div className="lowestPrice">
-                {convertNum(e.lowest_price)}원 ~
+      <Carousel showStatus={false} showArrows={false} showThumbs={false}>
+        {data.map((e) => (
+          <RecommendationElem
+            id={e.id}
+            key={e.id}
+            onClick={() => gotoDetailOnClick(e.id, navigate)}
+          >
+            <RecommendationInfoUp>
+              <img className="restaurantImage" src={defaultImage} alt="" />
+              <div className="infoUpInner">
+                <img className="icon" src={wishIcon} alt="" />
+                <img className="icon" src={rouletteIcon} alt="" />
+                <div className="lowestPrice">
+                  {convertNum(e.lowest_price)}원 ~
+                </div>
               </div>
-            </div>
-          </RecommendationInfoUp>
-          <RecommendationInfoDown>
-            <div className="title">
-              <span>[{e.location_category}</span>
-              <span> {e.location_tag}] </span>
-              <span>{e.name}</span>
-            </div>
-            <div className="comment">"{e.comment}"</div>
-            <div className="reviewRate">
-              <span className="reviewNum">리뷰 {e.rating}개</span>
-              {' | '}
-              <span className="rating">별점 {e.rating}</span>
-            </div>
-          </RecommendationInfoDown>
-        </RecommendationElem>
-      ))}
-      <SliderDotContainer>
-        <img src={sliderDotIcon} alt="" />
-        <img src={sliderDotIcon} alt="" />
-        <img src={selectedSliderDotIcon} alt="" />
-        <img src={sliderDotIcon} alt="" />
-        <img src={sliderDotIcon} alt="" />
-      </SliderDotContainer>
+            </RecommendationInfoUp>
+            <RecommendationInfoDown>
+              <div className="title">
+                <span>[{e.location_category}</span>
+                <span> {e.location_tag}] </span>
+                <span>{e.name}</span>
+              </div>
+              <div className="comment">"{e.comment}"</div>
+              <div className="reviewRate">
+                <span className="reviewNum">리뷰 {e.rating}개</span>
+                {' | '}
+                <span className="rating">별점 {e.rating}</span>
+              </div>
+            </RecommendationInfoDown>
+          </RecommendationElem>
+        ))}
+      </Carousel>
     </RecommendationContainer>
   );
 };

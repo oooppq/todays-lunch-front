@@ -69,19 +69,6 @@ export const RestaurantNavDown = styled.div`
   margin: 20px 19px 0 19px;
 `;
 
-export const OrderBtn = styled.button`
--webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  background-color: transparent;
-  border: 0;
-  padding:0;
-  height: 25px;
-  img {
-    height: 100%;
-  }
-}`;
-
 // elements for Map
 export const MapContainer = styled.div`
   .emptyDiv {
@@ -133,9 +120,11 @@ export const ListElemInfo = styled.div`
   }
   .etc {
     font-size: 13px;
-    color: #323232;
+    color: #636363;
     .reviewRate {
-      margin-top: 9px;
+      margin-top: 4px;
+      margin-bottom: 28px;
+      font-size: 12px;
       color: #356461;
       // text-align: right;
     }

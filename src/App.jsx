@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Outlet } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -25,13 +25,14 @@ const App = () => {
         <Route path="/" element={<HomePage />} />
         <Route path="/restaurants" element={<Restaurant />} />
         <Route path="/play" element={<Play />} />
-        <Route path="/restaurants-judge" element={<Judge />} />
+        <Route path="/restaurants-judge/*" element={<Judge />} />
         <Route path="/login" element={<Login />} />
         <Route path="/join" element={<Join />} />
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/restaurants/:id" element={<Detail />} />
       </Routes>
       <Footer />
+      <Outlet />
     </QueryClientProvider>
   );
 };

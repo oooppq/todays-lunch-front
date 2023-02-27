@@ -1,13 +1,12 @@
 import styled from 'styled-components';
 
 export const DropdownContainer = styled.div`
-  width: 85px;
-  height: 100%;
+  width: ${({ styleInfo }) => styleInfo.width};
+  height: ${({ styleInfo }) => styleInfo.height};
   border: 1px solid #bdbdbd;
   border-radius: 30px;
-
+  box-sizing: border-box;
   padding: 0 7px;
-  position: relative;
 `;
 export const SelectedLabel = styled.button`
   -webkit-appearance: none;
@@ -19,7 +18,7 @@ export const SelectedLabel = styled.button`
   width: 100%;
   height: 100%;
   border-radius: 30px;
-  font-size: 12px;
+  font-size: ${({ fontSize }) => fontSize};
   padding: 0;
   display: flex;
   align-items: center;

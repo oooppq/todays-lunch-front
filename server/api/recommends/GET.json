@@ -8,5 +8,15 @@
     "comment": "모든 서강대생이 인정한 극강의 맛집",
     "reviewNum": 343,
     "lowest_price": 11000
+  },
+  {
+    "id": 2,
+    "name": "가츠벤또",
+    "location_category": "서강대학교",
+    "location_tag": "정문",
+    "rating": 4.7,
+    "comment": "모든 서강대생이 인정한 극강의 맛집",
+    "reviewNum": 343,
+    "lowest_price": 11000
   }
 ]

@@ -8,21 +8,18 @@ import {
   setSelectedFoodCat,
   setSearchKeyword,
   setSortBy,
-  setOrder,
 } from '../../redux/restaurant';
 import Dropdown from '../../components/Dropdown';
 import {
   RestaurantNavContainer,
   RestaurantNavUp,
   RestaurantNavDown,
-  OrderBtn,
   MapBtn,
   SearchBox,
 } from './restaurant.style';
 import mapIcon from '../../assets/img/map-icon.svg';
 import listIcon from '../../assets/img/list-icon.svg';
 import searchIcon from '../../assets/img/search-icon.svg';
-import orderIcon from '../../assets/img/order-icon.png';
 
 const sortOptions = [
   { id: 1, name: '평점순', query: 'rating' },
@@ -42,10 +39,15 @@ const RestaurantNav = ({ locCategory, locTag, foodCategory }) => {
   );
   const searchKeyword = useSelector((state) => state.restaurant.searchKeyword);
   const sortBy = useSelector((state) => state.restaurant.sortBy);
-  const order = useSelector((state) => state.restaurant.order);
 
   const [keyword, setKeyword] = useState(searchKeyword);
   const dispatch = useDispatch();
+
+  const dropdownStyle = {
+    height: '100%',
+    width: '85px',
+    fontSize: '12px',
+  };
 
   return (
     <RestaurantNavContainer>
@@ -96,32 +98,44 @@ const RestaurantNav = ({ locCategory, locTag, foodCategory }) => {
         <Dropdown
           data={locCategory}
           selected={selectedLocCat}
-          setSelected={setSelectedLocCat}
+          setSelected={(toSelect) => {
+            dispatch(setSelectedLocCat(toSelect));
+          }}
+          defaultValue="위치 필터"
+          style={dropdownStyle}
+          isWhole
         />
         <Dropdown
           data={locTag.filter(
-            (tag) => tag.loc_category_id === selectedLocCat.id
+            (tag) => selectedLocCat && tag.loc_category_id === selectedLocCat.id
           )}
           selected={selectedLocTag}
-          setSelected={setSelectedLocTag}
+          setSelected={(toSelect) => {
+            dispatch(setSelectedLocTag(toSelect));
+          }}
+          defaultValue="상세 위치"
+          style={dropdownStyle}
+          isWhole
         />
         <Dropdown
           data={foodCategory}
           selected={selectedFoodCat}
-          setSelected={setSelectedFoodCat}
+          setSelected={(toSelect) => {
+            dispatch(setSelectedFoodCat(toSelect));
+          }}
+          defaultValue="음식 필터"
+          style={dropdownStyle}
+          isWhole
         />
         <Dropdown
           data={sortOptions}
           selected={sortBy}
-          setSelected={setSortBy}
-        />
-        <OrderBtn
-          onClick={() => {
-            dispatch(setOrder(!order));
+          setSelected={(toSelect) => {
+            dispatch(setSortBy(toSelect));
           }}
-        >
-          <img src={orderIcon} alt="" />
-        </OrderBtn>
+          style={dropdownStyle}
+          isWhole={false}
+        />
       </RestaurantNavDown>
     </RestaurantNavContainer>
   );

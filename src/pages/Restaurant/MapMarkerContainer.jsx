@@ -27,8 +27,17 @@ const MapMarkerContainer = ({ index, position, content }) => {
         }}
       />
       {selectedMarker === index ? (
-        <CustomOverlayMap position={position} style={{ position: 'relative' }}>
-          <CustomOverlayElem onClick={() => gotoDetailOnClick(index, navigate)}>
+        <CustomOverlayMap
+          position={position}
+          style={{ position: 'relative' }}
+          clickable="true" // 이 속성 설정 안해주면 click event를 받지 않음.
+        >
+          <CustomOverlayElem
+            onClick={(e) => {
+              e.stopPropagation();
+              gotoDetailOnClick(index, navigate);
+            }}
+          >
             {content}
             {' >'}
           </CustomOverlayElem>

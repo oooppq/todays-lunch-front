@@ -5,6 +5,24 @@ export const HomePageContainer = styled.div``;
 // styles for recommendation
 export const RecommendationContainer = styled.div`
   margin-top: 24px;
+  .carousel-slider {
+    height: 280px;
+  }
+  .carousel .control-dots {
+    margin-bottom: 0;
+  }
+  .carousel .control-dots .dot {
+    background-color: #f0eaea;
+    box-shadow: none;
+    bottom: -100px !important;
+    opacity: 1 !important;
+    height: 5px;
+    width: 5px;
+    margin: 0 6px;
+  }
+  .carousel .control-dots .selected {
+    background-color: #454545;
+  }
 `;
 
 export const RecommendationTitle = styled.div`
@@ -19,6 +37,7 @@ export const RecommendationTitle = styled.div`
 
 export const RecommendationElem = styled.div`
   width: 100%;
+  text-align: left !important;
 `;
 
 export const RecommendationInfoUp = styled.div`
@@ -91,7 +110,7 @@ export const SliderDotContainer = styled.div`
 
 // styles for sale
 export const SaleContainer = styled.div`
-  margin-top: 42px;
+  margin-top: 40px;
 `;
 
 export const SaleTitle = styled.div`

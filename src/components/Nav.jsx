@@ -25,7 +25,7 @@ const Nav = () => {
           오늘의 <span>점심</span>은?
         </NavLi>
         <NavLi
-          current={pathName === '/restaurants-judge'}
+          current={pathName.includes('/restaurants-judge')}
           id="restaurants-judge"
           onClick={navOnClick}
         >

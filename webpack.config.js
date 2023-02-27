@@ -14,8 +14,9 @@ module.exports = {
     main: './src/index.js',
   },
   output: {
-    path: path.resolve('./build'),
+    // path: path.resolve('./build'),
     filename: '[name].bundle.js',
+    path: path.resolve(__dirname, 'build'),
     clean: true,
   },
   resolve: {
@@ -91,7 +92,7 @@ module.exports = {
     new ESLintWebpackPlugin(),
   ].filter(Boolean),
   devServer: {
-    static: './build',
+    static: '/build',
     client: {
       overlay: true,
     },
