@@ -1,7 +1,7 @@
 ---
 name: Feature request
 about: Suggest an idea for this project
-title: ''
+title: "[페이지이름] 기능"
 labels: ''
 assignees: ''
 
