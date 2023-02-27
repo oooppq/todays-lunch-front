@@ -15,7 +15,7 @@ const JudgeSuccess = ({ setIsDone, data }) => {
     fd.append(dataKeys[i], dataValues[i]);
   }
 
-  const { mutate, isSuccess } = useMutation((toSend) =>
+  const { mutate, isLoading } = useMutation((toSend) =>
     axios.post('/api/restaurants', toSend, {
       headers: {
         'Content-Type': `multipart/form-data; `,
@@ -36,25 +36,31 @@ const JudgeSuccess = ({ setIsDone, data }) => {
           <img src={xIcon} alt="" />
         </button>
         <div className="content">
-          <div>
-            맛집 추가가 성공적으로
-            <br />
-            완료되었습니다.
-          </div>
+          {isLoading ? (
+            <div>등록중입니다.</div>
+          ) : (
+            <div>
+              맛집 추가가 성공적으로
+              <br />
+              완료되었습니다.
+            </div>
+          )}
           <img src={defaultIcon} alt="" />
           <div>감사합니다.</div>
         </div>
-        <button
-          type="button"
-          className="doneBtn"
-          onClick={() => {
-            mutate(fd);
-            navigate('../list');
-          }}
-        >
-          다음
-        </button>
-        {isSuccess ? <div>오예!</div> : null}
+        {isLoading ? null : (
+          <button
+            type="button"
+            className="doneBtn"
+            onClick={() => {
+              mutate(fd);
+
+              navigate('../list');
+            }}
+          >
+            다음
+          </button>
+        )}
       </JudgeSuccessInner>
     </JudgeSuccessContainer>
   );
