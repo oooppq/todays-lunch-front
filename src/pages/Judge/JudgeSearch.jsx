@@ -9,9 +9,14 @@ import {
 } from './judge.style';
 import xIcon from '../../assets/img/x-icon.svg';
 import searchIcon from '../../assets/img/search-icon.svg';
-import JudgeSearchMapAndList from './JudgeSearchMap';
+import JudgeSearchMapAndList from './JudgeSearchMapAndList';
 
-const JudgeSearch = ({ setIsSearch, setLocation }) => {
+const JudgeSearch = ({
+  setIsSearch,
+  setRestaurantName,
+  setAddress,
+  setLocation,
+}) => {
   const [keyBuffer, setKeyBuffer] = useState('');
   const [keyword, setKeyword] = useState('');
   return (
@@ -54,7 +59,12 @@ const JudgeSearch = ({ setIsSearch, setLocation }) => {
             <img src={searchIcon} alt="" />
           </button>
         </JudgeSearchBox>
-        <JudgeSearchMapAndList keyword={keyword} setLocation={setLocation} />
+        <JudgeSearchMapAndList
+          keyword={keyword}
+          setRestaurantName={setRestaurantName}
+          setAddress={setAddress}
+          setLocation={setLocation}
+        />
 
         <SearchDoneBtn
           onClick={() => {

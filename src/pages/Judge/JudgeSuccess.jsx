@@ -8,9 +8,19 @@ import xIcon from '../../assets/img/x-icon.svg';
 import defaultIcon from '../../assets/img/default-icon.svg';
 
 const JudgeSuccess = ({ setIsDone, data }) => {
-  // console.log(data);
+  const fd = new FormData();
+  const dataKeys = Object.keys(data);
+  const dataValues = Object.values(data);
+  for (let i = 0; i < dataKeys.length; i += 1) {
+    fd.append(dataKeys[i], dataValues[i]);
+  }
+
   const { mutate, isSuccess } = useMutation((toSend) =>
-    axios.post('/api/restaurants', toSend)
+    axios.post('/api/restaurants', toSend, {
+      headers: {
+        'Content-Type': `multipart/form-data; `,
+      },
+    })
   );
   const navigate = useNavigate();
   return (
@@ -38,7 +48,7 @@ const JudgeSuccess = ({ setIsDone, data }) => {
           type="button"
           className="doneBtn"
           onClick={() => {
-            mutate(data);
+            mutate(fd);
             navigate('../list');
           }}
         >

@@ -23,6 +23,7 @@ const JudgeNew = () => {
   const [selectedFoodCat, setSelectedFoodCat] = useState(null);
   const [file, setFile] = useState([]);
   const [location, setLocation] = useState(null);
+  const [address, setAddress] = useState('');
   const [data, setData] = useState(null);
 
   // 각종 modal을 위한 state
@@ -45,7 +46,12 @@ const JudgeNew = () => {
       </JudgeNewHeader>
       {isOut ? <JudgeNewOutModal setIsOut={setIsOut} /> : null}
       {isSearch ? (
-        <JudgeSearch setIsSearch={setIsSearch} setLocation={setLocation} />
+        <JudgeSearch
+          setIsSearch={setIsSearch}
+          setRestaurantName={setRestaurantName}
+          setLocation={setLocation}
+          setAddress={setAddress}
+        />
       ) : null}
       <JudgeNewBody>
         <div className="name">
@@ -97,24 +103,28 @@ const JudgeNew = () => {
       <DoneBtn
         onClick={() => {
           if (
-            restaurantName &&
+            restaurantName.length &&
+            file &&
             selectedLocCat &&
             selectedLocTag &&
             selectedFoodCat &&
-            file &&
             location &&
-            comment
-          )
+            address.length &&
+            comment.length
+          ) {
             setData({
               restaurantName,
-              selectedLocCat,
-              selectedLocTag,
-              selectedFoodCat,
-              file,
-              location,
-              comment,
+              restaurantImage: file[0],
+              foodCategoryName: selectedFoodCat.name,
+              locationCategoryName: selectedLocCat.name,
+              locationTagName: selectedLocTag.name,
+              latitude: location.latitude,
+              longitude: location.longitude,
+              address,
+              instroduction: comment,
             });
-          setIsDone(true);
+            setIsDone(true);
+          }
         }}
       >
         새로운 맛집 등록
