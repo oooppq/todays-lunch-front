@@ -16,7 +16,7 @@ import JudgeNewDropdown from './JudgeNewDropdown';
 const JudgeNew = () => {
   /* 데이터의 상태를 다루는 state, 이 페이지에서만 필요하고 페이지 이동시에
      state가 유지될 필요가 없기 때문에 local state로 구현 */
-  const [restaurantName, setRestaurantName] = useState('');
+  const [restaurantName, setRestaurantName] = useState(null);
   const [comment, setComment] = useState('');
   const [selectedLocCat, setSelectedLocCat] = useState(null);
   const [selectedLocTag, setSelectedLocTag] = useState(null);
@@ -54,14 +54,18 @@ const JudgeNew = () => {
         />
       ) : null}
       <JudgeNewBody>
-        <div className="name">
-          <div className="bodyTitle">맛집 이름</div>
-          <input
-            type="text"
-            onChange={(e) => {
-              setRestaurantName(e.target.value);
+        <div className="search">
+          <div className="bodyTitle">맛집 찾기</div>
+          <button
+            type="button"
+            className="bodyBtn saerchBtn"
+            onClick={() => {
+              setIsSearch(true);
             }}
-          />
+          >
+            <img src={markerIcon} alt="" />
+            <div>{restaurantName || '맛집 설정하기'}</div>
+          </button>
         </div>
         <div className="category">
           <div className="bodyTitle">카테고리 설정</div>
@@ -75,18 +79,7 @@ const JudgeNew = () => {
           />
         </div>
         <JudgeNewGetPhoto file={file} setFile={setFile} />
-        <div className="location">
-          <div className="bodyTitle">맛집 위치</div>
-          <button
-            type="button"
-            className="bodyBtn locationBtn"
-            onClick={() => {
-              setIsSearch(true);
-            }}
-          >
-            <img src={markerIcon} alt="" />
-          </button>
-        </div>
+
         <div className="review">
           <div className="bodyTitle">리뷰</div>
           <textarea
@@ -103,7 +96,7 @@ const JudgeNew = () => {
       <DoneBtn
         onClick={() => {
           if (
-            restaurantName.length &&
+            restaurantName &&
             file &&
             selectedLocCat &&
             selectedLocTag &&
@@ -114,7 +107,7 @@ const JudgeNew = () => {
           ) {
             setData({
               restaurantName,
-              restaurantImage: file[0],
+              restaurantImage: file,
               foodCategoryName: selectedFoodCat.name,
               locationCategoryName: selectedLocCat.name,
               locationTagName: selectedLocTag.name,

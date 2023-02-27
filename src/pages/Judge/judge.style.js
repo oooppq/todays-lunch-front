@@ -172,58 +172,99 @@ export const JudgeNewBody = styled.div`
   }
   .bodyBtn {
     margin: 13px 0 0 9px;
-    width: 70px;
-    height: 70px;
-    border-radius: 4px;
     padding: 0;
   }
-  .name {
-    width: 100%;
+
+  .search {
     margin-bottom: 35px;
-    input {
-      height: 27px;
-      width: 100%;
-      box-sizing: border-box;
-      border: none;
-      border-bottom: 1px solid #d9d9d9;
+    .saerchBtn {
+      border: 1px solid #d9d9d9;
+      border-radius: 4px;
       background-color: transparent;
-    }
-    input:focus {
-      outline: none;
+      height: 36px;
+      width: 138.86px;
+      display: flex;
+      align-items: center;
+      padding-left: 14px;
+      padding-right: 15px;
+      img {
+        height: 18px;
+        width: 18px;
+        margin-right: 6px;
+      }
+      div {
+        font-size: 14px;
+        color: #7c7c7c;
+        white-space: nowrap;
+        overflow: hidden;
+      }
     }
   }
+
   .category {
     width: 100%;
     margin-bottom: 35px;
     .dropdowns {
       display: flex;
       margin-top: 15px;
+      margin-left: 5px;
       height: 32px;
       justify-content: space-between;
     }
   }
+
   .photo {
-    margin-bottom: 35px;
+    height: 143px;
     .photoBtn {
       border: none;
+      border-radius: 4px;
       background-color: #f4f4f4;
       position: relative;
+
+      width: 95px;
+      height: 95px;
+
+      .xBtn {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: white;
+        box-sizing: border-box;
+        border: 1px solid #bdbdbd;
+        border-radius: 50%;
+        width: 23px;
+        height: 23px;
+        margin: 0;
+        padding: 0;
+        top: -10px;
+        right: -10px;
+        img {
+          width: 7px;
+          height: 7px;
+        }
+      }
       input {
-        height: 70px;
-        width: 70px;
+        height: 95px;
+        width: 95px;
         box-sizing: border-box;
         display: none;
       }
-      img {
+      .selected {
+        height: 95px;
+        width: 95px;
+        border-radius: 4px;
+      }
+      .notSelected {
         position: absolute;
         top: 0;
         left: 0;
 
-        padding: 15px 23px 31px 23px;
+        padding: 26px 35px 45px 35px;
       }
       .fileNum {
         position: absolute;
-        bottom: 10px;
+        bottom: 25px;
         left: 21px;
         right: 21px;
         color: #707070;
@@ -231,23 +272,17 @@ export const JudgeNewBody = styled.div`
       }
     }
   }
-  .location {
-    margin-bottom: 35px;
-    .locationBtn {
-      border: 1px solid #d9d9d9;
-      background-color: transparent;
-    }
-  }
+
   .review {
     width: 100%;
     display: flex;
     flex-direction: column;
     textarea {
       width: auto;
-      height: 291.91px;
+      height: 137px;
       display: block;
       box-sizing: border-box;
-      margin: 13px 3px;
+      margin: 13px 3px 0 3px;
       border: 1px solid #d9d9d9;
       border-radius: 4px;
       padding: 20px;
@@ -366,7 +401,7 @@ export const DoneBtn = styled.button`
   border: 0;
   border-radius: 20px;
   padding: 10px 0;
-  margin: 47px 38px;
+  margin: 39px 38px;
   width: auto;
   height: 41px;
   color: white;
