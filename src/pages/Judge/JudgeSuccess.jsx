@@ -9,7 +9,7 @@ import defaultIcon from '../../assets/img/default-icon.svg';
 
 const JudgeSuccess = ({ setIsDone, data }) => {
   // console.log(data);
-  const { mutate } = useMutation((toSend) =>
+  const { mutate, isSuccess } = useMutation((toSend) =>
     axios.post('/api/restaurants', toSend)
   );
   const navigate = useNavigate();
@@ -44,6 +44,7 @@ const JudgeSuccess = ({ setIsDone, data }) => {
         >
           다음
         </button>
+        {isSuccess ? <div>오예!</div> : null}
       </JudgeSuccessInner>
     </JudgeSuccessContainer>
   );
