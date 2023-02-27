@@ -12,7 +12,6 @@ const JudgeNewGetPhoto = ({ file, setFile }) => {
           <input
             id="input-file"
             type="file"
-            multiple="multiple"
             onChange={(e) => {
               setFile(e.target.files);
             }}
