@@ -1,11 +1,15 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { reset } from '../../redux/judgeNew';
 import { OutModal, OutModalInner } from './judge.style';
 import xIcon from '../../assets/img/x-icon.svg';
 
 const JudgeNewOutModal = ({ setIsOut }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   return (
     <OutModal>
       <OutModalInner>
@@ -30,6 +34,7 @@ const JudgeNewOutModal = ({ setIsOut }) => {
           <button
             type="button"
             onClick={() => {
+              dispatch(reset());
               navigate(-1);
             }}
             className="yes"

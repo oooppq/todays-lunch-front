@@ -2,21 +2,25 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from 'react-query';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { JudgeSuccessContainer, JudgeSuccessInner } from './judge.style';
 import xIcon from '../../assets/img/x-icon.svg';
 import defaultIcon from '../../assets/img/default-icon.svg';
+import { reset } from '../../redux/judgeNew';
 
 const JudgeSuccess = ({ setIsDone }) => {
   const judgeNewStates = useSelector((state) => state.judgeNew);
   const fd = new FormData();
   Object.entries(judgeNewStates).forEach(([key, value]) => {
-    if (key === 'locationCategory')
-      fd.append('locationCategoryName', value.name);
-    else if (key === 'locationTag') fd.append('locationTagName', value.name);
-    else if (key === 'foodCategory') fd.append('foodCategoryName', value.name);
-    else fd.append(key, value);
+    if (value) {
+      if (key === 'locationCategory')
+        fd.append('locationCategoryName', value.name);
+      else if (key === 'locationTag') fd.append('locationTagName', value.name);
+      else if (key === 'foodCategory')
+        fd.append('foodCategoryName', value.name);
+      else fd.append(key, value);
+    }
   });
 
   const { mutate, isLoading } = useMutation((toSend) =>
@@ -27,7 +31,7 @@ const JudgeSuccess = ({ setIsDone }) => {
     })
   );
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
   return (
     <JudgeSuccessContainer>
       <JudgeSuccessInner>
@@ -59,7 +63,7 @@ const JudgeSuccess = ({ setIsDone }) => {
             className="doneBtn"
             onClick={() => {
               mutate(fd);
-
+              dispatch(reset());
               navigate('../list');
             }}
           >

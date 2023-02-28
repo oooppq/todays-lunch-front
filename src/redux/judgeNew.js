@@ -60,6 +60,7 @@ export const {
   setLongitude,
   setAddress,
   setInstroduction,
+  reset,
 } = judgeNewSlice.actions;
 
 export default judgeNewSlice.reducer;
