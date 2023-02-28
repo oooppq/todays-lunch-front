@@ -416,7 +416,7 @@ export const DoneBtn = styled.button`
   font-size: 18px;
 `;
 
-export const JudgeSuccessContainer = styled.div`
+export const JudgeNewDoneModalContainer = styled.div`
   position: fixed;
   display: flex;
   background-color: rgba(0, 0, 0, 0.4);
@@ -429,7 +429,7 @@ export const JudgeSuccessContainer = styled.div`
   z-index: 999;
 `;
 
-export const JudgeSuccessInner = styled.div`
+export const JudgeNewDoneModalInner = styled.div`
   position: relative;
   margin: 0 38px;
   width: 100%;
@@ -438,6 +438,7 @@ export const JudgeSuccessInner = styled.div`
   background-color: white;
   text-align: center;
   font-size: 18px;
+  line-height: 21.48px;
   .xBtn {
     position: absolute;
     top: 16px;
@@ -451,9 +452,8 @@ export const JudgeSuccessInner = styled.div`
     height: 16px;
     width: 16px;
   }
-  .content {
+  .successDiv {
     margin-top: 48px;
-    line-height: 21.48px;
     img {
       height: 96.5px;
       width: 88px;
@@ -473,9 +473,27 @@ export const JudgeSuccessInner = styled.div`
     -moz-appearance: none;
     appearance: none;
     border: 0;
-
     padding: 0;
   }
+
+  .confirmDiv {
+    height: 173px;
+    div {
+      margin-top: 69px;
+      margin-bottom: 30px;
+    }
+    .yesNoBtn {
+      width: 187.74px;
+      height: 41px;
+      background-color: black;
+      color: white;
+      border-radius: 20px;
+      margin-bottom: 18.66px;
+      font-family: Pretendard-SemiBold;
+      font-size: 18px;
+    }
+  }
+
   .doneBtn {
     position: absolute;
     left: 63px;

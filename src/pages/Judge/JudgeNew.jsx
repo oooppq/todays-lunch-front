@@ -12,7 +12,7 @@ import {
 import xIcon from '../../assets/img/x-icon.svg';
 import markerIcon from '../../assets/img/marker-icon.svg';
 import JudgeNewOutModal from './JudgeNewOutModal';
-import JudgeSuccess from './JudgeSuccess';
+import JudgeNewDoneModal from './JudgeNewDoneModal';
 import JudgeNewDropdown from './JudgeNewDropdown';
 
 import { setIntroduction } from '../../redux/judgeNew';
@@ -102,7 +102,7 @@ const JudgeNew = () => {
             judgeNewStates.locationCategory &&
             judgeNewStates.locationTag &&
             judgeNewStates.foodCategory &&
-            judgeNewStates.instroduction.length
+            judgeNewStates.introduction.length
           ) {
             setIsDone(true);
           } else {
@@ -112,7 +112,7 @@ const JudgeNew = () => {
       >
         새로운 맛집 등록
       </DoneBtn>
-      {isDone ? <JudgeSuccess setIsDone={setIsDone} /> : null}
+      {isDone ? <JudgeNewDoneModal setIsDone={setIsDone} /> : null}
     </JudgeNewContainer>
   );
 };
