@@ -308,7 +308,7 @@ export const JudgeSearchContainer = styled.div`
   z-index: 999;
 `;
 export const JudgeSearchInner = styled.div`
-  margin: 186px 18px 137px 18px;
+  margin: 145px 18px 112px 18px;
   width: 100%;
   height: auto;
   border-radius: 10px;
@@ -320,11 +320,13 @@ export const JudgeSearchInner = styled.div`
 
 export const JudgeSearchHeader = styled.div`
   display: flex;
-  margin: 16px 17px 17px 21px;
+
+  margin: 19px 17px 8.5px 25px;
   justify-content: space-between;
   .searchTitle {
-    font-family: Pretendard-Medium;
-    font-size: 18px;
+    // font-family: Pretendard-Medium;
+    font-size: 19px;
+    color: #6ab2b2;
   }
   button {
     -webkit-appearance: none;
@@ -337,13 +339,18 @@ export const JudgeSearchHeader = styled.div`
 `;
 
 export const JudgeSearchBox = styled.div`
-  margin: 0 21px;
+  position: absolute;
+  top: 65px;
+  left: 20px;
+  right: 20px;
+  z-index: 1000;
   display: flex;
   box-sizing: border-box;
   height: 40px;
-  width: auto;
+  border: 1px solid #dfdfdf;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 20px;
-  background-color: #f4f4f4;
+  background-color: white;
   padding-right: 5px;
   input {
     height: 100%;
@@ -375,10 +382,8 @@ export const JudgeSearchBox = styled.div`
   }
 `;
 export const StyledMap = styled(Map)`
-  margin-top: 21px;
   width: 100%;
-  height: 170px;
-  zindex: 1000;
+  height: 587px;
 `;
 export const SearchDoneBtn = styled.button`
   -webkit-appearance: none;

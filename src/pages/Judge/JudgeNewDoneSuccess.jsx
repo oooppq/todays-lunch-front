@@ -1,14 +1,11 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { reset } from '../../redux/judgeNew';
 import defaultIcon from '../../assets/img/default-icon.svg';
 import xIcon from '../../assets/img/x-icon.svg';
 
 const JudgeNewDoneSuccess = ({ isLoading }) => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   return (
     <>
@@ -39,7 +36,6 @@ const JudgeNewDoneSuccess = ({ isLoading }) => {
           type="button"
           className="doneBtn"
           onClick={() => {
-            dispatch(reset());
             navigate('../list');
           }}
         >

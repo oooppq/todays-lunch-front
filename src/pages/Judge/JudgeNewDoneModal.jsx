@@ -63,6 +63,7 @@ const JudgeNewDoneModal = ({ setIsDone }) => {
                 className="yesNoBtn"
                 onClick={() => {
                   mutate(fd);
+                  dispatch(reset());
                   setIsYes(true);
                 }}
               >

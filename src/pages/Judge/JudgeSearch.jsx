@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   JudgeSearchContainer,
   JudgeSearchInner,
@@ -9,17 +9,30 @@ import {
 } from './judge.style';
 import xIcon from '../../assets/img/x-icon.svg';
 import searchIcon from '../../assets/img/search-icon.svg';
-import JudgeSearchMapAndList from './JudgeSearchMapAndList';
+import JudgeSearchResult from './JudgeSearchResult';
+import JudgeSearchMap from './JudgeSearchMap';
 
 const JudgeSearch = ({ setIsSearch }) => {
   const [keyBuffer, setKeyBuffer] = useState('');
   const [keyword, setKeyword] = useState('');
+  const [isResult, setIsResult] = useState(false);
+  const [result, setResult] = useState(null);
 
+  useEffect(() => {
+    if (keyword.length === 0) return;
+    const placeSearch = new window.kakao.maps.services.Places();
+    // placeSearch.keywordSearch(keyword, (data, status, _pagination) => {
+    placeSearch.keywordSearch(keyword, (data, status) => {
+      if (status === window.kakao.maps.services.Status.OK) {
+        setResult(data);
+      }
+    });
+  }, [keyword]);
   return (
     <JudgeSearchContainer>
       <JudgeSearchInner>
         <JudgeSearchHeader>
-          <div className="searchTitle">맛집 위치</div>
+          <div className="searchTitle">맛집 찾기</div>
           <button
             type="button"
             onClick={() => {
@@ -41,6 +54,7 @@ const JudgeSearch = ({ setIsSearch }) => {
               switch (key) {
                 case 'Enter':
                   setKeyword(keyBuffer);
+                  setIsResult(true);
                   break;
                 default:
               }
@@ -50,12 +64,17 @@ const JudgeSearch = ({ setIsSearch }) => {
             type="button"
             onClick={() => {
               setKeyword(keyBuffer);
+              setIsResult(true);
             }}
           >
             <img src={searchIcon} alt="" />
           </button>
         </JudgeSearchBox>
-        <JudgeSearchMapAndList keyword={keyword} />
+        {isResult ? (
+          <JudgeSearchResult data={result} />
+        ) : (
+          <JudgeSearchMap data={result} />
+        )}
 
         <SearchDoneBtn
           onClick={() => {
