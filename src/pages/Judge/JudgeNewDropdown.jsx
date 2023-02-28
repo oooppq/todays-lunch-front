@@ -1,17 +1,25 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import { useQueries } from 'react-query';
+import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
+import {
+  setLocationCategory,
+  setLocationTag,
+  setFoodCategory,
+} from '../../redux/judgeNew';
+
 import Dropdown from '../../components/Dropdown';
 
-const JudgeNewDropdown = ({
-  selectedLocCat,
-  setSelectedLocCat,
-  selectedLocTag,
-  setSelectedLocTag,
-  selectedFoodCat,
-  setSelectedFoodCat,
-}) => {
+const JudgeNewDropdown = () => {
+  const foodCategory = useSelector((state) => state.judgeNew.foodCategory);
+  const locationTag = useSelector((state) => state.judgeNew.locationTag);
+  const locationCategory = useSelector(
+    (state) => state.judgeNew.locationCategory
+  );
+
+  const dispatch = useDispatch();
+
   // server data state 관리를 위한 state
   const ress = useQueries([
     {
@@ -40,27 +48,32 @@ const JudgeNewDropdown = ({
     <div className="dropdowns">
       <Dropdown
         data={ress[0].data.data}
-        selected={selectedLocCat}
+        selected={locationCategory}
         setSelected={(toSelect) => {
-          setSelectedLocCat(toSelect);
-          setSelectedLocTag(null);
+          dispatch(setLocationCategory(toSelect));
+          dispatch(setLocationTag(null));
         }}
         defaultValue="위치"
         style={dropdownStyle}
       />
       <Dropdown
         data={ress[1].data.data.filter(
-          (tag) => selectedLocCat && tag.loc_category_id === selectedLocCat.id
+          (tag) =>
+            locationCategory && tag.loc_category_id === locationCategory.id
         )}
-        selected={selectedLocTag}
-        setSelected={setSelectedLocTag}
+        selected={locationTag}
+        setSelected={(toSelect) => {
+          dispatch(setLocationTag(toSelect));
+        }}
         defaultValue="상세 위치"
         style={dropdownStyle}
       />
       <Dropdown
         data={ress[2].data.data}
-        selected={selectedFoodCat}
-        setSelected={setSelectedFoodCat}
+        selected={foodCategory}
+        setSelected={(toSelect) => {
+          dispatch(setFoodCategory(toSelect));
+        }}
         defaultValue="음식 종류"
         style={dropdownStyle}
       />

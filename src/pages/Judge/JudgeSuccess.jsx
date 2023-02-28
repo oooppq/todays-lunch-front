@@ -2,18 +2,22 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from 'react-query';
+import { useSelector } from 'react-redux';
 import axios from 'axios';
 import { JudgeSuccessContainer, JudgeSuccessInner } from './judge.style';
 import xIcon from '../../assets/img/x-icon.svg';
 import defaultIcon from '../../assets/img/default-icon.svg';
 
-const JudgeSuccess = ({ setIsDone, data }) => {
+const JudgeSuccess = ({ setIsDone }) => {
+  const judgeNewStates = useSelector((state) => state.judgeNew);
   const fd = new FormData();
-  const dataKeys = Object.keys(data);
-  const dataValues = Object.values(data);
-  for (let i = 0; i < dataKeys.length; i += 1) {
-    fd.append(dataKeys[i], dataValues[i]);
-  }
+  Object.entries(judgeNewStates).forEach(([key, value]) => {
+    if (key === 'locationCategory')
+      fd.append('locationCategoryName', value.name);
+    else if (key === 'locationTag') fd.append('locationTagName', value.name);
+    else if (key === 'foodCategory') fd.append('foodCategoryName', value.name);
+    else fd.append(key, value);
+  });
 
   const { mutate, isLoading } = useMutation((toSend) =>
     axios.post('/api/restaurants', toSend, {
@@ -23,6 +27,7 @@ const JudgeSuccess = ({ setIsDone, data }) => {
     })
   );
   const navigate = useNavigate();
+
   return (
     <JudgeSuccessContainer>
       <JudgeSuccessInner>

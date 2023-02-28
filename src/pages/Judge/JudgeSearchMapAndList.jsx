@@ -4,13 +4,7 @@ import { MapMarker } from 'react-kakao-maps-sdk';
 import SearchResult from './SearchResult';
 import { StyledMap } from './judge.style';
 
-const JudgeSearchMapAndList = ({
-  keyword,
-  setRestaurantName,
-  setAddress,
-  setLocation,
-}) => {
-  // const [info, setInfo] = useState();
+const JudgeSearchMapAndList = ({ keyword }) => {
   const [map, setMap] = useState();
   const [result, setResult] = useState(null);
   const [markers, setMarkers] = useState([]);
@@ -56,12 +50,7 @@ const JudgeSearchMapAndList = ({
           />
         ))}
       </StyledMap>
-      <SearchResult
-        data={result}
-        setRestaurantName={setRestaurantName}
-        setAddress={setAddress}
-        setLocation={setLocation}
-      />
+      <SearchResult data={result} />
     </>
   );
 };

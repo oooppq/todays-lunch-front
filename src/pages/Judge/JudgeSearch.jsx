@@ -11,14 +11,10 @@ import xIcon from '../../assets/img/x-icon.svg';
 import searchIcon from '../../assets/img/search-icon.svg';
 import JudgeSearchMapAndList from './JudgeSearchMapAndList';
 
-const JudgeSearch = ({
-  setIsSearch,
-  setRestaurantName,
-  setAddress,
-  setLocation,
-}) => {
+const JudgeSearch = ({ setIsSearch }) => {
   const [keyBuffer, setKeyBuffer] = useState('');
   const [keyword, setKeyword] = useState('');
+
   return (
     <JudgeSearchContainer>
       <JudgeSearchInner>
@@ -59,12 +55,7 @@ const JudgeSearch = ({
             <img src={searchIcon} alt="" />
           </button>
         </JudgeSearchBox>
-        <JudgeSearchMapAndList
-          keyword={keyword}
-          setRestaurantName={setRestaurantName}
-          setAddress={setAddress}
-          setLocation={setLocation}
-        />
+        <JudgeSearchMapAndList keyword={keyword} />
 
         <SearchDoneBtn
           onClick={() => {

@@ -1,7 +1,16 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import {
+  setLatitude,
+  setRestaurantName,
+  setLongitude,
+  setAddress,
+} from '../../redux/judgeNew';
 
-const SearchResult = ({ data, setRestaurantName, setAddress, setLocation }) => {
+const SearchResult = ({ data }) => {
+  const dispatch = useDispatch();
+
   return (
     <div>
       {data
@@ -10,9 +19,10 @@ const SearchResult = ({ data, setRestaurantName, setAddress, setLocation }) => {
               type="button"
               key={d.id}
               onClick={() => {
-                setRestaurantName(d.place_name);
-                setAddress(d.address_name);
-                setLocation({ longitude: d.x, latitude: d.y });
+                dispatch(setRestaurantName(d.place_name));
+                dispatch(setAddress(d.address_name));
+                dispatch(setLongitude(d.x));
+                dispatch(setLatitude(d.y));
               }}
             >
               {d.place_name}

@@ -215,12 +215,12 @@ export const JudgeNewBody = styled.div`
 
   .photo {
     height: 143px;
-    .photoBtn {
+    .photoInner {
       border: none;
       border-radius: 4px;
       background-color: #f4f4f4;
       position: relative;
-
+      text-align: center;
       width: 95px;
       height: 95px;
 
