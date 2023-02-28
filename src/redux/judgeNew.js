@@ -10,7 +10,7 @@ const initialState = {
   latitude: null,
   longitude: null,
   address: null,
-  instroduction: '',
+  introduction: '',
 };
 
 export const judgeNewSlice = createSlice({
@@ -41,8 +41,8 @@ export const judgeNewSlice = createSlice({
     setAddress: (state, action) => {
       state.address = action.payload;
     },
-    setInstroduction: (state, action) => {
-      state.instroduction = action.payload;
+    setIntroduction: (state, action) => {
+      state.introduction = action.payload;
     },
     reset: (state) => {
       Object.assign(state, initialState);
@@ -59,7 +59,7 @@ export const {
   setLatitude,
   setLongitude,
   setAddress,
-  setInstroduction,
+  setIntroduction,
   reset,
 } = judgeNewSlice.actions;
 

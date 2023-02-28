@@ -176,7 +176,7 @@ export const JudgeNewBody = styled.div`
   }
 
   .search {
-    margin-bottom: 35px;
+    height: 109px;
     .saerchBtn {
       border: 1px solid #d9d9d9;
       border-radius: 4px;
@@ -203,7 +203,7 @@ export const JudgeNewBody = styled.div`
 
   .category {
     width: 100%;
-    margin-bottom: 35px;
+    height: 107px;
     .dropdowns {
       display: flex;
       margin-top: 15px;
@@ -214,7 +214,7 @@ export const JudgeNewBody = styled.div`
   }
 
   .photo {
-    height: 143px;
+    height: 168px;
     .photoInner {
       border: none;
       border-radius: 4px;
@@ -275,6 +275,7 @@ export const JudgeNewBody = styled.div`
 
   .review {
     width: 100%;
+    height: 214px;
     display: flex;
     flex-direction: column;
     textarea {
@@ -288,6 +289,11 @@ export const JudgeNewBody = styled.div`
       padding: 20px;
       resize: none;
     }
+  }
+  .warning {
+    margin: 7px 0 0 4px;
+    font-size: 12px;
+    color: #ca2d18;
   }
 `;
 
@@ -401,7 +407,7 @@ export const DoneBtn = styled.button`
   border: 0;
   border-radius: 20px;
   padding: 10px 0;
-  margin: 39px 38px;
+  margin: 0 38px;
   width: auto;
   height: 41px;
   color: white;
