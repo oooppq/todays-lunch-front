@@ -38,6 +38,7 @@ export const SelectedLabel = styled.button`
 export const OptionContainer = styled.div`
   position: fixed;
   display: flex;
+  justify-content: center;
   align-items: flex-end;
   top: 0;
   bottom: 0;
@@ -50,6 +51,7 @@ export const OptionContainer = styled.div`
 
 export const OptionUl = styled.ul`
   box-sizing: border-box;
+  max-width: 390px;
   width: 100%;
   height: 364px;
   list-style: none;

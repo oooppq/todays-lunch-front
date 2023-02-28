@@ -110,9 +110,9 @@ export const OutModal = styled.div`
 
 export const OutModalInner = styled.div`
   position: relative;
-  margin: 0 38px;
-  width: 100%;
+  width: 314px;
   height: 231px;
+  margin-bottom: 23px;
   border-radius: 17px;
   background-color: white;
   text-align: center;
@@ -300,6 +300,8 @@ export const JudgeNewBody = styled.div`
 export const JudgeSearchContainer = styled.div`
   position: fixed;
   display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: rgba(0, 0, 0, 0.4);
   top: 0;
   bottom: 0;
@@ -308,9 +310,9 @@ export const JudgeSearchContainer = styled.div`
   z-index: 999;
 `;
 export const JudgeSearchInner = styled.div`
-  margin: 145px 18px 112px 18px;
-  width: 100%;
-  height: auto;
+  width: 354px;
+  height: 637px;
+  margin-bottom: 17px;
   border-radius: 10px;
   background-color: white;
   display: flex;
@@ -384,19 +386,64 @@ export const JudgeSearchBox = styled.div`
 export const StyledMap = styled(Map)`
   width: 100%;
   height: 587px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
 `;
+
+export const SelectedResultContainer = styled.div`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 192px;
+  z-index: 999;
+  background-color: white;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+`;
+
+export const SelectedResult = styled.div`
+  margin: 20px 30px 51px 20px;
+  overflow: hidden;
+  white-space: nowrap;
+  .placeName {
+    font-size: 16px;
+    line-height: 19.09px;
+    margin-bottom: 4px;
+  }
+  .address {
+    margin-left: 1px;
+    font-size: 13px;
+    color: #636363;
+    margin-bottom: 9px;
+  }
+  .detail {
+    text-align: center;
+    margin-left: 2px;
+    padding: 3px 0 5px 0;
+    border: 1px solid #d2d2d2;
+    border-radius: 10px;
+    box-sizing: border-box;
+    width: 89px;
+    height: 21px;
+    text-decoration: none;
+    display: block;
+    font-size: 11px;
+    color: #949494;
+  }
+`;
+
 export const SearchDoneBtn = styled.button`
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  background-color: transparent;
   border: 0;
   border-radius: 20px;
   background-color: black;
   color: white;
   left: 83px;
   right: 83px;
-  bottom: 24.66px;
+  bottom: 23.66px;
   height: 41px;
   font-family: Pretendard-SemiBold;
   font-size: 18px;
@@ -404,7 +451,6 @@ export const SearchDoneBtn = styled.button`
 `;
 
 export const DoneBtn = styled.button`
-  // display: block;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -419,6 +465,67 @@ export const DoneBtn = styled.button`
   background-color: black;
   font-family: Pretendard-SemiBold;
   font-size: 18px;
+`;
+
+export const JudgeSearchResultContainer = styled.ul`
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 118px;
+  left: 0;
+  right: 0;
+  height: 519px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  white-space: nowrap;
+  border-top: 1px solid #dedede;
+  list-style: none;
+  li {
+    padding-top: 15px;
+    padding-bottom: 13px;
+    border-bottom: 1px solid #f3f3f3;
+    .placeName {
+      margin: 0 30px;
+      font-size: 16px;
+      line-height: 19.09px;
+      margin-bottom: 4px;
+    }
+    .address {
+      margin: 0 31px 0 30px;
+      font-size: 13px;
+      color: #636363;
+      margin-bottom: 9px;
+    }
+    .detail {
+      margin: 0 32px 0 30px;
+      text-align: center;
+      padding: 3px 0 5px 0;
+      border: 1px solid #d2d2d2;
+      border-radius: 10px;
+      box-sizing: border-box;
+      height: 21px;
+      width: 89px;
+      text-decoration: none;
+      display: block;
+      font-size: 11px;
+      color: #949494;
+    }
+  }
+  .noResult {
+    width: 100%;
+    text-align: center;
+    padding-top: 65px;
+    img {
+      width: 97px;
+      height: 106.37px;
+    }
+    .comment {
+      margin-top: 25.63px;
+      line-height: 22px;
+      font-size: 16px;
+      color: #515151;
+    }
+  }
 `;
 
 export const JudgeNewDoneModalContainer = styled.div`
