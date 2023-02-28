@@ -79,12 +79,11 @@ const JudgeNew = () => {
         onClick={() => {
           if (
             judgeNewStates.restaurantName &&
-            judgeNewStates.restaurantImage &&
+            judgeNewStates.latitude &&
+            judgeNewStates.longitude &&
             judgeNewStates.locationCategory &&
             judgeNewStates.locationTag &&
             judgeNewStates.foodCategory &&
-            judgeNewStates.latitude &&
-            judgeNewStates.longitude &&
             judgeNewStates.instroduction.length
           ) {
             setIsDone(true);
