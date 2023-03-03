@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react';
 import { MapMarker } from 'react-kakao-maps-sdk';
-import { StyledMap } from './judge.style';
+import { StyledMap } from '../judge.style';
 
 const JudgeSearchMap = ({ data, selected, setSelected }) => {
   const [map, setMap] = useState();

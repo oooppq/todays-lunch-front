@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
 import React, { useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import cameraIcon from '../../assets/img/camera-icon.svg';
-import xIcon from '../../assets/img/x-icon.svg';
-import { setRestaurantImage } from '../../redux/judgeNew';
+import cameraIcon from '../../../assets/img/camera-icon.svg';
+import xIcon from '../../../assets/img/x-icon.svg';
+import { setRestaurantImage } from '../../../redux/judgeNew';
 
 const JudgeNewGetPhoto = () => {
   const dispatch = useDispatch();

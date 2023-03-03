@@ -9,15 +9,15 @@ import {
   SelectedResultContainer,
   SearchDoneBtn,
   SelectedResult,
-} from './judge.style';
+} from '../judge.style';
 import {
   setLatitude,
   setRestaurantName,
   setLongitude,
   setAddress,
-} from '../../redux/judgeNew';
-import xIcon from '../../assets/img/x-icon.svg';
-import searchIcon from '../../assets/img/search-icon.svg';
+} from '../../../redux/judgeNew';
+import xIcon from '../../../assets/img/x-icon.svg';
+import searchIcon from '../../../assets/img/search-icon.svg';
 import JudgeSearchResult from './JudgeSearchResult';
 import JudgeSearchMap from './JudgeSearchMap';
 

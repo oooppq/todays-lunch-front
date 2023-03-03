@@ -7,9 +7,9 @@ import {
   setLocationCategory,
   setLocationTag,
   setFoodCategory,
-} from '../../redux/judgeNew';
+} from '../../../redux/judgeNew';
 
-import Dropdown from '../../components/Dropdown';
+import Dropdown from '../../../components/Dropdown';
 
 const JudgeNewDropdown = () => {
   const foodCategory = useSelector((state) => state.judgeNew.foodCategory);

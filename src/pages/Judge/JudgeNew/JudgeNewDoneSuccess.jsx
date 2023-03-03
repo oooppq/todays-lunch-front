@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import defaultIcon from '../../assets/img/default-icon.svg';
-import xIcon from '../../assets/img/x-icon.svg';
+import defaultIcon from '../../../assets/img/default-icon.svg';
+import xIcon from '../../../assets/img/x-icon.svg';
 
 const JudgeNewDoneSuccess = ({ isLoading }) => {
   const navigate = useNavigate();
@@ -36,7 +36,7 @@ const JudgeNewDoneSuccess = ({ isLoading }) => {
           type="button"
           className="doneBtn"
           onClick={() => {
-            navigate('../list');
+            navigate('/restaurants-judge/list');
           }}
         >
           평가하러 가기

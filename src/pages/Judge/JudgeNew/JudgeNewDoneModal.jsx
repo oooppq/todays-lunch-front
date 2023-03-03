@@ -6,10 +6,10 @@ import axios from 'axios';
 import {
   JudgeNewDoneModalContainer,
   JudgeNewDoneModalInner,
-} from './judge.style';
+} from '../judge.style';
 import JudgeNewDoneSuccess from './JudgeNewDoneSuccess';
-import { reset } from '../../redux/judgeNew';
-import xIcon from '../../assets/img/x-icon.svg';
+import { reset } from '../../../redux/judgeNew';
+import xIcon from '../../../assets/img/x-icon.svg';
 
 const JudgeNewDoneModal = ({ setIsDone }) => {
   const [isYes, setIsYes] = useState(false);

@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { JudgeSearchResultContainer } from './judge.style';
-import defaultIcon from '../../assets/img/default-icon.svg';
+import { JudgeSearchResultContainer } from '../judge.style';
+import defaultIcon from '../../../assets/img/default-icon.svg';
 
 const JudgeSearchResult = ({ data, pagination, setIsResult, setSelected }) => {
   return (

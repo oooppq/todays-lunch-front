@@ -558,7 +558,7 @@ export const JudgeNewDoneModalContainer = styled.div`
 export const JudgeNewDoneModalInner = styled.div`
   position: relative;
   margin: 0 38px;
-  width: 100%;
+  width: 314px;
   height: 323px;
   border-radius: 17px;
   background-color: white;

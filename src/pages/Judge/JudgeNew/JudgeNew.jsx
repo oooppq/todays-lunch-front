@@ -8,14 +8,14 @@ import {
   JudgeNewHeader,
   JudgeNewBody,
   DoneBtn,
-} from './judge.style';
-import xIcon from '../../assets/img/x-icon.svg';
-import markerIcon from '../../assets/img/marker-icon.svg';
+} from '../judge.style';
+import xIcon from '../../../assets/img/x-icon.svg';
+import markerIcon from '../../../assets/img/marker-icon.svg';
 import JudgeNewOutModal from './JudgeNewOutModal';
 import JudgeNewDoneModal from './JudgeNewDoneModal';
 import JudgeNewDropdown from './JudgeNewDropdown';
 
-import { setIntroduction } from '../../redux/judgeNew';
+import { setIntroduction } from '../../../redux/judgeNew';
 
 const Warning = ({ element }) => {
   return <div className="warning">⚠️ {element} 설정해주세요.</div>;
@@ -96,13 +96,14 @@ const JudgeNew = () => {
       <DoneBtn
         onClick={() => {
           if (
-            judgeNewStates.restaurantName &&
-            judgeNewStates.latitude &&
-            judgeNewStates.longitude &&
-            judgeNewStates.locationCategory &&
-            judgeNewStates.locationTag &&
-            judgeNewStates.foodCategory &&
-            judgeNewStates.introduction.length
+            1
+            // judgeNewStates.restaurantName &&
+            // judgeNewStates.latitude &&
+            // judgeNewStates.longitude &&
+            // judgeNewStates.locationCategory &&
+            // judgeNewStates.locationTag &&
+            // judgeNewStates.foodCategory &&
+            // judgeNewStates.introduction.length
           ) {
             setIsDone(true);
           } else {
