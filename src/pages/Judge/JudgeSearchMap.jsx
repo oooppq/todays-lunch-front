@@ -6,7 +6,7 @@ import { StyledMap } from './judge.style';
 const JudgeSearchMap = ({ data, selected, setSelected }) => {
   const [map, setMap] = useState();
   useEffect(() => {
-    if (map && data) {
+    if (map && data.length) {
       const bounds = new window.kakao.maps.LatLngBounds();
       for (let i = 0; i < data.length; i += 1) {
         bounds.extend(new window.kakao.maps.LatLng(data[i].y, data[i].x));
@@ -30,7 +30,7 @@ const JudgeSearchMap = ({ data, selected, setSelected }) => {
       level={5}
       onCreate={setMap}
     >
-      {data
+      {data.length
         ? data.map((d) => (
             <MapMarker
               key={`marker-${d.place_name}-${d.latitude},${d.longitude}`}

@@ -25,24 +25,24 @@ const JudgeSearch = ({ setIsSearch }) => {
   const [keyBuffer, setKeyBuffer] = useState('');
   const [keyword, setKeyword] = useState('');
   const [isResult, setIsResult] = useState(false);
-  const [result, setResult] = useState(null);
+  const [result, setResult] = useState([]);
   const [pagination, setPagination] = useState();
   const [selected, setSelected] = useState(null);
 
   useEffect(() => {
+    setResult([]); // 새로운 키워드 입력됐을 때, data 초기화
     if (keyword.length) {
       const placeSearch = new window.kakao.maps.services.Places();
       placeSearch.keywordSearch(keyword, (data, status, _pagination) => {
         if (status === window.kakao.maps.services.Status.OK) {
-          if (!result) setResult(data);
-          else setResult([...result].concat(data));
+          setResult((state) => [...state, ...data]); // 페이지 넘어가도 기존 data 이어지도록..
           setPagination(_pagination);
         } else if (status === window.kakao.maps.services.Status.ZERO_RESULT) {
-          setResult(null);
+          setResult([]);
         }
       });
     }
-  }, [keyword, result]);
+  }, [keyword]);
 
   useEffect(() => {
     if (keyBuffer.length === 0) setIsResult(false);
@@ -59,6 +59,7 @@ const JudgeSearch = ({ setIsSearch }) => {
             type="button"
             onClick={() => {
               setIsSearch(false);
+              setResult([]);
             }}
           >
             <img src={xIcon} alt="" />
@@ -113,14 +114,22 @@ const JudgeSearch = ({ setIsSearch }) => {
             <SelectedResult>
               <div className="placeName">{selected.place_name}</div>
               <div className="address">{selected.address_name}</div>
-              <a
+              <button
+                type="button"
                 className="detail"
-                href={selected.place_url}
-                target="_blank"
-                rel="noreferrer"
+                onClick={(e) => {
+                  e.stopPropagation();
+                }}
               >
-                상세 정보 보기
-              </a>
+                <a
+                  // className="detail"
+                  href={selected.place_url}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  상세 정보 보기
+                </a>
+              </button>
             </SelectedResult>
             <SearchDoneBtn
               onClick={() => {

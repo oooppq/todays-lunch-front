@@ -418,6 +418,10 @@ export const SelectedResult = styled.div`
     margin-bottom: 9px;
   }
   .detail {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: transparent;
     text-align: center;
     margin-left: 2px;
     padding: 3px 0 5px 0;
@@ -426,10 +430,12 @@ export const SelectedResult = styled.div`
     box-sizing: border-box;
     width: 89px;
     height: 21px;
-    text-decoration: none;
     display: block;
     font-size: 11px;
-    color: #949494;
+    a {
+      text-decoration: none;
+      color: #949494;
+    }
   }
 `;
 
@@ -497,6 +503,10 @@ export const JudgeSearchResultContainer = styled.ul`
       margin-bottom: 9px;
     }
     .detail {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      background-color: transparent;
       margin: 0 32px 0 30px;
       text-align: center;
       padding: 3px 0 5px 0;
@@ -505,12 +515,16 @@ export const JudgeSearchResultContainer = styled.ul`
       box-sizing: border-box;
       height: 21px;
       width: 89px;
-      text-decoration: none;
+
       display: block;
       font-size: 11px;
-      color: #949494;
+      a {
+        text-decoration: none;
+        color: #949494;
+      }
     }
   }
+
   .noResult {
     width: 100%;
     text-align: center;

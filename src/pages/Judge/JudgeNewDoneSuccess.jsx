@@ -39,7 +39,7 @@ const JudgeNewDoneSuccess = ({ isLoading }) => {
             navigate('../list');
           }}
         >
-          다음
+          평가하러 가기
         </button>
       )}
     </>
