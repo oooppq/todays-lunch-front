@@ -65,7 +65,11 @@ export const JudgeBtn = styled.button`
 `;
 
 export const JudgeNewContainer = styled.div`
+  position: absolute;
+  top: 0;
+  background-color: white;
   width: 100%;
+  max-width: 390px;
   display: flex;
   flex-direction: column;
 `;
@@ -76,7 +80,7 @@ export const JudgeNewHeader = styled.div`
   font-family: Pretendard-SemiBold;
   font-size: 20px;
   width: 100%;
-  padding: 29px 28px 17px 39px;
+  padding: 28px 28px 17px 39px;
   border-bottom: 1px solid #ededed;
   justify-content: space-between;
   button {
@@ -285,6 +289,7 @@ export const JudgeNewBody = styled.div`
       box-sizing: border-box;
       margin: 13px 3px 0 3px;
       border: 1px solid #d9d9d9;
+      outline-color: #d9d9d9;
       border-radius: 4px;
       padding: 20px;
       resize: none;
@@ -633,4 +638,8 @@ export const JudgeNewDoneModalInner = styled.div`
     font-size: 18px;
     font-family: Pretendard-SemiBold;
   }
+`;
+
+export const JudgeRecentSearchContainer = styled.div`
+  margin: 67.5px 25px 0 25px;
 `;

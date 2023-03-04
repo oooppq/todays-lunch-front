@@ -1,6 +1,7 @@
 import React from 'react';
 import { Routes, Route, Outlet } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { CookiesProvider } from 'react-cookie';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Nav from './components/Nav';
@@ -20,22 +21,24 @@ const queryClient = new QueryClient();
 const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
-      <Header />
-      <Nav />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/restaurants" element={<Restaurant />} />
-        <Route path="/play" element={<Play />} />
-        <Route path="/restaurants-judge" element={<JudgeHome />} />
-        <Route path="restaurants-judge/new-judge" element={<JudgeNew />} />
-        <Route path="restaurants-judge/list" element={<JudgeList />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/join" element={<Join />} />
-        <Route path="/mypage" element={<MyPage />} />
-        <Route path="/restaurants/:id" element={<Detail />} />
-      </Routes>
-      <Footer />
-      <Outlet />
+      <CookiesProvider>
+        <Header />
+        <Nav />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/restaurants" element={<Restaurant />} />
+          <Route path="/play" element={<Play />} />
+          <Route path="/restaurants-judge" element={<JudgeHome />} />
+          <Route path="restaurants-judge/new-judge" element={<JudgeNew />} />
+          <Route path="restaurants-judge/list" element={<JudgeList />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/join" element={<Join />} />
+          <Route path="/mypage" element={<MyPage />} />
+          <Route path="/restaurants/:id" element={<Detail />} />
+        </Routes>
+        <Footer />
+        <Outlet />
+      </CookiesProvider>
     </QueryClientProvider>
   );
 };

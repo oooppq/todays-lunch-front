@@ -4,7 +4,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import { JudgeSearchResultContainer } from '../judge.style';
 import defaultIcon from '../../../assets/img/default-icon.svg';
 
-const JudgeSearchResult = ({ data, pagination, setIsResult, setSelected }) => {
+const JudgeSearchResult = ({ data, pagination, setMode, setSelected }) => {
   return (
     <JudgeSearchResultContainer id="listContainer">
       {data && pagination ? (
@@ -22,7 +22,7 @@ const JudgeSearchResult = ({ data, pagination, setIsResult, setSelected }) => {
                 type="button"
                 key={`${d.id}-${d.place_name}`}
                 onClick={() => {
-                  setIsResult(false);
+                  setMode('map');
                   setSelected(d);
                 }}
                 aria-hidden="true" // eslint rule
@@ -36,12 +36,7 @@ const JudgeSearchResult = ({ data, pagination, setIsResult, setSelected }) => {
                     e.stopPropagation();
                   }}
                 >
-                  <a
-                    // className="detail"
-                    href={d.place_url}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
+                  <a href={d.place_url} target="_blank" rel="noreferrer">
                     상세 정보 보기
                   </a>
                 </button>

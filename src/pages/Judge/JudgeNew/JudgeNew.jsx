@@ -96,14 +96,13 @@ const JudgeNew = () => {
       <DoneBtn
         onClick={() => {
           if (
-            1
-            // judgeNewStates.restaurantName &&
-            // judgeNewStates.latitude &&
-            // judgeNewStates.longitude &&
-            // judgeNewStates.locationCategory &&
-            // judgeNewStates.locationTag &&
-            // judgeNewStates.foodCategory &&
-            // judgeNewStates.introduction.length
+            judgeNewStates.restaurantName &&
+            judgeNewStates.latitude &&
+            judgeNewStates.longitude &&
+            judgeNewStates.locationCategory &&
+            judgeNewStates.locationTag &&
+            judgeNewStates.foodCategory &&
+            judgeNewStates.introduction.length
           ) {
             setIsDone(true);
           } else {
