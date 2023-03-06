@@ -1,5 +1,6 @@
+/* eslint-disable prefer-template */
 /* eslint-disable react/prop-types */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { JudgeSearchHeader, JudgeSearchBox } from '../judge.style';
 import xIcon from '../../../assets/img/x-icon.svg';
 import searchIcon from '../../../assets/img/search-icon.svg';
@@ -8,14 +9,16 @@ const JudgeSearchTop = ({
   setIsSearch,
   setResult,
   setPagination,
-  setSelected,
   setMode,
   mode,
+  keyBuffer,
+  setKeyBuffer,
+  keyword,
+  inputRef,
+  searchActions,
 }) => {
-  const [keyBuffer, setKeyBuffer] = useState('');
-  const [keyword, setKeyword] = useState('');
-
   useEffect(() => {
+    if (keyword === 'SKIP_SEARCHING') return;
     setResult([]); // 새로운 키워드 입력됐을 때, data 초기화
     if (keyword.length) {
       const placeSearch = new window.kakao.maps.services.Places();
@@ -46,6 +49,8 @@ const JudgeSearchTop = ({
       </JudgeSearchHeader>
       <JudgeSearchBox style={mode === 'map' ? null : { boxShadow: 'none' }}>
         <input
+          value={keyBuffer}
+          ref={inputRef}
           type="text"
           placeholder="가게 이름을 검색해보세요."
           onFocus={() => {
@@ -55,12 +60,11 @@ const JudgeSearchTop = ({
             setKeyBuffer(e.target.value);
           }}
           onKeyDown={(e) => {
+            if (e.nativeEvent.isComposing) return;
             const key = e.code;
             switch (key) {
               case 'Enter':
-                setKeyword(keyBuffer);
-                setMode('result');
-                setSelected(null);
+                searchActions(keyBuffer);
                 break;
               default:
             }
@@ -69,9 +73,7 @@ const JudgeSearchTop = ({
         <button
           type="button"
           onClick={() => {
-            setKeyword(keyBuffer);
-            setMode('result');
-            setSelected(null);
+            searchActions(keyBuffer);
           }}
         >
           <img src={searchIcon} alt="" />

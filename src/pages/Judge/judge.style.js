@@ -642,4 +642,6 @@ export const JudgeNewDoneModalInner = styled.div`
 
 export const JudgeRecentSearchContainer = styled.div`
   margin: 67.5px 25px 0 25px;
+  height: 515px;
+  overflow-y: auto;
 `;

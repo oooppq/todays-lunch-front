@@ -6,3 +6,22 @@ export const convertNum = (num) => {
 export const gotoDetailOnClick = (id, navigate) => {
   navigate(`/restaurants/${id}`);
 };
+
+export const formatDate = (date) => {
+  return `${`00${date.getMonth()}`.toString().slice(-2)}.${`00${date.getDate()}`
+    .toString()
+    .slice(-2)}`;
+};
+
+export const pushRecentSearch = (key, title, isLocation, data) => {
+  if (title.length <= 0) return;
+  let recentSearch = JSON.parse(localStorage.getItem(key)) || [];
+  const newElem = {
+    title,
+    date: new Date(),
+    isLocation,
+  };
+  if (data) newElem.place_data = data;
+  recentSearch = [newElem, ...recentSearch];
+  localStorage.setItem(key, JSON.stringify(recentSearch));
+};

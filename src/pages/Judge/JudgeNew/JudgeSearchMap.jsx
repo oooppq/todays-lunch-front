@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react';
 import { MapMarker } from 'react-kakao-maps-sdk';
+import { pushRecentSearch } from '../../../libs/utils';
 import { StyledMap } from '../judge.style';
 
 const JudgeSearchMap = ({ data, selected, setSelected }) => {
@@ -33,10 +34,11 @@ const JudgeSearchMap = ({ data, selected, setSelected }) => {
       {data.length
         ? data.map((d) => (
             <MapMarker
-              key={`marker-${d.place_name}-${d.latitude},${d.longitude}`}
+              key={`marker-${d.place_name}-${d.y},${d.x}`}
               position={{ lat: d.y, lng: d.x }}
               onClick={() => {
                 setSelected(d);
+                pushRecentSearch('recentSearch/judge', d.place_name, 1, d);
               }}
             />
           ))

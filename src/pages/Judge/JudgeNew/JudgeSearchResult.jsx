@@ -3,6 +3,7 @@ import React from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { JudgeSearchResultContainer } from '../judge.style';
 import defaultIcon from '../../../assets/img/default-icon.svg';
+import { pushRecentSearch } from '../../../libs/utils';
 
 const JudgeSearchResult = ({ data, pagination, setMode, setSelected }) => {
   return (
@@ -23,6 +24,7 @@ const JudgeSearchResult = ({ data, pagination, setMode, setSelected }) => {
                 key={`${d.id}-${d.place_name}`}
                 onClick={() => {
                   setMode('map');
+                  pushRecentSearch('recentSearch/judge', d.place_name, 1, d);
                   setSelected(d);
                 }}
                 aria-hidden="true" // eslint rule
