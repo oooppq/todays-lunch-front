@@ -22,6 +22,8 @@ const JudgeNewDoneModal = ({ setIsDone }) => {
       else if (key === 'locationTag') fd.append('locationTagName', value.name);
       else if (key === 'foodCategory')
         fd.append('foodCategoryName', value.name);
+      else if (key === 'specialCategory' && value.length)
+        fd.append('specialCategory', value);
       else fd.append(key, value);
     }
   });

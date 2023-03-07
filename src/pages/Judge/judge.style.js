@@ -279,7 +279,7 @@ export const JudgeNewBody = styled.div`
 
   .review {
     width: 100%;
-    height: 214px;
+    margin-bottom: 35px;
     display: flex;
     flex-direction: column;
     textarea {
@@ -469,7 +469,7 @@ export const DoneBtn = styled.button`
   border: 0;
   border-radius: 20px;
   padding: 10px 0;
-  margin: 0 38px;
+  margin: 25px 38px;
   width: auto;
   height: 41px;
   color: white;
@@ -644,4 +644,46 @@ export const JudgeRecentSearchContainer = styled.div`
   margin: 67.5px 25px 0 25px;
   height: 515px;
   overflow-y: auto;
+`;
+
+export const SpecialCategoryContainer = styled.ul`
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  .title {
+    font-size: 18px;
+    font-family: Pretendard-SemiBold;
+    color: #494949;
+    margin-bottom: 3px;
+    display: inline-block;
+  }
+  .choice {
+    margin-left: 5px;
+    display: inline-block;
+    font-size: 13px;
+    color: #7c7c7c;
+    line-height: 15.73px;
+  }
+  .sub {
+    font-size: 12px;
+    color: #6b6b6b;
+    margin-bottom: 11px;
+  }
+`;
+
+export const SpecialCategoryLi = styled.li`
+  height: 18px;
+  flex-shrink: 1;
+  font-size: 15px;
+  border: 1px solid ${(props) => props.color};
+  border-radius: 15px;
+  padding: 5px 14px;
+  margin-bottom: 10px;
+  margin-right: auto;
+  span {
+    color: ${(props) => props.color};
+    font-family: Pretendard-SemiBold;
+  }
 `;

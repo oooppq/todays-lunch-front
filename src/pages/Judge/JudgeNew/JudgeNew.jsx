@@ -14,7 +14,7 @@ import markerIcon from '../../../assets/img/marker-icon.svg';
 import JudgeNewOutModal from './JudgeNewOutModal';
 import JudgeNewDoneModal from './JudgeNewDoneModal';
 import JudgeNewDropdown from './JudgeNewDropdown';
-
+import JudgeNewSpecialCategory from './JudgeNewSpecialCategory';
 import { setIntroduction } from '../../../redux/judgeNew';
 
 const Warning = ({ element }) => {
@@ -92,6 +92,7 @@ const JudgeNew = () => {
             <Warning element="리뷰를" />
           ) : null}
         </div>
+        <JudgeNewSpecialCategory />
       </JudgeNewBody>
       <DoneBtn
         onClick={() => {
