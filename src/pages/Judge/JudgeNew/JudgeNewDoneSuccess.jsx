@@ -36,7 +36,7 @@ const JudgeNewDoneSuccess = ({ isLoading }) => {
           type="button"
           className="doneBtn"
           onClick={() => {
-            navigate('/restaurants-judge/list');
+            navigate('/restaurants-judge/now');
           }}
         >
           평가하러 가기

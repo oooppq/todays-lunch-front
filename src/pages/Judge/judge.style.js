@@ -1,7 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-/* eslint-disable react/react-in-jsx-scope */
-/* eslint-disable no-unused-vars */
-import { Map } from 'react-kakao-maps-sdk';
 import styled from 'styled-components';
 
 export const JudgeContainer = styled.div`
