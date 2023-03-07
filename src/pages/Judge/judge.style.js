@@ -65,7 +65,11 @@ export const JudgeBtn = styled.button`
 `;
 
 export const JudgeNewContainer = styled.div`
+  position: absolute;
+  top: 0;
+  background-color: white;
   width: 100%;
+  max-width: 390px;
   display: flex;
   flex-direction: column;
 `;
@@ -76,7 +80,7 @@ export const JudgeNewHeader = styled.div`
   font-family: Pretendard-SemiBold;
   font-size: 20px;
   width: 100%;
-  padding: 29px 28px 17px 39px;
+  padding: 28px 28px 17px 39px;
   border-bottom: 1px solid #ededed;
   justify-content: space-between;
   button {
@@ -110,9 +114,9 @@ export const OutModal = styled.div`
 
 export const OutModalInner = styled.div`
   position: relative;
-  margin: 0 38px;
-  width: 100%;
+  width: 314px;
   height: 231px;
+  margin-bottom: 23px;
   border-radius: 17px;
   background-color: white;
   text-align: center;
@@ -176,7 +180,7 @@ export const JudgeNewBody = styled.div`
   }
 
   .search {
-    margin-bottom: 35px;
+    height: 109px;
     .saerchBtn {
       border: 1px solid #d9d9d9;
       border-radius: 4px;
@@ -203,7 +207,7 @@ export const JudgeNewBody = styled.div`
 
   .category {
     width: 100%;
-    margin-bottom: 35px;
+    height: 107px;
     .dropdowns {
       display: flex;
       margin-top: 15px;
@@ -214,7 +218,7 @@ export const JudgeNewBody = styled.div`
   }
 
   .photo {
-    height: 143px;
+    height: 168px;
     .photoInner {
       border: none;
       border-radius: 4px;
@@ -275,6 +279,7 @@ export const JudgeNewBody = styled.div`
 
   .review {
     width: 100%;
+    margin-bottom: 35px;
     display: flex;
     flex-direction: column;
     textarea {
@@ -284,16 +289,24 @@ export const JudgeNewBody = styled.div`
       box-sizing: border-box;
       margin: 13px 3px 0 3px;
       border: 1px solid #d9d9d9;
+      outline-color: #d9d9d9;
       border-radius: 4px;
       padding: 20px;
       resize: none;
     }
+  }
+  .warning {
+    margin: 7px 0 0 4px;
+    font-size: 12px;
+    color: #ca2d18;
   }
 `;
 
 export const JudgeSearchContainer = styled.div`
   position: fixed;
   display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: rgba(0, 0, 0, 0.4);
   top: 0;
   bottom: 0;
@@ -302,9 +315,9 @@ export const JudgeSearchContainer = styled.div`
   z-index: 999;
 `;
 export const JudgeSearchInner = styled.div`
-  margin: 186px 18px 137px 18px;
-  width: 100%;
-  height: auto;
+  width: 354px;
+  height: 637px;
+  margin-bottom: 17px;
   border-radius: 10px;
   background-color: white;
   display: flex;
@@ -314,11 +327,13 @@ export const JudgeSearchInner = styled.div`
 
 export const JudgeSearchHeader = styled.div`
   display: flex;
-  margin: 16px 17px 17px 21px;
+
+  margin: 19px 17px 8.5px 25px;
   justify-content: space-between;
   .searchTitle {
-    font-family: Pretendard-Medium;
-    font-size: 18px;
+    // font-family: Pretendard-Medium;
+    font-size: 19px;
+    color: #6ab2b2;
   }
   button {
     -webkit-appearance: none;
@@ -331,13 +346,18 @@ export const JudgeSearchHeader = styled.div`
 `;
 
 export const JudgeSearchBox = styled.div`
-  margin: 0 21px;
+  position: absolute;
+  top: 65px;
+  left: 20px;
+  right: 20px;
+  z-index: 1000;
   display: flex;
   box-sizing: border-box;
   height: 40px;
-  width: auto;
+  border: 1px solid #dfdfdf;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 20px;
-  background-color: #f4f4f4;
+  background-color: white;
   padding-right: 5px;
   input {
     height: 100%;
@@ -369,23 +389,72 @@ export const JudgeSearchBox = styled.div`
   }
 `;
 export const StyledMap = styled(Map)`
-  margin-top: 21px;
   width: 100%;
-  height: 170px;
-  zindex: 1000;
+  height: 587px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
 `;
+
+export const SelectedResultContainer = styled.div`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 192px;
+  z-index: 999;
+  background-color: white;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+`;
+
+export const SelectedResult = styled.div`
+  margin: 20px 30px 51px 20px;
+  overflow: hidden;
+  white-space: nowrap;
+  .placeName {
+    font-size: 16px;
+    line-height: 19.09px;
+    margin-bottom: 4px;
+  }
+  .address {
+    margin-left: 1px;
+    font-size: 13px;
+    color: #636363;
+    margin-bottom: 9px;
+  }
+  .detail {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: transparent;
+    text-align: center;
+    margin-left: 2px;
+    padding: 3px 0 5px 0;
+    border: 1px solid #d2d2d2;
+    border-radius: 10px;
+    box-sizing: border-box;
+    width: 89px;
+    height: 21px;
+    display: block;
+    font-size: 11px;
+    a {
+      text-decoration: none;
+      color: #949494;
+    }
+  }
+`;
+
 export const SearchDoneBtn = styled.button`
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  background-color: transparent;
   border: 0;
   border-radius: 20px;
   background-color: black;
   color: white;
   left: 83px;
   right: 83px;
-  bottom: 24.66px;
+  bottom: 23.66px;
   height: 41px;
   font-family: Pretendard-SemiBold;
   font-size: 18px;
@@ -393,7 +462,6 @@ export const SearchDoneBtn = styled.button`
 `;
 
 export const DoneBtn = styled.button`
-  // display: block;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -401,7 +469,7 @@ export const DoneBtn = styled.button`
   border: 0;
   border-radius: 20px;
   padding: 10px 0;
-  margin: 39px 38px;
+  margin: 25px 38px;
   width: auto;
   height: 41px;
   color: white;
@@ -410,7 +478,76 @@ export const DoneBtn = styled.button`
   font-size: 18px;
 `;
 
-export const JudgeSuccessContainer = styled.div`
+export const JudgeSearchResultContainer = styled.ul`
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 118px;
+  left: 0;
+  right: 0;
+  height: 519px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  white-space: nowrap;
+  border-top: 1px solid #dedede;
+  list-style: none;
+  li {
+    padding-top: 15px;
+    padding-bottom: 13px;
+    border-bottom: 1px solid #f3f3f3;
+    .placeName {
+      margin: 0 30px;
+      font-size: 16px;
+      line-height: 19.09px;
+      margin-bottom: 4px;
+    }
+    .address {
+      margin: 0 31px 0 30px;
+      font-size: 13px;
+      color: #636363;
+      margin-bottom: 9px;
+    }
+    .detail {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      background-color: transparent;
+      margin: 0 32px 0 30px;
+      text-align: center;
+      padding: 3px 0 5px 0;
+      border: 1px solid #d2d2d2;
+      border-radius: 10px;
+      box-sizing: border-box;
+      height: 21px;
+      width: 89px;
+
+      display: block;
+      font-size: 11px;
+      a {
+        text-decoration: none;
+        color: #949494;
+      }
+    }
+  }
+
+  .noResult {
+    width: 100%;
+    text-align: center;
+    padding-top: 65px;
+    img {
+      width: 97px;
+      height: 106.37px;
+    }
+    .comment {
+      margin-top: 25.63px;
+      line-height: 22px;
+      font-size: 16px;
+      color: #515151;
+    }
+  }
+`;
+
+export const JudgeNewDoneModalContainer = styled.div`
   position: fixed;
   display: flex;
   background-color: rgba(0, 0, 0, 0.4);
@@ -423,15 +560,16 @@ export const JudgeSuccessContainer = styled.div`
   z-index: 999;
 `;
 
-export const JudgeSuccessInner = styled.div`
+export const JudgeNewDoneModalInner = styled.div`
   position: relative;
   margin: 0 38px;
-  width: 100%;
+  width: 314px;
   height: 323px;
   border-radius: 17px;
   background-color: white;
   text-align: center;
   font-size: 18px;
+  line-height: 21.48px;
   .xBtn {
     position: absolute;
     top: 16px;
@@ -445,9 +583,8 @@ export const JudgeSuccessInner = styled.div`
     height: 16px;
     width: 16px;
   }
-  .content {
+  .successDiv {
     margin-top: 48px;
-    line-height: 21.48px;
     img {
       height: 96.5px;
       width: 88px;
@@ -467,9 +604,27 @@ export const JudgeSuccessInner = styled.div`
     -moz-appearance: none;
     appearance: none;
     border: 0;
-
     padding: 0;
   }
+
+  .confirmDiv {
+    height: 173px;
+    div {
+      margin-top: 69px;
+      margin-bottom: 30px;
+    }
+    .yesNoBtn {
+      width: 187.74px;
+      height: 41px;
+      background-color: black;
+      color: white;
+      border-radius: 20px;
+      margin-bottom: 18.66px;
+      font-family: Pretendard-SemiBold;
+      font-size: 18px;
+    }
+  }
+
   .doneBtn {
     position: absolute;
     left: 63px;
@@ -481,6 +636,54 @@ export const JudgeSuccessInner = styled.div`
     border-radius: 20px;
 
     font-size: 18px;
+    font-family: Pretendard-SemiBold;
+  }
+`;
+
+export const JudgeRecentSearchContainer = styled.div`
+  margin: 67.5px 25px 0 25px;
+  height: 515px;
+  overflow-y: auto;
+`;
+
+export const SpecialCategoryContainer = styled.ul`
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  .title {
+    font-size: 18px;
+    font-family: Pretendard-SemiBold;
+    color: #494949;
+    margin-bottom: 3px;
+    display: inline-block;
+  }
+  .choice {
+    margin-left: 5px;
+    display: inline-block;
+    font-size: 13px;
+    color: #7c7c7c;
+    line-height: 15.73px;
+  }
+  .sub {
+    font-size: 12px;
+    color: #6b6b6b;
+    margin-bottom: 11px;
+  }
+`;
+
+export const SpecialCategoryLi = styled.li`
+  height: 18px;
+  flex-shrink: 1;
+  font-size: 15px;
+  border: 1px solid ${(props) => props.color};
+  border-radius: 15px;
+  padding: 5px 14px;
+  margin-bottom: 10px;
+  margin-right: auto;
+  span {
+    color: ${(props) => props.color};
     font-family: Pretendard-SemiBold;
   }
 `;

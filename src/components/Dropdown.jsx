@@ -37,8 +37,8 @@ const Dropdown = ({
   return (
     <DropdownContainer ref={dropdownRef} styleInfo={style}>
       <SelectedLabel type="button" fontSize={style.fontSize}>
-        <span className="label">{selected ? selected.name : defaultValue}</span>{' '}
-        <span className="triangle">▼</span>
+        <span className="label">{selected ? selected.name : defaultValue}</span>
+        <span className="triangle"> ▼</span>
       </SelectedLabel>
       {isActive ? (
         <OptionContainer

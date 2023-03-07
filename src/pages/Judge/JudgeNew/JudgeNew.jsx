@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import JudgeSearch from './JudgeSearch';
@@ -7,18 +8,20 @@ import {
   JudgeNewHeader,
   JudgeNewBody,
   DoneBtn,
-} from './judge.style';
-import xIcon from '../../assets/img/x-icon.svg';
-import markerIcon from '../../assets/img/marker-icon.svg';
+} from '../judge.style';
+import xIcon from '../../../assets/img/x-icon.svg';
+import markerIcon from '../../../assets/img/marker-icon.svg';
 import JudgeNewOutModal from './JudgeNewOutModal';
-import JudgeSuccess from './JudgeSuccess';
+import JudgeNewDoneModal from './JudgeNewDoneModal';
 import JudgeNewDropdown from './JudgeNewDropdown';
+import JudgeNewSpecialCategory from './JudgeNewSpecialCategory';
+import { setIntroduction } from '../../../redux/judgeNew';
 
-import { setInstroduction } from '../../redux/judgeNew';
+const Warning = ({ element }) => {
+  return <div className="warning">⚠️ {element} 설정해주세요.</div>;
+};
 
 const JudgeNew = () => {
-  /* 데이터의 상태를 다루는 state, 이 페이지에서만 필요하고 페이지 이동시에
-     state가 유지될 필요가 없기 때문에 local state로 구현 */
   const dispatch = useDispatch();
   const judgeNewStates = useSelector((state) => state.judgeNew);
 
@@ -26,6 +29,7 @@ const JudgeNew = () => {
   const [isOut, setIsOut] = useState(false);
   const [isSearch, setIsSearch] = useState(false);
   const [isDone, setIsDone] = useState(false);
+  const [isSomethingEmpty, setIsSomethingEmpty] = useState(false);
 
   return (
     <JudgeNewContainer>
@@ -55,10 +59,21 @@ const JudgeNew = () => {
             <img src={markerIcon} alt="" />
             <div>{judgeNewStates.restaurantName || '맛집 설정하기'}</div>
           </button>
+          {isSomethingEmpty && !judgeNewStates.restaurantName ? (
+            <Warning element="맛집을" />
+          ) : null}
         </div>
         <div className="category">
           <div className="bodyTitle">카테고리 설정</div>
           <JudgeNewDropdown />
+          {isSomethingEmpty &&
+          !(
+            judgeNewStates.locationCategory &&
+            judgeNewStates.locationTag &&
+            judgeNewStates.foodCategory
+          ) ? (
+            <Warning element="카테고리를" />
+          ) : null}
         </div>
         <JudgeNewGetPhoto />
 
@@ -70,10 +85,14 @@ const JudgeNew = () => {
             cols="30"
             rows="10"
             onChange={(e) => {
-              dispatch(setInstroduction(e.target.value));
+              dispatch(setIntroduction(e.target.value));
             }}
           />
+          {isSomethingEmpty && !judgeNewStates.introduction ? (
+            <Warning element="리뷰를" />
+          ) : null}
         </div>
+        <JudgeNewSpecialCategory />
       </JudgeNewBody>
       <DoneBtn
         onClick={() => {
@@ -84,15 +103,17 @@ const JudgeNew = () => {
             judgeNewStates.locationCategory &&
             judgeNewStates.locationTag &&
             judgeNewStates.foodCategory &&
-            judgeNewStates.instroduction.length
+            judgeNewStates.introduction.length
           ) {
             setIsDone(true);
+          } else {
+            setIsSomethingEmpty(true);
           }
         }}
       >
         새로운 맛집 등록
       </DoneBtn>
-      {isDone ? <JudgeSuccess setIsDone={setIsDone} /> : null}
+      {isDone ? <JudgeNewDoneModal setIsDone={setIsDone} /> : null}
     </JudgeNewContainer>
   );
 };

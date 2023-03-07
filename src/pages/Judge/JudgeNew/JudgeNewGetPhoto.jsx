@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
 import React, { useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import cameraIcon from '../../assets/img/camera-icon.svg';
-import xIcon from '../../assets/img/x-icon.svg';
-import { setRestaurantImage } from '../../redux/judgeNew';
+import cameraIcon from '../../../assets/img/camera-icon.svg';
+import xIcon from '../../../assets/img/x-icon.svg';
+import { setRestaurantImage } from '../../../redux/judgeNew';
 
 const JudgeNewGetPhoto = () => {
   const dispatch = useDispatch();
@@ -14,7 +14,10 @@ const JudgeNewGetPhoto = () => {
   return (
     <div className="photo">
       <div className="bodyTitle">사진</div>
-      <div className="bodyBtn photoInner">
+      <div
+        className="bodyBtn photoInner"
+        style={img ? { backgroundColor: 'transparent' } : null}
+      >
         <button
           type="button"
           className="xBtn"

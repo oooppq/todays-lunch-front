@@ -75,10 +75,12 @@ const RestaurantNav = ({ locCategory, locTag, foodCategory }) => {
             // 엔터키 누를 때 적용된 조건들이 반영된 상태로 요청되도록 함.
             // onKeyPress는 deprecated 되었기 때문에 onKeyDown을 사용하였다.
             onKeyDown={(e) => {
+              if (e.nativeEvent.isComposing) return;
               const key = e.code;
               switch (key) {
                 case 'Enter':
                   dispatch(setSearchKeyword(keyword));
+                  e.target.blur();
                   break;
                 default:
               }

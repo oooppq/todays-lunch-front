@@ -7,10 +7,11 @@ const initialState = {
   foodCategory: null,
   locationCategory: null,
   locationTag: null,
+  specialCategory: [],
   latitude: null,
   longitude: null,
   address: null,
-  instroduction: '',
+  introduction: '',
 };
 
 export const judgeNewSlice = createSlice({
@@ -32,6 +33,9 @@ export const judgeNewSlice = createSlice({
     setLocationTag: (state, action) => {
       state.locationTag = action.payload;
     },
+    setSpecialCategory: (state, action) => {
+      state.specialCategory = action.payload;
+    },
     setLatitude: (state, action) => {
       state.latitude = action.payload;
     },
@@ -41,8 +45,8 @@ export const judgeNewSlice = createSlice({
     setAddress: (state, action) => {
       state.address = action.payload;
     },
-    setInstroduction: (state, action) => {
-      state.instroduction = action.payload;
+    setIntroduction: (state, action) => {
+      state.introduction = action.payload;
     },
     reset: (state) => {
       Object.assign(state, initialState);
@@ -56,10 +60,11 @@ export const {
   setFoodCategory,
   setLocationCategory,
   setLocationTag,
+  setSpecialCategory,
   setLatitude,
   setLongitude,
   setAddress,
-  setInstroduction,
+  setIntroduction,
   reset,
 } = judgeNewSlice.actions;
 

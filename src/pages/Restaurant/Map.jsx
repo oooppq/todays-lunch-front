@@ -9,6 +9,7 @@ import { setSelectedMarker } from '../../redux/restaurant';
 // 상위 컴포넌트에서 데이터를 넘겨받는다.
 const Map = ({ restaurants }) => {
   const dispatch = useDispatch();
+
   return (
     <MapContainer>
       <div className="emptyDiv" />
