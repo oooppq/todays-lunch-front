@@ -8,7 +8,7 @@ import {
   JudgeNewHeader,
   JudgeNewBody,
   DoneBtn,
-} from '../judge.style';
+} from './judgeNew.style';
 import xIcon from '../../../assets/img/x-icon.svg';
 import markerIcon from '../../../assets/img/marker-icon.svg';
 import JudgeNewOutModal from './JudgeNewOutModal';

@@ -3,7 +3,7 @@ import React from 'react';
 import { useQuery } from 'react-query';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSpecialCategory } from '../../../redux/judgeNew';
-import { SpecialCategoryContainer, SpecialCategoryLi } from '../judge.style';
+import { SpecialCategoryContainer, SpecialCategoryLi } from './judgeNew.style';
 
 const JudgeNewSpecialCategory = () => {
   const { data, error, isLoading } = useQuery('special-category', () =>
