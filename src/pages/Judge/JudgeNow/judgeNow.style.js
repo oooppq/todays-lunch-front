@@ -196,6 +196,7 @@ export const JudgeNowDetailInfo = styled.div`
     font-size: 14px;
     color: #484848;
     line-height: 20px;
+    overflow-y: auto;
   }
   .mapBtn {
     margin-top: 10px;
