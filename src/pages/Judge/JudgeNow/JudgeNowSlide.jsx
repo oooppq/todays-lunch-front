@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import { Carousel } from 'react-responsive-carousel';
 import { JudgeNowSlideContainer } from './judgeNow.style';
@@ -16,7 +17,7 @@ const ArrowHandler = (clickHandler, hasMore, icon, direction) => (
   </div>
 );
 
-const JudgeNowSlide = () => {
+const JudgeNowSlide = ({ data, mutate }) => {
   return (
     <JudgeNowSlideContainer>
       <Carousel
@@ -30,9 +31,9 @@ const JudgeNowSlide = () => {
           ArrowHandler(clickHandler, hasNext, rightIcon, 'right')
         }
       >
-        <JudgeNowDetail />
-        <JudgeNowDetail />
-        <JudgeNowDetail />
+        {data.map((e) => (
+          <JudgeNowDetail detail={e} mutate={mutate} />
+        ))}
       </Carousel>
     </JudgeNowSlideContainer>
   );

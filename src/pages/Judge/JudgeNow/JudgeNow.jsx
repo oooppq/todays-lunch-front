@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useMutation, useQuery } from 'react-query';
+import axios from 'axios';
 import { JudgeNowContainer, JudgeNowHeader } from './judgeNow.style';
 import swipeIcon from '../../../assets/img/swipe-icon.svg';
 import listIcon from '../../../assets/img/clipboard-icon.svg';
@@ -7,6 +9,17 @@ import JudgeNowSlide from './JudgeNowSlide';
 
 const JudgeNow = () => {
   const [isList, setIsList] = useState(false);
+  const { data, isLoading, error } = useQuery(['restaurants'], () =>
+    // axios.get('/api/restaurants?judgement=true').then((res) => res.data)
+    axios.get('/api/judges').then((res) => res.data)
+  );
+
+  const { mutate, isLoading2 } = useMutation((id) =>
+    axios.post(`/api/restaurants/judges/${id}/agree`)
+  );
+
+  if (isLoading || isLoading2) return null;
+  if (error) return 'error!';
 
   return (
     <JudgeNowContainer>
@@ -26,7 +39,11 @@ const JudgeNow = () => {
           {isList ? '슬라이드 형식으로 보기' : '리스트 형식으로 보기'}
         </div>
       </JudgeNowHeader>
-      {isList ? <JudgeNowList /> : <JudgeNowSlide />}
+      {isList ? (
+        <JudgeNowList data={data} mutate={mutate} />
+      ) : (
+        <JudgeNowSlide data={data} mutate={mutate} />
+      )}
     </JudgeNowContainer>
   );
 };

@@ -5,7 +5,7 @@ import defaultImg from '../../../assets/img/default-image.png';
 import thumbIcon from '../../../assets/img/small-thumb-icon.svg';
 import xIcon from '../../../assets/img/x-icon.svg';
 
-const JudgeNowDetail = ({ setIsDetail, inListFlag }) => {
+const JudgeNowDetail = ({ detail, mutate, setIsDetail, inListFlag }) => {
   return (
     <JudgeNowDetailContainer>
       <img src={defaultImg} alt="" className="restImg" />
@@ -21,25 +21,25 @@ const JudgeNowDetail = ({ setIsDetail, inListFlag }) => {
         </button>
       ) : null}
       <JudgeNowDetailInfo>
-        <div className="title">마포리 1987</div>
+        <div className="title">{detail.restaurantName}</div>
         <div className="tags">
-          <div className="tag">#양식</div>
-          <div className="tag">#경숲길</div>
+          <div className="tag">#{detail.foodCategory}</div>
+          <div className="tag">#{detail.locationTag}</div>
         </div>
-        <div className="content">
-          리뷰에 대한 글 리뷰에 대한 글리뷰에 대한 글리뷰에 대한 글리뷰에 대한
-          글리뷰에 대한 글리뷰에 대한 글리뷰에 대한 글리뷰에 대한 글 글리뷰에
-          대한 글리뷰에 대한 글 글리뷰에 대한 글리뷰에 대한 글 글리뷰에 대한
-          글리뷰에 대한 글 글리뷰에 대한 글리뷰에 대한 글 글리뷰에 대한 글리뷰에
-          대한 글
-        </div>
+        <div className="content">{detail.introduction}</div>
         <div className="mapBtn">지도 위치 보기</div>
-        <div className="credit">post by 오대균</div>
+        <div className="credit">post by {detail.member}</div>
         <div className="recommend">
-          <div className="imageOuter">
+          <div
+            className="imageOuter"
+            aria-hidden="true"
+            onClick={() => {
+              mutate(detail.id);
+            }}
+          >
             <img src={thumbIcon} alt="" />
           </div>
-          <div className="recomNum">1</div>
+          <div className="recomNum">{detail.recommendationNum}</div>
         </div>
       </JudgeNowDetailInfo>
     </JudgeNowDetailContainer>
