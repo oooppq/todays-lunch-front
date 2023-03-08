@@ -1,12 +1,30 @@
-import React from 'react';
-import { JudgeNowListContainer, JudgeNowListLi } from './judgeNow.style';
+import React, { useState } from 'react';
+import {
+  JudgeNowListContainer,
+  JudgeNowListLi,
+  JudgeNowDetailModal,
+} from './judgeNow.style';
+import JudgeNowDetail from './JudgeNowDetail';
 import thumbIcon from '../../../assets/img/small-thumb-icon.svg';
 import defaultImg from '../../../assets/img/default-image.png';
 
 const JudgeNowList = () => {
+  const [isDetail, setIsDetail] = useState(false);
+  // const [selected, setSelected] = useState(null);
+
   return (
     <JudgeNowListContainer>
-      <JudgeNowListLi>
+      {isDetail ? (
+        <JudgeNowDetailModal>
+          <JudgeNowDetail setIsDetail={setIsDetail} inListFlag={1} />
+        </JudgeNowDetailModal>
+      ) : null}
+      <JudgeNowListLi
+        onClick={() => {
+          setIsDetail(true);
+          //   setSelected(e);
+        }}
+      >
         <img className="restImage" src={defaultImg} alt="" />
         <div className="info">
           <div className="title">마포리 1987</div>
