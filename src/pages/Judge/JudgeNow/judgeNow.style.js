@@ -7,6 +7,7 @@ export const JudgeNowContainer = styled.div`
 export const JudgeNowHeader = styled.div`
   margin: 33px 0 31px 0;
   display: flex;
+  height: 53px;
   align-items: center;
   .listSlideIcon {
     margin-left: 25px;
@@ -108,7 +109,33 @@ export const JudgeNowDetailModal = styled.div`
   align-items: center;
 `;
 
-export const JudgeNowSlideContainer = styled.div``;
+export const JudgeNowSlideContainer = styled.div`
+  position: relative;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  .carousel .control-arrow {
+    background-color: black;
+    color: black;
+  }
+  .arrowContainer {
+    top: 0;
+    width: 46px;
+    height: 100%;
+    z-index: 999;
+
+    .arrowIcon {
+      padding-top: 269px;
+    }
+  }
+  .left {
+    left: 0px;
+    padding-left: 20px;
+  }
+  .right {
+    right: 0px;
+    padding-right: 20px;
+  }
+`;
 
 export const JudgeNowDetailContainer = styled.div`
   position: relative;
