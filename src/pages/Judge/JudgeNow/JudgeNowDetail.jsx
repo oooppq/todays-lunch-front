@@ -5,7 +5,13 @@ import defaultImg from '../../../assets/img/default-image.png';
 import thumbIcon from '../../../assets/img/small-thumb-icon.svg';
 import xIcon from '../../../assets/img/x-icon.svg';
 
-const JudgeNowDetail = ({ detail, mutate, setIsDetail, inListFlag }) => {
+const JudgeNowDetail = ({
+  detail,
+  mutate,
+  recomFlag,
+  setIsDetail,
+  inListFlag,
+}) => {
   return (
     <JudgeNowDetailContainer>
       <img src={defaultImg} alt="" className="restImg" />
@@ -36,10 +42,16 @@ const JudgeNowDetail = ({ detail, mutate, setIsDetail, inListFlag }) => {
             onClick={() => {
               mutate(detail.id);
             }}
+            style={recomFlag ? { backgroundColor: '#6ab2b2' } : null}
           >
             <img src={thumbIcon} alt="" />
           </div>
-          <div className="recomNum">{detail.recommendationNum}</div>
+          <div
+            className="recomNum"
+            style={recomFlag ? { backgroundColor: '#6ab2b2' } : null}
+          >
+            {detail.recommendationNum}
+          </div>
         </div>
       </JudgeNowDetailInfo>
     </JudgeNowDetailContainer>

@@ -9,17 +9,22 @@ import JudgeNowSlide from './JudgeNowSlide';
 
 const JudgeNow = () => {
   const [isList, setIsList] = useState(false);
-  const { data, isLoading, error } = useQuery(['restaurants'], () =>
+  const {
+    data: restaurantData,
+    isLoading: restaurantIsLoading,
+    error: restaurantError,
+  } = useQuery(['restaurants'], () =>
     // axios.get('/api/restaurants?judgement=true').then((res) => res.data)
     axios.get('/api/judges').then((res) => res.data)
   );
 
-  const { mutate, isLoading2 } = useMutation((id) =>
+  const { mutate, isLoading: recomPostIsLoading } = useMutation((id) =>
     axios.post(`/api/restaurants/judges/${id}/agree`)
   );
 
-  if (isLoading || isLoading2) return null;
-  if (error) return 'error!';
+  if (restaurantIsLoading || recomPostIsLoading) return null;
+
+  if (restaurantError) return 'error!';
 
   return (
     <JudgeNowContainer>
@@ -40,9 +45,9 @@ const JudgeNow = () => {
         </div>
       </JudgeNowHeader>
       {isList ? (
-        <JudgeNowList data={data} mutate={mutate} />
+        <JudgeNowList restaurantData={restaurantData} mutate={mutate} />
       ) : (
-        <JudgeNowSlide data={data} mutate={mutate} />
+        <JudgeNowSlide restaurantData={restaurantData} mutate={mutate} />
       )}
     </JudgeNowContainer>
   );
