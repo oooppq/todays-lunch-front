@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
+import React from 'react';
 import { useMutation, useQuery } from 'react-query';
 import axios from 'axios';
 import { JudgeNowDetailContainer, JudgeNowDetailInfo } from './judgeNow.style';
@@ -8,16 +8,13 @@ import thumbIcon from '../../../assets/img/small-thumb-icon.svg';
 import xIcon from '../../../assets/img/x-icon.svg';
 
 const JudgeNowDetail = ({ restaurant, setIsDetail, inListFlag }) => {
-  const [like, setLike] = useState(false);
-
   const { mutate } = useMutation(() =>
     axios.post(`/api/restaurants/judges/${restaurant.id}/agree`)
   );
-  const { refetch } = useQuery(['recommendation', restaurant.id], () =>
-    axios.get(`/api/restaurants/judges/${restaurant.id}/agree`).then((res) => {
-      setLike(res.data);
-      return res.data;
-    })
+  const { data: isLike } = useQuery(['recommendation', restaurant.id], () =>
+    axios
+      .get(`/api/restaurants/judges/${restaurant.id}/agree`)
+      .then((res) => res.data)
   );
 
   return (
@@ -47,18 +44,14 @@ const JudgeNowDetail = ({ restaurant, setIsDetail, inListFlag }) => {
           <div
             className="imageOuter"
             aria-hidden="true"
-            onClick={() => {
-              mutate();
-              setLike(!like);
-              refetch();
-            }}
-            style={like ? { backgroundColor: '#6ab2b2' } : null}
+            onClick={mutate}
+            style={isLike ? { backgroundColor: '#6ab2b2' } : null}
           >
             <img src={thumbIcon} alt="" />
           </div>
           <div
             className="recomNum"
-            style={like ? { backgroundColor: '#6ab2b2' } : null}
+            style={isLike ? { backgroundColor: '#6ab2b2' } : null}
           >
             {restaurant.recommendationNum}
           </div>

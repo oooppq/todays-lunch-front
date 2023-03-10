@@ -12,16 +12,13 @@ import thumbIcon from '../../../assets/img/small-thumb-icon.svg';
 import defaultImg from '../../../assets/img/default-image.png';
 
 const ListElem = ({ restaurant, setIsDetail, setSelected }) => {
-  const [like, setLike] = useState(false);
-
   const { mutate } = useMutation(() =>
     axios.post(`/api/restaurants/judges/${restaurant.id}/agree`)
   );
-  const { refetch } = useQuery(['recommendation', restaurant.id], () =>
-    axios.get(`/api/restaurants/judges/${restaurant.id}/agree`).then((res) => {
-      setLike(res.data);
-      return res.data;
-    })
+  const { data: isLike } = useQuery(['recommendation', restaurant.id], () =>
+    axios
+      .get(`/api/restaurants/judges/${restaurant.id}/agree`)
+      .then((res) => res.data)
   );
 
   return (
@@ -50,17 +47,15 @@ const ListElem = ({ restaurant, setIsDetail, setSelected }) => {
           aria-hidden="true"
           onClick={(event) => {
             mutate();
-            setLike(!like);
-            refetch();
             event.stopPropagation();
           }}
-          style={like ? { backgroundColor: '#6ab2b2' } : null}
+          style={isLike ? { backgroundColor: '#6ab2b2' } : null}
         >
           <img src={thumbIcon} alt="" />
         </div>
         <div
           className="recomNum"
-          style={like ? { backgroundColor: '#6ab2b2' } : null}
+          style={isLike ? { backgroundColor: '#6ab2b2' } : null}
         >
           {restaurant.recommendationNum}
         </div>
