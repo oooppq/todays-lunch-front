@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
-import { useQueries } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 import axios from 'axios';
 import {
   JudgeNowListContainer,
@@ -11,79 +11,85 @@ import JudgeNowDetail from './JudgeNowDetail';
 import thumbIcon from '../../../assets/img/small-thumb-icon.svg';
 import defaultImg from '../../../assets/img/default-image.png';
 
-const JudgeNowList = ({ restaurantData, mutate }) => {
-  const [isDetail, setIsDetail] = useState(false);
-  const [selected, setSelected] = useState(null);
+const ListElem = ({ restaurant, setIsDetail, setSelected }) => {
+  const [like, setLike] = useState(false);
 
-  const recomRess = useQueries(
-    restaurantData.map((e) => {
-      return {
-        queryKey: ['recommendation', e.id],
-        queryFn: () => axios.get(`/api/restaurants/judges/${e.id}/agree`),
-        enabled: !!restaurantData,
-      };
+  const { mutate } = useMutation(() =>
+    axios.post(`/api/restaurants/judges/${restaurant.id}/agree`)
+  );
+  const { refetch } = useQuery(['recommendation', restaurant.id], () =>
+    axios.get(`/api/restaurants/judges/${restaurant.id}/agree`).then((res) => {
+      setLike(res.data);
+      return res.data;
     })
   );
 
-  if (recomRess.some((res) => res.isLoading)) return null;
+  return (
+    <JudgeNowListLi
+      onClick={() => {
+        setIsDetail(true);
+        setSelected(restaurant);
+      }}
+    >
+      <img className="restImage" src={defaultImg} alt="" />
+      {/* <img className="restImage" src={e.imageUrl} alt="" /> */}
+      <div className="info">
+        <div className="title">{restaurant.restaurantName}</div>
+        <div className="content">
+          <div className="up">
+            <span>#{restaurant.foodCategory} </span>
+            <span>#{restaurant.locationTag}</span>
+          </div>
+          <div className="down">#{restaurant.locationCategory}</div>
+        </div>
+        <div className="credit">post by {restaurant.member}</div>
+      </div>
+      <div className="recommend">
+        <div
+          className="imageOuter"
+          aria-hidden="true"
+          onClick={(event) => {
+            mutate();
+            setLike(!like);
+            refetch();
+            event.stopPropagation();
+          }}
+          style={like ? { backgroundColor: '#6ab2b2' } : null}
+        >
+          <img src={thumbIcon} alt="" />
+        </div>
+        <div
+          className="recomNum"
+          style={like ? { backgroundColor: '#6ab2b2' } : null}
+        >
+          {restaurant.recommendationNum}
+        </div>
+      </div>
+    </JudgeNowListLi>
+  );
+};
+const JudgeNowList = ({ restaurantData }) => {
+  const [isDetail, setIsDetail] = useState(false);
+  const [selected, setSelected] = useState(null);
 
   return (
     <JudgeNowListContainer>
       {isDetail ? (
         <JudgeNowDetailModal>
           <JudgeNowDetail
-            detail={selected.data}
-            mutate={mutate}
-            recomFlag={recomRess[selected.idx].data.data}
+            restaurant={selected}
             setIsDetail={setIsDetail}
             inListFlag={1}
           />
         </JudgeNowDetailModal>
       ) : null}
-      {restaurantData.map((e, i) => (
-        <JudgeNowListLi
-          key={`${e.restaurantName},${e.latitude},${e.longitude}`}
-          onClick={() => {
-            setIsDetail(true);
-            setSelected({ idx: i, data: e });
-          }}
-        >
-          <img className="restImage" src={defaultImg} alt="" />
-          {/* <img className="restImage" src={e.imageUrl} alt="" /> */}
-          <div className="info">
-            <div className="title">{e.restaurantName}</div>
-            <div className="content">
-              <div className="up">
-                <span>#{e.foodCategory} </span>
-                <span>#{e.locationTag}</span>
-              </div>
-              <div className="down">#{e.locationCategory}</div>
-            </div>
-            <div className="credit">post by {e.member}</div>
-          </div>
-          <div className="recommend">
-            <div
-              className="imageOuter"
-              aria-hidden="true"
-              onClick={() => {
-                mutate(e.id);
-              }}
-              style={
-                recomRess[i].data.data ? { backgroundColor: '#6ab2b2' } : null
-              }
-            >
-              <img src={thumbIcon} alt="" />
-            </div>
-            <div
-              className="recomNum"
-              style={
-                recomRess[i].data.data ? { backgroundColor: '#6ab2b2' } : null
-              }
-            >
-              {e.recommendationNum}
-            </div>
-          </div>
-        </JudgeNowListLi>
+      {restaurantData.map((restaurant) => (
+        <ListElem
+          key={`${restaurant.restaurantName},${restaurant.latitude},${restaurant.longitude}`}
+          restaurant={restaurant}
+          setIsDetail={setIsDetail}
+          setSelected={setSelected}
+        />
       ))}
     </JudgeNowListContainer>
   );

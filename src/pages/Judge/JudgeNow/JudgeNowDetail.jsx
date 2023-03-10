@@ -1,17 +1,25 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useState } from 'react';
+import { useMutation, useQuery } from 'react-query';
+import axios from 'axios';
 import { JudgeNowDetailContainer, JudgeNowDetailInfo } from './judgeNow.style';
 import defaultImg from '../../../assets/img/default-image.png';
 import thumbIcon from '../../../assets/img/small-thumb-icon.svg';
 import xIcon from '../../../assets/img/x-icon.svg';
 
-const JudgeNowDetail = ({
-  detail,
-  mutate,
-  recomFlag,
-  setIsDetail,
-  inListFlag,
-}) => {
+const JudgeNowDetail = ({ restaurant, setIsDetail, inListFlag }) => {
+  const [like, setLike] = useState(false);
+
+  const { mutate } = useMutation(() =>
+    axios.post(`/api/restaurants/judges/${restaurant.id}/agree`)
+  );
+  const { refetch } = useQuery(['recommendation', restaurant.id], () =>
+    axios.get(`/api/restaurants/judges/${restaurant.id}/agree`).then((res) => {
+      setLike(res.data);
+      return res.data;
+    })
+  );
+
   return (
     <JudgeNowDetailContainer>
       <img src={defaultImg} alt="" className="restImg" />
@@ -27,30 +35,32 @@ const JudgeNowDetail = ({
         </button>
       ) : null}
       <JudgeNowDetailInfo>
-        <div className="title">{detail.restaurantName}</div>
+        <div className="title">{restaurant.restaurantName}</div>
         <div className="tags">
-          <div className="tag">#{detail.foodCategory}</div>
-          <div className="tag">#{detail.locationTag}</div>
+          <div className="tag">#{restaurant.foodCategory}</div>
+          <div className="tag">#{restaurant.locationTag}</div>
         </div>
-        <div className="content">{detail.introduction}</div>
+        <div className="content">{restaurant.introduction}</div>
         <div className="mapBtn">지도 위치 보기</div>
-        <div className="credit">post by {detail.member}</div>
+        <div className="credit">post by {restaurant.member}</div>
         <div className="recommend">
           <div
             className="imageOuter"
             aria-hidden="true"
             onClick={() => {
-              mutate(detail.id);
+              mutate();
+              setLike(!like);
+              refetch();
             }}
-            style={recomFlag ? { backgroundColor: '#6ab2b2' } : null}
+            style={like ? { backgroundColor: '#6ab2b2' } : null}
           >
             <img src={thumbIcon} alt="" />
           </div>
           <div
             className="recomNum"
-            style={recomFlag ? { backgroundColor: '#6ab2b2' } : null}
+            style={like ? { backgroundColor: '#6ab2b2' } : null}
           >
-            {detail.recommendationNum}
+            {restaurant.recommendationNum}
           </div>
         </div>
       </JudgeNowDetailInfo>
@@ -58,4 +68,4 @@ const JudgeNowDetail = ({
   );
 };
 
-export default JudgeNowDetail;
+export default React.memo(JudgeNowDetail);

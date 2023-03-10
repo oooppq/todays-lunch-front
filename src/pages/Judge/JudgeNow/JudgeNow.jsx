@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useMutation, useQuery } from 'react-query';
+import { useQuery } from 'react-query';
 import axios from 'axios';
 import { JudgeNowContainer, JudgeNowHeader } from './judgeNow.style';
 import swipeIcon from '../../../assets/img/swipe-icon.svg';
@@ -8,7 +8,7 @@ import JudgeNowList from './JudgeNowList';
 import JudgeNowSlide from './JudgeNowSlide';
 
 const JudgeNow = () => {
-  const [isList, setIsList] = useState(false);
+  const [isList, setIsList] = useState(true);
   const {
     data: restaurantData,
     isLoading: restaurantIsLoading,
@@ -18,11 +18,7 @@ const JudgeNow = () => {
     axios.get('/api/judges').then((res) => res.data)
   );
 
-  const { mutate, isLoading: recomPostIsLoading } = useMutation((id) =>
-    axios.post(`/api/restaurants/judges/${id}/agree`)
-  );
-
-  if (restaurantIsLoading || recomPostIsLoading) return null;
+  if (restaurantIsLoading) return null;
 
   if (restaurantError) return 'error!';
 
@@ -45,9 +41,9 @@ const JudgeNow = () => {
         </div>
       </JudgeNowHeader>
       {isList ? (
-        <JudgeNowList restaurantData={restaurantData} mutate={mutate} />
+        <JudgeNowList restaurantData={restaurantData} />
       ) : (
-        <JudgeNowSlide restaurantData={restaurantData} mutate={mutate} />
+        <JudgeNowSlide restaurantData={restaurantData} />
       )}
     </JudgeNowContainer>
   );
