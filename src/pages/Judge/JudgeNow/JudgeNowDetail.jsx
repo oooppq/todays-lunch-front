@@ -68,4 +68,4 @@ const JudgeNowDetail = ({ restaurant, setIsDetail, inListFlag }) => {
   );
 };
 
-export default React.memo(JudgeNowDetail);
+export default JudgeNowDetail;
