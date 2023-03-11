@@ -1,7 +1,7 @@
 /* eslint-disable prefer-template */
 /* eslint-disable react/prop-types */
 import React, { useEffect } from 'react';
-import { JudgeSearchHeader, JudgeSearchBox } from '../judge.style';
+import { JudgeSearchHeader, JudgeSearchBox } from './judgeNew.style';
 import xIcon from '../../../assets/img/x-icon.svg';
 import searchIcon from '../../../assets/img/search-icon.svg';
 

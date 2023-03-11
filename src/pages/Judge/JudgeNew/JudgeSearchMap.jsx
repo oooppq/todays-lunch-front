@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { MapMarker } from 'react-kakao-maps-sdk';
 import { pushRecentSearch } from '../../../libs/utils';
-import { StyledMap } from '../judge.style';
+import { StyledMap } from './judgeNew.style';
 
 const JudgeSearchMap = ({ data, selected, setSelected }) => {
   const [map, setMap] = useState();

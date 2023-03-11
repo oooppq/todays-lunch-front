@@ -24,7 +24,7 @@ const JudgeHome = () => {
       <JudgeBody>
         <JudgeBtn
           onClick={() => {
-            navigate('./new-judge');
+            navigate('./new');
           }}
         >
           <img src={pencilIcon} alt="" className="pencil" />
@@ -35,7 +35,7 @@ const JudgeHome = () => {
         </JudgeBtn>
         <JudgeBtn
           onClick={() => {
-            navigate('./list');
+            navigate('./now');
           }}
         >
           <img

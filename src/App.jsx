@@ -14,7 +14,7 @@ import Join from './pages/Join/Join';
 import MyPage from './pages/MyPage/MyPage';
 import JudgeHome from './pages/Judge/JudgeHome';
 import JudgeNew from './pages/Judge/JudgeNew/JudgeNew';
-import JudgeList from './pages/Judge/JudgeList/JudgeList';
+import JudgeNow from './pages/Judge/JudgeNow/JudgeNow';
 
 const queryClient = new QueryClient();
 
@@ -29,8 +29,8 @@ const App = () => {
           <Route path="/restaurants" element={<Restaurant />} />
           <Route path="/play" element={<Play />} />
           <Route path="/restaurants-judge" element={<JudgeHome />} />
-          <Route path="restaurants-judge/new-judge" element={<JudgeNew />} />
-          <Route path="restaurants-judge/list" element={<JudgeList />} />
+          <Route path="restaurants-judge/new" element={<JudgeNew />} />
+          <Route path="restaurants-judge/now" element={<JudgeNow />} />
           <Route path="/login" element={<Login />} />
           <Route path="/join" element={<Join />} />
           <Route path="/mypage" element={<MyPage />} />

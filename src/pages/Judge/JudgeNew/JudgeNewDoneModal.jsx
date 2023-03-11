@@ -6,7 +6,7 @@ import axios from 'axios';
 import {
   JudgeNewDoneModalContainer,
   JudgeNewDoneModalInner,
-} from '../judge.style';
+} from './judgeNew.style';
 import JudgeNewDoneSuccess from './JudgeNewDoneSuccess';
 import { reset } from '../../../redux/judgeNew';
 import xIcon from '../../../assets/img/x-icon.svg';

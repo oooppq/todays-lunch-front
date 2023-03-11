@@ -5,7 +5,7 @@ import {
   SelectedResultContainer,
   SearchDoneBtn,
   SelectedResult,
-} from '../judge.style';
+} from './judgeNew.style';
 import {
   setLatitude,
   setRestaurantName,

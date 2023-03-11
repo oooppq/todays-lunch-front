@@ -4,7 +4,7 @@ import {
   JudgeSearchContainer,
   JudgeSearchInner,
   JudgeRecentSearchContainer,
-} from '../judge.style';
+} from './judgeNew.style';
 
 import JudgeSearchResult from './JudgeSearchResult';
 import JudgeSearchMap from './JudgeSearchMap';

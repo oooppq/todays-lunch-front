@@ -34,7 +34,12 @@ const Recommendation = () => {
       <RecommendationTitle>
         🍚 <span>오늘의</span> 맛집
       </RecommendationTitle>
-      <Carousel showStatus={false} showArrows={false} showThumbs={false}>
+      <Carousel
+        showStatus={false}
+        showArrows
+        showThumbs={false}
+        showIndicators={false}
+      >
         {data.map((e) => (
           <RecommendationElem
             id={e.id}
