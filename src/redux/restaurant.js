@@ -16,6 +16,7 @@ const initialState = {
   selectedLocCat: null,
   selectedLocTag: null,
   selectedFoodCat: null,
+  selectedRecomCat: null,
   searchKeyword: '',
   sortBy: { id: 1, name: '평점순', query: 'rating' },
   pageNum: 1,
@@ -62,6 +63,9 @@ export const restaurantSlice = createSlice({
     setSelectedFoodCat: (state, action) => {
       state.selectedFoodCat = action.payload;
     },
+    setSelectedRecomCat: (state, action) => {
+      state.selectedRecomCat = action.payload;
+    },
     setSearchKeyword: (state, action) => {
       state.searchKeyword = action.payload;
     },
@@ -84,6 +88,7 @@ export const {
   setSelectedLocCat,
   setSelectedLocTag,
   setSelectedFoodCat,
+  setSelectedRecomCat,
   setSearchKeyword,
   setSortBy,
   setPageNum,

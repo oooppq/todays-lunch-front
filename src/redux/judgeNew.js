@@ -7,7 +7,7 @@ const initialState = {
   foodCategory: null,
   locationCategory: null,
   locationTag: null,
-  specialCategory: [],
+  recommendCategory: [],
   latitude: null,
   longitude: null,
   address: null,
@@ -33,8 +33,8 @@ export const judgeNewSlice = createSlice({
     setLocationTag: (state, action) => {
       state.locationTag = action.payload;
     },
-    setSpecialCategory: (state, action) => {
-      state.specialCategory = action.payload;
+    setRecommendCategory: (state, action) => {
+      state.recommendCategory = action.payload;
     },
     setLatitude: (state, action) => {
       state.latitude = action.payload;
@@ -60,7 +60,7 @@ export const {
   setFoodCategory,
   setLocationCategory,
   setLocationTag,
-  setSpecialCategory,
+  setRecommendCategory,
   setLatitude,
   setLongitude,
   setAddress,

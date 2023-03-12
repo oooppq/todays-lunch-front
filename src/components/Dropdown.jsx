@@ -17,6 +17,7 @@ const Dropdown = ({
   defaultValue,
   style,
   isWhole,
+  isRecommend,
 }) => {
   const [isActive, setIsActive] = useState(false);
 
@@ -35,10 +36,32 @@ const Dropdown = ({
   });
 
   return (
-    <DropdownContainer ref={dropdownRef} styleInfo={style}>
+    <DropdownContainer
+      ref={dropdownRef}
+      styleInfo={style}
+      style={selected ? { borderColor: selected.color } : null}
+    >
       <SelectedLabel type="button" fontSize={style.fontSize}>
-        <span className="label">{selected ? selected.name : defaultValue}</span>
-        <span className="triangle"> ▼</span>
+        <span
+          className="label"
+          style={isRecommend && selected ? { color: 'black' } : null}
+        >
+          {isRecommend ? (
+            <span
+              style={selected ? { color: selected.color || style.color } : null}
+            >
+              #{' '}
+            </span>
+          ) : null}
+          {selected ? selected.name : defaultValue}
+        </span>
+        <span
+          className="triangle"
+          style={selected ? { color: selected.color || style.color } : null}
+        >
+          {' '}
+          ▼
+        </span>
       </SelectedLabel>
       {isActive ? (
         <OptionContainer
@@ -63,6 +86,7 @@ const Dropdown = ({
                     : { color: '#9a9a9a' }
                 }
               >
+                {isRecommend ? <span># </span> : null}
                 {elem.name}
               </OptionLi>
             ))}

@@ -12,6 +12,19 @@ export const RestaurantNavUp = styled.div`
   margin: 0 12px;
 `;
 
+export const RestaurantNavDown = styled.div`
+  .up {
+    display: flex;
+    justify-content: space-between;
+    height: 32px;
+    margin: 20px 19px 10px 19px;
+  }
+  .down {
+    height: 28px;
+    margin: 0 19px;
+  }
+`;
+
 export const MapBtn = styled.div`
   width: 40px;
   display: flex;
@@ -62,13 +75,6 @@ export const SearchBox = styled.div`
   }
 `;
 
-export const RestaurantNavDown = styled.div`
-  display: flex;
-  justify-content: space-between;
-  height: 32px;
-  margin: 20px 19px 0 19px;
-`;
-
 // elements for Map
 export const MapContainer = styled.div`
   .emptyDiv {
@@ -96,51 +102,70 @@ export const CustomOverlayElem = styled.div`
 
 // elements for List
 export const ListContainer = styled.div`
-  margin: 25px 26px 0 26px;
+  margin: 6px 26px 0 26px;
 `;
 export const ListUl = styled.ul`
   margin: 0;
   padding: 0;
+  height: 471px;
+  overflow-y: auto;
 `;
 
 export const ListElem = styled.li`
   display: flex;
   height: 118px;
-  margin: 19px 0;
+  margin: 19px 0 0 0;
   padding-bottom: 19px;
   border-bottom: 1px solid #f0f0f0;
+`;
+
+export const ListElemImg = styled.img`
+  height: 100%;
+  width: 40%;
+  padding-right: 16px;
+  border-radius: 3px;
+  box-sizing: border-box;
 `;
 
 export const ListElemInfo = styled.div`
   width: 60%;
   overflow: hidden;
   white-space: nowrap;
+  button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: transparent;
+  }
   .title {
     font-size: 18px;
   }
   .etc {
+    display: flex;
+    flex-direction: column;
+    margin-top: 3px;
+    width: 140px;
     font-size: 13px;
     color: #636363;
+    .categories {
+      margin-right: 5px;
+    }
     .reviewRate {
       margin-top: 4px;
-      margin-bottom: 28px;
+      margin-bottom: 34px;
       font-size: 12px;
       color: #356461;
       // text-align: right;
     }
     .btnContainer {
-      margin-top: 9px;
       margin-bottom: 6px;
       button {
         font-size: 11px;
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        appearance: none;
-        background-color: transparent;
         border: 1px solid #bdbdbd;
         border-radius: 10px;
-        margin-right: 9px;
-        padding: 0 11px;
+        margin-right: 4px;
+        padding: 0 10px;
+        padding-top: 2px;
         height: 21px;
         color: #5e5e5e;
         a {
@@ -150,17 +175,25 @@ export const ListElemInfo = styled.div`
       }
     }
   }
-  div {
-    padding: 1px 0;
-  }
 `;
 
-export const ListElemImg = styled.img`
-  height: 100%;
-  width: 40%;
-  padding-right: 16px;
-  border-radius: 3px;
-  box-sizing: border-box;
+export const WishAndRoulette = styled.div`
+  text-align: right;
+  button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: transparent;
+    width: 37px;
+    height: 37px;
+    box-sizing: border-box;
+    border: 1px solid #bdbdbd;
+    border-radius: 50%;
+    margin: 8px 0px;
+    img {
+      margin-top: 2px;
+    }
+  }
 `;
 
 export const PaginationContainer = styled.div`
