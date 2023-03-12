@@ -586,7 +586,7 @@ export const JudgeRecentSearchContainer = styled.div`
   overflow-y: auto;
 `;
 
-export const SpecialCategoryContainer = styled.ul`
+export const RecommendCategoryContainer = styled.ul`
   margin: 0;
   padding: 0;
   list-style: none;
@@ -613,7 +613,7 @@ export const SpecialCategoryContainer = styled.ul`
   }
 `;
 
-export const SpecialCategoryLi = styled.li`
+export const RecommendCategoryLi = styled.li`
   height: 18px;
   flex-shrink: 1;
   font-size: 15px;

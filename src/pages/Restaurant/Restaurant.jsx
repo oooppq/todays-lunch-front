@@ -7,11 +7,20 @@ import RestaurantNav from './RestaurantNav';
 import Map from './Map';
 import List from './List';
 
-const urlMaker = (locCat, locTag, foodCat, keyword, sortBy, pageNum) => {
+const urlMaker = (
+  locCat,
+  locTag,
+  foodCat,
+  recomCat,
+  keyword,
+  sortBy,
+  pageNum
+) => {
   let url = '/api/restaurants?';
-  if (locCat) url += `location-category=${locCat.id}`;
-  if (locTag) url += `&location-tag=${locTag.id}`;
-  if (foodCat) url += `&food-category=${foodCat.id}`;
+  if (locCat) url += `location-category=${locCat.name}`;
+  if (locTag) url += `&location-tag=${locTag.name}`;
+  if (foodCat) url += `&food-category=${foodCat.name}`;
+  if (recomCat) url += `&recommendation-category=${recomCat.id}`;
   if (keyword.length !== 0) url += `&keyword=${keyword}`;
   url += `&sort=${sortBy.query}&page=${pageNum}&size=10`;
   url += `&order=descending`;
@@ -30,6 +39,9 @@ const Restaurant = () => {
   const selectedFoodCat = useSelector(
     (state) => state.restaurant.selectedFoodCat
   );
+  const selectedRecomCat = useSelector(
+    (state) => state.restaurant.selectedRecomCat
+  );
   const searchKeyword = useSelector((state) => state.restaurant.searchKeyword);
   const sortBy = useSelector((state) => state.restaurant.sortBy);
   const order = useSelector((state) => state.restaurant.order);
@@ -37,16 +49,24 @@ const Restaurant = () => {
 
   const ress = useQueries([
     {
-      queryKey: ['location-category'],
+      queryKey: 'location-category',
       queryFn: () => axios.get('/api/location-category'),
+      refetchOnWindowFocus: false,
     },
     {
-      queryKey: ['location-tags'],
+      queryKey: 'location-tags',
       queryFn: () => axios.get('/api/location-tags'),
+      refetchOnWindowFocus: false,
     },
     {
-      queryKey: ['food-category'],
+      queryKey: 'food-category',
       queryFn: () => axios.get('/api/food-category'),
+      refetchOnWindowFocus: false,
+    },
+    {
+      queryKey: 'recommend-category',
+      queryFn: () => axios.get('/api/recommend-category'),
+      refetchOnWindowFocus: false,
     },
   ]);
 
@@ -56,6 +76,7 @@ const Restaurant = () => {
       selectedLocCat,
       selectedLocTag,
       selectedFoodCat,
+      selectedRecomCat,
       searchKeyword,
       sortBy,
       order,
@@ -69,16 +90,17 @@ const Restaurant = () => {
             selectedLocCat,
             selectedLocTag,
             selectedFoodCat,
+            selectedRecomCat,
             searchKeyword,
             sortBy,
             pageNum
           )
         )
-        .then((res) => res.data)
+        .then((res) => res.data),
+    { refetchOnWindowFocus: false }
   );
   if (error) return 'error!';
-  if (isLoading) return null;
-  if (ress.some((res) => res.status === 'loading') || isLoading) return null;
+  if (ress.some((res) => res.status === 'loading')) return null;
 
   return (
     <RestaurantContainer>
@@ -86,12 +108,13 @@ const Restaurant = () => {
         locCategory={ress[0].data.data}
         locTag={ress[1].data.data}
         foodCategory={ress[2].data.data}
+        recomCategory={ress[3].data.data}
       />
-      {isMap ? (
-        <Map restaurants={data} />
-      ) : (
-        <List restaurants={data} totalPageNum={10} />
-      )}
+      {(() => {
+        if (isLoading) return null;
+        if (isMap) return <Map restaurants={data} />;
+        return <List restaurants={data} />;
+      })()}
     </RestaurantContainer>
   );
 };

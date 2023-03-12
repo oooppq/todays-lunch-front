@@ -1,18 +1,21 @@
 import styled from 'styled-components';
 
 export const DropdownContainer = styled.div`
-  width: ${({ styleInfo }) => styleInfo.width};
+  width: ${({ styleInfo }) => styleInfo.width || 'auto'};
   height: ${({ styleInfo }) => styleInfo.height};
-  border: 1px solid #bdbdbd;
+  border: 1px solid ${({ styleInfo }) => styleInfo.color || '#bdbdbd'};
   border-radius: 30px;
   box-sizing: border-box;
-  padding: 0 7px;
+  padding: 0 12px;
+  display: inline-block;
 `;
 export const SelectedLabel = styled.button`
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
   background-color: white;
+  position: relative;
+  text-align: left;
   border: none;
   color: #7c7c7c;
   width: 100%;
@@ -27,10 +30,12 @@ export const SelectedLabel = styled.button`
     display: inline-block;
     box-sizing: content-box;
     white-space: nowrap;
-    width: 50px;
+    padding-right: 15px;
     overflow: hidden;
   }
   .triangle {
+    position: absolute;
+    right: -2px;
     color: #cbcbcb;
   }
 `;
