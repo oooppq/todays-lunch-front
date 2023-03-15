@@ -59,11 +59,6 @@ export const SearchBox = styled.div`
     color: #b6b6b6;
   }
   button {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    background-color: transparent;
-    border: 0;
     padding: 0;
     margin: auto 15px;
     height: 23px;
@@ -131,12 +126,6 @@ export const ListElemInfo = styled.div`
   width: 60%;
   overflow: hidden;
   white-space: nowrap;
-  button {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    background-color: transparent;
-  }
   .title {
     font-size: 18px;
   }
@@ -180,10 +169,6 @@ export const ListElemInfo = styled.div`
 export const WishAndRoulette = styled.div`
   text-align: right;
   button {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    background-color: transparent;
     width: 37px;
     height: 37px;
     box-sizing: border-box;
@@ -202,10 +187,6 @@ export const PaginationContainer = styled.div`
   margin-top: 30px;
   font-size: 15px;
   button {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    background-color: transparent;
     border: none;
     padding: 0;
     img {

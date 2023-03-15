@@ -24,10 +24,6 @@ export const JudgeNewHeader = styled.div`
   border-bottom: 1px solid #ededed;
   justify-content: space-between;
   button {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    background-color: transparent;
     border: 0;
     padding: 0;
     height: 16px;
@@ -65,10 +61,6 @@ export const OutModalInner = styled.div`
     position: absolute;
     top: 16px;
     right: 17px;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    background-color: transparent;
     border: 0;
     padding: 0;
     height: 16px;
@@ -84,9 +76,6 @@ export const OutModalInner = styled.div`
   .outModalBtns {
     margin-top: 24px;
     button {
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      appearance: none;
       background-color: black;
       color: white;
       border: 0;
@@ -276,10 +265,6 @@ export const JudgeSearchHeader = styled.div`
     color: #6ab2b2;
   }
   button {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    background-color: transparent;
     border: 0;
     padding: 0;
   }
@@ -316,10 +301,6 @@ export const JudgeSearchBox = styled.div`
     outline: none;
   }
   button {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    background-color: transparent;
     border: 0;
     margin: auto 5px;
     height: 23px;
@@ -363,10 +344,6 @@ export const SelectedResult = styled.div`
     margin-bottom: 9px;
   }
   .detail {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    background-color: transparent;
     text-align: center;
     margin-left: 2px;
     padding: 3px 0 5px 0;
@@ -385,10 +362,6 @@ export const SelectedResult = styled.div`
 `;
 
 export const SearchDoneBtn = styled.button`
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  border: 0;
   border-radius: 20px;
   background-color: black;
   color: white;
@@ -402,11 +375,7 @@ export const SearchDoneBtn = styled.button`
 `;
 
 export const DoneBtn = styled.button`
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
   flex: 1;
-  border: 0;
   border-radius: 20px;
   padding: 10px 0;
   margin: 25px 38px;
@@ -448,10 +417,6 @@ export const JudgeSearchResultContainer = styled.ul`
       margin-bottom: 9px;
     }
     .detail {
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      appearance: none;
-      background-color: transparent;
       margin: 0 32px 0 30px;
       text-align: center;
       padding: 3px 0 5px 0;
@@ -514,11 +479,6 @@ export const JudgeNewDoneModalInner = styled.div`
     position: absolute;
     top: 16px;
     right: 17px;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    background-color: transparent;
-    border: 0;
     padding: 0;
     height: 16px;
     width: 16px;
@@ -540,10 +500,6 @@ export const JudgeNewDoneModalInner = styled.div`
   }
 
   button {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    border: 0;
     padding: 0;
   }
 

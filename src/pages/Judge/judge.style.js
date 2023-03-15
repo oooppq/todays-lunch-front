@@ -26,10 +26,6 @@ export const JudgeBtn = styled.button`
   height: 112px;
   width: 100%;
   margin-bottom: 39px;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  background-color: transparent;
   border: 1px solid #f0f0f0;
   border-radius: 20px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
