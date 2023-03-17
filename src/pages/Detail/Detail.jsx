@@ -1,9 +1,10 @@
 import React from 'react';
 // import { useParams } from 'react-router-dom';
-import { DetailContainer, DetailContributor } from './detail.style';
+import { DetailContainer } from './detail.style';
 import DetailInfo from './DetailInfo';
 import DetailMap from './DetailMap';
 import DetailTop from './DetailTop';
+import DetailContributor from './DetailContributor';
 
 const Detail = () => {
   // const { id } = useParams();
@@ -12,7 +13,7 @@ const Detail = () => {
       <DetailTop />
       <DetailInfo />
       <DetailMap />
-      <DetailContributor>치킨</DetailContributor>
+      <DetailContributor />
     </DetailContainer>
   );
 };
