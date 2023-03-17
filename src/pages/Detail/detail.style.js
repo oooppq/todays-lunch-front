@@ -5,7 +5,10 @@ export const DetailContainer = styled.div`
   top: 0;
   bottom: 0;
   max-width: 390px;
+  width: 100%;
   background-color: #f4f4f4;
+  display: flex;
+  flex-direction: column;
 `;
 
 export const DetailTopContainer = styled.div`
@@ -55,16 +58,22 @@ export const DetailTopContainer = styled.div`
   .navUl {
     list-style: none;
     display: flex;
-    justify-content: center;
-    padding: 0 0 10px 0;
-    margin: 15px 0 0 46px;
+    // justify-content: center;
+    padding: 0;
+    margin: 15px 0 0 27px;
     .navLi {
-      margin-right: 45px;
+      width: 67px;
+      margin: 0 9px;
+      text-align: center;
+      padding-bottom: 10px;
       .dish {
         object-fit: none;
         width: 50px;
         height: 37px;
       }
+    }
+    .active {
+      border-bottom: 3px solid black;
     }
   }
 `;
@@ -98,7 +107,7 @@ export const DetailInfoContainer = styled.div`
     margin-left: 43px;
     border: 1px solid #6ab2b2;
     border-radius: 15px;
-    padding: 4px 14px;
+    padding: 3px 14px;
     margin-top: 5px;
     font-size: 15px;
   }
@@ -179,7 +188,8 @@ export const DetailInfoContainer = styled.div`
 `;
 
 export const DetailMapContainer = styled.div`
-  margin: 61px 0 46px 0;
+  background-color: white;
+  padding: 61px 0 46px 0;
   display: flex;
   flex-direction: column;
   .title {
@@ -215,6 +225,8 @@ export const DetailMapContainer = styled.div`
 `;
 
 export const DetailContributorContainer = styled.div`
+  background-color: white;
+  padding-bottom: 110px;
   .title {
     font-family: Pretendard-SemiBold;
     font-size: 20px;

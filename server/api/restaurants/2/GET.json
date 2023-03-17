@@ -1,0 +1,22 @@
+{
+  "id": 2,
+  "restaurantName": "마포돼지불백",
+  "foodCategory": "한식",
+  "locationCategory": "서강대",
+  "locationTag": "정문",
+  "recommendCategoryList": [
+    "조용히 혼밥하기 좋으니 가게🍚",
+    "집밥이 그리울 때 가게🥘"
+  ],
+  "imageUrl": "https://todays-lunch-bucket.s3.ap-northeast-2.amazonaws.com/judge_restaurant/2023/02/25/aac947f8-44bc-4593-a73c-1b7d93dd896d_IMG_3207.PNG",
+  "latitude": 37.5514818,
+  "longitude": 126.9373166,
+  "address": "서울",
+  "rating": 4.9,
+  "reviewCount": 4723,
+  "wishCount": 6,
+  "contributors": [
+    { "id": 1, "nickname": "오대균", "profileImage": "" },
+    { "id": 2, "nickname": "이종미", "profileImage": "" }
+  ]
+}
