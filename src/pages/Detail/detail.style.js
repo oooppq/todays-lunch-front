@@ -342,10 +342,17 @@ export const DetailUpdateMenuModalContainer = styled(ModalCommon)`
           display: flex;
           font-size: 18px;
           .menuName {
-            flex-grow: 1;
+            margin-right: auto;
           }
           .menuPrice {
             color: #6a6a6a;
+          }
+          .newMenuName {
+            width: 153px;
+            margin-right: auto;
+          }
+          .newMenuPrice {
+            width: 83px;
           }
         }
       }

@@ -5,8 +5,10 @@ import xIcon from '../../assets/img/x-icon.svg';
 import warningIcon from '../../assets/img/warning-icon.svg';
 import addIcon from '../../assets/img/add-icon.svg';
 import { convertNum } from '../../libs/utils';
+import { useNewMenuHandler } from './detail.states';
 
 const DetailUpdateMenuModal = ({ closeUpdateMenuModal, menuData }) => {
+  const { isNewMenu, makeNewMenuForm } = useNewMenuHandler();
   return (
     <DetailUpdateMenuModalContainer>
       <div className="modalInner">
@@ -39,8 +41,20 @@ const DetailUpdateMenuModal = ({ closeUpdateMenuModal, menuData }) => {
                 </div>
               </li>
             ))}
+            {isNewMenu && (
+              <li className="updateMenuBodyLi">
+                <div className="updateMenuBodyLiInner">
+                  <input className="newMenuName" type="text" />
+                  <input className="newMenuPrice" type="text" />
+                </div>
+              </li>
+            )}
           </ul>
-          <button className="newMenuBtn" type="button">
+          <button
+            className="newMenuBtn"
+            type="button"
+            onClick={() => makeNewMenuForm()}
+          >
             <img src={addIcon} alt="" />
           </button>
         </div>
@@ -51,4 +65,5 @@ const DetailUpdateMenuModal = ({ closeUpdateMenuModal, menuData }) => {
     </DetailUpdateMenuModalContainer>
   );
 };
+
 export default DetailUpdateMenuModal;
