@@ -5,7 +5,9 @@ import DetailMap from './DetailMap';
 import DetailContributor from './DetailContributor';
 
 const DetailMain = ({ restaurantData, menuData }) => {
-  const coordination = {
+  const mapData = {
+    restaurantName: restaurantData.restaurantName,
+    address: restaurantData.adress,
     lat: restaurantData.latitude,
     lng: restaurantData.longitude,
   };
@@ -14,7 +16,7 @@ const DetailMain = ({ restaurantData, menuData }) => {
   return (
     <>
       <DetailInfo restaurantData={restaurantData} menuData={menuData} />
-      <DetailMap coordination={coordination} />
+      <DetailMap mapData={mapData} />
       <DetailContributor contributors={contributors} />
     </>
   );

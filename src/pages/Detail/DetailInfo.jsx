@@ -23,10 +23,13 @@ const DetailInfo = ({ restaurantData, menuData }) => {
   return (
     <DetailInfoContainer>
       {isMenu && (
-        <DetailMenuModal closeMenuModal={closeMenuModal} id={selectedMenu} />
+        <DetailMenuModal closeMenuModal={closeMenuModal} menu={selectedMenu} />
       )}
       {isUpdateMenu && (
-        <DetailUpdateMenuModal closeUpdateMenuModal={closeUpdateMenuModal} />
+        <DetailUpdateMenuModal
+          closeUpdateMenuModal={closeUpdateMenuModal}
+          menuData={menuData}
+        />
       )}
       {isUpdateSale && (
         <DetailUpdateSaleModal closeUpdateSaleModal={closeUpdateSaleModal} />
@@ -70,12 +73,12 @@ const DetailInfo = ({ restaurantData, menuData }) => {
             <li
               key={menu.id}
               className="menuLi"
-              onClick={() => openMenuModal(menu.id)}
+              onClick={() => openMenuModal(menu)}
               aria-hidden="true"
             >
               <div className="menuLiInner">
                 <div className="menuName">{menu.name}</div>
-                <div className="menuPhotoNum">(4)</div>
+                <div className="menuPhotoNum">({menu.photoNum})</div>
                 <div className="menuPrice">{convertNum(menu.price)}원</div>
               </div>
             </li>

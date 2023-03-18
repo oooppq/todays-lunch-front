@@ -10,9 +10,9 @@ export const useMenuModal = () => {
   const [isMenu, setIsMenu] = useState(false);
   const [selectedMenu, setSelectedMenu] = useState(null);
 
-  const openMenuModal = (id) => {
+  const openMenuModal = (menu) => {
     setIsMenu(true);
-    setSelectedMenu(id);
+    setSelectedMenu(menu);
   };
 
   const closeMenuModal = () => {
@@ -46,4 +46,14 @@ export const useUpdateSaleModal = () => {
   };
 
   return { isUpdateSale, openUpdateSaleModal, closeUpdateSaleModal };
+};
+
+export const useNewMenuHandler = () => {
+  const [isNewMenu, setIsNewMenu] = useState(false);
+
+  const makeNewMenuForm = () => {
+    setIsNewMenu(true);
+  };
+
+  return { isNewMenu, makeNewMenuForm };
 };

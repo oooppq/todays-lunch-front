@@ -3,6 +3,7 @@
     "id": 1,
     "name": "가츠동",
     "price": 7000,
+    "photoNum": 4,
     "sale": {
       "id": 1,
       "startDate": "2021-01-10",
@@ -14,6 +15,7 @@
     "id": 2,
     "name": "funcking 가츠동",
     "price": 10000,
+    "photoNum": 2,
     "sale": {
       "id": 1,
       "startDate": "2021-01-10",

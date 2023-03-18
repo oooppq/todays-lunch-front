@@ -3,6 +3,7 @@
     "id": 3,
     "name": "불백",
     "price": 7000,
+    "photoNum": 7,
     "sale": {
       "id": 1,
       "startDate": "2021-01-10",
@@ -14,6 +15,7 @@
     "id": 4,
     "name": "물백",
     "price": 10000,
+    "photoNum": 1,
     "sale": {
       "id": 1,
       "startDate": "2021-01-10",

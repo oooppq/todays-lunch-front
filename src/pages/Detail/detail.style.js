@@ -248,3 +248,127 @@ export const DetailContributorContainer = styled.div`
     }
   }
 `;
+
+const ModalCommon = styled.div`
+  position: fixed;
+  display: flex;
+  background-color: rgba(0, 0, 0, 0.4);
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  .modalInner {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 354px;
+    height: 521px;
+    background-color: white;
+    border-radius: 10px;
+    .closeBtn {
+      position: absolute;
+      top: 16px;
+      right: 18px;
+    }
+  }
+`;
+
+export const DetailMenuModalContainer = styled(ModalCommon)`
+  .menuModalTop {
+    display: flex;
+    margin: 30px 0 0 33px;
+    font-size: 20px;
+    font-family: Pretendard-Medium;
+    .menuModalPhotoNum {
+      margin-left: 5px;
+      color: #6ab2b2;
+    }
+  }
+  .newPhotoBtn {
+    position: absolute;
+    bottom: 24.66px;
+    left: 83px;
+    width: 188px;
+    height: 41px;
+    border-radius: 20px;
+    background-color: black;
+    color: white;
+    font-size: 18px;
+    font-family: Pretendard-SemiBold;
+  }
+`;
+
+export const DetailUpdateMenuModalContainer = styled(ModalCommon)`
+  .updateMenuTitle {
+    font-family: Pretendard-Bold;
+    font-size: 19px;
+    margin: 19px 0 0 25px;
+  }
+  .updateMenuWarning {
+    display: flex;
+    margin: 14px 0 0 22px;
+    align-items: center;
+    .warningComment {
+      width: 259px;
+      height: 84px;
+      padding: 11px 15px 13px 19px;
+      margin-left: 16px;
+      box-sizing: border-box;
+      background-color: #f4f4f4;
+      border-radius: 10px;
+      font-size: 14px;
+      color: #383838;
+      line-height: 20px;
+    }
+  }
+  .updateMenuBody {
+    margin: 22px 0 0 0;
+    display: flex;
+    flex-direction: column;
+    .updateMenuBodyTitle {
+      font-family: Pretendard-Medium;
+      font-size: 19px;
+      margin-left: 30px;
+    }
+    .updateMenuBodyUl {
+      margin: 15px 38px 0 43px;
+      padding: 0;
+      .updateMenuBodyLi {
+        margin-bottom: 11px;
+        .updateMenuBodyLiInner {
+          display: flex;
+          font-size: 18px;
+          .menuName {
+            flex-grow: 1;
+          }
+          .menuPrice {
+            color: #6a6a6a;
+          }
+        }
+      }
+      .updateMenuBodyLi::marker {
+        font-size: 5px;
+      }
+    }
+    .newMenuBtn {
+      margin: 26px auto 0 auto;
+    }
+  }
+  .updateMenuBtn {
+    position: absolute;
+    bottom: 24.66px;
+    left: 83px;
+    width: 188px;
+    height: 41px;
+    border-radius: 20px;
+    background-color: black;
+    color: white;
+    font-size: 18px;
+    font-family: Pretendard-SemiBold;
+  }
+`;
+
+export const DetailUpdateSaleModalContainer = styled(ModalCommon)``;
