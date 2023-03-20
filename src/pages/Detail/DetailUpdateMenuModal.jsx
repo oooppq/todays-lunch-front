@@ -34,7 +34,7 @@ const DetailUpdateMenuModal = ({ closeUpdateMenuModal, menuData }) => {
           <div className="updateMenuBodyTitle">메뉴</div>
           <ul className="updateMenuBodyUl">
             {menuData.map((menu) => (
-              <li className="updateMenuBodyLi">
+              <li key={menu.id} className="updateMenuBodyLi">
                 <div className="updateMenuBodyLiInner">
                   <div className="menuName">{menu.name}</div>
                   <div className="menuPrice">{convertNum(menu.price)}원</div>

@@ -18,7 +18,11 @@ const DetailMap = ({ mapData }) => {
         <MapMarker position={{ lat: mapData.lat, lng: mapData.lng }} />
       </Map>
       <button type="button" className="findWay">
-        길찾기
+        <a
+          href={`https://map.kakao.com/link/to/${mapData.restaurantName},${mapData.lng},${mapData.lat}`}
+        >
+          길찾기
+        </a>
       </button>
     </DetailMapContainer>
   );

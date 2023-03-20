@@ -219,8 +219,12 @@ export const DetailMapContainer = styled.div`
     height: 30px;
     border: 1px solid #bdbdbd;
     border-radius: 20px;
-    font-size: 13px;
-    color: #5e5e5e;
+    a {
+      font-size: 13px;
+      color: #5e5e5e;
+      text-decoration: none;
+      line-height: 1;
+    }
   }
 `;
 

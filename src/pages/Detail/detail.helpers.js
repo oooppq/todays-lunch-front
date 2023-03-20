@@ -14,8 +14,11 @@ export const useDetailPageData = (id) =>
     { queryKey: ['menus', id], queryFn: () => getMenuData(id) },
   ]);
 
-export const useMenuData = (id) =>
-  useQuery(['menus', id], () => getMenuData(id));
+const getMenuPhoto = (id) =>
+  axios.get(`/api/menus/${id}`).then((res) => res.data);
+
+export const useMenuPhoto = (id) =>
+  useQuery(['menuPhotos', id], () => getMenuPhoto(id));
 
 export const handleGoBack = (navigate) => {
   navigate(-1);
