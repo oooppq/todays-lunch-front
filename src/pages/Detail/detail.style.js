@@ -383,3 +383,98 @@ export const DetailUpdateMenuModalContainer = styled(ModalCommon)`
 `;
 
 export const DetailUpdateSaleModalContainer = styled(ModalCommon)``;
+
+export const DetailReviewContainer = styled.div`
+  background-color: white;
+  margin-top: 26px;
+  .reviewTitle {
+    margin: 33px 0 0 20px;
+    font-family: Pretendard-SemiBold;
+    font-size: 20px;
+    span {
+      padding-left: 5px;
+      font-family: Pretendard-Regular;
+      color: #6ab2b2;
+      font-size: 18px;
+    }
+  }
+  .newReview {
+    margin-top: 29px;
+    display: flex;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #dfdfdf;
+    .myProfileImg {
+      width: 31px;
+      height: 34px;
+      margin: 0 12px 0 15px;
+    }
+    .newReviewBtn {
+      margin-right: 15px;
+      background-color: #f4f4f4;
+      width: 100%;
+      border-radius: 3px;
+      text-align: left;
+      font-family: Pretendard-Medium;
+      font-size: 14px;
+      color: #727272;
+      padding: 7px 0 7px 13px;
+    }
+  }
+  .reviews {
+    list-style: none;
+    padding: 0;
+    margin: 18px 23px 0 15px;
+  }
+`;
+
+export const DetailReviewElem = styled.li`
+  display: flex;
+  height: 147px;
+  margin-bottom: 21px;
+  .profileImg {
+    height: 34px;
+    width: 34px;
+    margin-right: 10px;
+  }
+  .reviewBody {
+    width: 100%;
+    .userName {
+      font-family: Pretendard-SemiBold;
+      color: #737373;
+      font-size: 13px;
+    }
+    .rating {
+      margin-top: 4px;
+    }
+    .content {
+      font-size: 14px;
+      line-height: 20px;
+      margin-top: 2px;
+      height: 60px;
+    }
+    .likeAndDate {
+      margin-top: 22px;
+      display: flex;
+      justify-content: space-between;
+      .like {
+        width: 50px;
+        height: 26px;
+        border: 1px solid #bdbdbd;
+        border-radius: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .likeNum {
+          font-size: 12px;
+          color: #5e5e5e;
+          padding-top: 2px;
+          margin-left: 6px;
+        }
+      }
+      .date {
+        font-size: 13px;
+        color: #bdbdbd;
+      }
+    }
+  }
+`;

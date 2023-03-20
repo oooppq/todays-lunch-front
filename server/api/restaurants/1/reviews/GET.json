@@ -1,0 +1,29 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "userName": "짱짱맨",
+      "reviewContent": "정말 맛잇다",
+      "rating": 4,
+      "createdDate": "2023-03-13",
+      "likeCount": 34
+    },
+    {
+      "id": 2,
+      "userName": "배고픈사람",
+      "reviewContent": "정말 맛잇다!!",
+      "rating": 3,
+      "createdDate": "2023-03-13",
+      "likeCount": 7
+    },
+    {
+      "id": 3,
+      "userName": "안배고픈사람",
+      "reviewContent": "정말 정말 맛잇다!!",
+      "rating": 1,
+      "createdDate": "2023-03-13",
+      "likeCount": 323
+    }
+  ],
+  "totalPages": 1
+}
