@@ -1,6 +1,6 @@
 /* eslint-disable react/react-in-jsx-scope */
 import axios from 'axios';
-import { useQueries, useQuery } from 'react-query';
+import { useMutation, useQueries, useQuery } from 'react-query';
 import fullStarIcon from '../../assets/img/full-star-icon.svg';
 import emptyStarIcon from '../../assets/img/empty-star-icon.svg';
 
@@ -51,3 +51,13 @@ export const useRateHanlder = (rate) => {
   }
   return stars;
 };
+
+const postNewReview = (id, data) =>
+  axios.post(`/api/restaurants/${id}/reviews`, data, {
+    headers: {
+      'Content-Type': `application/json`,
+    },
+  });
+
+export const useNewReview = (id, data) =>
+  useMutation(() => postNewReview(id, data));

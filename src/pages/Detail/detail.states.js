@@ -48,6 +48,18 @@ export const useUpdateSaleModal = () => {
   return { isUpdateSale, openUpdateSaleModal, closeUpdateSaleModal };
 };
 
+export const useNewReviewModal = () => {
+  const [isNewReview, setIsNewReview] = useState(false);
+
+  const openNewReviewModal = () => {
+    setIsNewReview(true);
+  };
+  const closeNewReviewModal = () => {
+    setIsNewReview(false);
+  };
+  return { isNewReview, openNewReviewModal, closeNewReviewModal };
+};
+
 export const useNewMenuHandler = () => {
   const [isNewMenu, setIsNewMenu] = useState(false);
 
@@ -56,4 +68,33 @@ export const useNewMenuHandler = () => {
   };
 
   return { isNewMenu, makeNewMenuForm };
+};
+
+export const useReviewContentHandler = () => {
+  const [content, setContent] = useState(null);
+
+  const changeContent = (newContent) => {
+    setContent(newContent);
+  };
+
+  return { content, changeContent };
+};
+
+export const useReviewRatingHandler = () => {
+  const [rating, setRating] = useState(0);
+
+  const changeRating = (num) => {
+    setRating(num);
+  };
+
+  return { rating, changeRating };
+};
+
+export const useWarningHandler = () => {
+  const [isWarning, setIsWarning] = useState(false);
+  const showWarningMessage = () => {
+    setIsWarning(true);
+  };
+
+  return { isWarning, showWarningMessage };
 };

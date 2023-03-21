@@ -384,6 +384,102 @@ export const DetailUpdateMenuModalContainer = styled(ModalCommon)`
 
 export const DetailUpdateSaleModalContainer = styled(ModalCommon)``;
 
+export const DetailReviewModalContainer = styled(ModalCommon)`
+  .modalInner {
+    display: flex;
+    flex-direction: column;
+    .warning {
+      // margin-left: 20px;
+      position: relative;
+      div {
+        position: absolute;
+        width: 100%;
+        text-align: center;
+      }
+    }
+  }
+  .newReviewTitle {
+    font-family: Pretendard-Bold;
+    font-size: 19px;
+    margin: 19px 0 0 25px;
+  }
+  .newReviewInfo {
+    margin: 17px 24px 0 28px;
+    display: flex;
+    align-items: center;
+    .infoImg {
+      width: 31px;
+      height: 34px;
+      margin-right: 12px;
+    }
+    .infoText {
+      width: 259px;
+      height: 62px;
+      padding: 11px 15px 11px 19px;
+      box-sizing: border-box;
+      font-size: 14px;
+      color: #383838;
+      line-height: 20px;
+      background-color: #f4f4f4;
+      border-radius: 10px;
+    }
+  }
+  .newReviewBody {
+    margin: 22px 20px 0 20px;
+    font-family: Pretendard-Medium;
+    font-size: 18px;
+
+    .newReviewBodyTitle {
+      margin-left: 1px;
+
+      font-size: 18px;
+    }
+    .newReviewContent {
+      display: block;
+      margin-top: 12px;
+      padding: 7px 13px;
+      box-sizing: border-box;
+      background-color: #f4f4f4;
+      border: none;
+      outline-color: none;
+      resize: none;
+      border-radius: 3px;
+      width: 314px;
+      height: 170px;
+      font-size: 14px;
+      color: #727272;
+    }
+  }
+  .newReviewRate {
+    margin: 30px 0 45px 0;
+    .newReviewRateTitle {
+      margin-left: 21px;
+      font-family: Pretendard-Medium;
+      font-size: 18px;
+    }
+    .newReviewRateStars {
+      width: 100%;
+      margin: px auto 0 auto;
+      display: flex;
+      justify-content: center;
+      .reviewStar {
+        width: 24px;
+        height: 24px;
+      }
+    }
+  }
+  .newReviewSubmitBtn {
+    margin: 0 auto;
+    width: 188px;
+    height: 41px;
+    background-color: black;
+    color: white;
+    border-radius: 10px;
+    font-family: Pretendard-SemiBold;
+    font-size: 18px;
+  }
+`;
+
 export const DetailReviewContainer = styled.div`
   background-color: white;
   margin-top: 26px;

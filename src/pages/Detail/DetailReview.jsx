@@ -4,20 +4,33 @@ import { useReview } from './detail.helpers';
 import { DetailReviewContainer } from './detail.style';
 import DetailReviewElement from './DetailReviewElement';
 import defaultIcon from '../../assets/img/default-icon.svg';
+import { useNewReviewModal } from './detail.states';
+import DetailNewReviewModal from './DetailNewReviewModal';
 
 const DetailReview = ({ restaurantId }) => {
   const { data, isLoading, isError } = useReview(restaurantId);
-
+  const { isNewReview, openNewReviewModal, closeNewReviewModal } =
+    useNewReviewModal();
   if (isLoading || isError) return null;
 
   return (
     <DetailReviewContainer>
+      {isNewReview && (
+        <DetailNewReviewModal
+          id={restaurantId}
+          closeNewReviewModal={closeNewReviewModal}
+        />
+      )}
       <div className="reviewTitle">
         📌 가게 리뷰<span>({data.data.length})</span>
       </div>
       <div className="newReview">
         <img className="myProfileImg" src={defaultIcon} alt="" />
-        <button className="newReviewBtn" type="button">
+        <button
+          className="newReviewBtn"
+          type="button"
+          onClick={() => openNewReviewModal()}
+        >
           댓글 추가..
         </button>
       </div>

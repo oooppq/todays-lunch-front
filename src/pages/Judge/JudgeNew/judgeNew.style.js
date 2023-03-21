@@ -224,11 +224,6 @@ export const JudgeNewBody = styled.div`
       resize: none;
     }
   }
-  .warning {
-    margin: 7px 0 0 4px;
-    font-size: 12px;
-    color: #ca2d18;
-  }
 `;
 
 export const JudgeSearchContainer = styled.div`
