@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import { useReview } from './detail.helpers';
+import { useReviewRest } from './detail.helpers';
 import { DetailReviewContainer } from './detail.style';
 import DetailReviewElement from './DetailReviewElement';
 import defaultIcon from '../../assets/img/default-icon.svg';
@@ -8,17 +8,19 @@ import { useNewReviewModal } from './detail.states';
 import DetailNewReviewModal from './DetailNewReviewModal';
 
 const DetailReview = ({ restaurantId }) => {
-  const { data, isLoading, isError } = useReview(restaurantId);
+  const { get, post, patch, del } = useReviewRest(restaurantId);
+  const { data, isLoading, isError } = get();
   const { isNewReview, openNewReviewModal, closeNewReviewModal } =
     useNewReviewModal();
+
   if (isLoading || isError) return null;
 
   return (
     <DetailReviewContainer>
       {isNewReview && (
         <DetailNewReviewModal
-          id={restaurantId}
           closeNewReviewModal={closeNewReviewModal}
+          post={post}
         />
       )}
       <div className="reviewTitle">
@@ -36,7 +38,12 @@ const DetailReview = ({ restaurantId }) => {
       </div>
       <ul className="reviews">
         {data.data.map((review) => (
-          <DetailReviewElement key={review.id} review={review} />
+          <DetailReviewElement
+            key={review.id}
+            review={review}
+            patch={patch}
+            del={del}
+          />
         ))}
       </ul>
     </DetailReviewContainer>

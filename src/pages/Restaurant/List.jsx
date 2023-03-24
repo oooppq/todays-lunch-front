@@ -4,21 +4,16 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import {
-  ListElem,
+  ListElemContainer,
   ListUl,
   ListElemImg,
   ListElemInfo,
   WishAndRoulette,
   ListContainer,
-  // PaginationContainer,
 } from './restaurant.style';
 import defaultImage from '../../assets/img/default-image.png';
 import heartIcon from '../../assets/img/heart-icon.svg';
 import rouletteIcon from '../../assets/img/roulette-icon.svg';
-// import leftArrowIcon from '../../assets/img/left-arrow-icon.svg';
-// import leftEndIcon from '../../assets/img/left-end-icon.svg';
-// import rightArrowIcon from '../../assets/img/right-arrow-icon.svg';
-// import rightEndIcon from '../../assets/img/right-end-icon.svg';
 
 import { gotoDetailOnClick } from '../../libs/utils';
 import {
@@ -45,7 +40,7 @@ const List = ({ restaurants }) => {
           hasMore
         >
           {restaurants.map((e) => (
-            <ListElem
+            <ListElemContainer
               key={e.id}
               onClick={() => gotoDetailOnClick(e.id, navigate)}
             >
@@ -100,67 +95,27 @@ const List = ({ restaurants }) => {
                 </div>
               </ListElemInfo>
               <WishAndRoulette>
-                <button type="button">
+                <button
+                  type="button"
+                  onClick={(event) => {
+                    event.stopPropagation();
+                  }}
+                >
                   <img src={heartIcon} alt="" />
                 </button>
-                <button type="button">
+                <button
+                  type="button"
+                  onClick={(event) => {
+                    event.stopPropagation();
+                  }}
+                >
                   <img src={rouletteIcon} alt="" />
                 </button>
               </WishAndRoulette>
-            </ListElem>
+            </ListElemContainer>
           ))}
         </InfiniteScroll>
       </ListUl>
-      {/* <PaginationContainer>
-        {pageNum > 1 ? (
-          <>
-            <button
-              type="button"
-              onClick={() => {
-                dispatch(setPageNum(1));
-              }}
-            >
-              <img src={leftEndIcon} alt="" />
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                if (pageNum > 0) dispatch(setPageNum(pageNum - 1));
-              }}
-            >
-              <img src={leftArrowIcon} alt="" />
-            </button>
-          </>
-        ) : (
-          <div className="emptyDiv" />
-        )}
-
-        <div className="pageInfo">
-          {pageNum} <span>of {totalPageNum}</span>
-        </div>
-        {pageNum < totalPageNum ? (
-          <>
-            <button
-              type="button"
-              onClick={() => {
-                if (pageNum < totalPageNum) dispatch(setPageNum(pageNum + 1));
-              }}
-            >
-              <img src={rightArrowIcon} alt="" />
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                dispatch(setPageNum(totalPageNum));
-              }}
-            >
-              <img src={rightEndIcon} alt="" />
-            </button>
-          </>
-        ) : (
-          <div className="emptyDiv" />
-        )}
-      </PaginationContainer> */}
     </ListContainer>
   );
 };

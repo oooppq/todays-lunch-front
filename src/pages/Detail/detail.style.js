@@ -291,6 +291,16 @@ export const DetailMenuModalContainer = styled(ModalCommon)`
       color: #6ab2b2;
     }
   }
+  .menuModalImgOuter {
+    margin: 22px 31.5px;
+    height: 350px;
+    overflow: auto;
+    .menuImg {
+      width: 140px;
+      height: 140px;
+      margin: 2.5px;
+    }
+  }
   .newPhotoBtn {
     position: absolute;
     bottom: 24.66px;
@@ -302,6 +312,31 @@ export const DetailMenuModalContainer = styled(ModalCommon)`
     color: white;
     font-size: 18px;
     font-family: Pretendard-SemiBold;
+  }
+`;
+
+export const DetailMenuPhotoModalContainer = styled(ModalCommon)`
+  .modalInner {
+    height: 412px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    color: #525252;
+    .detailPhoto {
+      margin-top: 47px;
+      width: 273px;
+      height: 273px;
+      border-radius: 3px;
+    }
+    .fileName {
+      margin-top: 11px;
+      font-size: 15px;
+    }
+    .userName {
+      margin-top: 3px;
+      font-size: 13px;
+    }
   }
 `;
 

@@ -106,7 +106,7 @@ export const ListUl = styled.ul`
   overflow-y: auto;
 `;
 
-export const ListElem = styled.li`
+export const ListElemContainer = styled.li`
   display: flex;
   height: 118px;
   margin: 19px 0 0 0;

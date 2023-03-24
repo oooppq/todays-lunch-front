@@ -3,33 +3,19 @@ import React from 'react';
 import { DetailReviewModalContainer } from './detail.style';
 import xIcon from '../../assets/img/x-icon.svg';
 import defaultIcon from '../../assets/img/default-icon.svg';
-import fullStarIcon from '../../assets/img/full-star-icon.svg';
-import emptyStarIcon from '../../assets/img/empty-star-icon.svg';
 import {
   useReviewContentHandler,
   useReviewRatingHandler,
   useWarningHandler,
 } from './detail.states';
-import { useNewReview } from './detail.helpers';
 import Warning from '../../components/Warning';
+import DetailNewReviewRate from './DetailNewReviewRate';
 
-const StarElem = ({ index, rating, changeRating }) => {
-  return (
-    <img
-      className="reviewStar"
-      src={index <= rating ? fullStarIcon : emptyStarIcon}
-      alt=""
-      onClick={() => changeRating(index)}
-      aria-hidden="true"
-    />
-  );
-};
-
-const DetailNewReviewModal = ({ id, closeNewReviewModal }) => {
+const DetailNewReviewModal = ({ closeNewReviewModal, post }) => {
   const { content, changeContent } = useReviewContentHandler();
   const { isWarning, showWarningMessage } = useWarningHandler();
   const { rating, changeRating } = useReviewRatingHandler();
-  const { mutate, isError, isLoading } = useNewReview(id, {
+  const { mutate, isError, isLoading } = post({
     rating,
     reviewContent: content,
   });
@@ -72,13 +58,7 @@ const DetailNewReviewModal = ({ id, closeNewReviewModal }) => {
 
         <div className="newReviewRate">
           <div className="newReviewRateTitle">별점</div>
-          <div className="newReviewRateStars">
-            <StarElem index={1} rating={rating} changeRating={changeRating} />
-            <StarElem index={2} rating={rating} changeRating={changeRating} />
-            <StarElem index={3} rating={rating} changeRating={changeRating} />
-            <StarElem index={4} rating={rating} changeRating={changeRating} />
-            <StarElem index={5} rating={rating} changeRating={changeRating} />
-          </div>
+          <DetailNewReviewRate rating={rating} changeRating={changeRating} />
           <div className="warning">
             {isWarning && !rating ? <Warning element="별점을" /> : null}
           </div>

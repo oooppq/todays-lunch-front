@@ -9,6 +9,7 @@ export const useTabHandler = () => {
 export const useMenuModal = () => {
   const [isMenu, setIsMenu] = useState(false);
   const [selectedMenu, setSelectedMenu] = useState(null);
+  const [selectedPhoto, setSelectedPhoto] = useState(null);
 
   const openMenuModal = (menu) => {
     setIsMenu(true);
@@ -19,7 +20,23 @@ export const useMenuModal = () => {
     setIsMenu(false);
     setSelectedMenu(null);
   };
-  return { isMenu, selectedMenu, openMenuModal, closeMenuModal };
+
+  const openPhotoDetailModal = (photo) => {
+    setSelectedPhoto(photo);
+  };
+
+  const closePhotoDetailModal = () => {
+    setSelectedPhoto(null);
+  };
+  return {
+    isMenu,
+    selectedMenu,
+    selectedPhoto,
+    openMenuModal,
+    closeMenuModal,
+    openPhotoDetailModal,
+    closePhotoDetailModal,
+  };
 };
 
 export const useUpdateMenuModal = () => {
