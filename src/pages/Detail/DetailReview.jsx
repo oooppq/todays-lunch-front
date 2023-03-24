@@ -8,7 +8,8 @@ import { useNewReviewModal } from './detail.states';
 import DetailNewReviewModal from './DetailNewReviewModal';
 
 const DetailReview = ({ restaurantId }) => {
-  const { get, post, patch, del } = useReviewRest(restaurantId);
+  const { get, post, patch, del, likeGet, likePost } =
+    useReviewRest(restaurantId);
   const { data, isLoading, isError } = get();
   const { isNewReview, openNewReviewModal, closeNewReviewModal } =
     useNewReviewModal();
@@ -43,6 +44,8 @@ const DetailReview = ({ restaurantId }) => {
             review={review}
             patch={patch}
             del={del}
+            likeGet={likeGet}
+            likePost={likePost}
           />
         ))}
       </ul>

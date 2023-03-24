@@ -22,24 +22,17 @@ export const useDetailPageData = (id) =>
     { queryKey: ['menus', id], queryFn: () => getMenuFn(id) },
   ]);
 
-// 디테일페이지의 각각의 메뉴 사진을 가져오는 것들
-const getMenuPhotoFn = (id) =>
-  axios.get(`/api/menus/${id}`).then((res) => res.data);
-
+// 디테일페이지의 각각의 메뉴 사진을 가져오는 custom hook
 export const useMenuPhoto = (id) =>
-  useQuery(['menuPhotos', id], () => getMenuPhotoFn(id));
+  useQuery(['menuPhotos', id], () =>
+    axios.get(`/api/menus/${id}`).then((res) => res.data)
+  );
 
-// 디테일 페이지의 리뷰 정보를 가져오는 것들
-const getReviewFn = (id) =>
-  axios.get(`/api/restaurants/${id}/reviews`).then((res) => res.data);
-
-export const useReview = (id) =>
-  useQuery(['reviews', id], () => getReviewFn(id));
-
+// 디테일 페이지의 리뷰 REST 요처을 담당하는 custom hook
 export const useReviewRest = (id) => {
   const url = `/api/restaurants/${id}/reviews`;
   const get = () =>
-    useQuery(['reviews', id], () => axios.get(url).then((res) => res.data));
+    useQuery([id, 'reviews'], () => axios.get(url).then((res) => res.data));
 
   const post = (data) =>
     useMutation(() =>
@@ -61,19 +54,19 @@ export const useReviewRest = (id) => {
 
   const del = (reviewId) =>
     useMutation(() => axios.delete(url.concat(`/${reviewId}`)));
-  return { get, post, patch, del };
+
+  const likeGet = (reviewId) =>
+    useQuery(['review', 'isLiked', reviewId], () =>
+      axios.get(url).then((res) => res.data)
+    );
+
+  const likePost = (reviewId) =>
+    useMutation(() => axios.post(url.concat(`/${reviewId}`)));
+
+  return { get, post, patch, del, likeGet, likePost };
 };
-const postReviewFn = (id, data) =>
-  axios.post(`/api/restaurants/${id}/reviews`, data, {
-    headers: {
-      'Content-Type': `application/json`,
-    },
-  });
 
-export const useNewReview = (id, data) =>
-  useMutation(() => postReviewFn(id, data));
-
-export const useRateStarHanlder = (rate) => {
+export const rateStarHanlder = (rate) => {
   const stars = [];
 
   for (let i = 0; i < 5; i += 1) {
