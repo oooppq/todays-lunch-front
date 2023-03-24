@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import { useReviewRest } from './detail.helpers';
+import { useReview } from './detail.helpers';
 import { DetailReviewContainer } from './detail.style';
 import DetailReviewElement from './DetailReviewElement';
 import defaultIcon from '../../assets/img/default-icon.svg';
@@ -8,9 +8,15 @@ import { useNewReviewModal } from './detail.states';
 import DetailNewReviewModal from './DetailNewReviewModal';
 
 const DetailReview = ({ restaurantId }) => {
-  const { get, post, patch, del, likeGet, likePost } =
-    useReviewRest(restaurantId);
-  const { data, isLoading, isError } = get();
+  const {
+    getReviewList,
+    pushNewReview,
+    updateReview,
+    deleteReview,
+    getIsLike,
+    pushLike,
+  } = useReview(restaurantId);
+  const { data, isLoading, isError } = getReviewList();
   const { isNewReview, openNewReviewModal, closeNewReviewModal } =
     useNewReviewModal();
 
@@ -21,7 +27,7 @@ const DetailReview = ({ restaurantId }) => {
       {isNewReview && (
         <DetailNewReviewModal
           closeNewReviewModal={closeNewReviewModal}
-          post={post}
+          pushNewReview={pushNewReview}
         />
       )}
       <div className="reviewTitle">
@@ -42,10 +48,10 @@ const DetailReview = ({ restaurantId }) => {
           <DetailReviewElement
             key={review.id}
             review={review}
-            patch={patch}
-            del={del}
-            likeGet={likeGet}
-            likePost={likePost}
+            updateReview={updateReview}
+            deleteReview={deleteReview}
+            getIsLike={getIsLike}
+            pushLike={pushLike}
           />
         ))}
       </ul>

@@ -5,14 +5,19 @@ import defaultIcon from '../../assets/img/default-icon.svg';
 import likeIcon from '../../assets/img/review-like-icon.svg';
 import { rateStarHanlder } from './detail.helpers';
 
-// const DetailReviewElement = ({ review, patch, del, likeGet, likePost }) => {
-const DetailReviewElement = ({ review, likeGet, likePost }) => {
-  const { isLiked, isError: getIsError, isLoading: getIsLoading } = likeGet();
+const DetailReviewElement = ({
+  review,
+  // updateReview,
+  // deleteReview,
+  getIsLike,
+  pushLike,
+}) => {
+  const { isLiked, isError: getIsError, isLoading: getIsLoading } = getIsLike();
   const {
     mutate,
     isError: postIsError,
     isLoading: postIsLoading,
-  } = likePost(review.id);
+  } = pushLike(review.id);
 
   if (getIsError || getIsLoading || postIsError || postIsLoading) return null;
 

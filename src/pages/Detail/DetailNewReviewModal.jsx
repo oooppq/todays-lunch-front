@@ -11,11 +11,11 @@ import {
 import Warning from '../../components/Warning';
 import DetailNewReviewRate from './DetailNewReviewRate';
 
-const DetailNewReviewModal = ({ closeNewReviewModal, post }) => {
+const DetailNewReviewModal = ({ closeNewReviewModal, pushNewReview }) => {
   const { content, changeContent } = useReviewContentHandler();
   const { isWarning, showWarningMessage } = useWarningHandler();
   const { rating, changeRating } = useReviewRatingHandler();
-  const { mutate, isError, isLoading } = post({
+  const { mutate, isError, isLoading } = pushNewReview({
     rating,
     reviewContent: content,
   });
