@@ -1,10 +1,9 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import { useReview } from './detail.helpers';
+import { useReview, useNewReviewModal } from './detail.helpers';
 import { DetailReviewContainer } from './detail.style';
 import DetailReviewElement from './DetailReviewElement';
 import defaultIcon from '../../assets/img/default-icon.svg';
-import { useNewReviewModal } from './detail.states';
 import DetailNewReviewModal from './DetailNewReviewModal';
 
 const DetailReview = ({ restaurantId }) => {

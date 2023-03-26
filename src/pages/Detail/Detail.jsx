@@ -4,8 +4,7 @@ import { DetailContainer } from './detail.style';
 import DetailTop from './DetailTop';
 import DetailMain from './DetailMain';
 import DetailReview from './DetailReview';
-import { useDetailPageData } from './detail.helpers';
-import { useTabHandler } from './detail.states';
+import { useDetailPageData, useTabHandler } from './detail.helpers';
 
 const Detail = () => {
   const { id } = useParams();

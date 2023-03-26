@@ -7,7 +7,7 @@ import {
   useMenuModal,
   useUpdateMenuModal,
   useUpdateSaleModal,
-} from './detail.states';
+} from './detail.helpers';
 import DetailUpdateMenuModal from './DetailUpdateMenuModal';
 import DetailMenuModal from './DetailMenuModal';
 import DetailUpdateSaleModal from './DetailUpdateSaleModal';

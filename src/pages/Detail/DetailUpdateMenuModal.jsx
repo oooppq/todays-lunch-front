@@ -5,7 +5,7 @@ import xIcon from '../../assets/img/x-icon.svg';
 import warningIcon from '../../assets/img/warning-icon.svg';
 import addIcon from '../../assets/img/add-icon.svg';
 import { convertNum } from '../../libs/utils';
-import { useNewMenuHandler } from './detail.states';
+import { useNewMenuHandler } from './detail.helpers';
 
 const DetailUpdateMenuModal = ({ closeUpdateMenuModal, menuData }) => {
   const { isNewMenu, makeNewMenuForm } = useNewMenuHandler();

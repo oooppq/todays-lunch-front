@@ -5,8 +5,7 @@ import {
   DetailMenuModalContainer,
 } from './detail.style';
 import xIcon from '../../assets/img/x-icon.svg';
-import { useMenuPhoto } from './detail.helpers';
-import { useMenuModal } from './detail.states';
+import { useMenuPhoto, useMenuModal } from './detail.helpers';
 
 const DetailMenuModal = ({ closeMenuModal, menu }) => {
   const { data, isLoading, isError } = useMenuPhoto(menu.id);

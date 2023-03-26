@@ -7,7 +7,7 @@ import {
   useReviewContentHandler,
   useReviewRatingHandler,
   useWarningHandler,
-} from './detail.states';
+} from './detail.helpers';
 import Warning from '../../components/Warning';
 import DetailNewReviewRate from './DetailNewReviewRate';
 
