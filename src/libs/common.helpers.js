@@ -4,20 +4,20 @@ import axios from 'axios';
 import { useState } from 'react';
 import { useMutation, useQuery } from 'react-query';
 
-export const useWish = () => {
-  const url = `/api/restaurants/wish`;
+export const useWish = (id) => {
+  const url = `/api/restaurants/${id}/wish`;
+  const wishListUrl = `/api/restaurants/${id}/wish`;
+
   const getWishList = () =>
-    useQuery('wishList', () => axios.get(url).then((res) => res.data));
+    useQuery('wishList', () => axios.get(wishListUrl).then((res) => res.data));
 
-  const getIsWish = () =>
-    useQuery(
-      'wishIsLike',
-      axios.get(url).then((res) => res.data)
-    );
+  const { data: isWish } = useQuery('wishIsLike', () =>
+    axios.get(url).then((res) => res.data)
+  );
 
-  const pushWish = () => useMutation(() => axios.post(url));
+  const { mutate: pushWish } = useMutation(() => axios.post(url));
 
-  return { getWishList, getIsWish, pushWish };
+  return { getWishList, isWish, pushWish };
 };
 
 export const useRoulette = (restaurant) => {

@@ -37,14 +37,13 @@ export const useReview = (id) => {
   const getReviewList = () =>
     useQuery([id, 'reviews'], () => axios.get(url).then((res) => res.data));
 
-  const pushNewReview = (data) =>
-    useMutation(() =>
-      axios.post(url, data, {
-        headers: {
-          'Content-Type': `application/json`,
-        },
-      })
-    );
+  const { mutate: pushNewReview } = useMutation((data) =>
+    axios.post(url, data, {
+      headers: {
+        'Content-Type': `application/json`,
+      },
+    })
+  );
 
   const updateReview = (reviewId, data) =>
     useMutation(() =>

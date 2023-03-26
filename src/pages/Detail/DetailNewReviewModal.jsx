@@ -15,12 +15,6 @@ const DetailNewReviewModal = ({ closeNewReviewModal, pushNewReview }) => {
   const { content, changeContent } = useReviewContentHandler();
   const { isWarning, showWarningMessage } = useWarningHandler();
   const { rating, changeRating } = useReviewRatingHandler();
-  const { mutate, isError, isLoading } = pushNewReview({
-    rating,
-    reviewContent: content,
-  });
-
-  if (isError || isLoading) return null;
 
   return (
     <DetailReviewModalContainer>
@@ -69,7 +63,10 @@ const DetailNewReviewModal = ({ closeNewReviewModal, pushNewReview }) => {
           onClick={() => {
             if (!content || !rating) showWarningMessage();
             else {
-              mutate();
+              pushNewReview({
+                rating,
+                reviewContent: content,
+              });
               closeNewReviewModal();
             }
           }}
