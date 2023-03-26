@@ -35,7 +35,7 @@ export const RecommendationTitle = styled.div`
   }
 `;
 
-export const RecommendationElem = styled.div`
+export const RecommendationElemContainer = styled.div`
   width: 100%;
   text-align: left !important;
 `;
@@ -55,11 +55,14 @@ export const RecommendationInfoUp = styled.div`
     width: 100%;
     height: 30px;
 
-    .icon {
+    .btn {
       display: table-cell;
       height: 30px;
       width: 30px;
       margin-left: 14px;
+    }
+    .colored {
+      background-color: #6ab2b2;
     }
     .lowestPrice {
       position: absolute;
