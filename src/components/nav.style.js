@@ -13,14 +13,12 @@ export const NavUl = styled.ul`
   font-size: 18px;
   color: #5c5c5c;
   padding: 0 39px;
-  // width: 100%;
   height: 100%;
   display: flex;
   justify-content: space-between;
   text-algin: center;
   list-style: none;
   margin: 0;
-  // padding: 0;
 `;
 
 export const NavLi = styled.li`

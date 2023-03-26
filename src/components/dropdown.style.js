@@ -10,9 +10,6 @@ export const DropdownContainer = styled.div`
   display: inline-block;
 `;
 export const SelectedLabel = styled.button`
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
   background-color: white;
   position: relative;
   text-align: left;

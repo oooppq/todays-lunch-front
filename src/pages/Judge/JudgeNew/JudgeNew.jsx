@@ -16,10 +16,7 @@ import JudgeNewDoneModal from './JudgeNewDoneModal';
 import JudgeNewDropdown from './JudgeNewDropdown';
 import JudgeNewRecommendCategory from './JudgeNewRecommendCategory';
 import { setIntroduction } from '../../../redux/judgeNew';
-
-const Warning = ({ element }) => {
-  return <div className="warning">⚠️ {element} 설정해주세요.</div>;
-};
+import Warning from '../../../components/Warning';
 
 const JudgeNew = () => {
   const dispatch = useDispatch();

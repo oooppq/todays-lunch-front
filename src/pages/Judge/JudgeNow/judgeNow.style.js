@@ -152,9 +152,6 @@ export const JudgeNowDetailContainer = styled.div`
     margin-bottom: 13px;
   }
   .xBtn {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
     position: absolute;
     height: 23px;
     width: 23px;

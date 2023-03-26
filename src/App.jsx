@@ -1,7 +1,6 @@
 import React from 'react';
-import { Routes, Route, Outlet } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { CookiesProvider } from 'react-cookie';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Nav from './components/Nav';
@@ -21,7 +20,7 @@ const queryClient = new QueryClient();
 const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
-      <CookiesProvider>
+      <BrowserRouter>
         <Header />
         <Nav />
         <Routes>
@@ -38,7 +37,7 @@ const App = () => {
         </Routes>
         <Footer />
         <Outlet />
-      </CookiesProvider>
+      </BrowserRouter>
     </QueryClientProvider>
   );
 };

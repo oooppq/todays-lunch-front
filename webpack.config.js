@@ -14,7 +14,7 @@ module.exports = {
     main: './src/index.js',
   },
   output: {
-    // path: path.resolve('./build'),
+    publicPath: '/',
     filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'build'),
     clean: true,
@@ -99,7 +99,7 @@ module.exports = {
     port: 3000,
     // open: true,
     hot: true,
-    historyApiFallback: true,
+    historyApiFallback: { disableDotRule: true },
     onBeforeSetupMiddleware(devServer) {
       if (!devServer) {
         throw new Error('webpack-dev-server is not defined');

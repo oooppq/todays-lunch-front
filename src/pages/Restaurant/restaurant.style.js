@@ -59,11 +59,6 @@ export const SearchBox = styled.div`
     color: #b6b6b6;
   }
   button {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    background-color: transparent;
-    border: 0;
     padding: 0;
     margin: auto 15px;
     height: 23px;
@@ -111,7 +106,7 @@ export const ListUl = styled.ul`
   overflow-y: auto;
 `;
 
-export const ListElem = styled.li`
+export const ListElemContainer = styled.li`
   display: flex;
   height: 118px;
   margin: 19px 0 0 0;
@@ -131,12 +126,6 @@ export const ListElemInfo = styled.div`
   width: 60%;
   overflow: hidden;
   white-space: nowrap;
-  button {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    background-color: transparent;
-  }
   .title {
     font-size: 18px;
   }
@@ -180,10 +169,6 @@ export const ListElemInfo = styled.div`
 export const WishAndRoulette = styled.div`
   text-align: right;
   button {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    background-color: transparent;
     width: 37px;
     height: 37px;
     box-sizing: border-box;
@@ -194,32 +179,8 @@ export const WishAndRoulette = styled.div`
       margin-top: 2px;
     }
   }
-`;
-
-export const PaginationContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  margin-top: 30px;
-  font-size: 15px;
-  button {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    background-color: transparent;
+  .colored {
+    background-color: #6ab2b2;
     border: none;
-    padding: 0;
-    img {
-      width: 20px;
-    }
-  }
-  .pageInfo {
-    margin: 0 10px;
-    span {
-      color: grey;
-      font-size: 13px;
-    }
-  }
-  .emptyDiv {
-    width: 40px;
   }
 `;
