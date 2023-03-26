@@ -1,8 +1,20 @@
 import React from 'react';
+import { useRoulette } from '../../libs/common.helpers';
 import { PlayContainer } from './play.style';
 
 const Play = () => {
-  return <PlayContainer>Play</PlayContainer>;
+  const { getRouletteList, clearRoulette } = useRoulette();
+
+  return (
+    <PlayContainer>
+      {getRouletteList().map((restaurant) => (
+        <div key={restaurant.id}>{restaurant.restaurantName}</div>
+      ))}
+      <button type="button" onClick={() => clearRoulette()}>
+        초기화 ㅎㅅ
+      </button>
+    </PlayContainer>
+  );
 };
 
 export default Play;

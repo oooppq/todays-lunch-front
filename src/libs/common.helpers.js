@@ -11,11 +11,11 @@ export const useWish = (id) => {
   const getWishList = () =>
     useQuery('wishList', () => axios.get(wishListUrl).then((res) => res.data));
 
-  const { data: isWish } = useQuery(['wishIsLike', id], () =>
-    axios.get(url).then((res) => res.data)
-  );
+  const { data: isWish } =
+    id &&
+    useQuery(['wishIsLike', id], () => axios.get(url).then((res) => res.data));
 
-  const { mutate: pushWish } = useMutation(() => axios.post(url));
+  const { mutate: pushWish } = id && useMutation(() => axios.post(url));
 
   return { getWishList, isWish, pushWish };
 };
@@ -29,8 +29,11 @@ export const useRoulette = (restaurant) => {
   };
 
   const isInRoulette = () => {
-    const rouletteList = getRouletteList();
-    return rouletteList.some((rest) => rest.id === restaurant.id);
+    if (restaurant) {
+      const rouletteList = getRouletteList();
+      return rouletteList.some((rest) => rest.id === restaurant.id);
+    }
+    return false;
   };
 
   const isRouletteFull = () => {
@@ -40,27 +43,27 @@ export const useRoulette = (restaurant) => {
   };
 
   const pushRoulette = () => {
-    const rouletteList = getRouletteList();
-    for (let i = 0; i < rouletteList.length; i += 1) {
-      if (rouletteList[i].id === restaurant.id) {
-        rouletteList.splice(i, 1);
-        localStorage.setItem('roulette', JSON.stringify(rouletteList));
-        return;
+    if (restaurant) {
+      const rouletteList = getRouletteList();
+      for (let i = 0; i < rouletteList.length; i += 1) {
+        if (rouletteList[i].id === restaurant.id) {
+          rouletteList.splice(i, 1);
+          localStorage.setItem('roulette', JSON.stringify(rouletteList));
+          return;
+        }
       }
+      rouletteList.push(restaurant);
+      localStorage.setItem('roulette', JSON.stringify(rouletteList));
     }
-    rouletteList.push(restaurant);
-    localStorage.setItem('roulette', JSON.stringify(rouletteList));
   };
   const clearRoulette = () => {
     localStorage.removeItem('roulette');
   };
 
-  const [isInRouletteFlag, setIsInRouletteFlag] = useState(
-    isInRoulette(restaurant)
-  );
+  const [isInRouletteFlag, setIsInRouletteFlag] = useState(isInRoulette());
 
   const updateRouletteFlag = () => {
-    setIsInRouletteFlag(isInRoulette(restaurant));
+    setIsInRouletteFlag(isInRoulette());
   };
 
   return {

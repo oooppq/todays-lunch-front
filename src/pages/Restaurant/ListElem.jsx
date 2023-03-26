@@ -21,22 +21,28 @@ const ListElem = ({ restaurant }) => {
       <ListElemImg src={defaultImage} />
       <ListElemInfo>
         <div className="title">
-          <span>{restaurant.restaurant_name}</span>
+          <span>{restaurant.restaurantName}</span>
         </div>
         <div className="etc">
           <div>
-            <span className="categories">#{restaurant.food_category}</span>
-            <span className="categories">#{restaurant.location_category}</span>
-            {restaurant.location_category !== restaurant.logcation_tag ? (
-              <span className="categories">#{restaurant.location_tag}</span>
+            <span className="categories">#{restaurant.foodCategory}</span>
+            <span className="categories">#{restaurant.locationCategory}</span>
+            {restaurant.location_category !== restaurant.logcationTag ? (
+              <span className="categories">#{restaurant.locationTag}</span>
             ) : null}
           </div>
           <div className="reviewRate">
-            <span>리뷰 {restaurant.review_number}개</span>
+            <span>리뷰 {restaurant.reviewCount}개</span>
             {' | '}
-            <span>평점 {restaurant.rate}</span>
+            <span>평점 {restaurant.rating}</span>
           </div>
-          <ListElemInfoButton restaurant={restaurant} />
+          <ListElemInfoButton
+            restaurant={
+              (restaurant.restaurantName,
+              restaurant.latitude,
+              restaurant.longitude)
+            }
+          />
         </div>
       </ListElemInfo>
       <ListElemWishAndRoulette restaurant={restaurant} />
