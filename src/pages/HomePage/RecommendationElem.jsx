@@ -49,19 +49,19 @@ const RecommendationElem = ({ restaurant }) => {
             <img className="icon" src={rouletteIcon} alt="" />
           </button>
           <div className="lowestPrice">
-            {convertNum(restaurant.lowest_price)}원 ~
+            {convertNum(restaurant.lowestPrice)}원 ~
           </div>
         </div>
       </RecommendationInfoUp>
       <RecommendationInfoDown>
         <div className="title">
-          <span>[{restaurant.location_category}</span>
-          <span> {restaurant.location_tag}] </span>
+          <span>[{restaurant.locationCategory}</span>
+          <span> {restaurant.locationTag}] </span>
           <span>{restaurant.name}</span>
         </div>
-        <div className="comment">"{restaurant.comment}"</div>
+        <div className="comment">"{restaurant.bestReview}"</div>
         <div className="reviewRate">
-          <span className="reviewNum">리뷰 {restaurant.rating}개</span>
+          <span className="reviewNum">리뷰 {restaurant.reviewCount}개</span>
           {' | '}
           <span className="rating">별점 {restaurant.rating}</span>
         </div>

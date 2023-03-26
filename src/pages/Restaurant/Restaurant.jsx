@@ -112,8 +112,8 @@ const Restaurant = () => {
       />
       {(() => {
         if (isLoading) return null;
-        if (isMap) return <Map restaurants={data} />;
-        return <List restaurants={data} />;
+        if (isMap) return <Map restaurants={data.data} />;
+        return <List restaurants={data.data} />;
       })()}
     </RestaurantContainer>
   );

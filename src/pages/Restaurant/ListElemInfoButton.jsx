@@ -37,7 +37,7 @@ const ListElemInfoButton = ({ restaurant }) => {
         }}
       >
         <a
-          href={`https://map.kakao.com/link/to/${restaurant.restaurant_name},${restaurant.longitude},${restaurant.latitude}`}
+          href={`https://map.kakao.com/link/to/${restaurant.restaurantName},${restaurant.longitude},${restaurant.latitude}`}
           target="_blank"
           rel="noreferrer"
         >
