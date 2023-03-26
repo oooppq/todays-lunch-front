@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { DetailTopContainer } from './detail.style';
 import backIcon from '../../assets/img/detail-back-icon.svg';
@@ -10,11 +10,16 @@ import dishIcon from '../../assets/img/detail-dish-icon.svg';
 import pencilIcon from '../../assets/img/detail-pencil-icon.svg';
 import heartIcon from '../../assets/img/detail-heart-icon.svg';
 import rouletteIcon from '../../assets/img/detail-roulette-icon.svg';
+import coloredRouletteIcon from '../../assets/img/colored-roulette-icon.svg';
 import { handleGoBack } from './detail.helpers';
+import { useRoulette } from '../../libs/common.helpers';
 
 const DetailTop = ({ restaurantData, tab, changeTab }) => {
   const navigate = useNavigate();
+  const { isInRouletteFlag, updateRouletteFlag, pushRoulette } =
+    useRoulette(restaurantData);
 
+  useEffect(() => {});
   return (
     <DetailTopContainer>
       <button
@@ -60,11 +65,19 @@ const DetailTop = ({ restaurantData, tab, changeTab }) => {
         >
           <img src={pencilIcon} alt="" />
         </li>
-        <li className="navLi">
+        <li className="navLi" onClick={() => {}} aria-hidden="true">
           <img src={heartIcon} alt="" />
         </li>
         <li className="navLi">
-          <img src={rouletteIcon} alt="" />
+          <img
+            src={isInRouletteFlag ? coloredRouletteIcon : rouletteIcon}
+            alt=""
+            onClick={() => {
+              pushRoulette();
+              updateRouletteFlag();
+            }}
+            aria-hidden="true"
+          />
         </li>
       </ul>
     </DetailTopContainer>
