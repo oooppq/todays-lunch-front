@@ -179,28 +179,8 @@ export const WishAndRoulette = styled.div`
       margin-top: 2px;
     }
   }
-`;
-
-export const PaginationContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  margin-top: 30px;
-  font-size: 15px;
-  button {
+  .colored {
+    background-color: #6ab2b2;
     border: none;
-    padding: 0;
-    img {
-      width: 20px;
-    }
-  }
-  .pageInfo {
-    margin: 0 10px;
-    span {
-      color: grey;
-      font-size: 13px;
-    }
-  }
-  .emptyDiv {
-    width: 40px;
   }
 `;

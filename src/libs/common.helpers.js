@@ -11,7 +11,7 @@ export const useWish = (id) => {
   const getWishList = () =>
     useQuery('wishList', () => axios.get(wishListUrl).then((res) => res.data));
 
-  const { data: isWish } = useQuery('wishIsLike', () =>
+  const { data: isWish } = useQuery(['wishIsLike', id], () =>
     axios.get(url).then((res) => res.data)
   );
 
