@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -14,6 +14,7 @@ import MyPage from './pages/MyPage/MyPage';
 import JudgeHome from './pages/Judge/JudgeHome';
 import JudgeNew from './pages/Judge/JudgeNew/JudgeNew';
 import JudgeNow from './pages/Judge/JudgeNow/JudgeNow';
+import UserPageHeader from './components/UserPageHeader';
 
 const queryClient = new QueryClient();
 
@@ -36,7 +37,14 @@ const App = () => {
           <Route path="/restaurants/:id" element={<Detail />} />
         </Routes>
         <Footer />
-        <Outlet />
+      </BrowserRouter>
+      <BrowserRouter>
+        <UserPageHeader />
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/join" element={<Join />} />
+          <Route path="/mypage" element={<MyPage />} />
+        </Routes>
       </BrowserRouter>
     </QueryClientProvider>
   );
