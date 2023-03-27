@@ -79,3 +79,30 @@ export const LoginBottomContainer = styled.div`
     text-underline-offset: 4px;
   }
 `;
+
+export const FindPasswordModalContainer = styled.div`
+  position: fixed;
+  display: flex;
+  background-color: rgba(0, 0, 0, 0.4);
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  .modalInner {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 354px;
+    height: 521px;
+    background-color: white;
+    border-radius: 10px;
+    .closeBtn {
+      position: absolute;
+      top: 16px;
+      right: 18px;
+    }
+  }
+`;

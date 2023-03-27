@@ -13,7 +13,9 @@ export const useWish = (id) => {
 
   const { data: isWish } =
     id &&
-    useQuery(['wishIsLike', id], () => axios.get(url).then((res) => res.data));
+    useQuery(['get', 'wishIsLike', id], () =>
+      axios.get(url).then((res) => res.data)
+    );
 
   const { mutate: pushWish } = id && useMutation(() => axios.post(url));
 
@@ -74,4 +76,15 @@ export const useRoulette = (restaurant) => {
     isInRouletteFlag,
     updateRouletteFlag,
   };
+};
+
+export const useCustomNavigate = (navigate) => {
+  const goToPrevPage = () => {
+    navigate(-1);
+  };
+
+  const goToHomePage = () => {
+    navigate('/');
+  };
+  return { goToPrevPage, goToHomePage };
 };
