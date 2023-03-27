@@ -1,8 +1,5 @@
 import styled from 'styled-components';
-import { commonPageContainerStyle } from '../common.style';
 
-export const PlayContainer = styled.div`
-  margin: ${commonPageContainerStyle};
-`;
+export const PlayContainer = styled.div``;
 
 export const RouletteContainer = styled.div``;

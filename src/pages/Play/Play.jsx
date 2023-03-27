@@ -11,7 +11,7 @@ const Play = () => {
         <div key={restaurant.id}>{restaurant.restaurantName}</div>
       ))}
       <button type="button" onClick={() => clearRoulette()}>
-        초기화 ㅎㅅ
+        초기화
       </button>
     </PlayContainer>
   );
