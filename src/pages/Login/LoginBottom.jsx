@@ -1,13 +1,21 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useLoginNavigate } from './login.helpers';
 import { LoginBottomContainer } from './login.style';
 
-const LoginBottom = () => {
+const LoginBottom = ({ openFindPassword }) => {
+  const { goToJoinPage } = useLoginNavigate(useNavigate());
   return (
     <LoginBottomContainer>
-      <button className="joinBtn" type="button">
+      <button className="joinBtn" type="button" onClick={goToJoinPage}>
         회원가입
       </button>
-      <button type="button" className="findPasswordBtn">
+      <button
+        type="button"
+        className="findPasswordBtn"
+        onClick={() => openFindPassword()}
+      >
         비번 찾기
       </button>
     </LoginBottomContainer>
