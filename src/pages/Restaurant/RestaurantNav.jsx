@@ -27,19 +27,6 @@ const sortOptions = [
   { id: 2, name: '리뷰순', query: 'reviewCount' },
 ];
 
-const dropdownStyle = {
-  height: '100%',
-  width: '85px',
-  fontSize: '12px',
-};
-const recomDropdownStyle = {
-  height: '100%',
-  fontSize: '12px',
-  color: '#6ab2b2',
-  border: '1px solid #6ab2b2 !important',
-  fontColor: 'black',
-};
-
 const RestaurantNav = ({
   locCategory,
   locTag,
@@ -64,6 +51,44 @@ const RestaurantNav = ({
 
   const [keyword, setKeyword] = useState(searchKeyword);
   const dispatch = useDispatch();
+
+  const normalDropdownStyle = `
+    .selectedLabel {
+      background-color: white;
+      height: 30px;
+      width: 85px;
+      font-size: 12px;
+      border-radius: 30px;
+      border: 1px solid #bdbdbd;
+      padding: 0 12px;
+      color: #7c7c7c;
+      .triangle {
+        right: 10px;
+        color: #cbcbcb;
+      }
+    }
+  `;
+
+  const recomDropdownStyle = `
+    .selectedLabel {
+      background-color: white;
+      height: 28px;
+      font-size: 12px;
+      border-radius: 30px;
+      border: 1px solid ${
+        selectedRecomCat ? selectedRecomCat.color : '#6ab2b2'
+      };
+      padding: 0 25px 0 14px;
+      color: ${selectedRecomCat ? 'black' : '#7c7c7c'};
+      .hashTag {
+        color: ${selectedRecomCat ? selectedRecomCat.color : '#6ab2b2'}
+      }
+      .triangle {
+        right: 10px;
+        color: ${selectedRecomCat ? selectedRecomCat.color : '#6ab2b2'}
+      }
+          }
+  `;
 
   return (
     <RestaurantNavContainer>
@@ -121,7 +146,7 @@ const RestaurantNav = ({
               dispatch(setSelectedLocCat(toSelect));
             }}
             defaultValue="위치 필터"
-            style={dropdownStyle}
+            style={normalDropdownStyle}
             isWhole
           />
           <Dropdown
@@ -134,7 +159,7 @@ const RestaurantNav = ({
               dispatch(setSelectedLocTag(toSelect));
             }}
             defaultValue="상세 위치"
-            style={dropdownStyle}
+            style={normalDropdownStyle}
             isWhole
           />
           <Dropdown
@@ -144,7 +169,7 @@ const RestaurantNav = ({
               dispatch(setSelectedFoodCat(toSelect));
             }}
             defaultValue="음식 필터"
-            style={dropdownStyle}
+            style={normalDropdownStyle}
             isWhole
           />
           <Dropdown
@@ -153,7 +178,7 @@ const RestaurantNav = ({
             setSelected={(toSelect) => {
               dispatch(setSortBy(toSelect));
             }}
-            style={dropdownStyle}
+            style={normalDropdownStyle}
             isWhole={false}
           />
         </div>

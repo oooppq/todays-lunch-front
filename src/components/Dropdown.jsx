@@ -1,12 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useRef, useState } from 'react';
-import {
-  DropdownContainer,
-  SelectedLabel,
-  OptionContainer,
-  OptionUl,
-  OptionLi,
-} from './dropdown.style';
+import { DropdownContainer } from './dropdown.style';
 
 // selected 항목 각각 변수명 다르게 설정해서 전역 상태로 관리해야 할듯, 페이지 전환시 안바뀌어야 하기도 하고,
 // 위치 카테고리가 설정되지 않으면 상세위치에 아무 항목도 없게끔 만들려면...
@@ -36,42 +30,26 @@ const Dropdown = ({
   });
 
   return (
-    <DropdownContainer
-      ref={dropdownRef}
-      styleInfo={style}
-      style={selected ? { borderColor: selected.color } : null}
-    >
-      <SelectedLabel type="button" fontSize={style.fontSize}>
-        <span
-          className="label"
-          style={isRecommend && selected ? { color: 'black' } : null}
-        >
-          {isRecommend ? (
-            <span
-              style={selected ? { color: selected.color || style.color } : null}
-            >
-              #{' '}
-            </span>
-          ) : null}
+    <DropdownContainer ref={dropdownRef} styleInfo={style}>
+      <button className="selectedLabel" type="button">
+        <span className="label">
+          {isRecommend ? <span className="hashTag"># </span> : null}
           {selected ? selected.name : defaultValue}
         </span>
-        <span
-          className="triangle"
-          style={selected ? { color: selected.color || style.color } : null}
-        >
-          {' '}
-          ▼
-        </span>
-      </SelectedLabel>
+        <span className="triangle"> ▼</span>
+      </button>
       {isActive ? (
-        <OptionContainer
+        <div
+          className="optionContainer"
           onClick={() => {
             setIsActive(false);
           }}
+          aria-hidden="true"
         >
-          <OptionUl>
+          <ul className="optionUl">
             {whole.concat(data).map((elem) => (
-              <OptionLi
+              <li
+                className="optionLi"
                 key={elem.id}
                 onClick={(e) => {
                   if (elem.id === 0) setSelected(null);
@@ -79,6 +57,7 @@ const Dropdown = ({
                   setIsActive(false);
                   e.stopPropagation();
                 }}
+                aria-hidden="true"
                 style={
                   (!selected && elem.id === 0) ||
                   (selected && selected.id === elem.id)
@@ -88,10 +67,10 @@ const Dropdown = ({
               >
                 {isRecommend ? <span># </span> : null}
                 {elem.name}
-              </OptionLi>
+              </li>
             ))}
-          </OptionUl>
-        </OptionContainer>
+          </ul>
+        </div>
       ) : null}
     </DropdownContainer>
   );
