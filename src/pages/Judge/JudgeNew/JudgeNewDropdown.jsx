@@ -17,6 +17,22 @@ const JudgeNewDropdown = () => {
   const locationCategory = useSelector(
     (state) => state.judgeNew.locationCategory
   );
+  const dropdownStyle = `
+    .selectedLabel {
+      background-color: white;
+      height: 32px;
+      width: 98px;
+      font-size: 12px;
+      border-radius: 30px;
+      border: 1px solid #bdbdbd;
+      padding: 0 16px;
+      color: #7c7c7c;
+      .triangle {
+        right: 11px;
+        color: #cbcbcb;
+      }
+    }
+  `;
 
   const dispatch = useDispatch();
 
@@ -43,12 +59,6 @@ const JudgeNewDropdown = () => {
       refetchOnWindowFocus: false,
     },
   ]);
-
-  const dropdownStyle = {
-    height: '100%',
-    width: '98px',
-    fontSize: '13px',
-  };
 
   if (ress.some((res) => res.status === 'loading')) return null;
 
