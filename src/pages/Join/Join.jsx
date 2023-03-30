@@ -13,16 +13,18 @@ const Join = () => {
     nickName,
     password,
     passwordConfirm,
-    location,
-    food,
+    locations,
+    foods,
     stage,
     handleEmailChange,
     handleNickNameChange,
     handlePasswordChange,
     handlePasswordConfirmChange,
     checkPassword,
-    changeLocation,
-    changeFood,
+    addLocation,
+    changeLocations,
+    addFood,
+    changeFoods,
     goToNextStage,
   } = useJoinHandler();
 
@@ -53,8 +55,12 @@ const Join = () => {
           case 2:
             return (
               <JoinBodySecond
-                changeLocation={changeLocation}
-                changeFood={changeFood}
+                locations={locations}
+                foods={foods}
+                addLocation={addLocation}
+                changeLocations={changeLocations}
+                addFood={addFood}
+                changeFoods={changeFoods}
                 goToNextStage={goToNextStage}
               />
             );
@@ -65,8 +71,8 @@ const Join = () => {
                 nickName={nickName}
                 password={password}
                 passwordConfirm={passwordConfirm}
-                location={location}
-                food={food}
+                locations={locations}
+                foods={foods}
               />
             );
           default:

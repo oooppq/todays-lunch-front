@@ -1,41 +1,77 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
+import { useQueries } from 'react-query';
+import axios from 'axios';
 import { JoinBodySecondContainer } from './join.style';
 import plusIcon from '../../assets/img/plus-icon.svg';
-import Dropdown from '../../components/Dropdown';
+import JoinDropdown from './JoinDropdown';
 
-const dropdownStyle = `
-  margin: 9px 0 12px 0;
-  .selectedLabel {
-    height: 45px;
-    width: 100%;
-    font-size: 17px;
-    border-radius: 3px;
-    border: 1px solid #e3e3e3;
-    background-color: #f4f4f4;
-    padding: 0 12px;
-    color: #7c7c7c;
-    font-family: Pretendard-Medium;
-    .triangle {
-      right: 15px;
-      color: #c2c2c2;
-    }
-  }
-`;
+const JoinBodySecond = ({
+  locations,
+  foods,
+  addLocation,
+  changeLocations,
+  addFood,
+  changeFoods,
+  goToNextStage,
+}) => {
+  const ress = useQueries([
+    {
+      queryKey: 'location-category',
+      queryFn: () =>
+        axios.get('/api/location-category').then((res) => res.data),
+      refetchOnWindowFocus: false,
+    },
+    {
+      queryKey: 'food-category',
+      queryFn: () => axios.get('/api/food-category').then((res) => res.data),
+      refetchOnWindowFocus: false,
+    },
+  ]);
+  if (ress.some((res) => res.isLoading || res.isError)) return null;
 
-const JoinBodySecond = () => {
   return (
     <JoinBodySecondContainer>
       <div className="label">활동 영역</div>
-      <Dropdown style={dropdownStyle} />
-      <button type="button" className="newLocCatBtn">
+      <div className="locDropdownsOuter">
+        {locations.map((location) => (
+          <JoinDropdown
+            key={location.id}
+            idx={location.id}
+            elements={ress[0].data}
+            selectedList={locations.map((loc) => loc.data)}
+            changeList={changeLocations}
+          />
+        ))}
+      </div>
+      <button type="button" className="newLocCatBtn" onClick={addLocation}>
         <img src={plusIcon} alt="" className="" />
       </button>
       <div className="lavel">좋아하는 음식 종류</div>
-      <Dropdown style={dropdownStyle} />
-      <button type="button" className="newFoodCatBtn">
+      <div className="foodDropdownsOuter">
+        {foods.map((food) => (
+          <JoinDropdown
+            key={food.id}
+            idx={food.id}
+            elements={ress[1].data}
+            selectedList={foods.map((fo) => fo.data)}
+            changeList={changeFoods}
+          />
+        ))}
+      </div>
+
+      <button type="button" className="newFoodCatBtn" onClick={addFood}>
         <img src={plusIcon} alt="" className="" />
       </button>
-      <button type="button" className="btn registerBtn">
+      <button
+        type="button"
+        className="btn registerBtn"
+        onClick={() => {
+          console.log(locations);
+          console.log(foods);
+          goToNextStage();
+        }}
+      >
         회원가입
       </button>
     </JoinBodySecondContainer>
