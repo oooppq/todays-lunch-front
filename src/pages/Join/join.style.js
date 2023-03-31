@@ -76,3 +76,27 @@ export const JoinBodySecondContainer = styled.div`
     font-size: 18px;
   }
 `;
+
+export const JoinSuccessContainer = styled.div`
+  margin: 38px 36px 0 36px;
+  .successContent {
+    text-align: center;
+    font-size: 16px;
+    .userName {
+      font-family: Pretendard-SemiBold;
+    }
+    .contentBottom {
+      margin-top: 7px;
+    }
+  }
+
+  .gotoHomeBtn {
+    margin-top: 44px;
+    width: 100%;
+    height: 45px;
+    background-color: black;
+    color: white;
+    font-family: Pretendard-SemiBold;
+    font-size: 18px;
+  }
+`;

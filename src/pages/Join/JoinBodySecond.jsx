@@ -1,41 +1,84 @@
-import React from 'react';
+/* eslint-disable react/prop-types */
+import React, { useEffect } from 'react';
 import { JoinBodySecondContainer } from './join.style';
 import plusIcon from '../../assets/img/plus-icon.svg';
-import Dropdown from '../../components/Dropdown';
+import JoinDropdown from './JoinDropdown';
+import {
+  useGetCategories,
+  useInputValidation,
+  useWarningHandler,
+} from './join.helpers';
 
-const dropdownStyle = `
-  margin: 9px 0 12px 0;
-  .selectedLabel {
-    height: 45px;
-    width: 100%;
-    font-size: 17px;
-    border-radius: 3px;
-    border: 1px solid #e3e3e3;
-    background-color: #f4f4f4;
-    padding: 0 12px;
-    color: #7c7c7c;
-    font-family: Pretendard-Medium;
-    .triangle {
-      right: 15px;
-      color: #c2c2c2;
-    }
-  }
-`;
+const JoinBodySecond = ({
+  locations,
+  foods,
+  addLocation,
+  changeLocations,
+  addFood,
+  changeFoods,
+  goToNextStage,
+  postJoinRequest,
+}) => {
+  const { locationCategories, foodCategories, isLoading, isError } =
+    useGetCategories();
+  const { locationWarning, foodWarning, setLocationWarning, setFoodWarning } =
+    useWarningHandler();
+  const { checkDropdown, checkAllForSecond } = useInputValidation();
 
-const JoinBodySecond = () => {
+  useEffect(() => {
+    if (locations[0].data) setLocationWarning(!checkDropdown(locations));
+    if (foods[0].data) setFoodWarning(!checkDropdown(foods));
+  }, [locations, foods, setLocationWarning, checkDropdown, setFoodWarning]);
+
+  if (isLoading || isError) return null;
+
   return (
     <JoinBodySecondContainer>
       <div className="label">활동 영역</div>
-      <Dropdown style={dropdownStyle} />
-      <button type="button" className="newLocCatBtn">
+      <div className="locDropdownsOuter">
+        {locations.map((location) => (
+          <JoinDropdown
+            key={location.id}
+            idx={location.id}
+            elements={locationCategories}
+            selectedList={locations.map((loc) => loc.data)}
+            changeList={changeLocations}
+          />
+        ))}
+      </div>
+      {locationWarning ? '활동영역 추가하셈' : null}
+      <button type="button" className="newLocCatBtn" onClick={addLocation}>
         <img src={plusIcon} alt="" className="" />
       </button>
       <div className="lavel">좋아하는 음식 종류</div>
-      <Dropdown style={dropdownStyle} />
-      <button type="button" className="newFoodCatBtn">
+      <div className="foodDropdownsOuter">
+        {foods.map((food) => (
+          <JoinDropdown
+            key={food.id}
+            idx={food.id}
+            elements={foodCategories}
+            selectedList={foods.map((fo) => fo.data)}
+            changeList={changeFoods}
+          />
+        ))}
+      </div>
+      {foodWarning ? '음식종류 추가하셈' : null}
+      <button type="button" className="newFoodCatBtn" onClick={addFood}>
         <img src={plusIcon} alt="" className="" />
       </button>
-      <button type="button" className="btn registerBtn">
+      <button
+        type="button"
+        className="btn registerBtn"
+        onClick={() => {
+          if (checkAllForSecond(locations, foods)) {
+            postJoinRequest();
+            goToNextStage();
+          } else {
+            setLocationWarning(!checkDropdown(locations));
+            setFoodWarning(!checkDropdown(foods));
+          }
+        }}
+      >
         회원가입
       </button>
     </JoinBodySecondContainer>
