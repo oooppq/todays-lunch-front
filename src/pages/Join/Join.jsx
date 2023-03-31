@@ -16,16 +16,18 @@ const Join = () => {
     locations,
     foods,
     stage,
+    status,
+    error,
     handleEmailChange,
     handleNickNameChange,
     handlePasswordChange,
     handlePasswordConfirmChange,
-    checkPassword,
     addLocation,
     changeLocations,
     addFood,
     changeFoods,
     goToNextStage,
+    postJoinRequest,
   } = useJoinHandler();
 
   return (
@@ -48,7 +50,6 @@ const Join = () => {
                 handleNickNameChange={handleNickNameChange}
                 handlePasswordChange={handlePasswordChange}
                 handlePasswordConfirmChange={handlePasswordConfirmChange}
-                checkPassword={checkPassword}
                 goToNextStage={goToNextStage}
               />
             );
@@ -62,18 +63,12 @@ const Join = () => {
                 addFood={addFood}
                 changeFoods={changeFoods}
                 goToNextStage={goToNextStage}
+                postJoinRequest={postJoinRequest}
               />
             );
           case 3:
             return (
-              <JoinSuccess
-                email={email}
-                nickName={nickName}
-                password={password}
-                passwordConfirm={passwordConfirm}
-                locations={locations}
-                foods={foods}
-              />
+              <JoinSuccess nickName={nickName} status={status} error={error} />
             );
           default:
             return null;

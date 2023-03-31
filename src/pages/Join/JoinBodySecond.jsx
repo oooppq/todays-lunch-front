@@ -1,10 +1,13 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
-import { useQueries } from 'react-query';
-import axios from 'axios';
+import React, { useEffect } from 'react';
 import { JoinBodySecondContainer } from './join.style';
 import plusIcon from '../../assets/img/plus-icon.svg';
 import JoinDropdown from './JoinDropdown';
+import {
+  useGetCategories,
+  useInputValidation,
+  useWarningHandler,
+} from './join.helpers';
 
 const JoinBodySecond = ({
   locations,
@@ -14,21 +17,20 @@ const JoinBodySecond = ({
   addFood,
   changeFoods,
   goToNextStage,
+  postJoinRequest,
 }) => {
-  const ress = useQueries([
-    {
-      queryKey: 'location-category',
-      queryFn: () =>
-        axios.get('/api/location-category').then((res) => res.data),
-      refetchOnWindowFocus: false,
-    },
-    {
-      queryKey: 'food-category',
-      queryFn: () => axios.get('/api/food-category').then((res) => res.data),
-      refetchOnWindowFocus: false,
-    },
-  ]);
-  if (ress.some((res) => res.isLoading || res.isError)) return null;
+  const { locationCategories, foodCategories, isLoading, isError } =
+    useGetCategories();
+  const { locationWarning, foodWarning, setLocationWarning, setFoodWarning } =
+    useWarningHandler();
+  const { checkDropdown, checkAllForSecond } = useInputValidation();
+
+  useEffect(() => {
+    if (locations[0].data) setLocationWarning(!checkDropdown(locations));
+    if (foods[0].data) setFoodWarning(!checkDropdown(foods));
+  }, [locations, foods, setLocationWarning, checkDropdown, setFoodWarning]);
+
+  if (isLoading || isError) return null;
 
   return (
     <JoinBodySecondContainer>
@@ -38,12 +40,13 @@ const JoinBodySecond = ({
           <JoinDropdown
             key={location.id}
             idx={location.id}
-            elements={ress[0].data}
+            elements={locationCategories}
             selectedList={locations.map((loc) => loc.data)}
             changeList={changeLocations}
           />
         ))}
       </div>
+      {locationWarning ? '활동영역 추가하셈' : null}
       <button type="button" className="newLocCatBtn" onClick={addLocation}>
         <img src={plusIcon} alt="" className="" />
       </button>
@@ -53,13 +56,13 @@ const JoinBodySecond = ({
           <JoinDropdown
             key={food.id}
             idx={food.id}
-            elements={ress[1].data}
+            elements={foodCategories}
             selectedList={foods.map((fo) => fo.data)}
             changeList={changeFoods}
           />
         ))}
       </div>
-
+      {foodWarning ? '음식종류 추가하셈' : null}
       <button type="button" className="newFoodCatBtn" onClick={addFood}>
         <img src={plusIcon} alt="" className="" />
       </button>
@@ -67,9 +70,13 @@ const JoinBodySecond = ({
         type="button"
         className="btn registerBtn"
         onClick={() => {
-          console.log(locations);
-          console.log(foods);
-          goToNextStage();
+          if (checkAllForSecond(locations, foods)) {
+            postJoinRequest();
+            goToNextStage();
+          } else {
+            setLocationWarning(!checkDropdown(locations));
+            setFoodWarning(!checkDropdown(foods));
+          }
         }}
       >
         회원가입
