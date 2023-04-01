@@ -54,16 +54,6 @@ export const RecommendationInfoUp = styled.div`
     bottom: 15px;
     width: 100%;
     height: 30px;
-
-    .btn {
-      display: table-cell;
-      height: 30px;
-      width: 30px;
-      margin-left: 14px;
-    }
-    .colored {
-      background-color: #6ab2b2;
-    }
     .lowestPrice {
       position: absolute;
       font-family: 'Pretendard-Bold';
@@ -71,32 +61,56 @@ export const RecommendationInfoUp = styled.div`
       font-size: 24px;
       line-height: 40px;
       color: #ffffff;
-      right: 17px;
+      left: 17px;
       bottom: -3px;
     }
   }
 `;
 
 export const RecommendationInfoDown = styled.div`
-  margin: 19px 22px 0 22px;
-  overflow: hidden;
-  white-space: nowrap;
-  color: #4e4e4e;
-  .title {
-    font-family: 'Pretendard-SemiBold';
+  margin: 19px 20px 0 22px;
+  display: flex;
+  .left {
+    overflow: hidden;
+    white-space: nowrap;
     color: #4e4e4e;
-    font-size: 20px;
+    .title {
+      font-family: 'Pretendard-SemiBold';
+      color: #4e4e4e;
+      font-size: 20px;
+    }
+    .comment {
+      color: #4f4f4f;
+      font-size: 17px;
+      margin-top: 6px;
+    }
+    .reviewRate {
+      margin: 9px 0 0 10px;
+      // text-align: right;
+      font-size: 12px;
+      color: #356461;
+    }
   }
-  .comment {
-    color: #4f4f4f;
-    font-size: 17px;
-    margin-top: 6px;
-  }
-  .reviewRate {
-    margin-top: 9px;
-    text-align: right;
-    font-size: 12px;
-    color: #356461;
+  .right {
+    margin-left: auto;
+    display: flex;
+    flex-direction: column;
+    .btn {
+      width: 37px;
+      height: 37px;
+      box-sizing: border-box;
+      border: 1px solid #bdbdbd;
+      border-radius: 50%;
+      margin-bottom: 6px;
+      img {
+        width: 17px;
+        height: 17px;
+      }
+    }
+    .colored {
+      background-color: #6ab2b2;
+      border: none;
+    }
   }
 `;
 

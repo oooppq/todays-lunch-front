@@ -13,14 +13,18 @@ export const JudgeNowHeader = styled.div`
     margin-left: 25px;
   }
   .changeBtn {
-    margin-left: 26px;
+    margin-left: auto;
+    margin-right: 25px;
     box-sizing: border-box;
     height: 53px;
+    width: 211px;
     border: 1px solid #dddddd;
     border-radius: 30px;
     font-size: 18px;
     font-family: Pretendard-Medium;
-    padding: 17px 24px 0 21px;
+    // padding: 17px 24px 0 21px;
+    padding-top: 17px;
+    text-align: center;
     line-height: 21.48px;
     text-align: center;
     color: #525252;
@@ -195,7 +199,7 @@ export const JudgeNowDetailInfo = styled.div`
     line-height: 20px;
     overflow-y: auto;
   }
-  .mapBtn {
+  .linkToKakaoMap {
     margin-top: 10px;
     padding-top: 5px;
     width: 89px;
@@ -206,6 +210,7 @@ export const JudgeNowDetailInfo = styled.div`
     border-radius: 10px;
     color: #5e5e5e;
     font-size: 12px;
+    text-decoration: none;
   }
   .credit {
     margin-top: 6px;

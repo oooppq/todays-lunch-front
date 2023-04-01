@@ -38,7 +38,14 @@ const JudgeNowDetail = ({ restaurant, setIsDetail, inListFlag }) => {
           <div className="tag">#{restaurant.locationTag}</div>
         </div>
         <div className="content">{restaurant.introduction}</div>
-        <div className="mapBtn">지도 위치 보기</div>
+        <a
+          href={`https://map.kakao.com/link/map/${restaurant.restaurantName},${restaurant.latitude},${restaurant.longitude}`}
+          target="_blank"
+          rel="noreferrer"
+          className="linkToKakaoMap"
+        >
+          지도 위치 보기
+        </a>
         <div className="credit">post by {restaurant.member}</div>
         <div className="recommend">
           <div
