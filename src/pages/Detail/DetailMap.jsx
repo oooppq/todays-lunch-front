@@ -20,6 +20,8 @@ const DetailMap = ({ mapData }) => {
       <button type="button" className="findWay">
         <a
           href={`https://map.kakao.com/link/to/${mapData.restaurantName},${mapData.lng},${mapData.lat}`}
+          target="_blank"
+          rel="noreferrer"
         >
           길찾기
         </a>

@@ -95,7 +95,7 @@ export const DetailInfoContainer = styled.div`
   }
   .hashTags {
     display: flex;
-    margin: 19px 0 0 46px;
+    margin: 15px 0 0 46px;
     color: #666666;
     .hashTag {
       margin-right: 5px;
@@ -108,7 +108,7 @@ export const DetailInfoContainer = styled.div`
     border: 1px solid #6ab2b2;
     border-radius: 15px;
     padding: 3px 14px;
-    margin-top: 5px;
+    margin-top: 9px;
     font-size: 15px;
   }
   .help {
@@ -238,7 +238,7 @@ export const DetailContributorContainer = styled.div`
   }
   .contributors {
     padding: 0;
-    margin: 13px 0 0 54px;
+    margin: 15px 0 0 54px;
     display: flex;
     list-style: none;
     .contributorLi {

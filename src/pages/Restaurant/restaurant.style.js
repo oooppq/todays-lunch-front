@@ -17,7 +17,7 @@ export const RestaurantNavDown = styled.div`
     display: flex;
     justify-content: space-between;
     height: 32px;
-    margin: 20px 19px 10px 19px;
+    margin: 20px 19px 12px 19px;
   }
   .down {
     height: 28px;
