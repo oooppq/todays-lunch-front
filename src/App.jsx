@@ -14,6 +14,11 @@ import MyPage from './pages/MyPage/MyPage';
 import JudgeHome from './pages/Judge/JudgeHome';
 import JudgeNew from './pages/Judge/JudgeNew/JudgeNew';
 import JudgeNow from './pages/Judge/JudgeNow/JudgeNow';
+import MyRestaurant from './pages/MyPage/MyRestaurant/MyRestaurant';
+import MyJudge from './pages/MyPage/MyJudge/MyJudge';
+import MyReview from './pages/MyPage/MyReview/MyReview';
+import WishList from './pages/MyPage/WishList/WishList';
+import ModifyProfile from './pages/MyPage/ModifyProfile/ModifyProfile';
 
 const queryClient = new QueryClient();
 
@@ -26,6 +31,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/restaurants" element={<Restaurant />} />
+          <Route path="/restaurants/:id" element={<Detail />} />
           <Route path="/play" element={<Play />} />
           <Route path="/restaurants-judge" element={<JudgeHome />} />
           <Route path="restaurants-judge/new" element={<JudgeNew />} />
@@ -33,7 +39,11 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/join" element={<Join />} />
           <Route path="/mypage" element={<MyPage />} />
-          <Route path="/restaurants/:id" element={<Detail />} />
+          <Route path="/mypage/my-judge" element={<MyJudge />} />
+          <Route path="/mypage/my-restaurant" element={<MyRestaurant />} />
+          <Route path="/mypage/my-review" element={<MyReview />} />
+          <Route path="/mypage/wishList" element={<WishList />} />
+          <Route path="/mypage/modify-profile" element={<ModifyProfile />} />
         </Routes>
         <Footer />
       </BrowserRouter>
