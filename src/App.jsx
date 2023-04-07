@@ -1,5 +1,5 @@
-import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -23,30 +23,32 @@ import ModifyProfile from './pages/MyPage/ModifyProfile/ModifyProfile';
 const queryClient = new QueryClient();
 
 const App = () => {
+  const location = useLocation();
+
+  useEffect(() => {}, [location]);
+
   return (
     <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
-        <Header />
-        <Nav />
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/restaurants" element={<Restaurant />} />
-          <Route path="/restaurants/:id" element={<Detail />} />
-          <Route path="/play" element={<Play />} />
-          <Route path="/restaurants-judge" element={<JudgeHome />} />
-          <Route path="restaurants-judge/new" element={<JudgeNew />} />
-          <Route path="restaurants-judge/now" element={<JudgeNow />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/join" element={<Join />} />
-          <Route path="/mypage" element={<MyPage />} />
-          <Route path="/mypage/my-judge" element={<MyJudge />} />
-          <Route path="/mypage/my-restaurant" element={<MyRestaurant />} />
-          <Route path="/mypage/my-review" element={<MyReview />} />
-          <Route path="/mypage/wishList" element={<WishList />} />
-          <Route path="/mypage/modify-profile" element={<ModifyProfile />} />
-        </Routes>
-        <Footer />
-      </BrowserRouter>
+      <Header />
+      <Nav />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/restaurants" element={<Restaurant />} />
+        <Route path="/restaurants/:id" element={<Detail />} />
+        <Route path="/play" element={<Play />} />
+        <Route path="/restaurants-judge" element={<JudgeHome />} />
+        <Route path="restaurants-judge/new" element={<JudgeNew />} />
+        <Route path="restaurants-judge/now" element={<JudgeNow />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/join" element={<Join />} />
+        <Route path="/mypage" element={<MyPage />} />
+        <Route path="/mypage/my-judge" element={<MyJudge />} />
+        <Route path="/mypage/my-restaurant" element={<MyRestaurant />} />
+        <Route path="/mypage/my-review" element={<MyReview />} />
+        <Route path="/mypage/wishList" element={<WishList />} />
+        <Route path="/mypage/modify-profile" element={<ModifyProfile />} />
+      </Routes>
+      <Footer />
     </QueryClientProvider>
   );
 };
