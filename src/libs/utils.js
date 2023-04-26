@@ -25,3 +25,9 @@ export const pushRecentSearch = (key, title, isLocation, data) => {
   recentSearch = [newElem, ...recentSearch];
   localStorage.setItem(key, JSON.stringify(recentSearch));
 };
+
+export const authState = {
+  UNAUTHORIZED: 'unAuthorized',
+  AUTHORIZED: 'authorized',
+  EXPIRED: 'expired',
+};

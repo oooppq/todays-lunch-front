@@ -1,12 +1,13 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
-import { authState } from '../libs/userAuth.helpers';
+import { authState } from '../libs/utils';
 
 const initialState = {
   id: null,
   state: authState.UNAUTHORIZED,
   token: null,
   refreshToken: null,
+  expireTime: null,
 };
 
 export const userAuthSlice = createSlice({
@@ -36,10 +37,13 @@ export const userAuthSlice = createSlice({
     setRefreshToken: (state, action) => {
       state.refreshToken = action.payload;
     },
+    setExpireTime: (state, action) => {
+      state.expireTime = action.payload;
+    },
   },
 });
 
-export const { setId, setState, setToken, setRefreshToken } =
+export const { setId, setState, setToken, setRefreshToken, setExpireTime } =
   userAuthSlice.actions;
 
 export default userAuthSlice.reducer;

@@ -34,7 +34,7 @@ const Map = ({ restaurants }) => {
                 key={e.id}
                 index={e.id}
                 position={position}
-                content={e.restaurant_name}
+                content={e.restaurantName}
               />
             );
           })}
