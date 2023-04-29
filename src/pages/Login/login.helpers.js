@@ -1,25 +1,17 @@
 /* eslint-disable import/prefer-default-export */
-import axios from 'axios';
 import { useState } from 'react';
-import { useMutation } from 'react-query';
+import { useAuth } from '../../libs/userAuth.helpers';
+import { authStates } from '../../libs/utils';
+
+const EXPIRE_TIME = (1 / 2) * 3600 * 1000; // expire time 30 minutes
 
 export const useLoginHandler = () => {
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
   const loginInfo = JSON.stringify({ email, password });
+  // const userState = useSelector((state) => state.userAuth.state);
 
-  const {
-    mutate,
-    status: loginStatus,
-    data: loginResponse,
-    error: loginError,
-  } = useMutation(() =>
-    axios.post('', loginInfo, {
-      headers: {
-        'Content-Type': `application/json`,
-      },
-    })
-  );
+  const { login, refresh, setAuthInfo, authResponse, authError } = useAuth();
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
@@ -30,21 +22,33 @@ export const useLoginHandler = () => {
 
   const handleLogin = (event) => {
     event.preventDefault();
-    mutate();
-    // try {
-    //   mutate();
-    // } catch (error) {}
+    login(loginInfo);
+
+    setTimeout(refresh, EXPIRE_TIME - 60000);
+  };
+
+  const handleAuth = () => {
+    if (authResponse) {
+      setAuthInfo(
+        'login',
+        authStates.AUTHORIZED,
+        authResponse.data.accessToken,
+        authResponse.data.refreshToken
+      );
+    }
+    if (authError) {
+      setAuthInfo('error', authStates.ERROR, null, null);
+    }
   };
 
   return {
     email,
     password,
+    authResponse,
     handleEmailChange,
     handlePasswordChange,
+    handleAuth,
     handleLogin,
-    loginResponse,
-    loginStatus,
-    loginError,
   };
 };
 

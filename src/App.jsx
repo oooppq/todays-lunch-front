@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
-import { QueryClient, QueryClientProvider } from 'react-query';
+// import { QueryClient, QueryClientProvider } from 'react-query';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Nav from './components/Nav';
@@ -19,16 +19,21 @@ import MyJudge from './pages/MyPage/MyJudge/MyJudge';
 import MyReview from './pages/MyPage/MyReview/MyReview';
 import WishList from './pages/MyPage/WishList/WishList';
 import ModifyProfile from './pages/MyPage/ModifyProfile/ModifyProfile';
+import { useAuth } from './libs/userAuth.helpers';
 
-const queryClient = new QueryClient();
+// const queryClient = new QueryClient();
 
 const App = () => {
   const location = useLocation();
+  const { handleTimeOut } = useAuth();
 
-  useEffect(() => {}, [location]);
+  // useEffect(handleTimeOut, [handleTimeOut, location]);
+  useEffect(() => {
+    localStorage.removeItem('asdsadsads');
+  }, [handleTimeOut, location]);
 
   return (
-    <QueryClientProvider client={queryClient}>
+    <>
       <Header />
       <Nav />
       <Routes>
@@ -49,7 +54,7 @@ const App = () => {
         <Route path="/mypage/modify-profile" element={<ModifyProfile />} />
       </Routes>
       <Footer />
-    </QueryClientProvider>
+    </>
   );
 };
 

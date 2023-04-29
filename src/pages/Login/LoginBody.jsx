@@ -1,24 +1,22 @@
 import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { LoginBodyContainer } from './login.style';
 import jmcIcon from '../../assets/img/user-jmc-icon.svg';
 import { useLoginHandler } from './login.helpers';
 import LoginError from './LoginError';
+import { authStates } from '../../libs/utils';
 
 const LoginBody = () => {
-  const {
-    handleEmailChange,
-    handlePasswordChange,
-    handleLogin,
-    loginResponse,
-    loginStatus,
-    loginError,
-  } = useLoginHandler();
+  const { handleEmailChange, handlePasswordChange, handleLogin, handleAuth } =
+    useLoginHandler();
+  const navigate = useNavigate();
+  const authState = useSelector((state) => state.userAuth.state);
+  useEffect(handleAuth);
   useEffect(() => {
-    if (loginResponse && loginResponse.token) {
-      localStorage.setItem('jwt', loginResponse.token);
-    }
-  }, [loginResponse]);
-  if (loginStatus === 'loading') return null;
+    if (authState === authStates.AUTHORIZED) navigate(-1);
+  });
+
   return (
     <LoginBodyContainer>
       <div className="loginLogoAndTitle">
@@ -40,7 +38,7 @@ const LoginBody = () => {
           placeholder="password"
           onChange={handlePasswordChange}
         />
-        {loginError ? <LoginError error={loginError} /> : null}
+        {authState === authStates.ERROR ? <LoginError /> : null}
         <button className="loginBtn" type="button" onClick={handleLogin}>
           로그인
         </button>

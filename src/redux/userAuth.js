@@ -1,38 +1,40 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
-import { authState } from '../libs/utils';
+import { authStates } from '../libs/utils';
 
 const initialState = {
-  id: null,
-  state: authState.UNAUTHORIZED,
-  token: null,
+  state: authStates.UNAUTHORIZED,
+  accessToken: null,
   refreshToken: null,
   expireTime: null,
 };
 
 export const userAuthSlice = createSlice({
-  name: ' userAuth',
+  name: 'userAuth',
   initialState,
   reducers: {
-    setId: (state, action) => {
-      state.id = action.payload;
-    },
     setState: (state, action) => {
       switch (action.payload) {
-        case authState.AUTHORIZED:
-          state.state = authState.UNAUTHORIZED;
+        case authStates.AUTHORIZED:
+          state.state = authStates.AUTHORIZED;
           break;
-        case authState.UNAUTHORIZED:
-          state.state = authState.UNAUTHORIZED;
+        case authStates.UNAUTHORIZED:
+          state.state = authStates.UNAUTHORIZED;
           break;
-        case authState.EXPIRED:
-          state.state = authState.EXPIRED;
+        case authStates.EXPIRED:
+          state.state = authStates.EXPIRED;
+          break;
+        case authStates.PENDING:
+          state.state = authStates.PENDING;
+          break;
+        case authStates.ERROR:
+          state.state = authStates.ERROR;
           break;
         default:
       }
     },
-    setToken: (state, action) => {
-      state.token = action.payload;
+    setAccessToken: (state, action) => {
+      state.accessToken = action.payload;
     },
     setRefreshToken: (state, action) => {
       state.refreshToken = action.payload;
@@ -43,7 +45,7 @@ export const userAuthSlice = createSlice({
   },
 });
 
-export const { setId, setState, setToken, setRefreshToken, setExpireTime } =
+export const { setState, setAccessToken, setRefreshToken, setExpireTime } =
   userAuthSlice.actions;
 
 export default userAuthSlice.reducer;
