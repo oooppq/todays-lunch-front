@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 // import { QueryClient, QueryClientProvider } from 'react-query';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -24,13 +24,14 @@ import { useAuth } from './libs/userAuth.helpers';
 // const queryClient = new QueryClient();
 
 const App = () => {
-  const location = useLocation();
-  const { handleTimeOut } = useAuth();
-
+  // const location = useLocation();
+  // const { handleTimeOut } = useAuth();
+  const { login, refresh, handleAuthState } = useAuth();
   // useEffect(handleTimeOut, [handleTimeOut, location]);
-  useEffect(() => {
-    localStorage.removeItem('asdsadsads');
-  }, [handleTimeOut, location]);
+  useEffect(handleAuthState);
+  // useEffect(() => {
+  //   localStorage.removeItem('asdsadsads');
+  // }, [handleTimeOut, location]);
 
   return (
     <>
@@ -44,7 +45,10 @@ const App = () => {
         <Route path="/restaurants-judge" element={<JudgeHome />} />
         <Route path="restaurants-judge/new" element={<JudgeNew />} />
         <Route path="restaurants-judge/now" element={<JudgeNow />} />
-        <Route path="/login" element={<Login />} />
+        <Route
+          path="/login"
+          element={<Login login={login} refresh={refresh} />}
+        />
         <Route path="/join" element={<Join />} />
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/mypage/my-judge" element={<MyJudge />} />

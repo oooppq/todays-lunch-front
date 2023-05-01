@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -7,12 +8,13 @@ import { useLoginHandler } from './login.helpers';
 import LoginError from './LoginError';
 import { authStates } from '../../libs/utils';
 
-const LoginBody = () => {
-  const { handleEmailChange, handlePasswordChange, handleLogin, handleAuth } =
-    useLoginHandler();
+const LoginBody = ({ login, refresh }) => {
+  const { handleEmailChange, handlePasswordChange, handleLogin } =
+    useLoginHandler(login, refresh);
+
   const navigate = useNavigate();
   const authState = useSelector((state) => state.userAuth.state);
-  useEffect(handleAuth);
+
   useEffect(() => {
     if (authState === authStates.AUTHORIZED) navigate(-1);
   });

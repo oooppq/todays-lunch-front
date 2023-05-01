@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import UserPageHeader from '../../components/UserPageHeader';
 import FindPasswordModal from './FindPasswordModal';
@@ -6,7 +7,7 @@ import { LoginContainer } from './login.style';
 import LoginBody from './LoginBody';
 import LoginBottom from './LoginBottom';
 
-const Login = () => {
+const Login = ({ login, refresh }) => {
   const { isFindPassword, openFindPassword, closeFindPassword } =
     useFindPasswordModal();
 
@@ -16,7 +17,7 @@ const Login = () => {
         <FindPasswordModal closeFindPassword={closeFindPassword} />
       ) : null}
       <UserPageHeader />
-      <LoginBody />
+      <LoginBody login={login} refresh={refresh} />
       <LoginBottom openFindPassword={openFindPassword} />
     </LoginContainer>
   );

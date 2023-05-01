@@ -17,9 +17,14 @@ export const useAuth = () => {
     mutate: authRequest,
     data: authResponse,
     error: authError,
-  } = useMutation((mode, payload) => {
+  } = useMutation(({ mode, payload }) => {
     let url = '/api/login'; // login url
-    if (mode === 'refresh') url = '/api/refresh'; // refresh url
+    if (mode === 'refresh') {
+      url = '/api/refresh'; // refresh url
+
+      axios.defaults.headers.common.Authorization = `Bearer ${payload}`;
+      return axios.post(url);
+    }
     return axios.post(url, payload, {
       headers: {
         'Content-Type': `application/json`,
@@ -39,84 +44,52 @@ export const useAuth = () => {
     return userState.state === authStates.AUTHORIZED;
   };
 
-  const setAuthInfo = (mode, state, access, refresh) => {
+  const setAuthInfo = (state, access, refresh) => {
     dispatch(setAccessToken(access));
     dispatch(setRefreshToken(refresh));
     dispatch(setState(state));
-    console.log('authinfo');
     if (state === authStates.AUTHORIZED) {
-      if (mode === 'login')
-        axios.defaults.headers.common.Authorization = `Bearer ${authResponse.accessToken}`;
-      else if (mode === 'refresh')
-        axios.defaults.headers.common.Authorization = `Bearer ${authResponse.refreshToken}`;
-      localStorage.setItem('refreshToken', authResponse.refreshToken);
+      axios.defaults.headers.common.Authorization = `Bearer ${access}`;
+      localStorage.setItem('refreshToken', refresh);
     } else {
       delete axios.defaults.headers.common.Authorization;
       localStorage.removeItem('refreshToken');
     }
   };
 
-  // 로그인 만료 전에 refresh
-  const refresh = async () => {
+  const refresh = () => {
     dispatch(setState(authStates.PENDING));
     const refreshToken = JSON.parse(localStorage.getItem('refreshToken'));
     if (refreshToken) {
-      try {
-        authRequest('refresh');
-        setAuthInfo(
-          authStates.AUTHORIZED,
-          authResponse.accessToken,
-          authResponse.refreshToken
-        );
-      } catch (error) {
-        setAuthInfo(authStates.UNAUTHORIZED, null, null);
-        localStorage.removeItem('refreshToken');
-      }
+      authRequest({ mode: 'refresh', payload: refreshToken });
+    } else {
+      setAuthInfo(authStates.EXPIRED, null, null);
     }
   };
 
   const login = (loginInfo) => {
     dispatch(setState(authStates.PENDING));
-    // try {
-    //   authRequest('login', loginInfo);
-    //   console.log(authIsLoading);
-    //   console.log(authResponse);
-
-    //   if (authResponse === 'error') {
-    //     setAuthInfo(authStates.ERROR, null, null);
-    //   } else {
-    //     setAuthInfo(
-    //       authStates.AUTHORIZED,
-    //       authResponse.data.accessToken,
-    //       authResponse.data.refreshToken
-    //     );
-
-    //     setTimeout(refresh, EXPIRE_TIME - 60000);
-    //   }
-    // } catch (error) {
-    //   setAuthInfo(authStates.UNAUTHORIZED, null, null);
-    // }
-    authRequest('login', loginInfo);
-    // console.log(authIsLoading);
-
-    // if (authResponse === 'error') {
-    //   setAuthInfo(authStates.ERROR, null, null);
-    // } else {
-    //   setAuthInfo(
-    //     authStates.AUTHORIZED,
-    //     authResponse.data.accessToken,
-    //     authResponse.data.refreshToken
-    //   );
-
-    //   setTimeout(refresh, EXPIRE_TIME - 60000);
-    // }
+    authRequest({ mode: 'login', payload: loginInfo });
   };
 
   // handlers
+  const handleAuthState = () => {
+    if (userState !== authStates.AUTHORIZED && authResponse) {
+      setAuthInfo(
+        authStates.AUTHORIZED,
+        authResponse.data.accessToken,
+        authResponse.data.refreshToken
+      );
+    } else if (authError) {
+      setAuthInfo(authStates.ERROR, null, null);
+      // 어떤 error 인지에 따라 다른 action을 취하도록 수정해야 함.
+    }
+  };
+
   const handleTimeOut = () => {
     if (isAuth) {
       if (checkTimeOut()) {
-        refresh();
+        // authRequest('refresh', local);
       }
     }
   };
@@ -130,6 +103,7 @@ export const useAuth = () => {
     setAuthInfo,
     login,
     refresh,
+    handleAuthState,
     handleTimeOut,
   };
 };

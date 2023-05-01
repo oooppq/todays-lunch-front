@@ -1,17 +1,17 @@
 /* eslint-disable import/prefer-default-export */
 import { useState } from 'react';
-import { useAuth } from '../../libs/userAuth.helpers';
-import { authStates } from '../../libs/utils';
+// import { useAuth } from '../../libs/userAuth.helpers';
+// import { authStates } from '../../libs/utils';
 
-const EXPIRE_TIME = (1 / 2) * 3600 * 1000; // expire time 30 minutes
+// const EXPIRE_TIME = (1 / 2) * 3600 * 1000; // expire time 30 minutes
 
-export const useLoginHandler = () => {
+export const useLoginHandler = (login, refresh) => {
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
   const loginInfo = JSON.stringify({ email, password });
   // const userState = useSelector((state) => state.userAuth.state);
 
-  const { login, refresh, setAuthInfo, authResponse, authError } = useAuth();
+  // const { login, refresh, setAuthInfo, authResponse, authError } = useAuth();
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
@@ -24,30 +24,29 @@ export const useLoginHandler = () => {
     event.preventDefault();
     login(loginInfo);
 
-    setTimeout(refresh, EXPIRE_TIME - 60000);
+    // setTimeout(refresh, EXPIRE_TIME - 60000);
+    setTimeout(refresh, 1000);
   };
 
-  const handleAuth = () => {
-    if (authResponse) {
-      setAuthInfo(
-        'login',
-        authStates.AUTHORIZED,
-        authResponse.data.accessToken,
-        authResponse.data.refreshToken
-      );
-    }
-    if (authError) {
-      setAuthInfo('error', authStates.ERROR, null, null);
-    }
-  };
+  // const handleAuthState = () => {
+  // if (authResponse) {
+  //   setAuthInfo(
+  //     authStates.AUTHORIZED,
+  //     authResponse.data.accessToken,
+  //     authResponse.data.refreshToken
+  //   );
+  // } else if (authError) {
+  //   setAuthInfo(authStates.ERROR, null, null);
+  // }
+  // };
 
   return {
     email,
     password,
-    authResponse,
+    // authResponse,
     handleEmailChange,
     handlePasswordChange,
-    handleAuth,
+    // handleAuthState,
     handleLogin,
   };
 };
