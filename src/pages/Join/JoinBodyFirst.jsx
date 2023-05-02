@@ -24,6 +24,7 @@ const JoinBodyFirst = ({
     setPasswordWarning,
     setPasswordConfirmWarning,
   } = useWarningHandler();
+
   const {
     checkEmail,
     checkNickName,
@@ -31,6 +32,7 @@ const JoinBodyFirst = ({
     checkPasswordConfirm,
     checkAllForFirst,
   } = useInputValidation();
+
   return (
     <JoinBodyFirstContainer>
       <div className="label emailLabel">이메일</div>

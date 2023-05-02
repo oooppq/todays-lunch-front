@@ -1,25 +1,10 @@
-/* eslint-disable import/prefer-default-export */
-import axios from 'axios';
 import { useState } from 'react';
-import { useMutation } from 'react-query';
+import { EXPIRE_TIME } from '../../libs/userAuth.helpers';
 
-export const useLoginHandler = () => {
+export const useLoginHandler = (login, refresh) => {
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
   const loginInfo = JSON.stringify({ email, password });
-
-  const {
-    mutate,
-    status: loginStatus,
-    data: loginResponse,
-    error: loginError,
-  } = useMutation(() =>
-    axios.post('', loginInfo, {
-      headers: {
-        'Content-Type': `application/json`,
-      },
-    })
-  );
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
@@ -30,10 +15,10 @@ export const useLoginHandler = () => {
 
   const handleLogin = (event) => {
     event.preventDefault();
-    mutate();
-    // try {
-    //   mutate();
-    // } catch (error) {}
+    login(loginInfo);
+
+    setTimeout(refresh, EXPIRE_TIME - 60000);
+    // setTimeout(refresh, 3000);
   };
 
   return {
@@ -42,9 +27,6 @@ export const useLoginHandler = () => {
     handleEmailChange,
     handlePasswordChange,
     handleLogin,
-    loginResponse,
-    loginStatus,
-    loginError,
   };
 };
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import {
   HeaderContainer,
   HeaderLogo,
@@ -9,11 +10,12 @@ import {
 } from './header.style';
 import defaultUser from '../assets/img/default-icon.svg';
 import basket from '../assets/img/basket-icon.svg';
+import { authStates } from '../libs/utils';
 
 const Header = () => {
   const navigate = useNavigate();
   // const [isModal, setModal] = useState();
-
+  const userState = useSelector((state) => state.userAuth.state);
   return (
     <HeaderContainer>
       <HeaderLogo
@@ -33,7 +35,8 @@ const Header = () => {
       <HeaderMyPageIcon
         src={defaultUser}
         onClick={() => {
-          navigate('/login');
+          if (userState === authStates.AUTHORIZED) navigate('/mypage');
+          else navigate('/login');
         }}
       />
     </HeaderContainer>
