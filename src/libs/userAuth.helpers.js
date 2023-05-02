@@ -17,6 +17,7 @@ export const useAuth = () => {
     mutate: authRequest,
     data: authResponse,
     error: authError,
+    isLoading: authIsLoading,
   } = useMutation(({ mode, payload }) => {
     let url = '/api/login'; // login url
     if (mode === 'refresh') {
@@ -32,10 +33,6 @@ export const useAuth = () => {
     });
   });
 
-  const checkTimeOut = () => {
-    return userState.expireTime > new Date();
-  };
-
   const changeState = (state) => {
     dispatch(setState(state));
   };
@@ -50,20 +47,30 @@ export const useAuth = () => {
     dispatch(setState(state));
     if (state === authStates.AUTHORIZED) {
       axios.defaults.headers.common.Authorization = `Bearer ${access}`;
-      localStorage.setItem('refreshToken', refresh);
+      const expireTime = new Date().getTime() + 2000;
+      //   const expireTime = new Date().getTime() + EXPIRE_TIME;
+      const refreshInfo = { token: refresh, expireTime };
+      localStorage.setItem('refreshInfo', JSON.stringify(refreshInfo));
     } else {
       delete axios.defaults.headers.common.Authorization;
-      localStorage.removeItem('refreshToken');
+      localStorage.removeItem('refreshInfo');
     }
   };
 
+  // refresh token이 local storage에 저장되어 있으면 refresh 진행, expired 되어 있다면 expire로 상태 변경
   const refresh = () => {
     dispatch(setState(authStates.PENDING));
-    const refreshToken = JSON.parse(localStorage.getItem('refreshToken'));
-    if (refreshToken) {
-      authRequest({ mode: 'refresh', payload: refreshToken });
+    const refreshInfo = JSON.parse(localStorage.getItem('refreshInfo'));
+    if (refreshInfo) {
+      if (refreshInfo.expireTime > new Date().getTime()) {
+        authRequest({ mode: 'refresh', payload: refreshInfo.token });
+        setTimeout(refresh, 3000);
+        //   setTimeout(refresh, EXPIRE_TIME - 60000);
+      } else {
+        setAuthInfo(authStates.EXPIRED, null, null);
+      }
     } else {
-      setAuthInfo(authStates.EXPIRED, null, null);
+      setAuthInfo(authStates.UNAUTHORIZED, null, null);
     }
   };
 
@@ -73,29 +80,39 @@ export const useAuth = () => {
   };
 
   // handlers
-  const handleAuthState = () => {
-    if (userState !== authStates.AUTHORIZED && authResponse) {
-      setAuthInfo(
-        authStates.AUTHORIZED,
-        authResponse.data.accessToken,
-        authResponse.data.refreshToken
-      );
-    } else if (authError) {
-      setAuthInfo(authStates.ERROR, null, null);
-      // 어떤 error 인지에 따라 다른 action을 취하도록 수정해야 함.
-    }
+  const handleRefresh = () => {
+    dispatch(setState(authStates.PENDING));
   };
 
-  const handleTimeOut = () => {
-    if (isAuth) {
-      if (checkTimeOut()) {
-        // authRequest('refresh', local);
-      }
+  const handleAuthState = () => {
+    switch (userState) {
+      case authStates.UNAUTHORIZED: // initial state일 때, refresh 진행
+        refresh();
+        break;
+      case authStates.PENDING: // 상태 변화가 발생하는 중
+        if (authResponse) {
+          // 유저 인증이 제대로 완료됐을 때
+          setAuthInfo(
+            authStates.AUTHORIZED,
+            authResponse.data.accessToken,
+            authResponse.data.refreshToken
+          );
+        } else if (authError) {
+          // 유저 인증에 문제가 있을 때
+          setAuthInfo(authStates.ERROR, null, null);
+          // 어떤 error 인지에 따라 다른 action을 취하도록 수정해야 함.
+        } else if (!authIsLoading) {
+          // 네트워크에 문제가 있을 때
+          setAuthInfo(authStates.UNAUTHORIZED, null, null);
+        }
+        break;
+      case authStates.EXPIRED: // 만료되었을 때, 현재는 아무 것도 하지 않음
+        break;
+      default:
     }
   };
 
   return {
-    checkTimeOut,
     authResponse,
     authError,
     changeState,
@@ -104,6 +121,5 @@ export const useAuth = () => {
     login,
     refresh,
     handleAuthState,
-    handleTimeOut,
   };
 };

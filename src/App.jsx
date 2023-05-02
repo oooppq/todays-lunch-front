@@ -25,9 +25,8 @@ import { useAuth } from './libs/userAuth.helpers';
 
 const App = () => {
   // const location = useLocation();
-  // const { handleTimeOut } = useAuth();
   const { login, refresh, handleAuthState } = useAuth();
-  // useEffect(handleTimeOut, [handleTimeOut, location]);
+
   useEffect(handleAuthState);
   // useEffect(() => {
   //   localStorage.removeItem('asdsadsads');

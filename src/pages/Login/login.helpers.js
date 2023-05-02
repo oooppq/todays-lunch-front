@@ -9,9 +9,6 @@ export const useLoginHandler = (login, refresh) => {
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
   const loginInfo = JSON.stringify({ email, password });
-  // const userState = useSelector((state) => state.userAuth.state);
-
-  // const { login, refresh, setAuthInfo, authResponse, authError } = useAuth();
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
@@ -25,28 +22,14 @@ export const useLoginHandler = (login, refresh) => {
     login(loginInfo);
 
     // setTimeout(refresh, EXPIRE_TIME - 60000);
-    setTimeout(refresh, 1000);
+    setTimeout(refresh, 3000);
   };
-
-  // const handleAuthState = () => {
-  // if (authResponse) {
-  //   setAuthInfo(
-  //     authStates.AUTHORIZED,
-  //     authResponse.data.accessToken,
-  //     authResponse.data.refreshToken
-  //   );
-  // } else if (authError) {
-  //   setAuthInfo(authStates.ERROR, null, null);
-  // }
-  // };
 
   return {
     email,
     password,
-    // authResponse,
     handleEmailChange,
     handlePasswordChange,
-    // handleAuthState,
     handleLogin,
   };
 };
