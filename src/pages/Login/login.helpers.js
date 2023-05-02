@@ -1,9 +1,5 @@
-/* eslint-disable import/prefer-default-export */
 import { useState } from 'react';
-// import { useAuth } from '../../libs/userAuth.helpers';
-// import { authStates } from '../../libs/utils';
-
-// const EXPIRE_TIME = (1 / 2) * 3600 * 1000; // expire time 30 minutes
+import { EXPIRE_TIME } from '../../libs/userAuth.helpers';
 
 export const useLoginHandler = (login, refresh) => {
   const [email, setEmail] = useState(null);
@@ -21,8 +17,8 @@ export const useLoginHandler = (login, refresh) => {
     event.preventDefault();
     login(loginInfo);
 
-    // setTimeout(refresh, EXPIRE_TIME - 60000);
-    setTimeout(refresh, 3000);
+    setTimeout(refresh, EXPIRE_TIME - 60000);
+    // setTimeout(refresh, 3000);
   };
 
   return {

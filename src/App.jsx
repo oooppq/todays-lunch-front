@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
-// import { QueryClient, QueryClientProvider } from 'react-query';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Nav from './components/Nav';
@@ -20,17 +19,12 @@ import MyReview from './pages/MyPage/MyReview/MyReview';
 import WishList from './pages/MyPage/WishList/WishList';
 import ModifyProfile from './pages/MyPage/ModifyProfile/ModifyProfile';
 import { useAuth } from './libs/userAuth.helpers';
-
-// const queryClient = new QueryClient();
+import PrivateRoute from './components/PrivateRoute';
 
 const App = () => {
-  // const location = useLocation();
   const { login, refresh, handleAuthState } = useAuth();
 
   useEffect(handleAuthState);
-  // useEffect(() => {
-  //   localStorage.removeItem('asdsadsads');
-  // }, [handleTimeOut, location]);
 
   return (
     <>
@@ -49,12 +43,55 @@ const App = () => {
           element={<Login login={login} refresh={refresh} />}
         />
         <Route path="/join" element={<Join />} />
-        <Route path="/mypage" element={<MyPage />} />
-        <Route path="/mypage/my-judge" element={<MyJudge />} />
-        <Route path="/mypage/my-restaurant" element={<MyRestaurant />} />
-        <Route path="/mypage/my-review" element={<MyReview />} />
-        <Route path="/mypage/wishList" element={<WishList />} />
-        <Route path="/mypage/modify-profile" element={<ModifyProfile />} />
+
+        <Route
+          path="/mypage"
+          element={
+            <PrivateRoute>
+              <MyPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/mypage/my-judge"
+          element={
+            <PrivateRoute>
+              <MyJudge />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/mypage/my-restaurant"
+          element={
+            <PrivateRoute>
+              <MyRestaurant />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/mypage/my-review"
+          element={
+            <PrivateRoute>
+              <MyReview />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/mypage/wishList"
+          element={
+            <PrivateRoute>
+              <WishList />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/mypage/modify-profile"
+          element={
+            <PrivateRoute>
+              <ModifyProfile />
+            </PrivateRoute>
+          }
+        />
       </Routes>
       <Footer />
     </>
