@@ -27,6 +27,7 @@ export const pushRecentSearch = (key, title, isLocation, data) => {
 };
 
 export const authStates = {
+  INITIAL: 'initial',
   UNAUTHORIZED: 'unAuthorized',
   AUTHORIZED: 'authorized',
   EXPIRED: 'expired',

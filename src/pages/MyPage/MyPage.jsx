@@ -47,13 +47,13 @@ const MyPage = () => {
           </div>
           <div className="myPageBtn">
             <div className="count">1</div>
-            심사중인
+            추가한
             <br />
             맛집
           </div>
           <div className="myPageBtn">
             <div className="count">1</div>
-            심사중인
+            찜한
             <br />
             맛집
           </div>
@@ -76,7 +76,9 @@ const MyPage = () => {
             <div className="categorySubTitle">위치</div>
             <div className="categories">
               {locCats.map((loc) => (
-                <div className="category">{loc}</div>
+                <div key={loc} className="category">
+                  {loc}
+                </div>
               ))}
             </div>
             <button type="button" className="changeBtn">
@@ -92,7 +94,9 @@ const MyPage = () => {
             <div className="categorySubTitle">음식 종류</div>
             <div className="categories">
               {foodCats.map((food) => (
-                <div className="category">{food}</div>
+                <div key={food} className="category">
+                  {food}
+                </div>
               ))}
             </div>
             <button type="button" className="changeBtn">

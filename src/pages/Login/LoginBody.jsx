@@ -1,23 +1,14 @@
 /* eslint-disable react/prop-types */
-import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import React from 'react';
 import { LoginBodyContainer } from './login.style';
 import jmcIcon from '../../assets/img/user-jmc-icon.svg';
 import { useLoginHandler } from './login.helpers';
 import LoginError from './LoginError';
 import { authStates } from '../../libs/utils';
 
-const LoginBody = ({ login, refresh }) => {
+const LoginBody = ({ authState, login, refresh }) => {
   const { handleEmailChange, handlePasswordChange, handleLogin } =
     useLoginHandler(login, refresh);
-
-  const navigate = useNavigate();
-  const authState = useSelector((state) => state.userAuth.state);
-
-  useEffect(() => {
-    if (authState === authStates.AUTHORIZED) navigate(-1);
-  });
 
   return (
     <LoginBodyContainer>
