@@ -7,9 +7,7 @@ import { authStates } from '../libs/utils';
 
 const PrivateRoute = ({ redirectPath = '/login', children }) => {
   const userState = useSelector((state) => state.userAuth.state);
-  //   useEffect(()=>{
-  //     if(userState === authStates.AUTHORIZED)
-  //   }, [userState])
+
   if (userState !== authStates.AUTHORIZED)
     return <Navigate to={redirectPath} replace />;
 
