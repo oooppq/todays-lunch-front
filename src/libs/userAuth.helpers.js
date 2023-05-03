@@ -43,7 +43,7 @@ export const useAuth = () => {
     dispatch(setState(state));
     if (state === authStates.AUTHORIZED) {
       axios.defaults.headers.common.Authorization = `Bearer ${access}`;
-      //   const expireTime = new Date().getTime() + 2000;
+      // const expireTime = new Date().getTime() + 2000;
       const expireTime = new Date().getTime() + EXPIRE_TIME;
       const refreshInfo = { token: refresh, expireTime };
       localStorage.setItem('refreshInfo', JSON.stringify(refreshInfo));
@@ -78,7 +78,7 @@ export const useAuth = () => {
   // handlers
   const handleAuthState = () => {
     switch (userState) {
-      case authStates.UNAUTHORIZED: // initial state일 때, refresh 진행
+      case authStates.INITIAL: // initial state일 때, refresh 진행
         refresh();
         break;
       case authStates.PENDING: // 상태 변화가 발생하는 중

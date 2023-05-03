@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { authStates } from '../libs/utils';
 
 const initialState = {
-  state: authStates.UNAUTHORIZED,
+  state: authStates.INITIAL,
   accessToken: null,
   refreshToken: null,
   expireTime: null,
@@ -15,6 +15,9 @@ export const userAuthSlice = createSlice({
   reducers: {
     setState: (state, action) => {
       switch (action.payload) {
+        case authStates.INITIAL:
+          state.state = authStates.INITIAL;
+          break;
         case authStates.AUTHORIZED:
           state.state = authStates.AUTHORIZED;
           break;
