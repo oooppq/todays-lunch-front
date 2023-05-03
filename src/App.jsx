@@ -36,8 +36,22 @@ const App = () => {
         <Route path="/restaurants/:id" element={<Detail />} />
         <Route path="/play" element={<Play />} />
         <Route path="/restaurants-judge" element={<JudgeHome />} />
-        <Route path="restaurants-judge/new" element={<JudgeNew />} />
-        <Route path="restaurants-judge/now" element={<JudgeNow />} />
+        <Route
+          path="restaurants-judge/new"
+          element={
+            <PrivateRoute>
+              <JudgeNew />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="restaurants-judge/now"
+          element={
+            <PrivateRoute>
+              <JudgeNow />
+            </PrivateRoute>
+          }
+        />
         <Route
           path="/login"
           element={<Login login={login} refresh={refresh} />}

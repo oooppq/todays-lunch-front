@@ -4,6 +4,7 @@ import styled from 'styled-components';
 export const UserPageHeaderContainer = styled.div`
   position: absolute;
   top: 0;
+  left: 0;
   z-index: 99;
   background-color: white;
   height: 66px;
