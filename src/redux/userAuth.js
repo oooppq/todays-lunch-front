@@ -30,6 +30,9 @@ export const userAuthSlice = createSlice({
         case authStates.PENDING:
           state.state = authStates.PENDING;
           break;
+        case authStates.INVALID:
+          state.state = authStates.INVALID;
+          break;
         case authStates.ERROR:
           state.state = authStates.ERROR;
           break;

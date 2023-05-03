@@ -158,6 +158,7 @@ export const MyPageMid = styled.div`
         font-size: 14px;
         color: #9b9b9b;
         text-decoration: underline;
+        white-space: nowrap;
       }
     }
   }

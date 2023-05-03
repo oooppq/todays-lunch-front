@@ -32,5 +32,6 @@ export const authStates = {
   AUTHORIZED: 'authorized',
   EXPIRED: 'expired',
   PENDING: 'pending',
+  INVALID: 'invalid',
   ERROR: 'error',
 };

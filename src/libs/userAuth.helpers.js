@@ -90,8 +90,13 @@ export const useAuth = () => {
             authResponse.data.refreshToken
           );
         } else if (authError) {
-          // 유저 인증에 문제가 있을 때
-          setAuthInfo(authStates.ERROR, null, null);
+          // console.log(authError.response.status);
+          if (authError.response.status === 404) {
+            // 유저 인증에 문제가 있을 때
+            setAuthInfo(authStates.ERROR, null, null);
+            // window.location.reload();
+          } else if (authError.response.status === 401)
+            setAuthInfo(authStates.INVALID, null, null);
           // 어떤 error 인지에 따라 다른 action을 취하도록 수정해야 함.
         } else if (!authIsLoading) {
           // 네트워크에 문제가 있을 때

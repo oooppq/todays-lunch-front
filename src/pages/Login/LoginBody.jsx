@@ -31,7 +31,7 @@ const LoginBody = ({ authState, login, refresh }) => {
           placeholder="password"
           onChange={handlePasswordChange}
         />
-        {authState === authStates.ERROR ? <LoginError /> : null}
+        {authState === authStates.INVALID ? <LoginError /> : null}
         <button className="loginBtn" type="button" onClick={handleLogin}>
           로그인
         </button>
