@@ -6,7 +6,7 @@ import {
   setMapCenter,
   setMapLevel,
   setSelectedMarker,
-} from '../../redux/restaurant';
+} from '../../redux/map';
 
 const ListElemInfoButton = ({ restaurant }) => {
   const dispatch = useDispatch();
