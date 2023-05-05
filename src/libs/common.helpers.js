@@ -9,12 +9,16 @@ export const useWish = (id) => {
   const wishListUrl = `/api/restaurants/${id}/wish`;
 
   const getWishList = () =>
-    useQuery('wishList', () => axios.get(wishListUrl).then((res) => res.data));
+    useQuery('wishList', () => axios.get(wishListUrl).then((res) => res.data), {
+      refetchOnWindowFocus: false,
+    });
 
   const { data: isWish } =
     id &&
-    useQuery(['get', 'wishIsLike', id], () =>
-      axios.get(url).then((res) => res.data)
+    useQuery(
+      ['get', 'wishIsLike', id],
+      () => axios.get(url).then((res) => res.data),
+      { refetchOnWindowFocus: false }
     );
 
   const { mutate: pushWish } = id && useMutation(() => axios.post(url));
