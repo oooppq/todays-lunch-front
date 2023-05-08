@@ -17,7 +17,7 @@ const ArrowHandler = (clickHandler, hasMore, icon, direction) => (
   </div>
 );
 
-const JudgeNowSlide = ({ restaurantData }) => {
+const JudgeNowSlide = ({ restaurants }) => {
   return (
     <JudgeNowSlideContainer>
       <Carousel
@@ -31,10 +31,10 @@ const JudgeNowSlide = ({ restaurantData }) => {
           ArrowHandler(clickHandler, hasNext, rightIcon, 'right')
         }
       >
-        {restaurantData.map((restaurant) => (
+        {restaurants.map((restaurant) => (
           <JudgeNowDetail
             key={`${restaurant.id},${restaurant.restaurantName}`}
-            restaurant={restaurant}
+            id={restaurant.id}
           />
         ))}
       </Carousel>
