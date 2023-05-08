@@ -25,7 +25,7 @@ const MapMarkerContainer = ({ index, position, content }) => {
         }}
         image={{
           src: marker,
-          size: { width: 25, height: 35 },
+          size: { width: 20, height: 30 },
         }}
       />
       {selectedMarker === index ? (

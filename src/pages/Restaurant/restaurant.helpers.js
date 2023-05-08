@@ -54,7 +54,7 @@ export const useResaurant = (mode) => {
       refetchOnWindowFocus: false,
     },
   ]);
-
+  // useInfiniteQuery를 사용하여 최적화하기
   const {
     data: restData,
     isFetching: restIsFetching,

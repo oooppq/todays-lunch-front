@@ -37,7 +37,7 @@ const Restaurant = () => {
       />
       {(() => {
         if (restaurantIsFetching || restaurantIsError) return null;
-        if (isMap) return <Map restaurants={restaurants.data} />;
+        if (isMap) return <Map restaurants={restaurants} />;
         return (
           <List
             // restaurants={restuarants.data}
