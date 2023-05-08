@@ -12,6 +12,7 @@ import thumbIcon from '../../assets/img/thumb-icon.svg';
 
 const JudgeHome = () => {
   const navigate = useNavigate();
+
   return (
     <JudgeContainer>
       <JudgeHeader>
