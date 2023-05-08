@@ -1,0 +1,27 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "restaurantName": "가츠벤또",
+      "introduction": "리뷰에 대한 글 리뷰에 대한 글리뷰에 대한 글리뷰에 대한 글리뷰에 대한 글리뷰에 대한 글리뷰에 대한 글리뷰에 대한 글리뷰에 대한 글 글리뷰에 대한 글리뷰에 대한 글 글리뷰에 대한 글리뷰에 대한 글 글리뷰에 대한 글리뷰에 대한 글 글리뷰에 대한 글리뷰에 대한 글 글리뷰에 대한 글리뷰에 대한 글",
+      "registrant": "오대균",
+      "imageUrl": "",
+      "agreementCount": 2,
+      "locationCategory": "서강대학교",
+      "locationTag": "정문",
+      "foodCategory": "일식"
+    },
+    {
+      "id": 2,
+      "restaurantName": "마포돼지불백",
+      "introduction": "리뷰에 대한 글 리뷰에 대한 글리뷰에 대한 글리뷰에 대한 글리뷰에 대한 글리뷰에 대한 글리뷰에 대한 글리뷰에 대한 글리뷰에 대한 글 글리뷰에 대한 글리뷰에 대한 글 글리뷰에 대한 글리뷰에 대한 글 글리뷰에 대한 글리뷰에 대한 글 글리뷰에 대한 글리뷰에 대한 글 글리뷰에 대한 글리뷰에 대한 글",
+      "registrant": "박다빈",
+      "imageUrl": "",
+      "agreementCount": 3,
+      "locationCategory": "서강대학교",
+      "locationTag": "정문",
+      "foodCategory": "한식"
+    }
+  ],
+  "totalPages": 1
+}

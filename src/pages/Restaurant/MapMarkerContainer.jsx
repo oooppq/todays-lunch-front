@@ -5,14 +5,12 @@ import { useNavigate } from 'react-router-dom';
 import { CustomOverlayMap, MapMarker } from 'react-kakao-maps-sdk';
 import { CustomOverlayElem } from './restaurant.style';
 import { gotoDetailOnClick } from '../../libs/utils';
-
-import { setMapCenter, setSelectedMarker } from '../../redux/restaurant';
+import { setMapCenter, setSelectedMarker } from '../../redux/map';
+import marker from '../../assets/img/marker.png';
 
 const MapMarkerContainer = ({ index, position, content }) => {
   const markerRef = useRef(); // 마커 이외의 부분 클릭할 때 상호명 사라지도록 useRef을 통해 마커 컴포넌트 변수화
-  const selectedMarker = useSelector(
-    (state) => state.restaurant.selectedMarker
-  );
+  const selectedMarker = useSelector((state) => state.map.selectedMarker);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -24,6 +22,10 @@ const MapMarkerContainer = ({ index, position, content }) => {
         onClick={() => {
           dispatch(setSelectedMarker(index));
           dispatch(setMapCenter(position));
+        }}
+        image={{
+          src: marker,
+          size: { width: 20, height: 30 },
         }}
       />
       {selectedMarker === index ? (
@@ -39,7 +41,7 @@ const MapMarkerContainer = ({ index, position, content }) => {
             }}
           >
             {content}
-            {' >'}
+            {' ▶'}
           </CustomOverlayElem>
         </CustomOverlayMap>
       ) : null}

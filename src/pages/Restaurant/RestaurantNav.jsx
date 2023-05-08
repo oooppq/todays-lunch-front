@@ -1,10 +1,8 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { setIsMap } from '../../redux/map';
 import {
-  setIsMap,
-  setSelectedLocCat,
-  setSelectedLocTag,
   setSelectedFoodCat,
   setSearchKeyword,
   setSortBy,
@@ -17,10 +15,13 @@ import {
   RestaurantNavDown,
   MapBtn,
   SearchBox,
+  normalDropdownStyle,
+  recomDropdownStyle,
 } from './restaurant.style';
 import mapIcon from '../../assets/img/map-icon.svg';
 import listIcon from '../../assets/img/list-icon.svg';
 import searchIcon from '../../assets/img/search-icon.svg';
+import { useCategory } from './restaurant.helpers';
 
 const sortOptions = [
   { id: 1, name: '평점순', query: 'rating' },
@@ -34,61 +35,11 @@ const RestaurantNav = ({
   recomCategory,
 }) => {
   const isMap = useSelector((state) => state.restaurant.isMap);
-  const selectedLocCat = useSelector(
-    (state) => state.restaurant.selectedLocCat
-  );
-  const selectedLocTag = useSelector(
-    (state) => state.restaurant.selectedLocTag
-  );
-  const selectedFoodCat = useSelector(
-    (state) => state.restaurant.selectedFoodCat
-  );
-  const selectedRecomCat = useSelector(
-    (state) => state.restaurant.selectedRecomCat
-  );
-  const searchKeyword = useSelector((state) => state.restaurant.searchKeyword);
-  const sortBy = useSelector((state) => state.restaurant.sortBy);
+  const { changeSelectedLocCat, changeSelectedLocTag } = useCategory();
+  const restaurantState = useSelector((state) => state.restaurant);
 
-  const [keyword, setKeyword] = useState(searchKeyword);
+  const [keyword, setKeyword] = useState(restaurantState.searchKeyword);
   const dispatch = useDispatch();
-
-  const normalDropdownStyle = `
-    .selectedLabel {
-      background-color: white;
-      height: 30px;
-      width: 85px;
-      font-size: 12px;
-      border-radius: 30px;
-      border: 1px solid #bdbdbd;
-      padding: 0 12px;
-      color: #7c7c7c;
-      .triangle {
-        right: 10px;
-        color: #cbcbcb;
-      }
-    }
-  `;
-
-  const recomDropdownStyle = `
-    .selectedLabel {
-      background-color: white;
-      height: 28px;
-      font-size: 12px;
-      border-radius: 30px;
-      border: 1px solid ${
-        selectedRecomCat ? selectedRecomCat.color : '#6ab2b2'
-      };
-      padding: 0 25px 0 14px;
-      color: ${selectedRecomCat ? 'black' : '#7c7c7c'};
-      .hashTag {
-        color: ${selectedRecomCat ? selectedRecomCat.color : '#6ab2b2'}
-      }
-      .triangle {
-        right: 10px;
-        color: ${selectedRecomCat ? selectedRecomCat.color : '#6ab2b2'}
-      }
-          }
-  `;
 
   return (
     <RestaurantNavContainer>
@@ -141,9 +92,9 @@ const RestaurantNav = ({
         <div className="up">
           <Dropdown
             data={locCategory}
-            selected={selectedLocCat}
+            selected={restaurantState.selectedLocCat}
             setSelected={(toSelect) => {
-              dispatch(setSelectedLocCat(toSelect));
+              changeSelectedLocCat(toSelect);
             }}
             defaultValue="위치 필터"
             style={normalDropdownStyle}
@@ -152,11 +103,12 @@ const RestaurantNav = ({
           <Dropdown
             data={locTag.filter(
               (tag) =>
-                selectedLocCat && tag.loc_category_id === selectedLocCat.id
+                restaurantState.selectedLocCat &&
+                tag.loc_category_id === restaurantState.selectedLocCat.id
             )}
-            selected={selectedLocTag}
+            selected={restaurantState.selectedLocTag}
             setSelected={(toSelect) => {
-              dispatch(setSelectedLocTag(toSelect));
+              changeSelectedLocTag(toSelect);
             }}
             defaultValue="상세 위치"
             style={normalDropdownStyle}
@@ -164,7 +116,7 @@ const RestaurantNav = ({
           />
           <Dropdown
             data={foodCategory}
-            selected={selectedFoodCat}
+            selected={restaurantState.selectedFoodCat}
             setSelected={(toSelect) => {
               dispatch(setSelectedFoodCat(toSelect));
             }}
@@ -174,7 +126,7 @@ const RestaurantNav = ({
           />
           <Dropdown
             data={sortOptions}
-            selected={sortBy}
+            selected={restaurantState.sortBy}
             setSelected={(toSelect) => {
               dispatch(setSortBy(toSelect));
             }}
@@ -185,12 +137,12 @@ const RestaurantNav = ({
         <div className="down">
           <Dropdown
             data={recomCategory}
-            selected={selectedRecomCat}
+            selected={restaurantState.selectedRecomCat}
             setSelected={(toSelect) => {
               dispatch(setSelectedRecomCat(toSelect));
             }}
             defaultValue="추천 필터 설정 💫"
-            style={recomDropdownStyle}
+            style={recomDropdownStyle(restaurantState.selectedRecomCat)}
             isWhole
             isRecommend
           />

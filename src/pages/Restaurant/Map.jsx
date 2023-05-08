@@ -4,37 +4,37 @@ import { Map as KakaoMap, MarkerClusterer } from 'react-kakao-maps-sdk';
 import { useDispatch, useSelector } from 'react-redux';
 import { MapContainer } from './restaurant.style';
 import MapMarkerContainer from './MapMarkerContainer';
-import { setSelectedMarker } from '../../redux/restaurant';
+import { setSelectedMarker } from '../../redux/map';
 
 // 상위 컴포넌트에서 데이터를 넘겨받는다.
 const Map = ({ restaurants }) => {
   const dispatch = useDispatch();
+  const mapState = useSelector((state) => state.map);
 
   return (
     <MapContainer>
       <div className="emptyDiv" />
       <KakaoMap
-        center={useSelector((state) => state.restaurant.mapCenter)}
+        className="kakaoMap"
+        center={mapState.mapCenter}
         isPanto
-        style={{
-          // 지도의 크기
-          width: '100%',
-          height: '450px',
-        }}
-        level={useSelector((state) => state.restaurant.mapLevel)}
+        level={mapState.mapLevel}
         onClick={() => {
           dispatch(setSelectedMarker(null));
         }}
       >
         <MarkerClusterer averageCenter minLevel={5}>
-          {restaurants.map((e) => {
-            const position = { lat: e.latitude, lng: e.longitude };
+          {restaurants.map((restaurant) => {
+            const position = {
+              lat: restaurant.latitude,
+              lng: restaurant.longitude,
+            };
             return (
               <MapMarkerContainer
-                key={e.id}
-                index={e.id}
+                key={restaurant.id}
+                index={restaurant.id}
                 position={position}
-                content={e.restaurantName}
+                content={restaurant.restaurantName}
               />
             );
           })}

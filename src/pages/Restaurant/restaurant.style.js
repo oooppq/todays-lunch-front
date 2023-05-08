@@ -6,6 +6,42 @@ export const RestaurantContainer = styled.div`
 
 export const RestaurantNavContainer = styled.div``;
 
+export const normalDropdownStyle = `
+    .selectedLabel {
+      background-color: white;
+      height: 30px;
+      width: 85px;
+      font-size: 12px;
+      border-radius: 30px;
+      border: 1px solid #bdbdbd;
+      padding: 0 12px;
+      color: #7c7c7c;
+      .triangle {
+        right: 10px;
+        color: #cbcbcb;
+      }
+    }
+  `;
+
+export const recomDropdownStyle = (selectedRecomCat) => `
+  .selectedLabel {
+    background-color: white;
+    height: 28px;
+    font-size: 12px;
+    border-radius: 30px;
+    border: 1px solid ${selectedRecomCat ? selectedRecomCat.color : '#6ab2b2'};
+    padding: 0 25px 0 14px;
+    color: ${selectedRecomCat ? 'black' : '#7c7c7c'};
+    .hashTag {
+      color: ${selectedRecomCat ? selectedRecomCat.color : '#6ab2b2'}
+    }
+    .triangle {
+      right: 10px;
+      color: ${selectedRecomCat ? selectedRecomCat.color : '#6ab2b2'}
+    }
+        }
+`;
+
 export const RestaurantNavUp = styled.div`
   display: flex;
   height: 40px;
@@ -72,6 +108,10 @@ export const SearchBox = styled.div`
 
 // elements for Map
 export const MapContainer = styled.div`
+  .kakaoMap {
+    width: 100%;
+    height: 450px;
+  }
   .emptyDiv {
     height: 20px;
     width: 100%;
@@ -84,14 +124,19 @@ export const MapContainer = styled.div`
 export const CustomOverlayElem = styled.div`
   display: block;
   background: #50627f;
-  color: #fff;
+  background: #6ab2b2;
+  // background-color: white;
+
+  // border: 1px solid black;
+  font-family: Pretendard-SemiBold;
+  color: white;
   text-align: center;
   height: 24px;
   line-height: 22px;
   border-radius: 4px;
-  padding: 0px 10px;
+  padding: 2px 10px 0 10px;
   position: absolute;
-  top: -35px;
+  top: -30px;
   left: 20px;
 `;
 
