@@ -5,11 +5,11 @@ import { ListUl, ListContainer } from './restaurant.style';
 
 import ListElem from './ListElem';
 
-const List = ({ restaurants, handlePageNum }) => {
+const List = ({ restaurants, handlePageNum, className }) => {
   if (!restaurants) return null;
 
   return (
-    <ListContainer>
+    <ListContainer className={className}>
       <ListUl id="listContainer">
         <InfiniteScroll
           dataLength={restaurants.length}

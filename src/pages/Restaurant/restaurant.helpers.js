@@ -26,7 +26,7 @@ export const restaurantUrlMaker = (state) => {
   return url;
 };
 
-/* mode => normal, myPage */
+/* mode => normal or myPage */
 export const useResaurant = (mode) => {
   const restaurantState = useSelector((state) => state.restaurant);
   const dispatch = useDispatch();

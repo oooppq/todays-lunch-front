@@ -1,127 +1,35 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
-import { useMutation, useQuery } from 'react-query';
-import axios from 'axios';
-import {
-  JudgeNowListContainer,
-  JudgeNowListLi,
-  JudgeNowDetailModal,
-} from '../../Judge/JudgeNow/judgeNow.style';
-import JudgeNowDetail from '../../Judge/JudgeNow/JudgeNowDetail';
-import thumbIcon from '../../../assets/img/small-thumb-icon.svg';
-import defaultImg from '../../../assets/img/default-image.png';
-import { MyJudgeContainer } from './myJudge.style';
+import React from 'react';
+import { MyJudgeContainer, MyJudgeHeader } from './myJudge.style';
+import JudgeNowList from '../../Judge/JudgeNow/JudgeNowList';
+import { useJudgeNow } from '../../Judge/JudgeNow/judgeNow.helpers';
+import smileIcon from '../../../assets/img/smile-icon.svg';
+import UserPageHeader from '../../../components/UserPageHeader';
 
-const ListElem = ({ restaurant, setIsDetail, setSelected }) => {
-  const { mutate } = useMutation(() =>
-    axios.post(`/api/restaurants/judges/${restaurant.id}/agree`)
-  );
-  const { data: isLike } = useQuery(['recommendation', restaurant.id], () =>
-    axios
-      .get(`/api/restaurants/judges/${restaurant.id}/agree`)
-      .then((res) => res.data)
-  );
-
-  return (
-    <JudgeNowListLi
-      onClick={() => {
-        setIsDetail(true);
-        setSelected(restaurant);
-      }}
-    >
-      <img className="restImage" src={defaultImg} alt="" />
-      {/* <img className="restImage" src={e.imageUrl} alt="" /> */}
-      <div className="info">
-        <div className="title">{restaurant.restaurantName}</div>
-        <div className="content">
-          <div className="up">
-            <span>#{restaurant.foodCategory} </span>
-            <span>#{restaurant.locationTag}</span>
-          </div>
-          <div className="down">#{restaurant.locationCategory}</div>
-        </div>
-        <div className="credit">post by {restaurant.member}</div>
-      </div>
-      <div className="recommend">
-        <div
-          className="imageOuter"
-          aria-hidden="true"
-          onClick={(event) => {
-            mutate();
-            event.stopPropagation();
-          }}
-          style={isLike ? { backgroundColor: '#6ab2b2' } : null}
-        >
-          <img src={thumbIcon} alt="" />
-        </div>
-        <div
-          className="recomNum"
-          style={isLike ? { backgroundColor: '#6ab2b2' } : null}
-        >
-          {restaurant.recommendationNum}
-        </div>
-      </div>
-    </JudgeNowListLi>
-  );
-};
-const restaurantData = [
-  {
-    id: 1,
-    restaurantName: '가츠벤또',
-    imageUrl: '',
-    latitude: 37.5533674,
-    longitude: 126.937563,
-    locationCategory: '서강대학교',
-    locationTag: '정문',
-    foodCategory: '일식',
-    address: '짱짱주소',
-    judgement: true,
-    introduction:
-      '리뷰에 대한 글 리뷰에 대한 글리뷰에 대한 글리뷰에 대한 글리뷰에 대한 글리뷰에 대한 글리뷰에 대한 글리뷰에 대한 글리뷰에 대한 글 글리뷰에 대한 글리뷰에 대한 글 글리뷰에 대한 글리뷰에 대한 글 글리뷰에 대한 글리뷰에 대한 글 글리뷰에 대한 글리뷰에 대한 글 글리뷰에 대한 글리뷰에 대한 글',
-    recommendationNum: 2,
-    member: '오대균',
-  },
-  {
-    id: 2,
-    restaurantName: '마포돼지불백',
-    imageUrl: '',
-    latitude: 37.5514818,
-    longitude: 126.9373166,
-    locationCategory: '서강대학교',
-    locationTag: '정문',
-    foodCategory: '한식',
-    address: '짱짱주소',
-    judgement: true,
-    introduction:
-      '리뷰에 대한 글 리뷰에 대한 글리뷰에 대한 글리뷰에 대한 글리뷰에 대한 글리뷰에 대한 글리뷰에 대한 글리뷰에 대한 글리뷰에 대한 글 글리뷰에 대한 글리뷰에 대한 글 글리뷰에 대한 글리뷰에 대한 글 글리뷰에 대한 글리뷰에 대한 글 글리뷰에 대한 글리뷰에 대한 글 글리뷰에 대한 글리뷰에 대한 글',
-    recommendationNum: 3,
-    member: '박다빈',
-  },
-];
 const MyJudge = () => {
-  const [isDetail, setIsDetail] = useState(false);
-  const [selected, setSelected] = useState(null);
+  const { restaurants, restaurantsIsLoading, restaurantsIsError } =
+    useJudgeNow();
+
+  if (restaurantsIsLoading || restaurantsIsError) return null;
+
   return (
     <MyJudgeContainer>
-      <JudgeNowListContainer>
-        {isDetail ? (
-          <JudgeNowDetailModal>
-            <JudgeNowDetail
-              restaurant={selected}
-              setIsDetail={setIsDetail}
-              inListFlag={1}
-            />
-          </JudgeNowDetailModal>
-        ) : null}
-        {restaurantData.map((restaurant) => (
-          <ListElem
-            key={`${restaurant.restaurantName},${restaurant.latitude},${restaurant.longitude}`}
-            restaurant={restaurant}
-            setIsDetail={setIsDetail}
-            setSelected={setSelected}
-          />
-        ))}
-      </JudgeNowListContainer>
+      <UserPageHeader>
+        <div className="pageTitle">심사중인 맛집</div>
+      </UserPageHeader>
+      <MyJudgeHeader>
+        <div className="explanation">
+          <img src={smileIcon} alt="" className="smileIcon" />
+          <div className="explanationText">
+            추천을 <span className="bold">5개 이상</span> 받을 경우 맛집으로
+            자동 등록 됩니다.
+          </div>
+        </div>
+        <div className="title">
+          📌 <span className="bold">알바트로스님</span>의 심사중인 맛집 리스트
+        </div>
+      </MyJudgeHeader>
+      <JudgeNowList restaurants={restaurants.data} />
     </MyJudgeContainer>
   );
 };

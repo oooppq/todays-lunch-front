@@ -1,13 +1,11 @@
-/* eslint-disable import/prefer-default-export */
 import styled from 'styled-components';
 
-export const MyJudgeContainer = styled.div`
+export const MyRestaurantContainer = styled.div`
   position: absolute;
   top: 0;
   bottom: 0;
   box-sizing: border-box;
-
-  padding: 67px 28px 0 28px;
+  padding: 67px 26px 0 26px;
   max-width: 390px;
   width: 100%;
   background-color: white;
@@ -19,12 +17,14 @@ export const MyJudgeContainer = styled.div`
     font-family: Pretendard-Medium;
     font-size: 20px;
   }
+  .myRestaurantList {
+    margin: 0 !important;
+  }
 `;
 
-export const MyJudgeHeader = styled.div`
-  margin: 22px 0;
+export const MyRestaurantHeader = styled.div`
+  margin: 22px 14px 3px 14px;
   .explanation {
-    margin: 0 12px;
     display: flex;
     align-items: center;
     .smileIcon {

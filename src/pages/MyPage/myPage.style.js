@@ -11,7 +11,7 @@ export const MyPageContainer = styled.div`
   background-color: white;
   display: flex;
   flex-direction: column;
-  .title {
+  .pageTitle {
     display: flex;
     align-items: center;
     font-family: Pretendard-Medium;
