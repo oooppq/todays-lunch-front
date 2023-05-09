@@ -20,7 +20,7 @@ const MyPage = () => {
   return (
     <MyPageContainer>
       <UserPageHeader>
-        <div className="title">
+        <div className="pageTitle">
           <img src={userIcon} alt="" />
           마이페이지
         </div>

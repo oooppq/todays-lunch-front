@@ -11,7 +11,7 @@ export const MyPageContainer = styled.div`
   background-color: white;
   display: flex;
   flex-direction: column;
-  .title {
+  .pageTitle {
     display: flex;
     align-items: center;
     font-family: Pretendard-Medium;
@@ -158,6 +158,7 @@ export const MyPageMid = styled.div`
         font-size: 14px;
         color: #9b9b9b;
         text-decoration: underline;
+        white-space: nowrap;
       }
     }
   }
