@@ -42,7 +42,7 @@ const MyReview = () => {
       </UserPageHeader>
       <MyReviewHeader>
         <div className="title">
-          📌 <span className="bold">알바트로스님</span>이 작성한 리뷰 리스트
+          📌 <span className="userName">알바트로스님</span>이 작성한 리뷰 리스트
         </div>
       </MyReviewHeader>
       <MyReviewUl>

@@ -44,6 +44,12 @@ export const WishListHeader = styled.div`
   }
   .title {
     margin-top: 25px;
+    font-family: Pretendard-SemiBold;
+    font-size: 16px;
+    color: #9b9b9b;
+  }
+  .userName {
+    color: black;
   }
   .bold {
     font-family: Pretendard-SemiBold;

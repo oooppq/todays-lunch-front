@@ -26,7 +26,8 @@ const MyJudge = () => {
           </div>
         </div>
         <div className="title">
-          📌 <span className="bold">알바트로스님</span>의 심사중인 맛집 리스트
+          📌 <span className="userName">알바트로스님</span>의 심사중인 맛집
+          리스트
         </div>
       </MyJudgeHeader>
       <JudgeNowList restaurants={restaurants.data} />

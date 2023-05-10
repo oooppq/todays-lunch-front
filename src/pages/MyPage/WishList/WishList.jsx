@@ -31,7 +31,7 @@ const WishList = () => {
           </div>
         </div>
         <div className="title">
-          📌 <span className="bold">알바트로스님</span>이 찜한 맛집 리스트
+          📌 <span className="userName">알바트로스님</span>이 찜한 맛집 리스트
         </div>
       </WishListHeader>
       <List
