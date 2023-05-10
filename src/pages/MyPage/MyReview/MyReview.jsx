@@ -38,7 +38,7 @@ const MyReview = () => {
   return (
     <MyReviewContainer>
       <UserPageHeader>
-        <div className="pageTitle">찜한 맛집</div>
+        <div className="pageTitle">내가 쓴 리뷰</div>
       </UserPageHeader>
       <MyReviewHeader>
         <div className="title">

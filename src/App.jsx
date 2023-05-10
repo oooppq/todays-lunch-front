@@ -20,6 +20,7 @@ import WishList from './pages/MyPage/WishList/WishList';
 import ModifyProfile from './pages/MyPage/ModifyProfile/ModifyProfile';
 import { useAuth } from './libs/userAuth.helpers';
 import PrivateRoute from './components/PrivateRoute';
+import ChangePassword from './pages/MyPage/ChangePassword/ChangePassword';
 
 const App = () => {
   const { login, refresh, handleAuthState } = useAuth();
@@ -103,6 +104,14 @@ const App = () => {
           element={
             <PrivateRoute>
               <ModifyProfile />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/mypage/change-password"
+          element={
+            <PrivateRoute>
+              <ChangePassword />
             </PrivateRoute>
           }
         />
