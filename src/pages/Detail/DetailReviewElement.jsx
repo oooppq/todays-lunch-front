@@ -3,7 +3,7 @@ import React from 'react';
 import { DetailReviewElem } from './detail.style';
 import defaultIcon from '../../assets/img/default-icon.svg';
 import likeIcon from '../../assets/img/review-like-icon.svg';
-import { rateStarHanlder } from './detail.helpers';
+import { rateStarHandler } from './detail.helpers';
 
 const DetailReviewElement = ({
   review,
@@ -26,7 +26,7 @@ const DetailReviewElement = ({
       <img className="profileImg" src={defaultIcon} alt="" />
       <div className="reviewBody">
         <div className="userName">{review.userName}</div>
-        <div className="rating">{rateStarHanlder(review.rating)}</div>
+        <div className="rating">{rateStarHandler(review.rating)}</div>
         <div className="content">{review.reviewContent}</div>
         <div className={`likeAndDate ${isLiked ? 'liked' : null}`}>
           <button

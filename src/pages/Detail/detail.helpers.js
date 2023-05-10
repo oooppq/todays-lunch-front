@@ -77,7 +77,7 @@ export const useReview = (id) => {
 };
 
 // 별점을 숫자로 입력받으면 그에 맞게 이미지로 변환시켜준다.
-export const rateStarHanlder = (rate) => {
+export const rateStarHandler = (rate) => {
   const stars = [];
 
   for (let i = 0; i < 5; i += 1) {
