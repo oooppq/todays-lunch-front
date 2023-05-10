@@ -9,12 +9,13 @@ import WarningMessage from './WarningMessage';
 import ChangeSuccess from './ChangeSuccess';
 
 const ChangePassword = () => {
+  const temp = true;
   return (
     <ChangePasswordContainer>
       <UserPageHeader>
         <div className="pageTitle">비밀번호 변경</div>
       </UserPageHeader>
-      {false ? (
+      {temp ? (
         <>
           <ChangePasswordHeader>
             <div className="">📌 비밀번호 수정</div>
