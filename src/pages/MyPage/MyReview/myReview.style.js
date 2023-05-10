@@ -21,6 +21,12 @@ export const MyReviewContainer = styled.div`
 
 export const MyReviewHeader = styled.div`
   margin-top: 32px;
+  font-family: Pretendard-SemiBold;
+  font-size: 16px;
+  color: #9b9b9b;
+  .userName {
+    color: black;
+  }
 `;
 
 export const MyReviewUl = styled.ul`
