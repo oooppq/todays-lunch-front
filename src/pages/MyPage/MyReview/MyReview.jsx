@@ -5,6 +5,7 @@ import {
   MyReviewUl,
 } from './myReview.style';
 import MyReviewElem from './MyReviewElem';
+import UserPageHeader from '../../../components/UserPageHeader';
 
 const reviews = {
   data: [
@@ -24,7 +25,8 @@ const reviews = {
       restaurantName: '마포돼지불백',
       imageUrl: '',
       rating: 4,
-      reviewContent: '마돼불마돼볼무러암노엄넝ㅁㄴ오머ㅏ엄낭ㄴ어ㅘ모어마오ㅓ마',
+      reviewContent:
+        '마돼불마돼볼무러암노엄넝ㅁㄴ오머ㅏ엄낭ㄴ어ㅘ모어마오ㅓ마마돼불마돼볼무러암노엄넝ㅁㄴ오머ㅏ엄낭ㄴ어ㅘ모어마오ㅓ마',
       createdDate: '2023-03-24',
       likeCount: 2323,
     },
@@ -35,6 +37,9 @@ const reviews = {
 const MyReview = () => {
   return (
     <MyReviewContainer>
+      <UserPageHeader>
+        <div className="pageTitle">찜한 맛집</div>
+      </UserPageHeader>
       <MyReviewHeader>
         <div className="title">
           📌 <span className="bold">알바트로스님</span>이 작성한 리뷰 리스트
