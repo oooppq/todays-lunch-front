@@ -6,21 +6,21 @@ import { ListUl, ListContainer } from './restaurant.style';
 import ListElem from './ListElem';
 
 const List = ({ restaurants, handlePageNum, className }) => {
-  if (!restaurants) return null;
-
   return (
     <ListContainer className={className}>
       <ListUl id="listContainer">
-        <InfiniteScroll
-          dataLength={restaurants.length}
-          next={handlePageNum}
-          scrollableTarget="listContainer"
-          hasMore
-        >
-          {restaurants.map((restaurant) => (
-            <ListElem key={restaurant.id} restaurant={restaurant} />
-          ))}
-        </InfiniteScroll>
+        {restaurants ? (
+          <InfiniteScroll
+            dataLength={restaurants.length}
+            next={handlePageNum}
+            scrollableTarget="listContainer"
+            hasMore
+          >
+            {restaurants.map((restaurant) => (
+              <ListElem key={restaurant.id} restaurant={restaurant} />
+            ))}
+          </InfiniteScroll>
+        ) : null}
       </ListUl>
     </ListContainer>
   );

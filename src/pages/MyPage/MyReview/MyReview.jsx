@@ -6,6 +6,7 @@ import {
 } from './myReview.style';
 import MyReviewElem from './MyReviewElem';
 import UserPageHeader from '../../../components/UserPageHeader';
+import { useMyPage } from '../myPage.helpers';
 
 const reviews = {
   data: [
@@ -35,6 +36,8 @@ const reviews = {
 };
 
 const MyReview = () => {
+  const { userInfo, userInfoIsFetching, userInfoError } = useMyPage();
+
   return (
     <MyReviewContainer>
       <UserPageHeader>
@@ -42,7 +45,11 @@ const MyReview = () => {
       </UserPageHeader>
       <MyReviewHeader>
         <div className="title">
-          📌 <span className="userName">알바트로스님</span>이 작성한 리뷰 리스트
+          📌{' '}
+          <span className="userName">
+            {userInfoIsFetching || userInfoError ? null : userInfo.nickname}님
+          </span>
+          이 작성한 리뷰 리스트
         </div>
       </MyReviewHeader>
       <MyReviewUl>

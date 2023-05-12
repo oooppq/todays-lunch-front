@@ -7,9 +7,12 @@ import {
 import UserPageHeader from '../../../components/UserPageHeader';
 import WarningMessage from './WarningMessage';
 import ChangeSuccess from './ChangeSuccess';
+import { useMyPage } from '../myPage.helpers';
 
 const ChangePassword = () => {
+  const { userInfo, userInfoIsFetching, userInfoError } = useMyPage();
   const temp = true;
+
   return (
     <ChangePasswordContainer>
       <UserPageHeader>
@@ -18,14 +21,16 @@ const ChangePassword = () => {
       {temp ? (
         <>
           <ChangePasswordHeader>
-            <div className="">📌 비밀번호 수정</div>
+            <div className="">📌 비밀번호 변경</div>
           </ChangePasswordHeader>
           <ChangePasswordBody>
             <div className="inputLabel">아이디</div>
             <input
               type="text"
               className="input id"
-              value="알바트로스"
+              value={
+                userInfoIsFetching || userInfoError ? null : userInfo.email
+              }
               disabled
             />
             <div className="inputLabel">현재 비밀번호</div>

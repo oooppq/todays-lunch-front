@@ -3,7 +3,6 @@ import { useQueries, useQuery } from 'react-query';
 import { useDispatch, useSelector } from 'react-redux';
 import { setMapCenter, setMapLevel } from '../../redux/map';
 import {
-  increaseMyPageNum,
   increasePageNum,
   setRestaurants,
   setSelectedLocCat,
@@ -27,10 +26,10 @@ export const restaurantUrlMaker = (state) => {
 };
 
 /* mode => normal or myPage */
-export const useResaurant = (mode) => {
+export const useRestaurant = () => {
   const restaurantState = useSelector((state) => state.restaurant);
   const dispatch = useDispatch();
-  const accessToken = useSelector((state) => state.userAuth.accessToken);
+  // const accessToken = useSelector((state) => state.userAuth.accessToken);
 
   const ress = useQueries([
     {
@@ -70,16 +69,7 @@ export const useResaurant = (mode) => {
       restaurantState.sortBy,
     ],
     () =>
-      axios
-        .get(restaurantUrlMaker(restaurantState), {
-          headers:
-            mode === 'myPage'
-              ? {
-                  Authorization: `Bearer ${accessToken}`,
-                }
-              : null,
-        })
-        .then((res) => res.data),
+      axios.get(restaurantUrlMaker(restaurantState)).then((res) => res.data),
     { refetchOnWindowFocus: false }
   );
 
@@ -90,16 +80,7 @@ export const useResaurant = (mode) => {
   } = useQuery(
     ['restaurants', 'pagination', restaurantState.pageNum],
     () =>
-      axios
-        .get(restaurantUrlMaker(restaurantState), {
-          headers:
-            mode === 'myPage'
-              ? {
-                  Authorization: `Bearer ${accessToken}`,
-                }
-              : null,
-        })
-        .then((res) => res.data),
+      axios.get(restaurantUrlMaker(restaurantState)).then((res) => res.data),
     { refetchOnWindowFocus: false, keepPreviousData: true }
   );
 
@@ -111,14 +92,9 @@ export const useResaurant = (mode) => {
 
   const categoryIsError = ress.some((res) => res.isError);
 
-  const handlePageNum =
-    mode === 'normal'
-      ? () => {
-          dispatch(increasePageNum());
-        }
-      : () => {
-          dispatch(increaseMyPageNum());
-        };
+  const handlePageNum = () => {
+    dispatch(increasePageNum());
+  };
 
   const handleRestaurantData = () => {
     if (restaurantState.pageNum === 1) {

@@ -3,27 +3,38 @@
 import axios from 'axios';
 import { useState } from 'react';
 import { useMutation, useQuery } from 'react-query';
+import { useSelector } from 'react-redux';
 
 export const useWish = (id) => {
-  const url = `/api/restaurants/${id}/wish`;
-  const wishListUrl = `/api/restaurants/${id}/wish`;
-
-  const getWishList = () =>
-    useQuery('wishList', () => axios.get(wishListUrl).then((res) => res.data), {
-      refetchOnWindowFocus: false,
-    });
+  const url = `/api/restaurants/${id}/mystore`;
+  const userState = useSelector((state) => state.userAuth);
 
   const { data: isWish } =
     id &&
     useQuery(
       ['get', 'wishIsLike', id],
-      () => axios.get(url).then((res) => res.data),
+      () =>
+        axios
+          .get(url, {
+            headers: {
+              Authorization: `Bearer ${userState && userState.accessToken}`,
+            },
+          })
+          .then((res) => res.data),
       { refetchOnWindowFocus: false }
     );
 
-  const { mutate: pushWish } = id && useMutation(() => axios.post(url));
+  const { mutate: pushWish } =
+    id &&
+    useMutation(() =>
+      axios.post(url, null, {
+        headers: {
+          Authorization: `Bearer ${userState && userState.accessToken}`,
+        },
+      })
+    );
 
-  return { getWishList, isWish, pushWish };
+  return { isWish, pushWish };
 };
 
 export const useRoulette = (restaurant) => {

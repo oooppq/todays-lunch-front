@@ -21,6 +21,7 @@ import ModifyProfile from './pages/MyPage/ModifyProfile/ModifyProfile';
 import { useAuth } from './libs/userAuth.helpers';
 import PrivateRoute from './components/PrivateRoute';
 import ChangePassword from './pages/MyPage/ChangePassword/ChangePassword';
+import Logout from './pages/MyPage/Logout';
 
 const App = () => {
   const { login, refresh, handleAuthState } = useAuth();
@@ -57,6 +58,9 @@ const App = () => {
           path="/login"
           element={<Login login={login} refresh={refresh} />}
         />
+
+        <Route path="/logout" element={<Logout />} />
+
         <Route path="/join" element={<Join />} />
 
         <Route

@@ -8,9 +8,9 @@ export const gotoDetailOnClick = (id, navigate) => {
 };
 
 export const formatDate = (date) => {
-  return `${`00${date.getMonth()}`.toString().slice(-2)}.${`00${date.getDate()}`
+  return `${`00${date.getMonth() + 1}`
     .toString()
-    .slice(-2)}`;
+    .slice(-2)}.${`00${date.getDate()}`.toString().slice(-2)}`;
 };
 
 export const pushRecentSearch = (key, title, isLocation, data) => {

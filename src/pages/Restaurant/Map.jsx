@@ -24,20 +24,22 @@ const Map = ({ restaurants }) => {
         }}
       >
         <MarkerClusterer averageCenter minLevel={5}>
-          {restaurants.map((restaurant) => {
-            const position = {
-              lat: restaurant.latitude,
-              lng: restaurant.longitude,
-            };
-            return (
-              <MapMarkerContainer
-                key={restaurant.id}
-                index={restaurant.id}
-                position={position}
-                content={restaurant.restaurantName}
-              />
-            );
-          })}
+          {restaurants
+            ? restaurants.map((restaurant) => {
+                const position = {
+                  lat: restaurant.latitude,
+                  lng: restaurant.longitude,
+                };
+                return (
+                  <MapMarkerContainer
+                    key={restaurant.id}
+                    index={restaurant.id}
+                    position={position}
+                    content={restaurant.restaurantName}
+                  />
+                );
+              })
+            : null}
         </MarkerClusterer>
       </KakaoMap>
     </MapContainer>

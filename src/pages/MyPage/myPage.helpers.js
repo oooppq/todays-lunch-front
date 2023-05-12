@@ -1,12 +1,12 @@
+/* eslint-disable no-restricted-syntax */
 import axios from 'axios';
-// import { useState } from 'react';
-import { useQuery } from 'react-query';
+import { useInfiniteQuery, useQuery } from 'react-query';
 import { useSelector } from 'react-redux';
-// import { authStates } from '../../libs/utils';
+import { useAuth } from '../../libs/userAuth.helpers';
+import { authStates } from '../../libs/utils';
 
 export const useMyPage = (navigate) => {
   const userState = useSelector((state) => state.userAuth);
-  //   if (userState.state === authStates.AUTHORIZED) return null;
 
   const {
     data: userInfo,
@@ -14,22 +14,121 @@ export const useMyPage = (navigate) => {
     error: userInfoError,
   } = useQuery(
     ['userInformation', userState.refreshToken],
-    () => axios.get('/api/mypage').then((res) => res.data),
+    () =>
+      axios
+        .get('/api/mypage', {
+          headers: {
+            Authorization: `Bearer ${userState.accessToken}`,
+          },
+        })
+        .then((res) => res.data),
     {
       refetchOnWindowFocus: false,
     }
   );
+  const { logout, logoutIsSuccess, setAuthInfo } = useAuth();
+
+  const handleGoToLogout = () => {
+    if (logoutIsSuccess) {
+      navigate('/logout');
+    }
+  };
+
+  const handleLogout = () => {
+    setAuthInfo(authStates.UNAUTHORIZED, null, null);
+    localStorage.removeItem('refreshInfo');
+  };
 
   const handleGotoOnClick = (event) => {
     navigate(`./${event.target.id}`);
+  };
+  const handleLogoutOnClick = () => {
+    logout(userState.accessToken);
   };
 
   return {
     userInfo,
     userInfoIsFetching,
     userInfoError,
+    logoutIsSuccess,
+    handleLogoutOnClick,
+    handleGoToLogout,
+    handleLogout,
     handleGotoOnClick,
   };
 };
 
-export const temp = () => {};
+export const useMyJudge = () => {
+  const accessToken = useSelector((state) => state.userAuth.accessToken);
+
+  const {
+    data: restaurants,
+    isLoading: restaurantsIsLoading,
+    isError: restaurantsIsError,
+  } = useQuery(
+    ['myJudge', 'list'],
+    () =>
+      axios
+        .get('/api/restaurants/judges', {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        })
+        .then((res) => res.data),
+    {
+      refetchOnWindowFocus: false,
+    }
+  );
+  return { restaurants, restaurantsIsLoading, restaurantsIsError };
+};
+
+export const useWishlist = () => {
+  const userState = useSelector((state) => state.userAuth);
+
+  const {
+    data: wishlist,
+    isFetching: wishlistIsFetching,
+    error: wishlistError,
+    hasNextPage,
+    fetchNextPage,
+  } = useInfiniteQuery({
+    queryKey: 'wishList',
+    queryFn: ({ pageParam = 1 }) =>
+      axios
+        .get(`/api/restaurants?page=${pageParam}`, {
+          headers: {
+            Authorization: `Bearer ${userState && userState.accessToken}`,
+          },
+        })
+        .then((res) => {
+          return {
+            data: res.data.data,
+            pageNum: pageParam,
+            isLast: pageParam === res.data.totalPages,
+          };
+        }),
+    getNextPageParam: (lastPage) => {
+      if (lastPage.isLast) return undefined;
+      return lastPage.pageNum + 1;
+    },
+    refetchOnWindowFocus: false,
+  });
+
+  const flattenPages = (pages) => {
+    if (!pages) return null;
+    const output = [];
+    for (const page of pages) {
+      output.push(...page.data);
+    }
+    return output;
+  };
+
+  return {
+    wishlist,
+    wishlistIsFetching,
+    wishlistError,
+    hasNextPage,
+    fetchNextPage,
+    flattenPages,
+  };
+};

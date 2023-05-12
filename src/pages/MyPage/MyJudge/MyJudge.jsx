@@ -2,13 +2,14 @@
 import React from 'react';
 import { MyJudgeContainer, MyJudgeHeader } from './myJudge.style';
 import JudgeNowList from '../../Judge/JudgeNow/JudgeNowList';
-import { useJudgeNow } from '../../Judge/JudgeNow/judgeNow.helpers';
 import smileIcon from '../../../assets/img/smile-icon.svg';
 import UserPageHeader from '../../../components/UserPageHeader';
+import { useMyJudge, useMyPage } from '../myPage.helpers';
 
 const MyJudge = () => {
+  const { userInfo, userInfoIsFetching, userInfoError } = useMyPage();
   const { restaurants, restaurantsIsLoading, restaurantsIsError } =
-    useJudgeNow();
+    useMyJudge();
 
   if (restaurantsIsLoading || restaurantsIsError) return null;
 
@@ -26,8 +27,11 @@ const MyJudge = () => {
           </div>
         </div>
         <div className="title">
-          📌 <span className="userName">알바트로스님</span>의 심사중인 맛집
-          리스트
+          📌{' '}
+          <span className="userName">
+            {userInfoIsFetching || userInfoError ? null : userInfo.nickname}님
+          </span>
+          의 심사중인 맛집 리스트
         </div>
       </MyJudgeHeader>
       <JudgeNowList restaurants={restaurants.data} />

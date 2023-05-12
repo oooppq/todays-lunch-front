@@ -16,6 +16,8 @@ const MyPage = () => {
     userInfoIsFetching,
     userInfoError,
     verified,
+    handleLogoutOnClick,
+    handleGoToLogout,
     handleGotoOnClick,
   } = useMyPage(useNavigate());
 
@@ -45,7 +47,11 @@ const MyPage = () => {
         handleGotoOnClick={handleGotoOnClick}
       />
       <MyPageBodyBottom userInfo={userInfo} />
-      <MyPageFooter handleGotoOnClick={handleGotoOnClick} />
+      <MyPageFooter
+        handleLogoutOnClick={handleLogoutOnClick}
+        handleGoToLogout={handleGoToLogout}
+        handleGotoOnClick={handleGotoOnClick}
+      />
     </MyPageContainer>
   );
 };

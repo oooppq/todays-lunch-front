@@ -4,7 +4,7 @@ import { RestaurantContainer } from './restaurant.style';
 import RestaurantNav from './RestaurantNav';
 import Map from './Map';
 import List from './List';
-import { useResaurant } from './restaurant.helpers';
+import { useRestaurant } from './restaurant.helpers';
 
 const Restaurant = () => {
   const {
@@ -12,13 +12,13 @@ const Restaurant = () => {
     locTag,
     foodCategory,
     recomCategory,
-    restaurantIsFetching,
-    restaurantIsError,
+    // restaurantIsFetching,
+    // restaurantIsError,
     categoryIsFetching,
     categoryIsError,
     handlePageNum,
     handleRestaurantData,
-  } = useResaurant('normal');
+  } = useRestaurant();
 
   const isMap = useSelector((state) => state.map.isMap);
   const restaurants = useSelector((state) => state.restaurant.restaurants);
@@ -36,7 +36,7 @@ const Restaurant = () => {
         recomCategory={recomCategory.data.data}
       />
       {(() => {
-        if (restaurantIsFetching || restaurantIsError) return null;
+        // if (restaurantIsFetching || restaurantIsError) return null;
         if (isMap) return <Map restaurants={restaurants} />;
         return (
           <List

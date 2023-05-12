@@ -39,8 +39,8 @@ export const MyPageContainer = styled.div`
       margin-right: 10px;
     }
     .notVerifiedWarningComment {
-      line-height: 18px;
-      font-size: 13px;
+      line-height: 20px;
+      font-size: 14px;
     }
   }
 `;

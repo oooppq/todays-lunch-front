@@ -14,14 +14,19 @@ export const useAuth = () => {
     data: authResponse,
     error: authError,
     isLoading: authIsLoading,
-  } = useMutation(({ mode, payload }) => {
+    reset,
+  } = useMutation(['authRequest'], ({ mode, payload }) => {
     let url = '/api/login'; // login url
     if (mode === 'refresh') {
       url = '/api/refresh'; // refresh url
-
-      axios.defaults.headers.common.Authorization = `Bearer ${payload}`;
-      return axios.post(url);
+      // axios.defaults.headers.common.Authorization = `Bearer ${payload}`;
+      return axios.post(url, null, {
+        headers: {
+          Authorization: `Bearer ${payload}`,
+        },
+      });
     }
+
     return axios.post(url, payload, {
       headers: {
         'Content-Type': `application/json`,
@@ -42,13 +47,13 @@ export const useAuth = () => {
     dispatch(setRefreshToken(refresh));
     dispatch(setState(state));
     if (state === authStates.AUTHORIZED) {
-      axios.defaults.headers.common.Authorization = `Bearer ${access}`;
+      // axios.defaults.headers.common.Authorization = `Bearer ${access}`;
       // const expireTime = new Date().getTime() + 2000;
       const expireTime = new Date().getTime() + EXPIRE_TIME;
       const refreshInfo = { token: refresh, expireTime };
       localStorage.setItem('refreshInfo', JSON.stringify(refreshInfo));
     } else {
-      delete axios.defaults.headers.common.Authorization;
+      // delete axios.defaults.headers.common.Authorization;
       localStorage.removeItem('refreshInfo');
     }
   };
@@ -59,6 +64,7 @@ export const useAuth = () => {
     const refreshInfo = JSON.parse(localStorage.getItem('refreshInfo'));
     if (refreshInfo) {
       if (refreshInfo.expireTime > new Date().getTime()) {
+        reset();
         authRequest({ mode: 'refresh', payload: refreshInfo.token });
         // setTimeout(refresh, 3000);
         setTimeout(refresh, EXPIRE_TIME - 60000);
@@ -74,6 +80,15 @@ export const useAuth = () => {
     dispatch(setState(authStates.PENDING));
     authRequest({ mode: 'login', payload: loginInfo });
   };
+
+  const { mutate: logout, isSuccess: logoutIsSuccess } = useMutation(
+    (accessToken) =>
+      axios.post('/api/logout', null, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      })
+  );
 
   // handlers
   const handleAuthState = () => {
@@ -116,6 +131,8 @@ export const useAuth = () => {
     isAuth,
     setAuthInfo,
     login,
+    logout,
+    logoutIsSuccess,
     refresh,
     handleAuthState,
   };

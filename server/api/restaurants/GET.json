@@ -23,7 +23,115 @@
       "foodCategory": "한식",
       "rating": 4.9,
       "reviewCount": 4723
+    },
+    {
+      "id": 3,
+      "restaurantName": "마포돼지불백",
+      "imageUrl": "",
+      "latitude": 37.5514818,
+      "longitude": 126.9373166,
+      "locationCategory": "서강대학교",
+      "locationTag": "정문",
+      "foodCategory": "한식",
+      "rating": 4.9,
+      "reviewCount": 4723
+    },
+    {
+      "id": 4,
+      "restaurantName": "마포돼지불백",
+      "imageUrl": "",
+      "latitude": 37.5514818,
+      "longitude": 126.9373166,
+      "locationCategory": "서강대학교",
+      "locationTag": "정문",
+      "foodCategory": "한식",
+      "rating": 4.9,
+      "reviewCount": 4723
+    },
+    {
+      "id": 5,
+      "restaurantName": "마포돼지불백",
+      "imageUrl": "",
+      "latitude": 37.5514818,
+      "longitude": 126.9373166,
+      "locationCategory": "서강대학교",
+      "locationTag": "정문",
+      "foodCategory": "한식",
+      "rating": 4.9,
+      "reviewCount": 4723
+    },
+    {
+      "id": 6,
+      "restaurantName": "마포돼지불백",
+      "imageUrl": "",
+      "latitude": 37.5514818,
+      "longitude": 126.9373166,
+      "locationCategory": "서강대학교",
+      "locationTag": "정문",
+      "foodCategory": "한식",
+      "rating": 4.9,
+      "reviewCount": 4723
+    },
+    {
+      "id": 7,
+      "restaurantName": "마포돼지불백",
+      "imageUrl": "",
+      "latitude": 37.5514818,
+      "longitude": 126.9373166,
+      "locationCategory": "서강대학교",
+      "locationTag": "정문",
+      "foodCategory": "한식",
+      "rating": 4.9,
+      "reviewCount": 4723
+    },
+    {
+      "id": 8,
+      "restaurantName": "마포돼지불백",
+      "imageUrl": "",
+      "latitude": 37.5514818,
+      "longitude": 126.9373166,
+      "locationCategory": "서강대학교",
+      "locationTag": "정문",
+      "foodCategory": "한식",
+      "rating": 4.9,
+      "reviewCount": 4723
+    },
+    {
+      "id": 9,
+      "restaurantName": "마포돼지불백",
+      "imageUrl": "",
+      "latitude": 37.5514818,
+      "longitude": 126.9373166,
+      "locationCategory": "서강대학교",
+      "locationTag": "정문",
+      "foodCategory": "한식",
+      "rating": 4.9,
+      "reviewCount": 4723
+    },
+    {
+      "id": 10,
+      "restaurantName": "마포돼지불백",
+      "imageUrl": "",
+      "latitude": 37.5514818,
+      "longitude": 126.9373166,
+      "locationCategory": "서강대학교",
+      "locationTag": "정문",
+      "foodCategory": "한식",
+      "rating": 4.9,
+      "reviewCount": 4723
+    },
+    {
+      "id": 11,
+      "restaurantName": "마포돼지불백",
+      "imageUrl": "",
+      "latitude": 37.5514818,
+      "longitude": 126.9373166,
+      "locationCategory": "서강대학교",
+      "locationTag": "정문",
+      "foodCategory": "한식",
+      "rating": 4.9,
+      "reviewCount": 4723
     }
   ],
-  "totalPages": 1
+  "totalPages": 5
 }
