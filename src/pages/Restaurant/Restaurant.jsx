@@ -14,10 +14,13 @@ const Restaurant = () => {
     recomCategory,
     // restaurantIsFetching,
     // restaurantIsError,
+    // restDataPagination,
     categoryIsFetching,
     categoryIsError,
-    handlePageNum,
+    // handlePageNum,
+    fetchNextPage,
     handleRestaurantData,
+    // flattenPages,
   } = useRestaurant();
 
   const isMap = useSelector((state) => state.map.isMap);
@@ -35,17 +38,18 @@ const Restaurant = () => {
         foodCategory={foodCategory.data.data}
         recomCategory={recomCategory.data.data}
       />
-      {(() => {
-        // if (restaurantIsFetching || restaurantIsError) return null;
-        if (isMap) return <Map restaurants={restaurants} />;
-        return (
-          <List
-            // restaurants={restuarants.data}
-            restaurants={restaurants}
-            handlePageNum={handlePageNum}
-          />
-        );
-      })()}
+      {isMap ? (
+        <Map restaurants={restaurants} />
+      ) : (
+        <List
+          // restaurants={flattenPages(
+          //   restDataPagination && restDataPagination.pages
+          // )}
+          restaurants={restaurants}
+          // handlePageNum={handlePageNum}
+          handlePageNum={fetchNextPage}
+        />
+      )}
     </RestaurantContainer>
   );
 };

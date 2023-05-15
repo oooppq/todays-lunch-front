@@ -1,5 +1,7 @@
+/* eslint-disable no-restricted-syntax */
 import axios from 'axios';
-import { useQueries, useQuery } from 'react-query';
+// import { useState } from 'react';
+import { useInfiniteQuery, useQueries, useQuery } from 'react-query';
 import { useDispatch, useSelector } from 'react-redux';
 import { setMapCenter, setMapLevel } from '../../redux/map';
 import {
@@ -73,16 +75,40 @@ export const useRestaurant = () => {
     { refetchOnWindowFocus: false }
   );
 
+  // const {
+  //   data: restDataPagination,
+  //   isFetching: restPaginationIsFetching,
+  //   isError: restPaginationIsError,
+  // } = useQuery(
+  //   ['restaurants', 'pagination', restaurantState.pageNum],
+  //   () =>
+  //     axios.get(restaurantUrlMaker(restaurantState)).then((res) => res.data),
+  //   { refetchOnWindowFocus: false, keepPreviousData: true }
+  // );
+
   const {
     data: restDataPagination,
     isFetching: restPaginationIsFetching,
     isError: restPaginationIsError,
-  } = useQuery(
-    ['restaurants', 'pagination', restaurantState.pageNum],
-    () =>
-      axios.get(restaurantUrlMaker(restaurantState)).then((res) => res.data),
-    { refetchOnWindowFocus: false, keepPreviousData: true }
-  );
+    hasNextPage,
+    fetchNextPage,
+  } = useInfiniteQuery({
+    queryKey: ['restaurants', 'pagination'],
+    queryFn: ({ pageParam = 1 }) =>
+      axios.get(restaurantUrlMaker(restaurantState)).then((res) => {
+        return {
+          data: res.data.data,
+          pageNum: pageParam,
+          isLast: pageParam === res.data.totalPages,
+        };
+      }),
+    getNextPageParam: (lastPage) => {
+      if (lastPage.isLast) return undefined;
+      return lastPage.pageNum + 1;
+    },
+    refetchOnWindowFocus: false,
+    keepPreviousData: true,
+  });
 
   const restaurantIsFetching = restIsFetching || restPaginationIsFetching;
 
@@ -96,12 +122,26 @@ export const useRestaurant = () => {
     dispatch(increasePageNum());
   };
 
-  const handleRestaurantData = () => {
-    if (restaurantState.pageNum === 1) {
-      if (restData) dispatch(setRestaurants(restData.data));
-    } else if (restDataPagination) {
-      dispatch(setRestaurants(restDataPagination.data));
+  const flattenPages = (pages) => {
+    if (!pages) return null;
+    const output = [];
+    for (const page of pages) {
+      output.push(...page.data);
     }
+    return output;
+  };
+
+  const handleRestaurantData = () => {
+    if (!restaurantIsError && !restPaginationIsFetching) {
+      if (restDataPagination.pages.length > 1) {
+        dispatch(setRestaurants(flattenPages(restDataPagination.pages)));
+      } else dispatch(setRestaurants(restData.data));
+    }
+    // if (restaurantState.pageNum === 1) {
+    //   if (restData) dispatch(setRestaurants(restData.data));
+    // } else if (restDataPagination) {
+    //   dispatch(setRestaurants(restDataPagination.data));
+    // }
   };
 
   return {
@@ -111,12 +151,15 @@ export const useRestaurant = () => {
     recomCategory: ress[3],
     restaurants: restData,
     restDataPagination,
+    hasNextPage,
+    fetchNextPage,
     restaurantIsFetching,
     restaurantIsError,
     categoryIsFetching,
     categoryIsError,
     handlePageNum,
     handleRestaurantData,
+    flattenPages,
   };
 };
 

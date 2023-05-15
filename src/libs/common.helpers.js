@@ -113,13 +113,16 @@ export const useInfiniteScroll = (data, getNextPage) => {
 
   useEffect(() => {
     if (data && getNextPage && inview && !hasRequestedNextPage) {
-      getNextPage();
       setHasRequestedNextPage(true);
+
+      getNextPage();
     }
   }, [data, getNextPage, hasRequestedNextPage, inview]);
 
   useEffect(() => {
-    if (!inview) setHasRequestedNextPage(false);
+    if (!inview) {
+      setHasRequestedNextPage(false);
+    }
   }, [inview]);
 
   const ObserverDiv = <div ref={ref} className="observer" />;
