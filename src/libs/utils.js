@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-syntax */
 // 숫자에 세 자리마다 콤마(,) 추가하기
 export const convertNum = (num) => {
   return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
@@ -34,4 +35,14 @@ export const authStates = {
   PENDING: 'pending',
   INVALID: 'invalid',
   ERROR: 'error',
+};
+
+// useInfiniteQuery의 결과물을 flatten하기 위한 function
+export const flattenPages = (pages) => {
+  if (!pages) return null;
+  const output = [];
+  for (const page of pages) {
+    output.push(...page.data);
+  }
+  return output;
 };

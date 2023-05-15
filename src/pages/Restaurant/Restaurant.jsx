@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import { RestaurantContainer } from './restaurant.style';
 import RestaurantNav from './RestaurantNav';
@@ -14,19 +14,15 @@ const Restaurant = () => {
     recomCategory,
     // restaurantIsFetching,
     // restaurantIsError,
-    // restDataPagination,
     categoryIsFetching,
     categoryIsError,
-    // handlePageNum,
+    // hasNextPage,
     fetchNextPage,
-    handleRestaurantData,
-    // flattenPages,
+    getRestaurantData,
   } = useRestaurant();
 
   const isMap = useSelector((state) => state.map.isMap);
   const restaurants = useSelector((state) => state.restaurant.restaurants);
-
-  useEffect(handleRestaurantData, [handleRestaurantData]);
 
   if (categoryIsError || categoryIsFetching) return null;
 
@@ -41,14 +37,7 @@ const Restaurant = () => {
       {isMap ? (
         <Map restaurants={restaurants} />
       ) : (
-        <List
-          // restaurants={flattenPages(
-          //   restDataPagination && restDataPagination.pages
-          // )}
-          restaurants={restaurants}
-          // handlePageNum={handlePageNum}
-          handlePageNum={fetchNextPage}
-        />
+        <List restaurants={getRestaurantData()} handlePageNum={fetchNextPage} />
       )}
     </RestaurantContainer>
   );

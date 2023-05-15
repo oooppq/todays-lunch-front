@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useInfiniteQuery, useQuery } from 'react-query';
 import { useSelector } from 'react-redux';
 import { useAuth } from '../../libs/userAuth.helpers';
-import { authStates } from '../../libs/utils';
+import { authStates, flattenPages } from '../../libs/utils';
 
 export const useMyPage = (navigate) => {
   const userState = useSelector((state) => state.userAuth);
@@ -113,15 +113,6 @@ export const useWishlist = () => {
     },
     refetchOnWindowFocus: false,
   });
-
-  const flattenPages = (pages) => {
-    if (!pages) return null;
-    const output = [];
-    for (const page of pages) {
-      output.push(...page.data);
-    }
-    return output;
-  };
 
   return {
     wishlist,

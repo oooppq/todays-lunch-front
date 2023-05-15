@@ -8,9 +8,6 @@ const initialState = {
   selectedRecomCat: null,
   searchKeyword: '',
   sortBy: { id: 1, name: '평점순', query: 'rating' },
-  restaurants: [],
-  pageNum: 1,
-  myPageNum: 1,
 };
 
 export const restaurantSlice = createSlice({
@@ -41,15 +38,6 @@ export const restaurantSlice = createSlice({
       state.sortBy = action.payload;
       state.pageNum = 1;
     },
-    setRestaurants: (state, action) => {
-      state.restaurants = action.payload;
-    },
-    increasePageNum: (state) => {
-      state.pageNum += 1;
-    },
-    increaseMyPageNum: (state) => {
-      state.myPageNum += 1;
-    },
   },
 });
 
@@ -60,9 +48,6 @@ export const {
   setSelectedRecomCat,
   setSearchKeyword,
   setSortBy,
-  setRestaurants,
-  increasePageNum,
-  increaseMyPageNum,
 } = restaurantSlice.actions;
 
 export default restaurantSlice.reducer;
