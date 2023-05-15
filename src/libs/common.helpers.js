@@ -1,7 +1,8 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable react/react-in-jsx-scope */
 import axios from 'axios';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useInView } from 'react-intersection-observer';
 import { useMutation, useQuery } from 'react-query';
 import { useSelector } from 'react-redux';
 
@@ -102,4 +103,26 @@ export const useCustomNavigate = (navigate) => {
     navigate('/');
   };
   return { goToPrevPage, goToHomePage };
+};
+
+export const useInfiniteScroll = (data, getNextPage) => {
+  const [ref, inview] = useInView();
+  /* observer div가 inview 상태로 지속될 때, request가 여러 번
+  전송되는 것을 막기 위한 flag */
+  const [hasRequestedNextPage, setHasRequestedNextPage] = useState(false);
+
+  useEffect(() => {
+    if (data && getNextPage && inview && !hasRequestedNextPage) {
+      getNextPage();
+      setHasRequestedNextPage(true);
+    }
+  }, [data, getNextPage, hasRequestedNextPage, inview]);
+
+  useEffect(() => {
+    if (!inview) setHasRequestedNextPage(false);
+  }, [inview]);
+
+  const ObserverDiv = <div ref={ref} className="observer" />;
+
+  return { ObserverDiv };
 };

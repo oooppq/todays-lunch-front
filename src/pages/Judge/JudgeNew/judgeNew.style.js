@@ -389,12 +389,15 @@ export const JudgeSearchResultContainer = styled.ul`
   top: 118px;
   left: 0;
   right: 0;
-  height: 519px;
+  height: 520px;
   overflow-y: auto;
   overflow-x: hidden;
   white-space: nowrap;
   border-top: 1px solid #dedede;
   list-style: none;
+  .observer {
+    height: 10px;
+  }
   li {
     padding-top: 15px;
     padding-bottom: 13px;

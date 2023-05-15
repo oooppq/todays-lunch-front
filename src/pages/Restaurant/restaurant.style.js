@@ -149,7 +149,7 @@ export const ListUl = styled.ul`
   padding: 0;
   // height: 471px;
   // max-height: 1180px;
-  overflow-y: auto;
+  // overflow-y: auto;
 `;
 
 export const ListElemContainer = styled.li`
