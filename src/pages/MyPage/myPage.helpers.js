@@ -123,3 +123,78 @@ export const useWishlist = () => {
     flattenPages,
   };
 };
+
+export const useParticipatingRestaurant = () => {
+  const userState = useSelector((state) => state.userAuth);
+
+  const {
+    data: addedRestaurants,
+    isFetching: arIsFetching,
+    error: arError,
+    hasNextPage: arHasNextPage,
+    fetchNextPage: arFetchNextPage,
+  } = useInfiniteQuery({
+    queryKey: ['userAddedRestaurants', 'list'],
+    queryFn: ({ pageParam = 1 }) =>
+      axios
+        .get(`/api/restaurants?page=${pageParam}`, {
+          headers: {
+            Authorization: `Bearer ${userState && userState.accessToken}`,
+          },
+        })
+        .then((res) => {
+          return {
+            data: res.data.data,
+            pageNum: pageParam,
+            isLast: pageParam === res.data.totalPages,
+          };
+        }),
+    getNextPageParam: (lastPage) => {
+      if (lastPage.isLast) return undefined;
+      return lastPage.pageNum + 1;
+    },
+    refetchOnWindowFocus: false,
+  });
+
+  const {
+    data: contributingRestaurants,
+    isFetching: crIsFetching,
+    error: crError,
+    hasNextPage: crHasNextPage,
+    fetchNextPage: crFetchNextPage,
+  } = useInfiniteQuery({
+    queryKey: ['userContributingRestaurants', 'list'],
+    queryFn: ({ pageParam = 1 }) =>
+      axios
+        .get(`/api/restaurants?page=${pageParam}`, {
+          headers: {
+            Authorization: `Bearer ${userState && userState.accessToken}`,
+          },
+        })
+        .then((res) => {
+          return {
+            data: res.data.data,
+            pageNum: pageParam,
+            isLast: pageParam === res.data.totalPages,
+          };
+        }),
+    getNextPageParam: (lastPage) => {
+      if (lastPage.isLast) return undefined;
+      return lastPage.pageNum + 1;
+    },
+    refetchOnWindowFocus: false,
+  });
+
+  return {
+    addedRestaurants,
+    arIsFetching,
+    arError,
+    arHasNextPage,
+    arFetchNextPage,
+    contributingRestaurants,
+    crIsFetching,
+    crError,
+    crHasNextPage,
+    crFetchNextPage,
+  };
+};

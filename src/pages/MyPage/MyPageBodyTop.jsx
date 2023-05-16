@@ -37,7 +37,7 @@ const MyPageBodyTop = ({ userInfo, handleGotoOnClick }) => {
         </button>
         <button
           type="button"
-          id="my-restaurant"
+          id="participating-restaurant"
           className="myPageBtn"
           onClick={handleGotoOnClick}
         >

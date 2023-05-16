@@ -121,7 +121,6 @@ export const useRestaurant = () => {
     foodCategory: ress[2],
     recomCategory: ress[3],
     restaurants: restData,
-    // restDataPagination,
     hasNextPage,
     fetchNextPage,
     restaurantIsFetching,
@@ -129,7 +128,6 @@ export const useRestaurant = () => {
     categoryIsFetching,
     categoryIsError,
     getRestaurantData,
-    // flattenPages,
   };
 };
 
