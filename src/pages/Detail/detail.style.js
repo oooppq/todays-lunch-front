@@ -560,8 +560,8 @@ export const DetailReviewContainer = styled.div`
 
 export const DetailReviewElem = styled.li`
   display: flex;
-  height: 147px;
-  margin-bottom: 21px;
+  padding: 15px 0;
+  border-bottom: 1px solid #f4f4f4;
   .profileImg {
     height: 34px;
     width: 34px;
@@ -581,7 +581,7 @@ export const DetailReviewElem = styled.li`
       font-size: 14px;
       line-height: 20px;
       margin-top: 2px;
-      height: 60px;
+      // height: 60px;
     }
     .likeAndDate {
       margin-top: 22px;

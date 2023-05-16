@@ -198,3 +198,43 @@ export const useParticipatingRestaurant = () => {
     crFetchNextPage,
   };
 };
+
+export const useMyReview = () => {
+  const userState = useSelector((state) => state.userAuth);
+
+  const {
+    data: myReviews,
+    isFetching: myReviewIsFetching,
+    error: myReviewError,
+    hasNextPage,
+    fetchNextPage,
+  } = useInfiniteQuery({
+    queryKey: ['myReview', 'list'],
+    queryFn: ({ pageParam = 1 }) =>
+      axios
+        .get(`/api/my-review?page=${pageParam}`, {
+          headers: {
+            Authorization: `Bearer ${userState && userState.accessToken}`,
+          },
+        })
+        .then((res) => {
+          return {
+            data: res.data.data,
+            pageNum: pageParam,
+            isLast: pageParam === res.data.totalPages,
+          };
+        }),
+    getNextPageParam: (lastPage) => {
+      if (lastPage.isLast) return undefined;
+      return lastPage.pageNum + 1;
+    },
+    refetchOnWindowFocus: false,
+  });
+  return {
+    myReviews,
+    myReviewError,
+    myReviewIsFetching,
+    hasNextPage,
+    fetchNextPage,
+  };
+};

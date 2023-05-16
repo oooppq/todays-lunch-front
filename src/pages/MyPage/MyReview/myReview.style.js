@@ -30,7 +30,7 @@ export const MyReviewHeader = styled.div`
 `;
 
 export const MyReviewUl = styled.ul`
-  margin: 24px 3px 0 3px;
+  margin: 24px 3px 20px 3px;
   padding: 0;
   list-style: none;
 `;
@@ -71,13 +71,14 @@ export const MyReviewLi = styled.li`
         justify-content: space-between;
         margin-top: 5px;
       .likeBtn {
-        height:23px;
-        width: 60px;
+        height:22px;
+        width: 62px;
         border: 1px solid #bdbdbd;
         border-radius: 10px;
         display: flex;
         justify-content: center;
         align-items: center;
+        
         .likeImg {
             width: 15px;
             height: 15px;
