@@ -57,6 +57,9 @@ export const MyPageTop = styled.div`
       height: 60px;
       margin-right: 17px;
       position: relative;
+      input {
+        display: none;
+      }
       .profileImg {
         width: 55px;
         height: 60px;
@@ -84,13 +87,30 @@ export const MyPageTop = styled.div`
       font-size: 20px;
       color: #9b9b9b;
       flex-grow: 1;
-      span {
+      .nicknameSpan {
         color: black;
       }
+      .nicknameInput {
+        // background-color: #f4f4f4;
+        border: 1px solid #e3e3e3;
+        border-radius: 3px;
+        padding: 7px;
+        width: 170px;
+        color: #707070;
+      }
     }
-    .changeName {
+    .changeNameBtn {
       color: #9b9b9b;
       text-decoration: underline;
+      font-size: 14px;
+    }
+    .changeNameDoneBtn {
+      color: #9b9b9b;
+      width: 60px;
+      font-size: 14px;
+      border: 1px solid #e3e3e3;
+      border-radius: 3px;
+      padding: 7px;
     }
   }
   .myPageBtns {

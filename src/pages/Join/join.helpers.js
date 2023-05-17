@@ -7,7 +7,7 @@ export const useInputValidation = () => {
   const REGEX = {
     EMAIL: /\S+@\S+\.\S+/,
     PWD_RULE: /^(?=.*[a-zA-Z])((?=.*\d)(?=.*\W)).{8,16}$/,
-    NAME_RULE: /^([a-zA-Z0-9가-힣]).{1,10}$/,
+    NAME_RULE: /^([a-zA-Z0-9가-힣]).{1,7}$/,
   };
 
   const checkEmail = (email) => {

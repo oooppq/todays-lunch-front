@@ -40,6 +40,7 @@ export const JoinBodyFirstContainer = styled.div`
     margin: 9px 0 16px 0;
     background-color: #f4f4f4;
     border: 1px solid #e3e3e3;
+    border-radius: 3px;
     padding-left: 12px;
     font-size: 17px;
     color: #707070;

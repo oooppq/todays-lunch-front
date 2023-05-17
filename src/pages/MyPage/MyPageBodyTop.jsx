@@ -4,24 +4,80 @@ import { MyPageTop } from './myPage.style';
 import defaultIcon from '../../assets/img/default-icon.svg';
 import cameraIcon from '../../assets/img/empty-camera-icon.svg';
 
-const MyPageBodyTop = ({ userInfo, handleGotoOnClick }) => {
+const MyPageBodyTop = ({
+  userInfo,
+  handleGotoOnClick,
+  isNicknameChange,
+  setIsNicknameChange,
+  newNickname,
+  setNewNickname,
+}) => {
   return (
     <MyPageTop>
       <div className="userInfo">
         <div className="profileImgOuter">
-          <img
-            src={userInfo.icon || defaultIcon}
-            alt=""
-            className="profileImg"
-          />
           <button type="button" className="changeProfileImgBtn">
             <img src={cameraIcon} alt="" className="" />
           </button>
+          <label htmlFor="input-file">
+            <img
+              src={userInfo.icon || defaultIcon}
+              alt=""
+              className="profileImg"
+            />
+            <input
+              id="input-file"
+              type="file"
+              accept="image/*"
+              onChange={(e) => {
+                const reader = new FileReader();
+                if (e.target.files && e.target.files.length) {
+                  reader.readAsDataURL(e.target.files[0]);
+                  reader.onloadend = () => {
+                    // if (reader.result) setImg(reader.result.toString());
+                  };
+                }
+              }}
+            />
+          </label>
         </div>
         <div className="userName">
-          <span>{userInfo.nickname}</span>님
+          {isNicknameChange ? (
+            <input
+              type="text"
+              className="nicknameInput"
+              value={newNickname}
+              onChange={(e) => {
+                setNewNickname(e.target.value);
+              }}
+            />
+          ) : (
+            <>
+              <span className="nicknameSpan">{userInfo.nickname}</span>님
+            </>
+          )}
         </div>
-        <div className="changeName">수정하기</div>
+        {isNicknameChange ? (
+          <button
+            type="button"
+            className="changeNameDoneBtn"
+            onClick={() => {
+              setIsNicknameChange(true);
+            }}
+          >
+            확인
+          </button>
+        ) : (
+          <button
+            type="button"
+            className="changeNameBtn"
+            onClick={() => {
+              setIsNicknameChange(true);
+            }}
+          >
+            수정하기
+          </button>
+        )}
       </div>
       <div className="myPageBtns">
         <button

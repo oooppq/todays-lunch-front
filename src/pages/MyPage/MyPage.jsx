@@ -5,7 +5,7 @@ import { MyPageContainer } from './myPage.style';
 import userIcon from '../../assets/img/user-colored-icon.svg';
 import warningIcon from '../../assets/img/yellow-warning-icon.svg';
 // import reviewIcon from '../../assets/img/review-icon.svg';
-import { useMyPage } from './myPage.helpers';
+import { useMyPage, useMyPagePatch } from './myPage.helpers';
 import MyPageBodyTop from './MyPageBodyTop';
 import MyPageBodyBottom from './MyPageBodyBottom';
 import MyPageFooter from './MyPageFooter';
@@ -20,6 +20,8 @@ const MyPage = () => {
     handleGoToLogout,
     handleGotoOnClick,
   } = useMyPage(useNavigate());
+  const { isNicknameChange, setIsNicknameChange, newNickname, setNewNickname } =
+    useMyPagePatch(userInfo);
 
   if (userInfoIsFetching || userInfoError) return null;
 
@@ -45,6 +47,10 @@ const MyPage = () => {
       <MyPageBodyTop
         userInfo={userInfo}
         handleGotoOnClick={handleGotoOnClick}
+        isNicknameChange={isNicknameChange}
+        setIsNicknameChange={setIsNicknameChange}
+        newNickname={newNickname}
+        setNewNickname={setNewNickname}
       />
       <MyPageBodyBottom userInfo={userInfo} />
       <MyPageFooter

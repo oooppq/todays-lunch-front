@@ -338,3 +338,44 @@ export const useChangePassword = () => {
     handlePasswordChangeSubmit,
   };
 };
+
+export const useMyPagePatch = (userInfo) => {
+  const [isNicknameChange, setIsNicknameChange] = useState(false);
+  const [isFoodCategoryChangeOpen, setIsFoodCategoryChangeOpen] =
+    useState(false);
+  const [isLocationCategoryChangeOpen, setIsLocationCategoryChangeOpen] =
+    useState(false);
+
+  const [newNickname, setNewNickname] = useState('');
+
+  useEffect(() => {
+    setNewNickname(userInfo && userInfo.nickname);
+  }, [userInfo]);
+
+  const [foodCategory, setFoodCategory] = useState([]);
+  const [locationCategory, setLocationCategory] = useState([]);
+
+  const { mutate: patchNickname } = useMutation();
+  const { mutate: patchProfileImage } = useMutation();
+  const { mutate: patchFoodCategory } = useMutation();
+  const { mutate: patchLocationCatgory } = useMutation();
+
+  return {
+    isNicknameChange,
+    setIsNicknameChange,
+    isFoodCategoryChangeOpen,
+    isLocationCategoryChangeOpen,
+    newNickname,
+    foodCategory,
+    locationCategory,
+    setIsFoodCategoryChangeOpen,
+    setIsLocationCategoryChangeOpen,
+    setNewNickname,
+    setFoodCategory,
+    setLocationCategory,
+    patchNickname,
+    patchProfileImage,
+    patchFoodCategory,
+    patchLocationCatgory,
+  };
+};
