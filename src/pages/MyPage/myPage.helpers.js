@@ -340,12 +340,12 @@ export const useChangePassword = () => {
 };
 
 export const useMyPagePatch = (userInfo) => {
+  const [isPatching, setIsPatching] = useState(false);
   const [isNicknameChange, setIsNicknameChange] = useState(false);
   const [isFoodCategoryChangeOpen, setIsFoodCategoryChangeOpen] =
     useState(false);
   const [isLocationCategoryChangeOpen, setIsLocationCategoryChangeOpen] =
     useState(false);
-
   const [newNickname, setNewNickname] = useState('');
 
   useEffect(() => {
@@ -355,12 +355,58 @@ export const useMyPagePatch = (userInfo) => {
   const [foodCategory, setFoodCategory] = useState([]);
   const [locationCategory, setLocationCategory] = useState([]);
 
-  const { mutate: patchNickname } = useMutation();
-  const { mutate: patchProfileImage } = useMutation();
+  const { mutate: patchNickname, status: patchNicknameStatus } = useMutation(
+    ['nicknameChange'],
+    (fd) => axios.patch('/api/mypage', fd)
+  );
+  const { mutate: patchProfileImage, status: patchProfileImageStatus } =
+    useMutation(['profileImageChange'], (fd) =>
+      axios.patch('/api/mypage', fd, {
+        headers: {
+          'Content-Type': `multipart/form-data; `,
+        },
+      })
+    );
+
   const { mutate: patchFoodCategory } = useMutation();
   const { mutate: patchLocationCatgory } = useMutation();
 
+  useEffect(() => {
+    if (
+      patchNicknameStatus === 'loading' ||
+      patchProfileImageStatus === 'loading'
+    ) {
+      setIsPatching(true);
+    } else {
+      setIsPatching(false);
+    }
+    if (patchNicknameStatus === 'success') {
+      setIsNicknameChange(false);
+    }
+  }, [patchNicknameStatus, patchProfileImageStatus]);
+
+  const handleNicknameChange = () => {
+    const fd = new FormData();
+    fd.append('nickname', newNickname);
+    patchNickname(fd);
+  };
+
+  const handleProfileChange = (event) => {
+    const reader = new FileReader();
+    if (event.target.files && event.target.files.length) {
+      reader.readAsDataURL(event.target.files[0]);
+      reader.onloadend = () => {
+        if (reader.result) {
+          const fd = new FormData();
+          fd.append('icon', reader.result.toString());
+          patchProfileImage(fd);
+        }
+      };
+    }
+  };
+
   return {
+    isPatching,
     isNicknameChange,
     setIsNicknameChange,
     isFoodCategoryChangeOpen,
@@ -377,5 +423,7 @@ export const useMyPagePatch = (userInfo) => {
     patchProfileImage,
     patchFoodCategory,
     patchLocationCatgory,
+    handleNicknameChange,
+    handleProfileChange,
   };
 };

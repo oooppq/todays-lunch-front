@@ -11,6 +11,8 @@ const MyPageBodyTop = ({
   setIsNicknameChange,
   newNickname,
   setNewNickname,
+  handleNicknameChange,
+  handleProfileChange,
 }) => {
   return (
     <MyPageTop>
@@ -29,15 +31,7 @@ const MyPageBodyTop = ({
               id="input-file"
               type="file"
               accept="image/*"
-              onChange={(e) => {
-                const reader = new FileReader();
-                if (e.target.files && e.target.files.length) {
-                  reader.readAsDataURL(e.target.files[0]);
-                  reader.onloadend = () => {
-                    // if (reader.result) setImg(reader.result.toString());
-                  };
-                }
-              }}
+              onChange={handleProfileChange}
             />
           </label>
         </div>
@@ -61,9 +55,7 @@ const MyPageBodyTop = ({
           <button
             type="button"
             className="changeNameDoneBtn"
-            onClick={() => {
-              setIsNicknameChange(true);
-            }}
+            onClick={handleNicknameChange}
           >
             확인
           </button>

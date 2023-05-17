@@ -9,6 +9,7 @@ import { useMyPage, useMyPagePatch } from './myPage.helpers';
 import MyPageBodyTop from './MyPageBodyTop';
 import MyPageBodyBottom from './MyPageBodyBottom';
 import MyPageFooter from './MyPageFooter';
+import Loading from './Loading';
 
 const MyPage = () => {
   const {
@@ -20,8 +21,16 @@ const MyPage = () => {
     handleGoToLogout,
     handleGotoOnClick,
   } = useMyPage(useNavigate());
-  const { isNicknameChange, setIsNicknameChange, newNickname, setNewNickname } =
-    useMyPagePatch(userInfo);
+
+  const {
+    isPatching,
+    isNicknameChange,
+    setIsNicknameChange,
+    newNickname,
+    setNewNickname,
+    handleNicknameChange,
+    handleProfileChange,
+  } = useMyPagePatch(userInfo);
 
   if (userInfoIsFetching || userInfoError) return null;
 
@@ -51,6 +60,8 @@ const MyPage = () => {
         setIsNicknameChange={setIsNicknameChange}
         newNickname={newNickname}
         setNewNickname={setNewNickname}
+        handleNicknameChange={handleNicknameChange}
+        handleProfileChange={handleProfileChange}
       />
       <MyPageBodyBottom userInfo={userInfo} />
       <MyPageFooter
@@ -58,6 +69,7 @@ const MyPage = () => {
         handleGoToLogout={handleGoToLogout}
         handleGotoOnClick={handleGotoOnClick}
       />
+      {isPatching ? <Loading /> : null}
     </MyPageContainer>
   );
 };

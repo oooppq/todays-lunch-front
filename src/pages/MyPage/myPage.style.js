@@ -91,7 +91,6 @@ export const MyPageTop = styled.div`
         color: black;
       }
       .nicknameInput {
-        // background-color: #f4f4f4;
         border: 1px solid #e3e3e3;
         border-radius: 3px;
         padding: 7px;
@@ -226,4 +225,16 @@ export const MyPageBottom = styled.div`
       margin-right: 11px;
     }
   }
+`;
+
+export const LoadingContainer = styled.div`
+  position: absolute;
+  z-index: 1000;
+  width: 100%;
+  top: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
