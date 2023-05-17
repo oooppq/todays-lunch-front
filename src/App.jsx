@@ -13,7 +13,6 @@ import MyPage from './pages/MyPage/MyPage';
 import JudgeHome from './pages/Judge/JudgeHome';
 import JudgeNew from './pages/Judge/JudgeNew/JudgeNew';
 import JudgeNow from './pages/Judge/JudgeNow/JudgeNow';
-import MyRestaurant from './pages/MyPage/MyRestaurant/MyRestaurant';
 import MyJudge from './pages/MyPage/MyJudge/MyJudge';
 import MyReview from './pages/MyPage/MyReview/MyReview';
 import WishList from './pages/MyPage/WishList/WishList';
@@ -21,6 +20,8 @@ import ModifyProfile from './pages/MyPage/ModifyProfile/ModifyProfile';
 import { useAuth } from './libs/userAuth.helpers';
 import PrivateRoute from './components/PrivateRoute';
 import ChangePassword from './pages/MyPage/ChangePassword/ChangePassword';
+import Logout from './pages/MyPage/Logout';
+import ParticipatingRestaurant from './pages/MyPage/ParticipatingRestaurant/ParticipatingRestaurant';
 
 const App = () => {
   const { login, refresh, handleAuthState } = useAuth();
@@ -57,6 +58,9 @@ const App = () => {
           path="/login"
           element={<Login login={login} refresh={refresh} />}
         />
+
+        <Route path="/logout" element={<Logout />} />
+
         <Route path="/join" element={<Join />} />
 
         <Route
@@ -76,10 +80,10 @@ const App = () => {
           }
         />
         <Route
-          path="/mypage/my-restaurant"
+          path="/mypage/participating-restaurant"
           element={
             <PrivateRoute>
-              <MyRestaurant />
+              <ParticipatingRestaurant />
             </PrivateRoute>
           }
         />
@@ -92,7 +96,7 @@ const App = () => {
           }
         />
         <Route
-          path="/mypage/wishList"
+          path="/wishList"
           element={
             <PrivateRoute>
               <WishList />

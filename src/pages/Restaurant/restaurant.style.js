@@ -147,8 +147,9 @@ export const ListContainer = styled.div`
 export const ListUl = styled.ul`
   margin: 0;
   padding: 0;
-  height: 471px;
-  overflow-y: auto;
+  // height: 471px;
+  // max-height: 1180px;
+  // overflow-y: auto;
 `;
 
 export const ListElemContainer = styled.li`

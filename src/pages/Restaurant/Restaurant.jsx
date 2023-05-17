@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import { RestaurantContainer } from './restaurant.style';
 import RestaurantNav from './RestaurantNav';
 import Map from './Map';
 import List from './List';
-import { useResaurant } from './restaurant.helpers';
+import { useRestaurant } from './restaurant.helpers';
 
 const Restaurant = () => {
   const {
@@ -12,18 +12,17 @@ const Restaurant = () => {
     locTag,
     foodCategory,
     recomCategory,
-    restaurantIsFetching,
-    restaurantIsError,
+    // restaurantIsFetching,
+    // restaurantIsError,
     categoryIsFetching,
     categoryIsError,
-    handlePageNum,
-    handleRestaurantData,
-  } = useResaurant('normal');
+    // hasNextPage,
+    fetchNextPage,
+    getRestaurantData,
+  } = useRestaurant();
 
   const isMap = useSelector((state) => state.map.isMap);
   const restaurants = useSelector((state) => state.restaurant.restaurants);
-
-  useEffect(handleRestaurantData, [handleRestaurantData]);
 
   if (categoryIsError || categoryIsFetching) return null;
 
@@ -35,17 +34,11 @@ const Restaurant = () => {
         foodCategory={foodCategory.data.data}
         recomCategory={recomCategory.data.data}
       />
-      {(() => {
-        if (restaurantIsFetching || restaurantIsError) return null;
-        if (isMap) return <Map restaurants={restaurants} />;
-        return (
-          <List
-            // restaurants={restuarants.data}
-            restaurants={restaurants}
-            handlePageNum={handlePageNum}
-          />
-        );
-      })()}
+      {isMap ? (
+        <Map restaurants={restaurants} />
+      ) : (
+        <List restaurants={getRestaurantData()} handlePageNum={fetchNextPage} />
+      )}
     </RestaurantContainer>
   );
 };

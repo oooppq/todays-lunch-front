@@ -5,7 +5,7 @@ export const MyPageContainer = styled.div`
   top: 0;
   bottom: 0;
   box-sizing: border-box;
-  padding-top: 89px;
+  padding-top: 67px;
   max-width: 390px;
   width: 100%;
   background-color: white;
@@ -22,9 +22,31 @@ export const MyPageContainer = styled.div`
       margin-right: 3px;
     }
   }
+  .notVerifiedWarning {
+    height: 100px;
+    margin: 0 3px;
+    padding: 20px 30px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    background-color: #fefbe8;
+    border-radius: 20px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+    .warningIcon {
+      height: 60px;
+      width: 60px;
+      margin-right: 10px;
+    }
+    .notVerifiedWarningComment {
+      line-height: 20px;
+      font-size: 14px;
+    }
+  }
 `;
 
 export const MyPageTop = styled.div`
+  margin-top: 23px;
   padding: 0 32px 0 30px;
   .userInfo {
     height: 60px;
@@ -76,6 +98,9 @@ export const MyPageTop = styled.div`
     display: flex;
     justify-content: center;
     .myPageBtn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       margin: 0 4px;
       width: 88px;
       height: 88px;
@@ -87,7 +112,7 @@ export const MyPageTop = styled.div`
       line-height: 14.32px;
 
       .count {
-        margin: 19px 0 6px 0;
+        margin: 17px 0 6px 0;
         line-height: 24px;
         font-size: 20px;
       }
@@ -171,7 +196,8 @@ export const MyPageBottom = styled.div`
   }
   .bottomBtn {
     margin: 0 36px;
-    display: block;
+    display: flex;
+    align-items: center;
     font-size: 17px;
     margin-bottom: 20px;
     .bottomBtnIcon {

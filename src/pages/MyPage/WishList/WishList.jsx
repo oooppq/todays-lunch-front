@@ -1,23 +1,20 @@
-import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import React from 'react';
 import List from '../../Restaurant/List';
-import { useResaurant } from '../../Restaurant/restaurant.helpers';
 import UserPageHeader from '../../../components/UserPageHeader';
 import smileIcon from '../../../assets/img/smile-icon.svg';
 import { WishListContainer, WishListHeader } from './wishList.style';
+import { useWishlist } from '../myPage.helpers';
 
 const WishList = () => {
   const {
-    restaurantIsFetching,
-    restaurantIsError,
-    handlePageNum,
-    handleRestaurantData,
-  } = useResaurant('myPage');
+    wishlist,
+    // wishlistIsFetching,
+    // wishlistError,
+    // hasNextPage,
+    fetchNextPage,
+    flattenPages,
+  } = useWishlist();
 
-  const restaurants = useSelector((state) => state.restaurant.restaurants);
-
-  useEffect(handleRestaurantData, [handleRestaurantData]);
-  if (restaurantIsFetching || restaurantIsError) return null;
   return (
     <WishListContainer>
       <UserPageHeader>
@@ -35,8 +32,8 @@ const WishList = () => {
         </div>
       </WishListHeader>
       <List
-        restaurants={restaurants}
-        handlePageNum={handlePageNum}
+        restaurants={flattenPages(wishlist && wishlist.pages)}
+        handlePageNum={fetchNextPage}
         className="myRestaurantList"
       />
     </WishListContainer>

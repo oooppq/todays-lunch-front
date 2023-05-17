@@ -31,6 +31,11 @@ export const ChangePasswordBody = styled.div`
     font-size: 16px;
     margin-bottom: 10px;
   }
+  .passwordCondition {
+    font-size: 11px;
+    color: #ff6020;
+    margin-bottom: 10px;
+  }
   .input {
     width: 100%;
     height: 43px;

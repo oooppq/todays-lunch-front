@@ -31,7 +31,12 @@ const Header = () => {
         <span className="third">추</span>
       </HeaderLogo>
       <HeaderBasketModal />
-      <HeaderBasketIcon src={basket} />
+      <HeaderBasketIcon
+        src={basket}
+        onClick={() => {
+          navigate('/wishlist');
+        }}
+      />
       <HeaderMyPageIcon
         src={defaultUser}
         onClick={() => {

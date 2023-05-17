@@ -1,12 +1,19 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { MyReviewLi } from './myReview.style';
 import likeIcon from '../../../assets/img/review-like-icon.svg';
 import { rateStarHandler } from '../../Detail/detail.helpers';
 
 const MyReviewElem = ({ review }) => {
+  const navigate = useNavigate();
+
   return (
-    <MyReviewLi>
+    <MyReviewLi
+      onClick={() => {
+        navigate(`/restaurants/${review.restId}`);
+      }}
+    >
       <img src={review.imageUrl} alt="" className="restaurantImg" />
       <div className="restaurantInfo">
         <div className="restaurantName">{review.restaurantName}</div>
