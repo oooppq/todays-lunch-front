@@ -74,7 +74,7 @@ const ParticipatingRestaurant = () => {
             ))
           : null}
         <button type="button" className="moreBtn" onClick={arFetchNextPage}>
-          더보기+
+          더보기 +
         </button>
       </ParticipatingRestaurantUl>
       <div className="subTitle">
@@ -94,7 +94,7 @@ const ParticipatingRestaurant = () => {
             ))
           : null}
         <button type="button" className="moreBtn" onClick={crFetchNextPage}>
-          더보기+
+          더보기 +
         </button>
       </ParticipatingRestaurantUl>
     </ParticipatingRestaurantContainer>

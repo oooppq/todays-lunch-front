@@ -1,9 +1,11 @@
 /* eslint-disable no-restricted-syntax */
 import axios from 'axios';
-import { useInfiniteQuery, useQuery } from 'react-query';
+import { useEffect, useState } from 'react';
+import { useInfiniteQuery, useMutation, useQuery } from 'react-query';
 import { useSelector } from 'react-redux';
 import { useAuth } from '../../libs/userAuth.helpers';
 import { authStates, flattenPages } from '../../libs/utils';
+import { useInputValidation } from '../Join/join.helpers';
 
 export const useMyPage = (navigate) => {
   const userState = useSelector((state) => state.userAuth);
@@ -236,5 +238,103 @@ export const useMyReview = () => {
     myReviewIsFetching,
     hasNextPage,
     fetchNextPage,
+  };
+};
+
+export const useChangePassword = () => {
+  const states = {
+    SUCCESS: 'success',
+    WAITING_PASSWORD_CHECK: 'waitingPasswordCheck',
+    WAITING_PASSWORD_CHANGE: 'waitingPasswordChange',
+    WRONG_CURRENT_PASSWORD: 'wrongCurrentPassword',
+    INVALID_PASSWORD: 'invalidPassword',
+    DIFFERENT_PASSWORD: 'differentPassword',
+    MISSING_INPUT: 'missingInput',
+    NETWORK_ERROR: 'networkError',
+  };
+
+  const [passwordChangeState, setPasswordChangeState] = useState(false);
+  const [currentPassword, setCurrentPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [newPasswordConfirm, setNewPasswordConfirm] = useState('');
+
+  const {
+    mutate: checkCurrentPassword,
+    data: isCorrectPassword,
+    isLoading: isPasswordCheckLoading,
+    error: passwordCheckError,
+  } = useMutation(['passwordValidation'], (password) =>
+    axios.post('/api/mypage/password-check', password).then((res) => res.data)
+  );
+
+  const { checkPassword, checkPasswordConfirm } = useInputValidation();
+  const {
+    mutate: changePassword,
+    error: passwordChangeError,
+    status: passwordChangeStatus,
+  } = useMutation(['changePassword'], (password) =>
+    axios.post('/api/mypage/password-change', password)
+  );
+
+  const handlePasswordChangeSubmit = () => {
+    if (currentPassword && newPassword && newPasswordConfirm) {
+      if (!checkPassword(newPassword)) {
+        setPasswordChangeState(states.INVALID_PASSWORD);
+      } else if (!checkPasswordConfirm(newPassword, newPasswordConfirm)) {
+        setPasswordChangeState(states.DIFFERENT_PASSWORD);
+      } else {
+        checkCurrentPassword(currentPassword);
+        setPasswordChangeState(states.WAITING_PASSWORD_CHECK);
+      }
+    } else {
+      setPasswordChangeState(states.MISSING_INPUT);
+    }
+  };
+
+  useEffect(() => {
+    if (passwordChangeError || passwordCheckError) {
+      setPasswordChangeState(states.NETWORK_ERROR);
+    } else {
+      if (
+        passwordChangeState === states.WAITING_PASSWORD_CHECK &&
+        !isPasswordCheckLoading
+      ) {
+        if (isCorrectPassword) {
+          changePassword(newPassword);
+          setPasswordChangeState(states.WAITING_PASSWORD_CHANGE);
+        } else {
+          setPasswordChangeState(states.WRONG_CURRENT_PASSWORD);
+        }
+      }
+      if (
+        passwordChangeState === states.WAITING_PASSWORD_CHANGE &&
+        passwordChangeStatus === 'success'
+      ) {
+        setPasswordChangeState(states.SUCCESS);
+      }
+    }
+  }, [
+    passwordChangeState,
+    states.WAITING_PASSWORD_CHECK,
+    states.WAITING_PASSWORD_CHANGE,
+    isCorrectPassword,
+    passwordChangeStatus,
+    changePassword,
+    newPassword,
+    states.SUCCESS,
+    states.WRONG_CURRENT_PASSWORD,
+    isPasswordCheckLoading,
+    passwordChangeError,
+    passwordCheckError,
+    states.NETWORK_ERROR,
+  ]);
+
+  return {
+    states,
+    passwordChangeState,
+    setCurrentPassword,
+    setNewPassword,
+    setNewPasswordConfirm,
+    handlePasswordChangeSubmit,
   };
 };

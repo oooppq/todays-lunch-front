@@ -65,8 +65,9 @@ export const ParticipatingRestaurantUl = styled.ul`
   .moreBtn {
     width: 100%;
     height: 40px;
-    border: 1px solid #f4f4f4;
-    border-top: none;
+    // border: 1px solid #f4f4f4;
+    // border-top: none;
+    background-color: #f4f4f4;
   }
 `;
 
