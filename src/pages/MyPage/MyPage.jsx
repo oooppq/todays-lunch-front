@@ -4,12 +4,10 @@ import UserPageHeader from '../../components/UserPageHeader';
 import { MyPageContainer } from './myPage.style';
 import userIcon from '../../assets/img/user-colored-icon.svg';
 import warningIcon from '../../assets/img/yellow-warning-icon.svg';
-// import reviewIcon from '../../assets/img/review-icon.svg';
-import { useMyPage, useMyPagePatch } from './myPage.helpers';
+import { useMyPage } from './myPage.helpers';
 import MyPageBodyTop from './MyPageBodyTop';
 import MyPageBodyBottom from './MyPageBodyBottom';
 import MyPageFooter from './MyPageFooter';
-import Loading from './Loading';
 
 const MyPage = () => {
   const {
@@ -21,16 +19,6 @@ const MyPage = () => {
     handleGoToLogout,
     handleGotoOnClick,
   } = useMyPage(useNavigate());
-
-  const {
-    isPatching,
-    isNicknameChange,
-    setIsNicknameChange,
-    newNickname,
-    setNewNickname,
-    handleNicknameChange,
-    handleProfileChange,
-  } = useMyPagePatch(userInfo);
 
   if (userInfoIsFetching || userInfoError) return null;
 
@@ -56,12 +44,6 @@ const MyPage = () => {
       <MyPageBodyTop
         userInfo={userInfo}
         handleGotoOnClick={handleGotoOnClick}
-        isNicknameChange={isNicknameChange}
-        setIsNicknameChange={setIsNicknameChange}
-        newNickname={newNickname}
-        setNewNickname={setNewNickname}
-        handleNicknameChange={handleNicknameChange}
-        handleProfileChange={handleProfileChange}
       />
       <MyPageBodyBottom userInfo={userInfo} />
       <MyPageFooter
@@ -69,7 +51,6 @@ const MyPage = () => {
         handleGoToLogout={handleGoToLogout}
         handleGotoOnClick={handleGotoOnClick}
       />
-      {isPatching ? <Loading /> : null}
     </MyPageContainer>
   );
 };

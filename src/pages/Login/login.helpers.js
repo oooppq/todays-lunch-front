@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useState } from 'react';
 import { EXPIRE_TIME } from '../../libs/userAuth.helpers';
 
