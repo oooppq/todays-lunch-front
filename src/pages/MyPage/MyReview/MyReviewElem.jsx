@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { MyReviewLi } from './myReview.style';
 import likeIcon from '../../../assets/img/review-like-icon.svg';
 import { rateStarHandler } from '../../Detail/detail.helpers';
+import { handleLongReview } from '../myPage.helpers';
 
 const MyReviewElem = ({ review }) => {
   const navigate = useNavigate();
@@ -18,7 +19,7 @@ const MyReviewElem = ({ review }) => {
       <div className="restaurantInfo">
         <div className="restaurantName">{review.restaurantName}</div>
         <div className="rating">{rateStarHandler(review.rating)}</div>
-        <div className="content">{review.reviewContent}</div>
+        <div className="content">{handleLongReview(review.reviewContent)}</div>
         <div className="likeBtnAndDate">
           <button type="button" className="likeBtn">
             <img className="likeImg" src={likeIcon} alt="" />

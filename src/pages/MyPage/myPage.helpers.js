@@ -241,6 +241,13 @@ export const useMyReview = () => {
   };
 };
 
+export const handleLongReview = (review) => {
+  if (review.length > 20) {
+    return review.slice(0, 20).concat('...');
+  }
+  return review;
+};
+
 export const useChangePassword = () => {
   const states = {
     SUCCESS: 'success',

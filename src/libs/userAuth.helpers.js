@@ -4,7 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setAccessToken, setRefreshToken, setState } from '../redux/userAuth';
 import { authStates } from './utils';
 
-export const EXPIRE_TIME = (1 / 2) * 3600 * 1000; // expire time 30 minutes
+export const ACCESS_EXPIRE_TIME = (1 / 2) * 3600 * 1000; // access token expires time 30 minutes
+export const REFRESH_EXPIRE_TIME = 3600 * 1000; // refresh token expires time 30 minutes
 
 export const useAuth = () => {
   const userState = useSelector((state) => state.userAuth.state);
@@ -49,7 +50,7 @@ export const useAuth = () => {
     if (state === authStates.AUTHORIZED) {
       // axios.defaults.headers.common.Authorization = `Bearer ${access}`;
       // const expireTime = new Date().getTime() + 2000;
-      const expireTime = new Date().getTime() + EXPIRE_TIME;
+      const expireTime = new Date().getTime() + REFRESH_EXPIRE_TIME;
       const refreshInfo = { token: refresh, expireTime };
       localStorage.setItem('refreshInfo', JSON.stringify(refreshInfo));
     } else {
@@ -67,7 +68,7 @@ export const useAuth = () => {
         reset();
         authRequest({ mode: 'refresh', payload: refreshInfo.token });
         // setTimeout(refresh, 3000);
-        setTimeout(refresh, EXPIRE_TIME - 60000);
+        setTimeout(refresh, ACCESS_EXPIRE_TIME - 60000);
       } else {
         setAuthInfo(authStates.EXPIRED, null, null);
       }
