@@ -10,13 +10,18 @@ import { setSelectedLocCat, setSelectedLocTag } from '../../redux/restaurant';
 
 export const restaurantUrlMaker = (state, pageNum) => {
   let url = '/api/restaurants?';
-  if (state.selectedFoodCat)
-    url += `location-category=${state.selectedFoodCat.name}`;
+  // console.log(state.selectedFoodCat);
+  if (state.selectedLocCat)
+    url += `&location-category=${state.selectedLocCat.name}`;
+
   if (state.selectedLocTag) url += `&location-tag=${state.selectedLocTag.name}`;
+
   if (state.selectedFoodCat)
     url += `&food-category=${state.selectedFoodCat.name}`;
+
   if (state.selectedRecomCat)
     url += `&recommendation-category=${state.selectedRecomCat.id}`;
+
   if (state.searchKeyword.length !== 0)
     url += `&keyword=${state.searchKeyword}`;
   url += `&sort=${state.sortBy.query}&page=${pageNum || 1}&size=10`;

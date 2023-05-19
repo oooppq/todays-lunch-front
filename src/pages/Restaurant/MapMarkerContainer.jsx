@@ -41,7 +41,7 @@ const MapMarkerContainer = ({ index, position, content }) => {
             }}
           >
             {content}
-            {' ▶'}
+            {' >'}
           </CustomOverlayElem>
         </CustomOverlayMap>
       ) : null}

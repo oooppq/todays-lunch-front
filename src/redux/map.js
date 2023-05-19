@@ -20,8 +20,8 @@ export const mapSlice = createSlice({
   name: 'map',
   initialState,
   reducers: {
-    setIsMap: (state) => {
-      state.isMap = !state.isMap;
+    setIsMap: (state, action) => {
+      state.isMap = action.payload;
     },
     setMapCenter: (state, action) => {
       state.mapCenter = {
