@@ -128,7 +128,8 @@ export const CustomOverlayElem = styled.div`
   // background-color: white;
 
   // border: 1px solid black;
-  font-family: Pretendard-SemiBold;
+  // font-family: Pretendard-SemiBold;
+  font-size: 15px;
   color: white;
   text-align: center;
   height: 24px;

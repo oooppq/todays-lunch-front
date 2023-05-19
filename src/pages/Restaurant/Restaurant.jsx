@@ -22,7 +22,7 @@ const Restaurant = () => {
   } = useRestaurant();
 
   const isMap = useSelector((state) => state.map.isMap);
-  const restaurants = useSelector((state) => state.restaurant.restaurants);
+  // const restaurants = useSelector((state) => state.restaurant.restaurants);
 
   if (categoryIsError || categoryIsFetching) return null;
 
@@ -35,7 +35,7 @@ const Restaurant = () => {
         recomCategory={recomCategory.data}
       />
       {isMap ? (
-        <Map restaurants={restaurants} />
+        <Map restaurants={getRestaurantData()} />
       ) : (
         <List restaurants={getRestaurantData()} handlePageNum={fetchNextPage} />
       )}

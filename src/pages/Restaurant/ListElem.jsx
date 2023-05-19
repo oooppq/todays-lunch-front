@@ -36,13 +36,7 @@ const ListElem = ({ restaurant }) => {
             {' | '}
             <span>평점 {restaurant.rating}</span>
           </div>
-          <ListElemInfoButton
-            restaurant={
-              (restaurant.restaurantName,
-              restaurant.latitude,
-              restaurant.longitude)
-            }
-          />
+          <ListElemInfoButton restaurant={restaurant} />
         </div>
       </ListElemInfo>
       <ListElemWishAndRoulette restaurant={restaurant} />

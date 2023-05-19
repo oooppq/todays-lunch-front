@@ -34,7 +34,7 @@ const RestaurantNav = ({
   foodCategory,
   recomCategory,
 }) => {
-  const isMap = useSelector((state) => state.restaurant.isMap);
+  const isMap = useSelector((state) => state.map.isMap);
   const { changeSelectedLocCat, changeSelectedLocTag } = useCategory();
   const restaurantState = useSelector((state) => state.restaurant);
 
@@ -46,7 +46,7 @@ const RestaurantNav = ({
       <RestaurantNavUp>
         <MapBtn
           onClick={() => {
-            dispatch(setIsMap());
+            dispatch(setIsMap(!isMap));
           }}
         >
           <img
@@ -72,6 +72,7 @@ const RestaurantNav = ({
               switch (key) {
                 case 'Enter':
                   dispatch(setSearchKeyword(keyword));
+                  dispatch(setIsMap(false));
                   e.target.blur();
                   break;
                 default:
@@ -82,6 +83,7 @@ const RestaurantNav = ({
             type="button"
             onClick={() => {
               dispatch(setSearchKeyword(keyword));
+              dispatch(setIsMap(false));
             }}
           >
             <img src={searchIcon} alt="" />
