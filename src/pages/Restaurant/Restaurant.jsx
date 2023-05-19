@@ -29,10 +29,10 @@ const Restaurant = () => {
   return (
     <RestaurantContainer>
       <RestaurantNav
-        locCategory={locCategory.data.data}
-        locTag={locTag.data.data}
-        foodCategory={foodCategory.data.data}
-        recomCategory={recomCategory.data.data}
+        locCategory={locCategory.data}
+        locTag={locTag.data}
+        foodCategory={foodCategory.data}
+        recomCategory={recomCategory.data}
       />
       {isMap ? (
         <Map restaurants={restaurants} />

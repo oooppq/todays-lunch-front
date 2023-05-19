@@ -16,7 +16,6 @@ import JudgeNow from './pages/Judge/JudgeNow/JudgeNow';
 import MyJudge from './pages/MyPage/MyJudge/MyJudge';
 import MyReview from './pages/MyPage/MyReview/MyReview';
 import WishList from './pages/MyPage/WishList/WishList';
-import ModifyProfile from './pages/MyPage/ModifyProfile/ModifyProfile';
 import { useAuth } from './libs/userAuth.helpers';
 import PrivateRoute from './components/PrivateRoute';
 import ChangePassword from './pages/MyPage/ChangePassword/ChangePassword';
@@ -100,14 +99,6 @@ const App = () => {
           element={
             <PrivateRoute>
               <WishList />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/mypage/modify-profile"
-          element={
-            <PrivateRoute>
-              <ModifyProfile />
             </PrivateRoute>
           }
         />

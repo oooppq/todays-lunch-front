@@ -241,6 +241,13 @@ export const useMyReview = () => {
   };
 };
 
+export const handleLongReview = (review) => {
+  if (review.length > 20) {
+    return review.slice(0, 20).concat('...');
+  }
+  return review;
+};
+
 export const useChangePassword = () => {
   const states = {
     SUCCESS: 'success',
@@ -272,9 +279,12 @@ export const useChangePassword = () => {
     mutate: changePassword,
     error: passwordChangeError,
     status: passwordChangeStatus,
-  } = useMutation(['changePassword'], (password) =>
-    axios.post('/api/mypage/password-change', password)
-  );
+  } = useMutation(['changePassword'], (password) => {
+    const fd = new FormData();
+    fd.append('password', password);
+
+    return axios.post('/api/mypage/password-change', fd);
+  });
 
   const handlePasswordChangeSubmit = () => {
     if (currentPassword && newPassword && newPasswordConfirm) {
@@ -336,5 +346,183 @@ export const useChangePassword = () => {
     setNewPassword,
     setNewPasswordConfirm,
     handlePasswordChangeSubmit,
+  };
+};
+
+export const useProfileChange = (userInfo) => {
+  const [isProfileChanging, setIsProfileChanging] = useState(false);
+  const [isNicknameChange, setIsNicknameChange] = useState(false);
+  const [isFoodCategoryChangeOpen, setIsFoodCategoryChangeOpen] =
+    useState(false);
+  const [isLocationCategoryChangeOpen, setIsLocationCategoryChangeOpen] =
+    useState(false);
+  const [newNickname, setNewNickname] = useState('');
+
+  useEffect(() => {
+    setNewNickname(userInfo && userInfo.nickname);
+  }, [userInfo]);
+
+  const [foodCategory, setFoodCategory] = useState([]);
+  const [locationCategory, setLocationCategory] = useState([]);
+
+  const { mutate: patchNickname, status: patchNicknameStatus } = useMutation(
+    ['nicknameChange'],
+    (fd) => axios.patch('/api/mypage', fd)
+  );
+  const { mutate: patchProfileImage, status: patchProfileImageStatus } =
+    useMutation(['profileImageChange'], (fd) =>
+      axios.patch('/api/mypage', fd, {
+        headers: {
+          'Content-Type': `multipart/form-data; `,
+        },
+      })
+    );
+
+  useEffect(() => {
+    if (
+      patchNicknameStatus === 'loading' ||
+      patchProfileImageStatus === 'loading'
+    ) {
+      setIsProfileChanging(true);
+    } else {
+      setIsProfileChanging(false);
+    }
+    if (patchNicknameStatus === 'success') {
+      setIsNicknameChange(false);
+    }
+  }, [patchNicknameStatus, patchProfileImageStatus]);
+
+  const handleNicknameChange = () => {
+    const fd = new FormData();
+    fd.append('nickname', newNickname);
+    patchNickname(fd);
+  };
+
+  const handleProfileChange = (event) => {
+    const reader = new FileReader();
+    if (event.target.files && event.target.files.length) {
+      reader.readAsDataURL(event.target.files[0]);
+      reader.onloadend = () => {
+        if (reader.result) {
+          const fd = new FormData();
+          fd.append('icon', reader.result.toString());
+          patchProfileImage(fd);
+        }
+      };
+    }
+  };
+
+  return {
+    isProfileChanging,
+    isNicknameChange,
+    setIsNicknameChange,
+    isFoodCategoryChangeOpen,
+    isLocationCategoryChangeOpen,
+    newNickname,
+    foodCategory,
+    locationCategory,
+    setIsFoodCategoryChangeOpen,
+    setIsLocationCategoryChangeOpen,
+    setNewNickname,
+    setFoodCategory,
+    setLocationCategory,
+    patchNickname,
+    patchProfileImage,
+    handleNicknameChange,
+    handleProfileChange,
+  };
+};
+
+export const useCategoryChangeModal = () => {
+  const [isCategoryChanging, setIsCategoryChanging] = useState(false);
+  const [isLocCatModalOpen, setIsLocCatModalOpen] = useState(false);
+  const [isFoodCatModalOpen, setIsFoodCatModalOpen] = useState(false);
+
+  return {
+    isCategoryChanging,
+    setIsCategoryChanging,
+    isLocCatModalOpen,
+    setIsLocCatModalOpen,
+    isFoodCatModalOpen,
+    setIsFoodCatModalOpen,
+  };
+};
+
+export const useCategoryChange = (
+  category,
+  currentCategory,
+  setIsCategoryChanging,
+  setIsCategoryModalOpen
+) => {
+  const url = `/api/${category}-category`;
+
+  const [selectedCategoryList, setSelectedCategoryList] =
+    useState(currentCategory);
+
+  const [unSelectedCategoryList, setUnSelectedCategoryList] = useState([]);
+
+  const { data: categoryList } = useQuery(
+    [`${category}-category`],
+    () => axios.get(url).then((res) => res.data),
+    { refetchOnWindowFocus: false }
+  );
+
+  const { mutate: patchCategory, status: patchCategoryStatus } = useMutation(
+    [`${category}CategoryChange`],
+    (fd) => axios.patch('/api/mypage', fd)
+  );
+
+  const addCategory = (cat) => {
+    setSelectedCategoryList((state) => [...state, cat]);
+  };
+  const deleteCategory = (cat) => {
+    const len = selectedCategoryList.length;
+    for (let i = 0; i < len; i += 1) {
+      if (selectedCategoryList[i].id === cat.id) {
+        setSelectedCategoryList((state) => [
+          ...state.slice(0, i),
+          ...state.slice(i + 1, len),
+        ]);
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (categoryList) {
+      const newList = [];
+      for (const foodCat of categoryList) {
+        if (!selectedCategoryList.some((elem) => elem.id === foodCat.id))
+          newList.push(foodCat);
+      }
+      setUnSelectedCategoryList(newList);
+    }
+  }, [categoryList, selectedCategoryList]);
+
+  useEffect(() => {
+    if (patchCategoryStatus === 'loading') {
+      setIsCategoryChanging(true);
+    } else {
+      setIsCategoryChanging(false);
+      if (patchCategoryStatus === 'success') {
+        setIsCategoryModalOpen(false);
+      }
+    }
+  });
+
+  const handleCategoryChange = () => {
+    const fd = new FormData();
+    fd.append(
+      category === 'food' ? 'foodCategoryList' : 'locationCategoryList',
+      JSON.stringify(selectedCategoryList)
+    );
+    patchCategory(fd);
+  };
+
+  return {
+    selectedCategoryList,
+    unSelectedCategoryList,
+    addCategory,
+    deleteCategory,
+    handleCategoryChange,
   };
 };

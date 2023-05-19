@@ -1,5 +1,6 @@
+/* eslint-disable no-unused-vars */
 import { useState } from 'react';
-import { EXPIRE_TIME } from '../../libs/userAuth.helpers';
+import { ACCESS_EXPIRE_TIME } from '../../libs/userAuth.helpers';
 
 export const useLoginHandler = (login, refresh) => {
   const [email, setEmail] = useState(null);
@@ -17,7 +18,7 @@ export const useLoginHandler = (login, refresh) => {
     event.preventDefault();
     login(loginInfo);
 
-    setTimeout(refresh, EXPIRE_TIME - 60000);
+    setTimeout(refresh, ACCESS_EXPIRE_TIME - 60000);
     // setTimeout(refresh, 3000);
   };
 

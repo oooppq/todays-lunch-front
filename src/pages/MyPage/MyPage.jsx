@@ -4,7 +4,6 @@ import UserPageHeader from '../../components/UserPageHeader';
 import { MyPageContainer } from './myPage.style';
 import userIcon from '../../assets/img/user-colored-icon.svg';
 import warningIcon from '../../assets/img/yellow-warning-icon.svg';
-// import reviewIcon from '../../assets/img/review-icon.svg';
 import { useMyPage } from './myPage.helpers';
 import MyPageBodyTop from './MyPageBodyTop';
 import MyPageBodyBottom from './MyPageBodyBottom';
@@ -15,7 +14,6 @@ const MyPage = () => {
     userInfo,
     userInfoIsFetching,
     userInfoError,
-    verified,
     handleLogoutOnClick,
     handleGoToLogout,
     handleGotoOnClick,
@@ -31,7 +29,7 @@ const MyPage = () => {
           마이페이지
         </div>
       </UserPageHeader>
-      {verified ? null : (
+      {userInfo.verified ? null : (
         <div className="notVerifiedWarning">
           <img src={warningIcon} alt="" className="warningIcon" />
           <div className="notVerifiedWarningComment">

@@ -2,8 +2,20 @@
 import React from 'react';
 import { MyPageMid } from './myPage.style';
 import smileIcon from '../../assets/img/smile-icon.svg';
+import { useCategoryChangeModal } from './myPage.helpers';
+import Loading from './Loading';
+import ChangeCategoryModal from './ChangeCategoryModal';
 
 const MyPageBodyBottom = ({ userInfo }) => {
+  const {
+    isCategoryChanging,
+    setIsCategoryChanging,
+    isLocCatModalOpen,
+    setIsLocCatModalOpen,
+    isFoodCatModalOpen,
+    setIsFoodCatModalOpen,
+  } = useCategoryChangeModal();
+
   return (
     <MyPageMid>
       <div className="explanationOuter">
@@ -27,7 +39,13 @@ const MyPageBodyBottom = ({ userInfo }) => {
               </div>
             ))}
           </div>
-          <button type="button" className="changeBtn">
+          <button
+            type="button"
+            className="changeBtn"
+            onClick={() => {
+              setIsLocCatModalOpen(true);
+            }}
+          >
             수정하기
           </button>
         </div>
@@ -45,11 +63,36 @@ const MyPageBodyBottom = ({ userInfo }) => {
               </div>
             ))}
           </div>
-          <button type="button" className="changeBtn">
+          <button
+            type="button"
+            className="changeBtn"
+            onClick={() => {
+              setIsFoodCatModalOpen(true);
+            }}
+          >
             수정하기
           </button>
         </div>
       </div>
+      {isCategoryChanging ? <Loading /> : null}
+      {isFoodCatModalOpen ? (
+        <ChangeCategoryModal
+          category="food"
+          userInfo={userInfo}
+          setIsCategoryChanging={setIsCategoryChanging}
+          setIsCategoryModalOpen={setIsFoodCatModalOpen}
+          title="선호하는 음식 종류"
+        />
+      ) : null}
+      {isLocCatModalOpen ? (
+        <ChangeCategoryModal
+          category="location"
+          userInfo={userInfo}
+          setIsCategoryChanging={setIsCategoryChanging}
+          setIsCategoryModalOpen={setIsLocCatModalOpen}
+          title="관심지역"
+        />
+      ) : null}
     </MyPageMid>
   );
 };

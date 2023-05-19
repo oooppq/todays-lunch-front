@@ -7,7 +7,7 @@ export const useInputValidation = () => {
   const REGEX = {
     EMAIL: /\S+@\S+\.\S+/,
     PWD_RULE: /^(?=.*[a-zA-Z])((?=.*\d)(?=.*\W)).{8,16}$/,
-    NAME_RULE: /^([a-zA-Z0-9가-힣]).{1,10}$/,
+    NAME_RULE: /^([a-zA-Z0-9가-힣]).{1,7}$/,
   };
 
   const checkEmail = (email) => {
@@ -199,13 +199,13 @@ export const useWarningHandler = () => {
 export const useGetCategories = () => {
   const ress = useQueries([
     {
-      queryKey: 'location-category',
+      queryKey: ['location-category'],
       queryFn: () =>
         axios.get('/api/location-category').then((res) => res.data),
       refetchOnWindowFocus: false,
     },
     {
-      queryKey: 'food-category',
+      queryKey: ['food-category'],
       queryFn: () => axios.get('/api/food-category').then((res) => res.data),
       refetchOnWindowFocus: false,
     },

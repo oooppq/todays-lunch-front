@@ -39,25 +39,27 @@ const JudgeNewDropdown = () => {
   // server data state 관리를 위한 state
   const ress = useQueries([
     {
-      queryKey: 'location-category',
-      queryFn: () => axios.get('/api/location-category'),
+      queryKey: ['location-category'],
+      queryFn: () =>
+        axios.get('/api/location-category').then((res) => res.data),
       refetchOnWindowFocus: false,
     },
     {
-      queryKey: 'location-tags',
-      queryFn: () => axios.get('/api/location-tags'),
+      queryKey: ['location-tags'],
+      queryFn: () => axios.get('/api/location-tags').then((res) => res.data),
       refetchOnWindowFocus: false,
     },
     {
-      queryKey: 'food-category',
-      queryFn: () => axios.get('/api/food-category'),
+      queryKey: ['food-category'],
+      queryFn: () => axios.get('/api/food-category').then((res) => res.data),
       refetchOnWindowFocus: false,
     },
-    {
-      queryKey: 'recommend-category',
-      queryFn: () => axios.get('/api/recommend-category'),
-      refetchOnWindowFocus: false,
-    },
+    // {
+    //   queryKey: ['recommend-category'],
+    //   queryFn: () =>
+    //     axios.get('/api/recommend-category').then((res) => res.data),
+    //   refetchOnWindowFocus: false,
+    // },
   ]);
 
   if (ress.some((res) => res.status === 'loading')) return null;
@@ -65,7 +67,7 @@ const JudgeNewDropdown = () => {
   return (
     <div className="dropdowns">
       <Dropdown
-        data={ress[0].data.data}
+        data={ress[0].data}
         selected={locationCategory}
         setSelected={(toSelect) => {
           dispatch(setLocationCategory(toSelect));
@@ -75,7 +77,7 @@ const JudgeNewDropdown = () => {
         style={dropdownStyle}
       />
       <Dropdown
-        data={ress[1].data.data.filter(
+        data={ress[1].data.filter(
           (tag) =>
             locationCategory && tag.loc_category_id === locationCategory.id
         )}
@@ -87,7 +89,7 @@ const JudgeNewDropdown = () => {
         style={dropdownStyle}
       />
       <Dropdown
-        data={ress[2].data.data}
+        data={ress[2].data}
         selected={foodCategory}
         setSelected={(toSelect) => {
           dispatch(setFoodCategory(toSelect));

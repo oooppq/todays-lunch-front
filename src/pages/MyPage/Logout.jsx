@@ -4,7 +4,6 @@ import { useMyPage } from './myPage.helpers';
 
 const Logout = () => {
   const { handleLogout } = useMyPage();
-  handleLogout();
   useEffect(handleLogout);
 
   return <Navigate to="/" replace />;
