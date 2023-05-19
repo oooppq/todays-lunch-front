@@ -199,13 +199,13 @@ export const useWarningHandler = () => {
 export const useGetCategories = () => {
   const ress = useQueries([
     {
-      queryKey: 'location-category',
+      queryKey: ['location-category'],
       queryFn: () =>
         axios.get('/api/location-category').then((res) => res.data),
       refetchOnWindowFocus: false,
     },
     {
-      queryKey: 'food-category',
+      queryKey: ['food-category'],
       queryFn: () => axios.get('/api/food-category').then((res) => res.data),
       refetchOnWindowFocus: false,
     },

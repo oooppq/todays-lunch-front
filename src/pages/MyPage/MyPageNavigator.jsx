@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 
-const ChangeCategory = ({ userInfo, handleGotoOnClick }) => {
+const MyPageNavigator = ({ userInfo, handleGotoOnClick }) => {
   return (
     <div className="myPageBtns">
       <button
@@ -41,4 +41,4 @@ const ChangeCategory = ({ userInfo, handleGotoOnClick }) => {
   );
 };
 
-export default ChangeCategory;
+export default MyPageNavigator;

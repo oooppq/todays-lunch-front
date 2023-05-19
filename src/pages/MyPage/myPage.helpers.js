@@ -339,8 +339,8 @@ export const useChangePassword = () => {
   };
 };
 
-export const useMyPagePatch = (userInfo) => {
-  const [isPatching, setIsPatching] = useState(false);
+export const useProfileChange = (userInfo) => {
+  const [isProfileChanging, setIsProfileChanging] = useState(false);
   const [isNicknameChange, setIsNicknameChange] = useState(false);
   const [isFoodCategoryChangeOpen, setIsFoodCategoryChangeOpen] =
     useState(false);
@@ -368,17 +368,14 @@ export const useMyPagePatch = (userInfo) => {
       })
     );
 
-  const { mutate: patchFoodCategory } = useMutation();
-  const { mutate: patchLocationCatgory } = useMutation();
-
   useEffect(() => {
     if (
       patchNicknameStatus === 'loading' ||
       patchProfileImageStatus === 'loading'
     ) {
-      setIsPatching(true);
+      setIsProfileChanging(true);
     } else {
-      setIsPatching(false);
+      setIsProfileChanging(false);
     }
     if (patchNicknameStatus === 'success') {
       setIsNicknameChange(false);
@@ -406,7 +403,7 @@ export const useMyPagePatch = (userInfo) => {
   };
 
   return {
-    isPatching,
+    isProfileChanging,
     isNicknameChange,
     setIsNicknameChange,
     isFoodCategoryChangeOpen,
@@ -421,9 +418,101 @@ export const useMyPagePatch = (userInfo) => {
     setLocationCategory,
     patchNickname,
     patchProfileImage,
-    patchFoodCategory,
-    patchLocationCatgory,
     handleNicknameChange,
     handleProfileChange,
+  };
+};
+
+export const useCategoryChangeModal = () => {
+  const [isCategoryChanging, setIsCategoryChanging] = useState(false);
+  const [isLocCatModalOpen, setIsLocCatModalOpen] = useState(false);
+  const [isFoodCatModalOpen, setIsFoodCatModalOpen] = useState(false);
+
+  return {
+    isCategoryChanging,
+    setIsCategoryChanging,
+    isLocCatModalOpen,
+    setIsLocCatModalOpen,
+    isFoodCatModalOpen,
+    setIsFoodCatModalOpen,
+  };
+};
+
+export const useCategoryChange = (
+  category,
+  currentCategory,
+  setIsCategoryChanging,
+  setIsCategoryModalOpen
+) => {
+  const url = `/api/${category}-category`;
+
+  const [selectedCategoryList, setSelectedCategoryList] =
+    useState(currentCategory);
+
+  const [unSelectedCategoryList, setUnSelectedCategoryList] = useState([]);
+
+  const { data: categoryList } = useQuery(
+    [`${category}-category`],
+    () => axios.get(url).then((res) => res.data),
+    { refetchOnWindowFocus: false }
+  );
+
+  const { mutate: patchCategory, status: patchCategoryStatus } = useMutation(
+    [`${category}CategoryChange`],
+    (fd) => axios.patch('/api/mypage', fd)
+  );
+
+  const addCategory = (cat) => {
+    setSelectedCategoryList((state) => [...state, cat]);
+  };
+  const deleteCategory = (cat) => {
+    const len = selectedCategoryList.length;
+    for (let i = 0; i < len; i += 1) {
+      if (selectedCategoryList[i].id === cat.id) {
+        setSelectedCategoryList((state) => [
+          ...state.slice(0, i),
+          ...state.slice(i + 1, len),
+        ]);
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (categoryList) {
+      const newList = [];
+      for (const foodCat of categoryList) {
+        if (!selectedCategoryList.some((elem) => elem.id === foodCat.id))
+          newList.push(foodCat);
+      }
+      setUnSelectedCategoryList(newList);
+    }
+  }, [categoryList, selectedCategoryList]);
+
+  useEffect(() => {
+    if (patchCategoryStatus === 'loading') {
+      setIsCategoryChanging(true);
+    } else {
+      setIsCategoryChanging(false);
+      if (patchCategoryStatus === 'success') {
+        setIsCategoryModalOpen(false);
+      }
+    }
+  });
+
+  const handleCategoryChange = () => {
+    const fd = new FormData();
+    fd.append(
+      category === 'food' ? 'foodCategoryList' : 'locationCategoryList',
+      JSON.stringify(selectedCategoryList)
+    );
+    patchCategory(fd);
+  };
+
+  return {
+    selectedCategoryList,
+    unSelectedCategoryList,
+    addCategory,
+    deleteCategory,
+    handleCategoryChange,
   };
 };

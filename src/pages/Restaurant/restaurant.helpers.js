@@ -29,22 +29,22 @@ export const useRestaurant = () => {
 
   const ress = useQueries([
     {
-      queryKey: 'location-category',
+      queryKey: ['location-category'],
       queryFn: () => axios.get('/api/location-category'),
       refetchOnWindowFocus: false,
     },
     {
-      queryKey: 'location-tags',
+      queryKey: ['location-tags'],
       queryFn: () => axios.get('/api/location-tags'),
       refetchOnWindowFocus: false,
     },
     {
-      queryKey: 'food-category',
+      queryKey: ['food-category'],
       queryFn: () => axios.get('/api/food-category'),
       refetchOnWindowFocus: false,
     },
     {
-      queryKey: 'recommend-category',
+      queryKey: ['recommend-category'],
       queryFn: () => axios.get('/api/recommend-category'),
       refetchOnWindowFocus: false,
     },

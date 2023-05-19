@@ -141,6 +141,10 @@ export const MyPageTop = styled.div`
 `;
 export const MyPageMid = styled.div`
   padding: 0 32px 30px 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
   margin-top: 20px;
   .explanationOuter {
     margin: 0 10px;
@@ -299,9 +303,9 @@ export const ChangeCategoryModalContainer = styled.div`
           display: flex;
           align-items: center;
           overflow-x: auto;
-          margin: 0 8px 10px 0;
+          margin: 0 8px 14px 0;
           .currentCategoryTitle {
-            padding: 4px 12px;
+            padding: 4px 10px;
             margin-right: 4px;
             border: 1px solid #6ab2b2;
             border-radius: 30px;
@@ -316,7 +320,7 @@ export const ChangeCategoryModalContainer = styled.div`
         margin-left: 10px;
         .newCategoryLi {
           display: flex;
-
+          margin-bottom: 10px;
           .categoryTitle {
             font-family: 'Pretendard-SemiBold';
             margin-right: 8px;

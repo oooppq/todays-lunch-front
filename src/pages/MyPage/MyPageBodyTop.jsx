@@ -2,21 +2,20 @@
 import React from 'react';
 import { MyPageTop } from './myPage.style';
 import ChangeProfile from './ChangeProfile';
-import ChangeCategory from './ChangeCategory';
+import MyPageNavigator from './MyPageNavigator';
 import Loading from './Loading';
-import { useMyPagePatch } from './myPage.helpers';
-import ChangeCategoryModal from './ChangeCategoryModal';
+import { useProfileChange } from './myPage.helpers';
 
 const MyPageBodyTop = ({ userInfo, handleGotoOnClick }) => {
   const {
-    isPatching,
+    isProfileChanging,
     isNicknameChange,
     setIsNicknameChange,
     newNickname,
     setNewNickname,
     handleNicknameChange,
     handleProfileChange,
-  } = useMyPagePatch(userInfo);
+  } = useProfileChange(userInfo);
 
   return (
     <>
@@ -30,13 +29,12 @@ const MyPageBodyTop = ({ userInfo, handleGotoOnClick }) => {
           handleNicknameChange={handleNicknameChange}
           handleProfileChange={handleProfileChange}
         />
-        <ChangeCategory
+        <MyPageNavigator
           userInfo={userInfo}
           handleGotoOnClick={handleGotoOnClick}
         />
       </MyPageTop>
-      {isPatching ? <Loading /> : null}
-      <ChangeCategoryModal userInfo={userInfo} title="활동영역" />
+      {isProfileChanging ? <Loading /> : null}
     </>
   );
 };
