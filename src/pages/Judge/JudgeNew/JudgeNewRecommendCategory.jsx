@@ -11,7 +11,7 @@ import {
 const JudgeNewRecommendCategory = () => {
   const { data, error, isLoading } = useQuery(
     'recommend-category',
-    () => axios.get('/api/recommend-category'),
+    () => axios.get('/api/recommend-category').then((res) => res.data),
     { refetchOnWindowFocus: false }
   );
   const dispatch = useDispatch();
@@ -29,7 +29,7 @@ const JudgeNewRecommendCategory = () => {
       <div className="sub">
         원하는 카테고리가 없을 경우 선택하지 않아도 됩니다.
       </div>
-      {data.data.map((d) => (
+      {data.map((d) => (
         <RecommendCategoryLi
           color={d.color}
           key={`${d.name},${d.color}`}

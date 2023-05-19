@@ -14,7 +14,6 @@ const MyPage = () => {
     userInfo,
     userInfoIsFetching,
     userInfoError,
-    verified,
     handleLogoutOnClick,
     handleGoToLogout,
     handleGotoOnClick,
@@ -30,7 +29,7 @@ const MyPage = () => {
           마이페이지
         </div>
       </UserPageHeader>
-      {verified ? null : (
+      {userInfo.verified ? null : (
         <div className="notVerifiedWarning">
           <img src={warningIcon} alt="" className="warningIcon" />
           <div className="notVerifiedWarningComment">

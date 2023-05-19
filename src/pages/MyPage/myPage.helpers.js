@@ -272,9 +272,12 @@ export const useChangePassword = () => {
     mutate: changePassword,
     error: passwordChangeError,
     status: passwordChangeStatus,
-  } = useMutation(['changePassword'], (password) =>
-    axios.post('/api/mypage/password-change', password)
-  );
+  } = useMutation(['changePassword'], (password) => {
+    const fd = new FormData();
+    fd.append('password', password);
+
+    return axios.post('/api/mypage/password-change', fd);
+  });
 
   const handlePasswordChangeSubmit = () => {
     if (currentPassword && newPassword && newPasswordConfirm) {
