@@ -1,6 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
-const childProcess = require('child_process');
+// const childProcess = require('child_process');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const ESLintWebpackPlugin = require('eslint-webpack-plugin');
@@ -75,9 +75,9 @@ module.exports = {
   },
   plugins: [
     new webpack.BannerPlugin({
+      // Commit Version: ${childProcess.execSync('git rev-parse --short HEAD')}
+      // Author: ${childProcess.execSync('git config user.name')}
       banner: `
-      Commit Version: ${childProcess.execSync('git rev-parse --short HEAD')}
-      Author: ${childProcess.execSync('git config user.name')}
       Build Time: ${new Date().toLocaleString()}
       `,
     }),
