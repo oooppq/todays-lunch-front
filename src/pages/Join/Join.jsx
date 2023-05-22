@@ -22,10 +22,10 @@ const Join = () => {
     handleNickNameChange,
     handlePasswordChange,
     handlePasswordConfirmChange,
-    addLocation,
-    changeLocations,
-    addFood,
-    changeFoods,
+    setLocations,
+    setFoods,
+    addCategory,
+    deleteCategory,
     goToNextStage,
     postJoinRequest,
   } = useJoinHandler();
@@ -58,17 +58,22 @@ const Join = () => {
               <JoinBodySecond
                 locations={locations}
                 foods={foods}
-                addLocation={addLocation}
-                changeLocations={changeLocations}
-                addFood={addFood}
-                changeFoods={changeFoods}
+                setLocations={setLocations}
+                setFoods={setFoods}
+                addCategory={addCategory}
+                deleteCategory={deleteCategory}
                 goToNextStage={goToNextStage}
                 postJoinRequest={postJoinRequest}
               />
             );
           case 3:
             return (
-              <JoinSuccess nickName={nickName} status={status} error={error} />
+              <JoinSuccess
+                nickName={nickName}
+                email={email}
+                status={status}
+                error={error}
+              />
             );
           default:
             return null;

@@ -1,10 +1,9 @@
 /* eslint-disable react/prop-types */
-import React, { useEffect } from 'react';
+import React from 'react';
 import Dropdown from '../../components/Dropdown';
-import { useJoinDropdownHandler } from './join.helpers';
 
 const dropdownStyle = `
-  margin: 9px 0 4px 0;
+  margin: 12px 0 4px 0;
   .selectedLabel {
     height: 45px;
     width: 100%;
@@ -22,31 +21,21 @@ const dropdownStyle = `
   }
 `;
 
-const JoinDropdown = ({ idx, elements, selectedList, changeList }) => {
-  const { selectedElem, changeSelectedElem, getDropdownElements } =
-    useJoinDropdownHandler(idx, elements, selectedList);
+const JoinDropdown = ({ data, selected, addCategory, setCategory }) => {
+  const newData = data.filter(
+    (elem) => !selected.map((s) => s.id).includes(elem.id)
+  );
 
-  const newElems = getDropdownElements();
-  useEffect(() => {
-    if (selectedElem && !newElems.some((elem) => elem.id === selectedElem.id)) {
-      changeSelectedElem(null);
-      changeList(idx, null);
-    }
-  }, [changeList, changeSelectedElem, idx, newElems, selectedElem]);
-
-  if (!newElems.length) return null;
-  return (
+  return newData.length > 0 ? (
     <Dropdown
-      data={getDropdownElements()}
-      selected={selectedElem}
+      data={data.filter((elem) => !selected.map((s) => s.id).includes(elem.id))}
       setSelected={(toSelect) => {
-        changeSelectedElem(toSelect);
-        changeList(idx, toSelect);
+        addCategory(toSelect, setCategory);
       }}
       defaultValue="선택해주세요."
       style={dropdownStyle}
     />
-  );
+  ) : null;
 };
 
 export default JoinDropdown;
