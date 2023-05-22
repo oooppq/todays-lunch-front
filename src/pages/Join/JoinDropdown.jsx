@@ -4,7 +4,7 @@ import Dropdown from '../../components/Dropdown';
 import { useJoinDropdownHandler } from './join.helpers';
 
 const dropdownStyle = `
-  margin: 9px 0 12px 0;
+  margin: 9px 0 4px 0;
   .selectedLabel {
     height: 45px;
     width: 100%;

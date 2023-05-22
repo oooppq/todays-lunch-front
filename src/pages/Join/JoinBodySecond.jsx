@@ -8,6 +8,7 @@ import {
   useInputValidation,
   useWarningHandler,
 } from './join.helpers';
+import JoinWarningMessage from './JoinWarningMessage';
 
 const JoinBodySecond = ({
   locations,
@@ -46,7 +47,10 @@ const JoinBodySecond = ({
           />
         ))}
       </div>
-      {locationWarning ? '활동영역 추가하셈' : null}
+      <JoinWarningMessage
+        flag={locationWarning}
+        message="활동영역을 선택해주세요."
+      />
       <button type="button" className="newLocCatBtn" onClick={addLocation}>
         <img src={plusIcon} alt="" className="" />
       </button>
@@ -62,7 +66,10 @@ const JoinBodySecond = ({
           />
         ))}
       </div>
-      {foodWarning ? '음식종류 추가하셈' : null}
+      <JoinWarningMessage
+        flag={foodWarning}
+        message="선호하는 음식종류를 선택해주세요."
+      />
       <button type="button" className="newFoodCatBtn" onClick={addFood}>
         <img src={plusIcon} alt="" className="" />
       </button>

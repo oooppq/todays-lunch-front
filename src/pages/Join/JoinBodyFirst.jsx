@@ -2,6 +2,7 @@
 import React from 'react';
 import { useInputValidation, useWarningHandler } from './join.helpers';
 import { JoinBodyFirstContainer } from './join.style';
+import JoinWarningMessage from './JoinWarningMessage';
 
 const JoinBodyFirst = ({
   email,
@@ -39,14 +40,20 @@ const JoinBodyFirst = ({
       <input
         type="text"
         className="input"
-        placeholder="email"
+        placeholder="example@example.com"
         onChange={handleEmailChange}
         onBlur={(event) => {
           setEmailWarning(!checkEmail(event.target.value));
         }}
       />
-      {emailWarning ? 'wrong email' : null}
-      <div className="label nicknameLabel">닉네임</div>
+      <JoinWarningMessage
+        flag={emailWarning}
+        message="이메일을 확인해주세요."
+      />
+      <div className="labelOuter">
+        <div className="label nicknameLabel">닉네임</div>
+        <div className="inputRule">(한글,영문,숫자로 이루어진 1~7자리)</div>
+      </div>
       <input
         type="text"
         className="input"
@@ -56,8 +63,16 @@ const JoinBodyFirst = ({
           setNickNameWarning(!checkNickName(event.target.value));
         }}
       />
-      {nickNameWarning ? 'wrong nickname' : null}
-      <div className="label passwordLabel">비밀번호</div>
+      <JoinWarningMessage
+        flag={nickNameWarning}
+        message="닉네임을 확인해주세요."
+      />
+      <div className="labelOuter">
+        <div className="label passwordLabel">비밀번호</div>
+        <div className="inputRule">
+          (영문 대소문자, 숫자, 특수문자가 1개 이상씩 포함된 8~16자리)
+        </div>
+      </div>
       <input
         type="password"
         className="input"
@@ -67,7 +82,10 @@ const JoinBodyFirst = ({
           setPasswordWarning(!checkPassword(event.target.value));
         }}
       />
-      {passwordWarning ? 'wrong password' : null}
+      <JoinWarningMessage
+        flag={passwordWarning}
+        message="비밀번호를 확인해주세요."
+      />
       <div className="label passwordCheckLabel">비밀번호 확인</div>
       <input
         type="password"
@@ -80,7 +98,10 @@ const JoinBodyFirst = ({
           );
         }}
       />
-      {passwordConfirmWarning ? 'diff password' : null}
+      <JoinWarningMessage
+        flag={passwordConfirmWarning}
+        message="입력된 비밀번호와 다릅니다."
+      />
       <button
         type="button"
         className="nextStageBtn"

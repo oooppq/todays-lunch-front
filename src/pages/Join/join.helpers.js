@@ -7,7 +7,7 @@ export const useInputValidation = () => {
   const REGEX = {
     EMAIL: /\S+@\S+\.\S+/,
     PWD_RULE: /^(?=.*[a-zA-Z])((?=.*\d)(?=.*\W)).{8,16}$/,
-    NAME_RULE: /^([a-zA-Z0-9가-힣]).{1,7}$/,
+    NAME_RULE: /^([a-zA-Z0-9가-힣]){1,7}$/,
   };
 
   const checkEmail = (email) => {
@@ -61,7 +61,7 @@ export const useJoinHandler = () => {
   const [passwordConfirm, setPasswordConfirm] = useState('');
   const [locations, setLocations] = useState([{ id: 0, data: null }]);
   const [foods, setFoods] = useState([{ id: 0, data: null }]);
-  const [stage, setStage] = useState(1);
+  const [stage, setStage] = useState(3);
 
   const joinInfo = {
     email,

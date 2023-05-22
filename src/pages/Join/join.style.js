@@ -4,7 +4,7 @@ export const JoinContainer = styled.div`
   position: absolute;
   top: 0;
   bottom: 0;
-  padding-top: 105px;
+  padding-top: 85px;
   max-width: 390px;
   width: 100%;
   background-color: white;
@@ -24,6 +24,12 @@ export const JoinContainer = styled.div`
       font-size: 24px;
     }
   }
+  .warning {
+    font-size: 12px;
+    color: #ca2d18;
+    height: 15px;
+    margin: 3px 0 6px 0;
+  }
 `;
 
 export const JoinBodyFirstContainer = styled.div`
@@ -33,11 +39,18 @@ export const JoinBodyFirstContainer = styled.div`
   .label {
     font-size: 16px;
   }
+  .labelOuter {
+    .inputRule {
+      margin-top: 5px;
+      font-size: 12px;
+      color: #ff6020;
+    }
+  }
   .input {
     box-sizing: border-box;
     width: 100%;
-    height: 45px;
-    margin: 9px 0 16px 0;
+    height: 40px;
+    margin: 9px 0 0px 0;
     background-color: #f4f4f4;
     border: 1px solid #e3e3e3;
     border-radius: 3px;
@@ -51,7 +64,8 @@ export const JoinBodyFirstContainer = styled.div`
   .nextStageBtn {
     margin-top: 19px;
     width: 100%;
-    height: 45px;
+    height: 40px;
+    border-radius: 3px;
     background-color: black;
     color: white;
     font-family: Pretendard-SemiBold;
@@ -70,7 +84,8 @@ export const JoinBodySecondContainer = styled.div`
   .registerBtn {
     margin-top: 41px;
     width: 100%;
-    height: 45px;
+    height: 40px;
+    border-radius: 3px;
     background-color: black;
     color: white;
     font-family: Pretendard-SemiBold;
@@ -94,7 +109,8 @@ export const JoinSuccessContainer = styled.div`
   .gotoHomeBtn {
     margin-top: 44px;
     width: 100%;
-    height: 45px;
+    height: 40px;
+    border-radius: 3px;
     background-color: black;
     color: white;
     font-family: Pretendard-SemiBold;
