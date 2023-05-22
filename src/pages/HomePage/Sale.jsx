@@ -23,25 +23,29 @@ const SetData = ({ navigate }) => {
         💸 할인 <span>정보</span>
       </SaleTitle>
       <SaleUl>
-        {data.map((e) => (
-          <SaleLi
-            id={e.id}
-            key={e.id}
-            onClick={() => gotoDetailOnClick(e.id, navigate)}
-          >
-            <img src={defaultImage} alt="" />
-            <div className="info">
-              <div className="storeName">{e.restaurant_name}</div>
-              <div className="menuName">{e.menu_name}</div>
-              <div className="priceDiv">
-                <div className="salePrice">{convertNum(e.sale_price)}원</div>
-                <div className="originalPrice">
-                  {convertNum(e.original_price)}원
+        {data
+          ? data.map((e) => (
+              <SaleLi
+                id={e.id}
+                key={e.id}
+                onClick={() => gotoDetailOnClick(e.id, navigate)}
+              >
+                <img src={defaultImage} alt="" />
+                <div className="info">
+                  <div className="storeName">{e.restaurant_name}</div>
+                  <div className="menuName">{e.menu_name}</div>
+                  <div className="priceDiv">
+                    <div className="salePrice">
+                      {convertNum(e.sale_price)}원
+                    </div>
+                    <div className="originalPrice">
+                      {convertNum(e.original_price)}원
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-          </SaleLi>
-        ))}
+              </SaleLi>
+            ))
+          : null}
       </SaleUl>
     </SaleContainer>
   );

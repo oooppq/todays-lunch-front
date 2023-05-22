@@ -22,9 +22,11 @@ const Recommendation = () => {
         🍚 <span>오늘의</span> 맛집
       </RecommendationTitle>
       <Carousel showStatus={false} showArrows={false} showThumbs={false}>
-        {data.map((restaurant) => (
-          <RecommendationElem key={restaurant.id} restaurant={restaurant} />
-        ))}
+        {data
+          ? data.map((restaurant) => (
+              <RecommendationElem key={restaurant.id} restaurant={restaurant} />
+            ))
+          : null}
       </Carousel>
     </RecommendationContainer>
   );
