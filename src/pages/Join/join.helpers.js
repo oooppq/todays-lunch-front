@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-syntax */
 /* eslint-disable import/prefer-default-export */
 import axios from 'axios';
 import { useState } from 'react';
@@ -7,7 +8,7 @@ export const useInputValidation = () => {
   const REGEX = {
     EMAIL: /\S+@\S+\.\S+/,
     PWD_RULE: /^(?=.*[a-zA-Z])((?=.*\d)(?=.*\W)).{8,16}$/,
-    NAME_RULE: /^([a-zA-Z0-9가-힣]).{1,7}$/,
+    NAME_RULE: /^([a-zA-Z0-9가-힣]){1,7}$/,
   };
 
   const checkEmail = (email) => {
@@ -36,7 +37,7 @@ export const useInputValidation = () => {
   };
 
   const checkDropdown = (selectedList) => {
-    return selectedList.some((elem) => elem.data);
+    return selectedList.length > 0;
   };
 
   const checkAllForSecond = (locations, foods) => {
@@ -59,8 +60,8 @@ export const useJoinHandler = () => {
   const [nickName, setNickName] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
-  const [locations, setLocations] = useState([{ id: 0, data: null }]);
-  const [foods, setFoods] = useState([{ id: 0, data: null }]);
+  const [locations, setLocations] = useState([]);
+  const [foods, setFoods] = useState([]);
   const [stage, setStage] = useState(1);
 
   const joinInfo = {
@@ -75,7 +76,7 @@ export const useJoinHandler = () => {
     status,
     error,
   } = useMutation(() =>
-    axios.post('', joinInfo, {
+    axios.post('/api/join', joinInfo, {
       headers: {
         'Content-Type': `application/json`,
       },
@@ -98,32 +99,18 @@ export const useJoinHandler = () => {
     setPasswordConfirm(event.target.value);
   };
 
-  const addLocation = () => {
-    if (locations[locations.length - 1].data)
-      setLocations([
-        ...locations,
-        {
-          id: locations.length,
-          data: null,
-        },
-      ]);
+  const addCategory = (category, setCategory) => {
+    setCategory((state) => [...state, category]);
   };
 
-  const changeLocations = (idx, data) => {
-    const newLocations = [...locations];
-    newLocations[idx] = { id: idx, data };
-    setLocations(newLocations);
-  };
-
-  const addFood = () => {
-    if (foods.every((food) => food.data))
-      setFoods([...foods, { id: foods.length, data: null }]);
-  };
-
-  const changeFoods = (idx, data) => {
-    const newFoods = [...foods];
-    newFoods[idx] = { id: idx, data };
-    setFoods(newFoods);
+  const deleteCategory = (category, setCategory) => {
+    setCategory((state) => {
+      const result = [];
+      for (const cat of state) {
+        if (cat.id !== category.id) result.push(cat);
+      }
+      return result;
+    });
   };
 
   const goToNextStage = () => {
@@ -144,32 +131,13 @@ export const useJoinHandler = () => {
     handleNickNameChange,
     handlePasswordChange,
     handlePasswordConfirmChange,
-    addLocation,
-    changeLocations,
-    addFood,
-    changeFoods,
+    setLocations,
+    setFoods,
+    addCategory,
+    deleteCategory,
     goToNextStage,
     postJoinRequest,
   };
-};
-
-export const useJoinDropdownHandler = (idx, elements, selectedList) => {
-  const [selectedElem, setSelectedElem] = useState(null);
-
-  const changeSelectedElem = (value) => {
-    setSelectedElem(value);
-  };
-
-  const getDropdownElements = () => {
-    if (idx > 0) {
-      return elements.filter(
-        (elem) => !selectedList.slice(0, idx).includes(elem)
-      );
-    }
-    return elements;
-  };
-
-  return { selectedElem, changeSelectedElem, getDropdownElements };
 };
 
 export const useWarningHandler = () => {

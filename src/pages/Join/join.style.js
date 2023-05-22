@@ -4,7 +4,7 @@ export const JoinContainer = styled.div`
   position: absolute;
   top: 0;
   bottom: 0;
-  padding-top: 105px;
+  padding-top: 95px;
   max-width: 390px;
   width: 100%;
   background-color: white;
@@ -24,6 +24,12 @@ export const JoinContainer = styled.div`
       font-size: 24px;
     }
   }
+  .warning {
+    font-size: 12px;
+    color: #ca2d18;
+    height: 15px;
+    margin: 3px 0 6px 0;
+  }
 `;
 
 export const JoinBodyFirstContainer = styled.div`
@@ -33,11 +39,18 @@ export const JoinBodyFirstContainer = styled.div`
   .label {
     font-size: 16px;
   }
+  .labelOuter {
+    .inputRule {
+      margin-top: 5px;
+      font-size: 12px;
+      color: #ff6020;
+    }
+  }
   .input {
     box-sizing: border-box;
     width: 100%;
-    height: 45px;
-    margin: 9px 0 16px 0;
+    height: 40px;
+    margin: 9px 0 0px 0;
     background-color: #f4f4f4;
     border: 1px solid #e3e3e3;
     border-radius: 3px;
@@ -51,7 +64,8 @@ export const JoinBodyFirstContainer = styled.div`
   .nextStageBtn {
     margin-top: 19px;
     width: 100%;
-    height: 45px;
+    height: 40px;
+    border-radius: 3px;
     background-color: black;
     color: white;
     font-family: Pretendard-SemiBold;
@@ -65,12 +79,58 @@ export const JoinBodySecondContainer = styled.div`
   flex-direction: column;
   .label {
     font-size: 16px;
+    font-family: 'Pretendard-Medium';
+  }
+  .categoryUl {
+    padding: 10px 0 0 0;
+    margin: 0;
+    list-style: none;
+    display: flex;
+    overflow-x: auto;
+    white-space: nowrap;
+    .categoryLi {
+      padding-right: 10px;
+      display: flex;
+      align-items: center;
+      position: relative;
+      .categoryName {
+        height: 30px;
+        box-sizing: border-box;
+        padding: 6px 12px 0 12px;
+        margin-right: 2px;
+        background-color: #90c9c9;
+        color: white;
+        border-radius: 30px;
+        font-size: 14px;
+      }
+      .deleteCategoryBtn {
+        position: absolute;
+        top: -5px;
+        right: 5px;
+
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+        background-color: white;
+        border: 1px solid black;
+        border-radius: 50%;
+        width: 15px;
+        height: 15px;
+
+        img {
+          width: 7px;
+          height: 7px;
+        }
+      }
+    }
   }
 
   .registerBtn {
     margin-top: 41px;
     width: 100%;
-    height: 45px;
+    height: 40px;
+    border-radius: 3px;
     background-color: black;
     color: white;
     font-family: Pretendard-SemiBold;
@@ -83,8 +143,13 @@ export const JoinSuccessContainer = styled.div`
   .successContent {
     text-align: center;
     font-size: 16px;
-    .userName {
+    line-height: 30px;
+    .userName,
+    .email {
       font-family: Pretendard-SemiBold;
+    }
+    .colored {
+      color: #6ab2b2;
     }
     .contentBottom {
       margin-top: 7px;
@@ -94,7 +159,8 @@ export const JoinSuccessContainer = styled.div`
   .gotoHomeBtn {
     margin-top: 44px;
     width: 100%;
-    height: 45px;
+    height: 40px;
+    border-radius: 3px;
     background-color: black;
     color: white;
     font-family: Pretendard-SemiBold;
