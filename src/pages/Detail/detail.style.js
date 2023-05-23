@@ -114,7 +114,10 @@ export const DetailInfoContainer = styled.div`
   .help {
     margin: 21px 40px 0 40px;
     display: flex;
+    align-items: center;
     .helpImg {
+      height: 30px;
+      width: 30px;
       margin-right: 15px;
     }
     .helpText {
@@ -122,17 +125,20 @@ export const DetailInfoContainer = styled.div`
       padding: 11px 19px 13px 19px;
       border-radius: 10px;
       font-size: 14px;
-      line-height: 20px;
+      line-height: 25px;
       color: #383838;
+      .bold {
+        font-family: Pretendard-SemiBold;
+      }
     }
   }
   .menu {
     .menuTop {
       display: flex;
       justify-content: space-between;
-      margin: 25px 40px 0 33px;
+      margin: 25px 40px 0 20px;
       .menuTitle {
-        font-family: Pretendard-Medium;
+        font-family: Pretendard-SemiBold;
         font-size: 19px;
       }
       .menuUpdate {
@@ -152,10 +158,42 @@ export const DetailInfoContainer = styled.div`
         display: flex;
         font-size: 17px;
         margin-bottom: 20px;
-        .menuPhotoNum {
-          margin-left: 5px;
-          flex-grow: 1;
+
+        .menuPhotoBtn {
+          width: 40px;
+          height: 20px;
+          margin-left: 10px;
+          padding: 1px 2px 2px 2px;
           color: #6ab2b2;
+          font-family: Pretendard-SemiBold;
+          display: flex;
+          justify-content: space-evenly;
+          align-items: center;
+          border: 1px solid #6ab2b2;
+          border-radius: 20%;
+          margin-right: auto;
+          img {
+            width: 14px;
+          }
+        }
+        .saleTag {
+          margin-right: 10px;
+          box-sizing: border-box;
+          font-family: 'Pretendard-SemiBold';
+          background-color: #f59e0b;
+          color: white;
+          border-radius: 50%;
+          font-size: 10px;
+          width: 40px;
+          height: 17px;
+          margin-top: 2px;
+          text-align: center;
+          line-height: 16px;
+        }
+        .salePrice {
+          color: #f59e0b;
+          font-size: 17px;
+          text-decoration: underline;
         }
         .menuPrice {
           color: #6a6a6a;
@@ -189,7 +227,7 @@ export const DetailInfoContainer = styled.div`
 
 export const DetailMapContainer = styled.div`
   background-color: white;
-  padding: 61px 0 46px 0;
+  padding: 41px 0 46px 0;
   display: flex;
   flex-direction: column;
   .title {

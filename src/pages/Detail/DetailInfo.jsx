@@ -2,6 +2,7 @@
 import React from 'react';
 import { DetailInfoContainer } from './detail.style';
 import smileIcon from '../../assets/img/smile-icon.svg';
+import cameraIcon from '../../assets/img/colored-camera-icon.svg';
 import { convertNum } from '../../libs/utils';
 import {
   useMenuModal,
@@ -17,8 +18,11 @@ const DetailInfo = ({ restaurantData, menuData }) => {
     useMenuModal();
   const { isUpdateMenu, openUpdateMenuModal, closeUpdateMenuModal } =
     useUpdateMenuModal();
-  const { isUpdateSale, openUpdateSaleModal, closeUpdateSaleModal } =
-    useUpdateSaleModal();
+  const {
+    isUpdateSale,
+    // openUpdateSaleModal,
+    closeUpdateSaleModal,
+  } = useUpdateSaleModal();
 
   return (
     <DetailInfoContainer>
@@ -53,13 +57,15 @@ const DetailInfo = ({ restaurantData, menuData }) => {
       <div className="help">
         <img className="helpImg" src={smileIcon} alt="" />
         <div className="helpText">
-          각 메뉴를 클릭하면 사진을 확인 하거나, 사진을 올릴 수 있어요. <br />
-          메뉴 옆 숫자는 저장된 사진 개수 입니다.
+          메뉴 옆의 <span className="bold">카메라 버튼</span>을 누르면 메뉴
+          사진을 볼 수 있어요. 세일 메뉴의{' '}
+          <span className="bold">가격을 클릭</span>하면 세일 정보를 볼 수
+          있습니다.
         </div>
       </div>
       <div className="menu">
         <div className="menuTop">
-          <div className="menuTitle">메뉴</div>
+          <div className="menuTitle">📌 메뉴</div>
           <div
             className="menuUpdate"
             onClick={() => openUpdateMenuModal()}
@@ -70,22 +76,34 @@ const DetailInfo = ({ restaurantData, menuData }) => {
         </div>
         <ul className="menuUl">
           {menuData.map((menu) => (
-            <li
-              key={menu.id}
-              className="menuLi"
-              onClick={() => openMenuModal(menu)}
-              aria-hidden="true"
-            >
+            <li key={menu.id} className="menuLi" aria-hidden="true">
               <div className="menuLiInner">
                 <div className="menuName">{menu.name}</div>
-                <div className="menuPhotoNum">({menu.photoNum})</div>
-                <div className="menuPrice">{convertNum(menu.price)}원</div>
+                <button
+                  type="button"
+                  className="menuPhotoBtn"
+                  onClick={() => openMenuModal(menu)}
+                >
+                  <img src={cameraIcon} alt="" className="" />
+                  {menu.photoNum}
+                </button>
+                {/* <div className="menuPhotoNum">사진보기{menu.photoNum}</div> */}
+                {menu.salePrice ? (
+                  <>
+                    <div className="saleTag">sale</div>
+                    <button type="button" className="salePrice">
+                      {convertNum(menu.salePrice)}원
+                    </button>
+                  </>
+                ) : (
+                  <div className="menuPrice">{convertNum(menu.price)}원</div>
+                )}
               </div>
             </li>
           ))}
         </ul>
       </div>
-      <div className="sale">
+      {/* <div className="sale">
         <div className="saleTop">
           <div className="saleTitle">세일 정보</div>
           <div
@@ -99,7 +117,7 @@ const DetailInfo = ({ restaurantData, menuData }) => {
         <ul className="saleUl">
           <li className="saleLi">{'<개강 세일>'}</li>
         </ul>
-      </div>
+      </div> */}
     </DetailInfoContainer>
   );
 };

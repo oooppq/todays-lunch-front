@@ -7,7 +7,7 @@ import DetailContributor from './DetailContributor';
 const DetailMain = ({ restaurantData, menuData }) => {
   const mapData = {
     restaurantName: restaurantData.restaurantName,
-    address: restaurantData.adress,
+    address: restaurantData.address,
     lat: restaurantData.latitude,
     lng: restaurantData.longitude,
   };
