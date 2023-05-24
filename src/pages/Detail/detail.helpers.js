@@ -2,7 +2,7 @@
 /* eslint-disable react/react-in-jsx-scope */
 import axios from 'axios';
 import { useState } from 'react';
-import { useMutation, useQueries, useQuery } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 import fullStarIcon from '../../assets/img/full-star-icon.svg';
 import emptyStarIcon from '../../assets/img/empty-star-icon.svg';
 
@@ -13,24 +13,85 @@ export const handleGoBack = (navigate) => {
 // 디테일 메인 페이지에서 필요한 custom hook
 // 디테일 페이지에서는 레스토랑 정보와 메뉴정보가 항상 같이 필요하므로
 // 하나의 custom hook으로 구성함
-export const useDetailPageData = (id) => {
+export const useDetail = (id) => {
+  const [isMenuPhotoModalOpen, setIsMenuPhotoModalOpen] = useState(false);
+  const [isMenuUpdateModalOpen, setIsMenuUpdateModalOpen] = useState(false);
+  const [selectedMenu, setSelectedMenu] = useState(null);
+
   const getRestaurantFn = () =>
     axios.get(`/api/restaurants/${id}`).then((res) => res.data);
 
   const getMenuFn = () =>
     axios.get(`/api/restaurants/${id}/menus`).then((res) => res.data);
 
-  return useQueries([
-    { queryKey: ['retaurant', id], queryFn: () => getRestaurantFn(id) },
-    { queryKey: ['menus', id], queryFn: () => getMenuFn(id) },
-  ]);
+  const {
+    data: restaurant,
+    isLoading: isRestaurantLoading,
+    error: restaurantError,
+  } = useQuery(['retaurant', id], () => getRestaurantFn(id), {
+    refetchOnWindowFocus: false,
+  });
+
+  const {
+    data: menus,
+    isLoading: isMenusLoading,
+    error: menusError,
+  } = useQuery(['menus', id], () => getMenuFn(id), {
+    refetchOnWindowFocus: false,
+  });
+
+  return {
+    isMenuPhotoModalOpen,
+    setIsMenuPhotoModalOpen,
+    isMenuUpdateModalOpen,
+    setIsMenuUpdateModalOpen,
+    selectedMenu,
+    setSelectedMenu,
+    restaurant,
+    isRestaurantLoading,
+    restaurantError,
+    menus,
+    isMenusLoading,
+    menusError,
+  };
 };
 
 // 디테일페이지의 각각의 메뉴 사진을 가져오는 custom hook
-export const useMenuPhoto = (id) =>
-  useQuery(['menuPhotos', id], () =>
-    axios.get(`/api/menus/${id}`).then((res) => res.data)
+export const useMenuPhoto = (id) => {
+  const url = `/api/menus/${id}/images`;
+
+  const {
+    data: photos,
+    isLoading: isPhotosLoading,
+    error: photosError,
+  } = useQuery(
+    ['menuPhotos', id],
+    () => axios.get(url).then((res) => res.data),
+    {
+      refetchOnWindowFocus: false,
+    }
   );
+
+  const { mutate: addMenuPhoto, status: addMenuPhotoStatus } = useMutation(
+    ['addMenuPhoto', id],
+    () => axios.post(url)
+  );
+
+  const { mutate: deleteMenuPhoto, status: deleteMenuPhotoStatus } =
+    useMutation(['deleteMenuPhoto', id], (photoId) =>
+      axios.delete(url.concat(`/${photoId}`))
+    );
+
+  return {
+    photos,
+    isPhotosLoading,
+    photosError,
+    addMenuPhoto,
+    addMenuPhotoStatus,
+    deleteMenuPhoto,
+    deleteMenuPhotoStatus,
+  };
+};
 
 // 디테일 페이지의 리뷰 REST 요처을 담당하는 custom hook
 export const useReview = (id) => {
@@ -94,7 +155,7 @@ export const rateStarHandler = (rate) => {
   return stars;
 };
 
-export const useTabHandler = () => {
+export const useDetailNav = () => {
   const [tab, setTab] = useState('main');
   const changeTab = (toChange) => setTab(toChange);
   return { tab, changeTab };
@@ -146,19 +207,6 @@ export const useUpdateMenuModal = () => {
   return { isUpdateMenu, openUpdateMenuModal, closeUpdateMenuModal };
 };
 
-export const useUpdateSaleModal = () => {
-  const [isUpdateSale, setIsUpdateSale] = useState(false);
-
-  const openUpdateSaleModal = () => {
-    setIsUpdateSale(true);
-  };
-  const closeUpdateSaleModal = () => {
-    setIsUpdateSale(false);
-  };
-
-  return { isUpdateSale, openUpdateSaleModal, closeUpdateSaleModal };
-};
-
 export const useNewReviewModal = () => {
   const [isNewReview, setIsNewReview] = useState(false);
 
@@ -169,16 +217,6 @@ export const useNewReviewModal = () => {
     setIsNewReview(false);
   };
   return { isNewReview, openNewReviewModal, closeNewReviewModal };
-};
-
-export const useNewMenuHandler = () => {
-  const [isNewMenu, setIsNewMenu] = useState(false);
-
-  const makeNewMenuForm = () => {
-    setIsNewMenu(true);
-  };
-
-  return { isNewMenu, makeNewMenuForm };
 };
 
 export const useReviewContentHandler = () => {

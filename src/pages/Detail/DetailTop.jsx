@@ -7,7 +7,7 @@ import smallPencilIcon from '../../assets/img/detail-small-pencil-icon.svg';
 import defaultImage from '../../assets/img/default-image.png';
 import smallHeartIcon from '../../assets/img/detail-small-heart-icon.svg';
 import dishIcon from '../../assets/img/detail-dish-icon.svg';
-import pencilIcon from '../../assets/img/detail-pencil-icon.svg';
+import pencilIcon from '../../assets/img/detail-review-icon.svg';
 import heartIcon from '../../assets/img/detail-heart-icon.svg';
 import coloredHeartIcon from '../../assets/img/colored-heart-icon.svg';
 import rouletteIcon from '../../assets/img/detail-roulette-icon.svg';
@@ -15,11 +15,11 @@ import coloredRouletteIcon from '../../assets/img/colored-roulette-icon.svg';
 import { handleGoBack } from './detail.helpers';
 import { useRoulette, useWish } from '../../libs/common.helpers';
 
-const DetailTop = ({ restaurantData, tab, changeTab }) => {
+const DetailTop = ({ restaurant, tab, changeTab }) => {
   const navigate = useNavigate();
   const { isInRouletteFlag, updateRouletteFlag, pushRoulette } =
-    useRoulette(restaurantData);
-  const { isWish, pushWish } = useWish(restaurantData.id);
+    useRoulette(restaurant);
+  const { isWish, pushWish } = useWish(restaurant && restaurant.id);
 
   return (
     <DetailTopContainer>
@@ -32,21 +32,27 @@ const DetailTop = ({ restaurantData, tab, changeTab }) => {
       >
         <img src={backIcon} alt="" />
       </button>
+
       <div className="restInfo">
-        <img className="restImg" src={defaultImage} alt="" />
-        <div className="title">{restaurantData.restaurantName}</div>
+        <img
+          className="restImg"
+          src={restaurant.imageUrl || defaultImage}
+          alt=""
+        />
+        <div className="title">{restaurant.restaurantName}</div>
         <div className="reviewWish">
           <div className="reviewDiv">
             <img src={smallPencilIcon} alt="" />
-            <span>{restaurantData.reviewCount}</span>
+            <span>{restaurant.reviewCount}</span>
           </div>
           <div className="wishDiv">
             <img src={smallHeartIcon} alt="" />
-            <span>{restaurantData.wishCount}</span>
+            <span>{restaurant.wishCount}</span>
           </div>
         </div>
-        <div className="rate">{restaurantData.rating}</div>
+        <div className="rate">{restaurant.rating}</div>
       </div>
+
       <ul className="navUl">
         <li
           className={`navLi main ${tab === 'main' ? 'active' : null}`}

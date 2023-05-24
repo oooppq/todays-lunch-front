@@ -66,6 +66,7 @@ export const DetailTopContainer = styled.div`
       margin: 0 9px;
       text-align: center;
       padding-bottom: 10px;
+
       .dish {
         object-fit: none;
         width: 50px;
@@ -112,7 +113,7 @@ export const DetailInfoContainer = styled.div`
     font-size: 15px;
   }
   .help {
-    margin: 21px 40px 0 40px;
+    margin: 21px 20px 0 20px;
     display: flex;
     align-items: center;
     .helpImg {
@@ -122,7 +123,7 @@ export const DetailInfoContainer = styled.div`
     }
     .helpText {
       background-color: #f4f4f4;
-      padding: 11px 19px 13px 19px;
+      padding: 11px 16px 13px 16px;
       border-radius: 10px;
       font-size: 14px;
       line-height: 25px;
@@ -136,33 +137,41 @@ export const DetailInfoContainer = styled.div`
     .menuTop {
       display: flex;
       justify-content: space-between;
-      margin: 25px 40px 0 20px;
+      margin: 25px 35px 0 20px;
       .menuTitle {
         font-family: Pretendard-SemiBold;
         font-size: 19px;
       }
-      .menuUpdate {
+      .addMenuBtn {
         font-size: 14px;
+        font-family: Pretendard-SemiBold;
         color: #6ab2b2;
-        padding: 5px 7px 3px 8px;
+        padding: 3px 7px 3px 8px;
         border: 1px solid #6ab2b2;
         border-radius: 10px;
       }
     }
     .menuUl {
       width: auto;
-      margin: 14px 43px 0 50px;
+      margin: 25px 25px 0 40px;
       padding-left: 5px;
-
+      display: flex;
+      flex-direction: column;
       .menuLiInner {
         display: flex;
         font-size: 17px;
-        margin-bottom: 20px;
-
+        margin-bottom: 10px;
+        .menuName {
+          max-width: 114px;
+          white-space: nowrap;
+          overflow: auto;
+          padding-bottom: 10px;
+        }
         .menuPhotoBtn {
           width: 40px;
           height: 20px;
-          margin-left: 10px;
+          margin-top: 1px;
+          margin-left: 7px;
           padding: 1px 2px 2px 2px;
           color: #6ab2b2;
           font-family: Pretendard-SemiBold;
@@ -176,27 +185,43 @@ export const DetailInfoContainer = styled.div`
             width: 14px;
           }
         }
-        .saleTag {
-          margin-right: 10px;
-          box-sizing: border-box;
-          font-family: 'Pretendard-SemiBold';
-          background-color: #f59e0b;
-          color: white;
-          border-radius: 50%;
-          font-size: 10px;
-          width: 40px;
-          height: 17px;
-          margin-top: 2px;
-          text-align: center;
-          line-height: 16px;
+        .saleOuter {
+          display: flex;
+          height: 20px;
+          .saleTag {
+            margin-right: 10px;
+            box-sizing: border-box;
+            font-family: 'Pretendard-SemiBold';
+            background-color: #f59e0b;
+            color: white;
+            border-radius: 50%;
+            font-size: 13px;
+            width: 40px;
+            height: 17px;
+            margin-top: 3px;
+            text-align: center;
+            line-height: 16px;
+          }
+          .salePrice {
+            height: 20px;
+            color: #f59e0b;
+            font-size: 17px;
+            // text-decoration: underline;
+            border-bottom: 1.5px solid #f59e0b;
+          }
         }
-        .salePrice {
-          color: #f59e0b;
-          font-size: 17px;
-          text-decoration: underline;
-        }
+
         .menuPrice {
+          height: 20px;
           color: #6a6a6a;
+        }
+        .changeBtn {
+          height: 20px;
+          margin-left: 12px;
+          padding-top: 2px;
+          img {
+            height: 15px;
+          }
         }
       }
     }
@@ -236,7 +261,11 @@ export const DetailMapContainer = styled.div`
     margin-left: 20px;
   }
   .subTitle {
-    font-family: Pretendard-Medium;
+    color: #5c5c5c;
+    .restaurantName {
+      font-family: Pretendard-Medium;
+      color: black;
+    }
     font-size: 19px;
     margin: 15px 0 0 33px;
   }
@@ -318,25 +347,26 @@ const ModalCommon = styled.div`
   }
 `;
 
-export const DetailMenuModalContainer = styled(ModalCommon)`
-  .menuModalTop {
+export const DetailMenuPhotoModalContainer = styled(ModalCommon)`
+  .menuPhotoModalTop {
     display: flex;
     margin: 30px 0 0 33px;
     font-size: 20px;
     font-family: Pretendard-Medium;
-    .menuModalPhotoNum {
+    .menuModalPhotoPhotoNum {
       margin-left: 5px;
       color: #6ab2b2;
     }
   }
-  .menuModalImgOuter {
+  .menuPhotoModalPhotoOuter {
     margin: 22px 31.5px;
     height: 350px;
     overflow: auto;
-    .menuImg {
+    .menuPhoto {
       width: 140px;
       height: 140px;
       margin: 2.5px;
+      border-radius: 3px;
     }
   }
   .newPhotoBtn {
@@ -353,7 +383,7 @@ export const DetailMenuModalContainer = styled(ModalCommon)`
   }
 `;
 
-export const DetailMenuPhotoModalContainer = styled(ModalCommon)`
+export const DetailMenuPhotoInnerModalContainer = styled(ModalCommon)`
   .modalInner {
     height: 412px;
     display: flex;
@@ -378,13 +408,13 @@ export const DetailMenuPhotoModalContainer = styled(ModalCommon)`
   }
 `;
 
-export const DetailUpdateMenuModalContainer = styled(ModalCommon)`
-  .updateMenuTitle {
+export const DetailMenuUpdateModalContainer = styled(ModalCommon)`
+  .menuUpdateTitle {
     font-family: Pretendard-Bold;
     font-size: 19px;
     margin: 19px 0 0 25px;
   }
-  .updateMenuWarning {
+  .menuUpdateWarning {
     display: flex;
     margin: 14px 0 0 22px;
     align-items: center;
@@ -401,27 +431,34 @@ export const DetailUpdateMenuModalContainer = styled(ModalCommon)`
       line-height: 20px;
     }
   }
-  .updateMenuBody {
+  .menuUpdateBody {
     margin: 22px 0 0 0;
     display: flex;
     flex-direction: column;
-    .updateMenuBodyTitle {
+    .menuUpdateBodyTitle {
       font-family: Pretendard-Medium;
       font-size: 19px;
       margin-left: 30px;
     }
-    .updateMenuBodyUl {
-      margin: 15px 38px 0 43px;
+    .menuUpdateBodyUl {
+      margin: 15px 20px 0 20px;
       padding: 0;
-      .updateMenuBodyLi {
-        margin-bottom: 11px;
-        .updateMenuBodyLiInner {
+      .menuUpdateBodyLi {
+        margin-bottom: 15px;
+        list-style: none;
+        .menuUpdateBodyLiInner {
           display: flex;
           font-size: 18px;
+          input {
+            border: 1px solid #6ab2b2;
+            border-radius: 3px;
+            // border-bottom: 1px solid #6ab2b2;
+          }
           .menuName {
             margin-right: auto;
           }
           .menuPrice {
+            margin-left: 10px;
             color: #6a6a6a;
           }
           .newMenuName {
@@ -433,7 +470,7 @@ export const DetailUpdateMenuModalContainer = styled(ModalCommon)`
           }
         }
       }
-      .updateMenuBodyLi::marker {
+      .menuUpdateBodyLi::marker {
         font-size: 5px;
       }
     }
@@ -441,7 +478,7 @@ export const DetailUpdateMenuModalContainer = styled(ModalCommon)`
       margin: 26px auto 0 auto;
     }
   }
-  .updateMenuBtn {
+  .menuUpdateBtn {
     position: absolute;
     bottom: 24.66px;
     left: 83px;
