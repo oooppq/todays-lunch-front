@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable react/react-in-jsx-scope */
 import axios from 'axios';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useMutation, useQuery } from 'react-query';
 import fullStarIcon from '../../assets/img/full-star-icon.svg';
 import emptyStarIcon from '../../assets/img/empty-star-icon.svg';
@@ -60,6 +60,9 @@ export const useDetail = (id) => {
 export const useMenuPhoto = (id) => {
   const url = `/api/menus/${id}/images`;
 
+  const [selectedPhoto, setSelectedPhoto] = useState(null);
+  const [isPhotoDeleteModalOpen, setIsPhotoDeleteModalOpen] = useState(false);
+
   const {
     data: photos,
     isLoading: isPhotosLoading,
@@ -74,7 +77,12 @@ export const useMenuPhoto = (id) => {
 
   const { mutate: addMenuPhoto, status: addMenuPhotoStatus } = useMutation(
     ['addMenuPhoto', id],
-    () => axios.post(url)
+    (fd) =>
+      axios.post(url, fd, {
+        headers: {
+          'Content-Type': `multipart/form-data; `,
+        },
+      })
   );
 
   const { mutate: deleteMenuPhoto, status: deleteMenuPhotoStatus } =
@@ -82,7 +90,36 @@ export const useMenuPhoto = (id) => {
       axios.delete(url.concat(`/${photoId}`))
     );
 
+  const handleAddMenuPhoto = (event) => {
+    const reader = new FileReader();
+    if (event.target.files && event.target.files.length) {
+      reader.readAsDataURL(event.target.files[0]);
+      reader.onloadend = () => {
+        if (reader.result) {
+          const fd = new FormData();
+          fd.append('menuImage', reader.result.toString());
+          addMenuPhoto(fd);
+        }
+      };
+    }
+  };
+
+  useEffect(() => {
+    if (deleteMenuPhotoStatus === 'success') {
+      setIsPhotoDeleteModalOpen(false);
+      setSelectedPhoto(null);
+    }
+  }, [deleteMenuPhotoStatus]);
+
+  // useEffect(() => {
+  //   if (addMenuPhotoStatus === 'success') setI(false);
+  // }, [addMenuPhotoStatus]);
+
   return {
+    selectedPhoto,
+    setSelectedPhoto,
+    isPhotoDeleteModalOpen,
+    setIsPhotoDeleteModalOpen,
     photos,
     isPhotosLoading,
     photosError,
@@ -90,6 +127,7 @@ export const useMenuPhoto = (id) => {
     addMenuPhotoStatus,
     deleteMenuPhoto,
     deleteMenuPhotoStatus,
+    handleAddMenuPhoto,
   };
 };
 
@@ -159,52 +197,6 @@ export const useDetailNav = () => {
   const [tab, setTab] = useState('main');
   const changeTab = (toChange) => setTab(toChange);
   return { tab, changeTab };
-};
-
-export const useMenuModal = () => {
-  const [isMenu, setIsMenu] = useState(false);
-  const [selectedMenu, setSelectedMenu] = useState(null);
-  const [selectedPhoto, setSelectedPhoto] = useState(null);
-
-  const openMenuModal = (menu) => {
-    setIsMenu(true);
-    setSelectedMenu(menu);
-  };
-
-  const closeMenuModal = () => {
-    setIsMenu(false);
-    setSelectedMenu(null);
-  };
-
-  const openPhotoDetailModal = (photo) => {
-    setSelectedPhoto(photo);
-  };
-
-  const closePhotoDetailModal = () => {
-    setSelectedPhoto(null);
-  };
-  return {
-    isMenu,
-    selectedMenu,
-    selectedPhoto,
-    openMenuModal,
-    closeMenuModal,
-    openPhotoDetailModal,
-    closePhotoDetailModal,
-  };
-};
-
-export const useUpdateMenuModal = () => {
-  const [isUpdateMenu, setIsUpdateMenu] = useState(false);
-
-  const openUpdateMenuModal = () => {
-    setIsUpdateMenu(true);
-  };
-  const closeUpdateMenuModal = () => {
-    setIsUpdateMenu(false);
-  };
-
-  return { isUpdateMenu, openUpdateMenuModal, closeUpdateMenuModal };
 };
 
 export const useNewReviewModal = () => {

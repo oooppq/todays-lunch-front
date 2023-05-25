@@ -18,14 +18,14 @@ const ChangeProfile = ({
         <button type="button" className="changeProfileImgBtn">
           <img src={cameraIcon} alt="" className="" />
         </button>
-        <label htmlFor="input-file">
+        <label htmlFor="input-profileImg">
           <img
             src={userInfo.icon || defaultIcon}
             alt=""
-            className="profileImg"
+            className="profileImgInput"
           />
           <input
-            id="input-file"
+            id="profileImgInput"
             type="file"
             accept="image/*"
             onChange={handleProfileChange}

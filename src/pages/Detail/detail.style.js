@@ -350,7 +350,7 @@ const ModalCommon = styled.div`
 export const DetailMenuPhotoModalContainer = styled(ModalCommon)`
   .menuPhotoModalTop {
     display: flex;
-    margin: 30px 0 0 33px;
+    margin: 30px 0 22px 33px;
     font-size: 20px;
     font-family: Pretendard-Medium;
     .menuModalPhotoPhotoNum {
@@ -358,34 +358,59 @@ export const DetailMenuPhotoModalContainer = styled(ModalCommon)`
       color: #6ab2b2;
     }
   }
-  .menuPhotoModalPhotoOuter {
-    margin: 22px 31.5px;
+  .menuPhotoModalUl {
+    margin: 0 10px;
+    padding: 0 21.5px;
     height: 350px;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
     overflow: auto;
-    .menuPhoto {
-      width: 140px;
-      height: 140px;
-      margin: 2.5px;
+    .menuPhotoModalLi {
+      position: relative;
+      width: 50%;
+      height: 0;
+      padding: 0;
+      padding-bottom: 50%;
       border-radius: 3px;
+
+      .menuPhoto {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        padding: 2.5px;
+        box-sizing: border-box;
+        border-radius: 6px;
+      }
     }
   }
+
   .newPhotoBtn {
     position: absolute;
     bottom: 24.66px;
     left: 83px;
     width: 188px;
     height: 41px;
+    padding-top: 10px;
+    box-sizing: border-box;
     border-radius: 20px;
-    background-color: black;
+    background-color: #6ab2b2;
     color: white;
     font-size: 18px;
     font-family: Pretendard-SemiBold;
+    text-align: center;
+
+    input {
+      display: none;
+    }
   }
 `;
 
 export const DetailMenuPhotoInnerModalContainer = styled(ModalCommon)`
   .modalInner {
-    height: 412px;
+    height: 380px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -397,13 +422,62 @@ export const DetailMenuPhotoInnerModalContainer = styled(ModalCommon)`
       height: 273px;
       border-radius: 3px;
     }
-    .fileName {
-      margin-top: 11px;
-      font-size: 15px;
+    // .fileName {
+    //   margin-top: 11px;
+    //   font-size: 15px;
+    // }
+    .photoInfo {
+      display: flex;
+      align-items: center;
+      margin-top: 15px;
+      .userName {
+        margin-right: 10px;
+        font-size: 16px;
+        .bold {
+          font-family: Pretendard-SemiBold;
+        }
+      }
+      .deleteBtn {
+        color: #6ab2b2;
+        font-size: 12px;
+        img {
+          width: 17px;
+          height: 17px;
+        }
+      }
     }
-    .userName {
-      margin-top: 3px;
-      font-size: 13px;
+  }
+`;
+
+export const DetailMenuPhotoDeleteModalContainer = styled(ModalCommon)`
+  .modalInner {
+    height: 140px;
+    width: 320px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 10px;
+    box-sizing: border-box;
+    .deleteTitle {
+      font-family: Pretendard-SemiBold;
+      font-size: 18px;
+    }
+    .deleteWarning {
+      margin-top: 15px;
+      font-size: 11px;
+      color: #ff6020;
+    }
+    .btnOuter {
+      display: flex;
+      .deleteInnerBtn {
+        margin: 25px 5px 0 5px;
+        font-family: Pretendard-SemiBold;
+        background-color: #6a6a6a;
+        border-radius: 10px;
+        padding: 5px 10px;
+        color: white;
+      }
     }
   }
 `;

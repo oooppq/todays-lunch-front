@@ -233,18 +233,6 @@ export const MyPageBottom = styled.div`
   }
 `;
 
-export const LoadingContainer = styled.div`
-  position: absolute;
-  z-index: 100;
-  width: 100%;
-  top: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.4);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
 export const ChangeCategoryModalContainer = styled.div`
   position: fixed;
   z-index: 100;
