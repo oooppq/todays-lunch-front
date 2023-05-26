@@ -9,7 +9,7 @@ import {
   HeaderBasketIcon,
 } from './header.style';
 import defaultUser from '../assets/img/default-icon.svg';
-import basket from '../assets/img/basket-icon.svg';
+import basket from '../assets/img/header-heart-icon.svg';
 import { authStates } from '../libs/utils';
 
 const Header = () => {

@@ -182,7 +182,7 @@ export const SaleLi = styled.li`
       margin-top: 3px;
       .salePrice {
         font-family: 'Pretendard-SemiBold';
-        color: black;
+        color: #f59e0b;
         font-size: 16px;
       }
       .originalPrice {

@@ -6,7 +6,6 @@ import warningIcon from '../../assets/img/warning-icon.svg';
 import trashcanIcon from '../../assets/img/trashcan-icon.svg';
 
 const DetailMenuUpdateModal = ({ closeMenuUpdateModal, menu }) => {
-  console.log(menu);
   return (
     <DetailMenuUpdateModalContainer>
       <div className="modalInner">

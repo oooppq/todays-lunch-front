@@ -1,29 +1,33 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useEffect } from 'react';
 import { DetailReviewModalContainer } from './detail.style';
 import xIcon from '../../assets/img/x-icon.svg';
 import defaultIcon from '../../assets/img/default-icon.svg';
-import {
-  useReviewContentHandler,
-  useReviewRatingHandler,
-  useWarningHandler,
-} from './detail.helpers';
+import { useNewReview } from './detail.helpers';
 import Warning from '../../components/Warning';
 import DetailNewReviewRate from './DetailNewReviewRate';
 
-const DetailNewReviewModal = ({ closeNewReviewModal, pushNewReview }) => {
-  const { content, changeContent } = useReviewContentHandler();
-  const { isWarning, showWarningMessage } = useWarningHandler();
-  const { rating, changeRating } = useReviewRatingHandler();
+const DetailNewReviewModal = ({ closeModal, fetchReview, reviewData }) => {
+  const {
+    content,
+    setContent,
+    rating,
+    setRating,
+    isWarning,
+    handleFetchReview,
+  } = useNewReview();
+
+  useEffect(() => {
+    if (reviewData) {
+      setContent(reviewData.reviewContent);
+      setRating(reviewData.rating);
+    }
+  }, [reviewData, setContent, setRating]);
 
   return (
     <DetailReviewModalContainer>
       <div className="modalInner">
-        <button
-          className="closeBtn"
-          type="button"
-          onClick={() => closeNewReviewModal()}
-        >
+        <button className="closeBtn" type="button" onClick={closeModal}>
           <img src={xIcon} alt="" />
         </button>
         <div className="newReviewTitle">리뷰 추가하기</div>
@@ -42,7 +46,10 @@ const DetailNewReviewModal = ({ closeNewReviewModal, pushNewReview }) => {
             rows="10"
             className="newReviewContent"
             placeholder="리뷰 추가.."
-            onChange={(e) => changeContent(e.target.value)}
+            onChange={(e) => {
+              setContent(e.target.value);
+            }}
+            defaultValue={content}
           />
         </div>
 
@@ -52,7 +59,7 @@ const DetailNewReviewModal = ({ closeNewReviewModal, pushNewReview }) => {
 
         <div className="newReviewRate">
           <div className="newReviewRateTitle">별점</div>
-          <DetailNewReviewRate rating={rating} changeRating={changeRating} />
+          <DetailNewReviewRate rating={rating} changeRating={setRating} />
           <div className="warning">
             {isWarning && !rating ? <Warning element="별점을" /> : null}
           </div>
@@ -61,14 +68,7 @@ const DetailNewReviewModal = ({ closeNewReviewModal, pushNewReview }) => {
           className="newReviewSubmitBtn"
           type="button"
           onClick={() => {
-            if (!content || !rating) showWarningMessage();
-            else {
-              pushNewReview({
-                rating,
-                reviewContent: content,
-              });
-              closeNewReviewModal();
-            }
+            handleFetchReview(fetchReview, closeModal);
           }}
         >
           추가하기

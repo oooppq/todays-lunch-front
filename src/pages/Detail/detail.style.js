@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import likeIcon from '../../assets/img/review-like-icon.svg';
+import whiteLikeIcon from '../../assets/img/review-white-like-icon.svg';
 
 export const DetailContainer = styled.div`
   position: absolute;
@@ -53,6 +55,12 @@ export const DetailTopContainer = styled.div`
       font-family: Pretendard-SemiBold;
       color: #6ab2b2;
       font-size: 32px;
+    }
+    .bestReview {
+      padding: 0 30px;
+      margin: 7px 0 20px 0;
+      font-size: 14px;
+      font-style: oblique;
     }
   }
   .navUl {
@@ -721,6 +729,33 @@ export const DetailReviewModalContainer = styled(ModalCommon)`
     font-size: 18px;
   }
 `;
+export const DetailReviewDeleteModalContainer = styled(ModalCommon)`
+  .modalInner {
+    height: 50px;
+    margin: 70px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .deleteComment {
+      // font-family: Pretendard-SemiBold;
+    }
+    .btns {
+      display: flex;
+      margin-top: 10px;
+      .btn {
+        border-radius: 10px;
+        background-color: black;
+        color: white;
+        padding: 5px 10px;
+        font-family: Pretendard-SemiBold;
+      }
+      .yesBtn {
+        margin-right: 10px;
+      }
+    }
+  }
+`;
 
 export const DetailReviewContainer = styled.div`
   background-color: white;
@@ -767,7 +802,8 @@ export const DetailReviewContainer = styled.div`
 
 export const DetailReviewElem = styled.li`
   display: flex;
-  padding: 15px 0;
+  padding-bottom: 15px;
+  margin-top: 15px;
   border-bottom: 1px solid #f4f4f4;
   .profileImg {
     height: 34px;
@@ -776,10 +812,20 @@ export const DetailReviewElem = styled.li`
   }
   .reviewBody {
     width: 100%;
+    position: relative;
     .userName {
       font-family: Pretendard-SemiBold;
       color: #737373;
       font-size: 13px;
+    }
+    .UpdateAndDeleteBtns {
+      position: absolute;
+      top: 0;
+      right: 0;
+      font-size: 11px;
+      button {
+        color: #737373;
+      }
     }
     .rating {
       margin-top: 4px;
@@ -794,19 +840,37 @@ export const DetailReviewElem = styled.li`
       margin-top: 22px;
       display: flex;
       justify-content: space-between;
-      .like {
+      .likeBtn {
+        // font-family:Pretendard-SemiBold;
+        box-sizing: border-box;
         width: 50px;
-        height: 26px;
-        border: 1px solid #bdbdbd;
+        height: 22px;
         border-radius: 10px;
         display: flex;
         justify-content: center;
         align-items: center;
+        img {
+          width: 13px;
+          height: 13px;
+        }
         .likeNum {
           font-size: 12px;
-          color: #5e5e5e;
-          padding-top: 2px;
-          margin-left: 6px;
+          padding-bottom: 1px;
+          margin-left: 3px;
+        }
+      }
+      .liked {
+        background-color: #6ab2b2;
+        color: white;
+        img {
+          content: url(${whiteLikeIcon});
+        }
+      }
+      .unliked {
+        border: 1px solid #bdbdbd;
+        color: #5e5e5e;
+        img {
+          content: url(${likeIcon});
         }
       }
       .date {
