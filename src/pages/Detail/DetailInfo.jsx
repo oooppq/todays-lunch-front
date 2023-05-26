@@ -5,34 +5,16 @@ import smileIcon from '../../assets/img/smile-icon.svg';
 import cameraIcon from '../../assets/img/colored-camera-icon.svg';
 import pencilIcon from '../../assets/img/detail-pencil-icon.svg';
 import { convertNum } from '../../libs/utils';
-// import { useMenuModal, useUpdateMenuModal } from './detail.helpers';
-// import DetailUpdateMenuModal from './DetailUpdateMenuModal';
-// import DetailMenuModal from './DetailMenuModal';
-// import DetailUpdateSaleModal from './DetailUpdateSaleModal';
 
 const DetailInfo = ({
   restaurantData,
   menuData,
   openMenuPhotoModal,
   openMenuUpdateModal,
+  openMenuSaleInfoModal,
 }) => {
-  // const { isMenu, selectedMenu, openMenuModal, closeMenuModal } =
-  //   useMenuModal();
-  // const { isUpdateMenu, openUpdateMenuModal, closeUpdateMenuModal } =
-  //   useUpdateMenuModal();
-
   return (
     <DetailInfoContainer>
-      {/* {isMenu && (
-        <DetailMenuModal closeMenuModal={closeMenuModal} menu={selectedMenu} />
-      )}
-      {isUpdateMenu && (
-        <DetailUpdateMenuModal
-          closeUpdateMenuModal={closeUpdateMenuModal}
-          menuData={menuData}
-        />
-      )} */}
-
       <div className="update">가게 정보 업데이트 날짜: 2023-02-23</div>
       <div className="title">
         <img src="" alt="" />
@@ -53,11 +35,11 @@ const DetailInfo = ({
       <div className="help">
         <img className="helpImg" src={smileIcon} alt="" />
         <div className="helpText">
-          메뉴 옆의 <span className="bold">카메라 버튼</span>을 누르면 메뉴
-          사진을 볼 수 있어요. 세일 메뉴의{' '}
+          - 메뉴 옆의 <span className="bold">카메라 버튼</span>을 누르면 메뉴
+          사진을 볼 수 있어요. <br />- 세일 메뉴의{' '}
           <span className="bold">가격을 클릭</span>하면 세일 정보를 볼 수
-          있어요. <span className="bold">연필버튼</span>을 클릭하여 메뉴를
-          수정할 수 있습니다.
+          있어요. <br />- <span className="bold">연필버튼</span>을 클릭하여
+          메뉴를 수정할 수 있어요.
         </div>
       </div>
       <div className="menu">
@@ -66,7 +48,9 @@ const DetailInfo = ({
           <button
             type="button"
             className="addMenuBtn"
-            onClick={openMenuUpdateModal}
+            onClick={() => {
+              openMenuUpdateModal();
+            }}
           >
             메뉴 추가 +
           </button>
@@ -88,7 +72,13 @@ const DetailInfo = ({
                 </button>
 
                 {menu.salePrice ? (
-                  <button type="button" className="saleOuter">
+                  <button
+                    type="button"
+                    className="saleOuter"
+                    onClick={() => {
+                      openMenuSaleInfoModal(menu);
+                    }}
+                  >
                     <div className="saleTag">sale</div>
                     <div className="salePrice">
                       {convertNum(menu.salePrice)}원
@@ -111,21 +101,6 @@ const DetailInfo = ({
           ))}
         </ul>
       </div>
-      {/* <div className="sale">
-        <div className="saleTop">
-          <div className="saleTitle">세일 정보</div>
-          <div
-            className="saleUpdate"
-            onClick={() => openUpdateSaleModal()}
-            aria-hidden="true"
-          >
-            세일정보 수정하기
-          </div>
-        </div>
-        <ul className="saleUl">
-          <li className="saleLi">{'<개강 세일>'}</li>
-        </ul>
-      </div> */}
     </DetailInfoContainer>
   );
 };

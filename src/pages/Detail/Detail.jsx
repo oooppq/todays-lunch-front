@@ -7,6 +7,7 @@ import DetailReview from './DetailReview';
 import { useDetail, useDetailNav } from './detail.helpers';
 import DetailMenuUpdateModal from './DetailMenuUpdateModal';
 import DetailMenuPhotoModal from './DetailMenuPhotoModal';
+import DetailMenuSaleInfoModal from './DetailMenuSaleInfoModal';
 
 const Detail = () => {
   const { id } = useParams();
@@ -17,6 +18,8 @@ const Detail = () => {
     setIsMenuPhotoModalOpen,
     isMenuUpdateModalOpen,
     setIsMenuUpdateModalOpen,
+    isMenuSaleInfoModalOpen,
+    setIsMenuSaleInfoModalOpen,
     selectedMenu,
     setSelectedMenu,
     restaurant,
@@ -50,6 +53,14 @@ const Detail = () => {
           menu={selectedMenu}
         />
       )}
+      {isMenuSaleInfoModalOpen && selectedMenu.saleComment && (
+        <DetailMenuSaleInfoModal
+          saleComment={selectedMenu.saleComment}
+          closeMenuSaleInfoModal={() => {
+            setIsMenuSaleInfoModalOpen(false);
+          }}
+        />
+      )}
       <DetailTop restaurant={restaurant} tab={tab} changeTab={changeTab} />
       {tab === 'main' ? (
         <DetailMain
@@ -61,6 +72,10 @@ const Detail = () => {
           }}
           openMenuUpdateModal={(menu) => {
             setIsMenuUpdateModalOpen(true);
+            setSelectedMenu(menu);
+          }}
+          openMenuSaleInfoModal={(menu) => {
+            setIsMenuSaleInfoModalOpen(true);
             setSelectedMenu(menu);
           }}
         />

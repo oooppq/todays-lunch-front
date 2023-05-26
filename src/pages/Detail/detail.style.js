@@ -125,7 +125,7 @@ export const DetailInfoContainer = styled.div`
       background-color: #f4f4f4;
       padding: 11px 16px 13px 16px;
       border-radius: 10px;
-      font-size: 14px;
+      font-size: 11.5px;
       line-height: 25px;
       color: #383838;
       .bold {
@@ -206,7 +206,6 @@ export const DetailInfoContainer = styled.div`
             height: 20px;
             color: #f59e0b;
             font-size: 17px;
-            // text-decoration: underline;
             border-bottom: 1.5px solid #f59e0b;
           }
         }
@@ -262,15 +261,15 @@ export const DetailMapContainer = styled.div`
   }
   .subTitle {
     color: #5c5c5c;
+    font-size: 17px;
     .restaurantName {
       font-family: Pretendard-Medium;
       color: black;
     }
-    font-size: 19px;
     margin: 15px 0 0 33px;
   }
   .address {
-    margin: 6px 0 0 33px;
+    margin: 8px 0 0 33px;
     font-size: 13px;
     color: #5c5c5c;
   }
@@ -336,7 +335,7 @@ const ModalCommon = styled.div`
     display: flex;
     flex-direction: column;
     width: 354px;
-    height: 521px;
+    // height: 521px;
     background-color: white;
     border-radius: 10px;
     .closeBtn {
@@ -348,6 +347,9 @@ const ModalCommon = styled.div`
 `;
 
 export const DetailMenuPhotoModalContainer = styled(ModalCommon)`
+  .modalInner {
+    height: 521px;
+  }
   .menuPhotoModalTop {
     display: flex;
     margin: 30px 0 22px 33px;
@@ -483,95 +485,151 @@ export const DetailMenuPhotoDeleteModalContainer = styled(ModalCommon)`
 `;
 
 export const DetailMenuUpdateModalContainer = styled(ModalCommon)`
-  .menuUpdateTitle {
-    font-family: Pretendard-Bold;
-    font-size: 19px;
-    margin: 19px 0 0 25px;
-  }
-  .menuUpdateWarning {
-    display: flex;
-    margin: 14px 0 0 22px;
-    align-items: center;
-    .warningComment {
-      width: 259px;
-      height: 84px;
-      padding: 11px 15px 13px 19px;
-      margin-left: 16px;
-      box-sizing: border-box;
-      background-color: #f4f4f4;
-      border-radius: 10px;
-      font-size: 14px;
-      color: #383838;
-      line-height: 20px;
-    }
-  }
-  .menuUpdateBody {
-    margin: 22px 0 0 0;
+  .modalInner {
+    height: 500px;
+    overflow-y: auto;
+    position: relative;
     display: flex;
     flex-direction: column;
-    .menuUpdateBodyTitle {
-      font-family: Pretendard-Medium;
+    .menuUpdateTitle {
+      font-family: Pretendard-Bold;
       font-size: 19px;
-      margin-left: 30px;
+      margin: 19px 0 0 25px;
     }
-    .menuUpdateBodyUl {
-      margin: 15px 20px 0 20px;
-      padding: 0;
-      .menuUpdateBodyLi {
-        margin-bottom: 15px;
-        list-style: none;
-        .menuUpdateBodyLiInner {
-          display: flex;
-          font-size: 18px;
-          input {
-            border: 1px solid #6ab2b2;
-            border-radius: 3px;
-            // border-bottom: 1px solid #6ab2b2;
-          }
-          .menuName {
-            margin-right: auto;
-          }
-          .menuPrice {
-            margin-left: 10px;
-            color: #6a6a6a;
-          }
-          .newMenuName {
-            width: 153px;
-            margin-right: auto;
-          }
-          .newMenuPrice {
-            width: 83px;
-          }
+    .menuUpdateWarning {
+      display: flex;
+      margin: 14px 0 0 22px;
+      align-items: center;
+      .warningComment {
+        width: 259px;
+        height: 84px;
+        padding: 11px 15px 13px 19px;
+        margin-left: 16px;
+        box-sizing: border-box;
+        background-color: #f4f4f4;
+        border-radius: 10px;
+        font-size: 13px;
+        color: #383838;
+        line-height: 20px;
+      }
+    }
+    .menuUpdateBody {
+      margin: 22px 0 0 0;
+      display: flex;
+      flex-direction: column;
+      .won {
+        font-size: 16px;
+      }
+      input::placeholder,
+      textarea::placeholder {
+        color: #cdcdcd;
+      }
+      .menuUpdateBodyTitle,
+      .saleUpdateTitle {
+        font-family: Pretendard-Medium;
+        font-size: 19px;
+        margin-left: 30px;
+        .optional {
+          font-size: 12px;
+          color: #f59e0b;
         }
       }
-      .menuUpdateBodyLi::marker {
-        font-size: 5px;
+
+      .updateInput {
+        background-color: #f4f4f4;
+        color: #4e4e4e;
+        border: 1px solid #e3e3e3;
+        padding: 7px;
+        border-radius: 3px;
+        font-family: Pretendard-Regular;
+      }
+      .menuUpdateInputOuter {
+        margin: 15px 20px 30px 20px;
+        display: flex;
+        align-items: center;
+        font-size: 18px;
+
+        .menuPrice,
+        .menuName {
+          width: 120px;
+          margin-right: 10px;
+        }
+      }
+      .saleUpdateInputOuter {
+        margin: 15px 20px 25px 20px;
+        .saleInputLabel {
+          margin: 0 0 7px 7px;
+          font-size: 14px;
+        }
+        .saleCommentLabel {
+          margin-top: 15px;
+        }
+        .salePrice {
+          display: inline;
+          margin-right: 7px;
+        }
+        .saleComment {
+          margin-bottom: 10px;
+          width: 290px;
+          height: 60px;
+        }
       }
     }
-    .newMenuBtn {
-      margin: 26px auto 0 auto;
+    .menuUpdateModalBtns {
+      display: flex;
+      margin: 0 auto;
+      align-items: center;
+      position: sticky;
+      bottom: 20px;
+
+      .menuUpdateBtn {
+        margin: 0 auto;
+        box-shadow: 0 4px 5px rgba(0, 0, 0, 0.3);
+        width: 188px;
+        height: 41px;
+        border-radius: 10px;
+        background-color: black;
+        color: white;
+        font-size: 18px;
+        font-family: Pretendard-SemiBold;
+      }
+      .menuDeleteBtn {
+        width: 33px;
+        height: 33px;
+        margin-left: 10px;
+        border: 1.5px solid black;
+        border-radius: 50%;
+        padding-top: 2px;
+      }
     }
-  }
-  .menuUpdateBtn {
-    position: absolute;
-    bottom: 24.66px;
-    left: 83px;
-    width: 188px;
-    height: 41px;
-    border-radius: 20px;
-    background-color: black;
-    color: white;
-    font-size: 18px;
-    font-family: Pretendard-SemiBold;
   }
 `;
 
-export const DetailUpdateSaleModalContainer = styled(ModalCommon)``;
+export const DetailMenuSaleInfoModalContainer = styled(ModalCommon)`
+  .modalInner {
+    overflow-y: auto;
+    position: relative;
+    display: flex;
+    padding: 0 20px;
+    box-sizing: border-box;
+    flex-direction: column;
+    .saleCommentTitle {
+      font-size: 18px;
+      font-family: Pretendard-SemiBold;
+      margin-top: 14px;
+    }
+    .saleComment {
+      margin: 10px 0 20px 0;
+      font-size: 14px;
+    }
+  }
+`;
 
 export const DetailReviewModalContainer = styled(ModalCommon)`
   .modalInner {
     display: flex;
     flex-direction: column;
+    height: 521px;
     .warning {
       // margin-left: 20px;
       position: relative;

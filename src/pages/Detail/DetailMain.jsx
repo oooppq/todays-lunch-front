@@ -9,6 +9,7 @@ const DetailMain = ({
   menuData,
   openMenuPhotoModal,
   openMenuUpdateModal,
+  openMenuSaleInfoModal,
 }) => {
   const mapData = {
     restaurantName: restaurant.restaurantName,
@@ -25,6 +26,7 @@ const DetailMain = ({
         menuData={menuData}
         openMenuPhotoModal={openMenuPhotoModal}
         openMenuUpdateModal={openMenuUpdateModal}
+        openMenuSaleInfoModal={openMenuSaleInfoModal}
       />
       <DetailMap mapData={mapData} />
       <DetailContributor contributors={contributors} />

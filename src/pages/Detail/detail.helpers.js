@@ -16,6 +16,7 @@ export const handleGoBack = (navigate) => {
 export const useDetail = (id) => {
   const [isMenuPhotoModalOpen, setIsMenuPhotoModalOpen] = useState(false);
   const [isMenuUpdateModalOpen, setIsMenuUpdateModalOpen] = useState(false);
+  const [isMenuSaleInfoModalOpen, setIsMenuSaleInfoModalOpen] = useState(false);
   const [selectedMenu, setSelectedMenu] = useState(null);
 
   const getRestaurantFn = () =>
@@ -45,6 +46,8 @@ export const useDetail = (id) => {
     setIsMenuPhotoModalOpen,
     isMenuUpdateModalOpen,
     setIsMenuUpdateModalOpen,
+    isMenuSaleInfoModalOpen,
+    setIsMenuSaleInfoModalOpen,
     selectedMenu,
     setSelectedMenu,
     restaurant,
@@ -56,6 +59,7 @@ export const useDetail = (id) => {
   };
 };
 
+export const useMenu = () => {};
 // 디테일페이지의 각각의 메뉴 사진을 가져오는 custom hook
 export const useMenuPhoto = (id) => {
   const url = `/api/menus/${id}/images`;
@@ -110,10 +114,6 @@ export const useMenuPhoto = (id) => {
       setSelectedPhoto(null);
     }
   }, [deleteMenuPhotoStatus]);
-
-  // useEffect(() => {
-  //   if (addMenuPhotoStatus === 'success') setI(false);
-  // }, [addMenuPhotoStatus]);
 
   return {
     selectedPhoto,
