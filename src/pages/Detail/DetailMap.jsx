@@ -7,7 +7,9 @@ const DetailMap = ({ mapData }) => {
   return (
     <DetailMapContainer>
       <div className="title">📌 가게 위치 정보</div>
-      <div className="subTitle">{mapData.restaurantName}의 위치</div>
+      <div className="subTitle">
+        <span className="restaurantName">{mapData.restaurantName}</span>의 주소
+      </div>
       <div className="address">{mapData.address}</div>
       <Map
         className="map"

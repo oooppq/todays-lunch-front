@@ -1,6 +1,5 @@
 body {
   width: 390px;
-
   margin-left: auto !important;
   margin-right: auto !important;
   border: 0;
@@ -22,6 +21,7 @@ body {
 }
 
 button {
+  font-family: 'Pretendard-Regular';
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;

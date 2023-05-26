@@ -3,7 +3,7 @@ import React from 'react';
 import { MyPageMid } from './myPage.style';
 import smileIcon from '../../assets/img/smile-icon.svg';
 import { useCategoryChangeModal } from './myPage.helpers';
-import Loading from './Loading';
+import Loading from '../../components/Loading';
 import ChangeCategoryModal from './ChangeCategoryModal';
 
 const MyPageBodyBottom = ({ userInfo }) => {

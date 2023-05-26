@@ -2,38 +2,16 @@
 import React from 'react';
 import { DetailInfoContainer } from './detail.style';
 import smileIcon from '../../assets/img/smile-icon.svg';
-import { convertNum } from '../../libs/utils';
-import {
-  useMenuModal,
-  useUpdateMenuModal,
-  useUpdateSaleModal,
-} from './detail.helpers';
-import DetailUpdateMenuModal from './DetailUpdateMenuModal';
-import DetailMenuModal from './DetailMenuModal';
-import DetailUpdateSaleModal from './DetailUpdateSaleModal';
+import DetailMenuElement from './DetailMenuElement';
 
-const DetailInfo = ({ restaurantData, menuData }) => {
-  const { isMenu, selectedMenu, openMenuModal, closeMenuModal } =
-    useMenuModal();
-  const { isUpdateMenu, openUpdateMenuModal, closeUpdateMenuModal } =
-    useUpdateMenuModal();
-  const { isUpdateSale, openUpdateSaleModal, closeUpdateSaleModal } =
-    useUpdateSaleModal();
-
+const DetailInfo = ({
+  restaurantData,
+  menuData,
+  openNewMenuModal,
+  useMenuElem,
+}) => {
   return (
     <DetailInfoContainer>
-      {isMenu && (
-        <DetailMenuModal closeMenuModal={closeMenuModal} menu={selectedMenu} />
-      )}
-      {isUpdateMenu && (
-        <DetailUpdateMenuModal
-          closeUpdateMenuModal={closeUpdateMenuModal}
-          menuData={menuData}
-        />
-      )}
-      {isUpdateSale && (
-        <DetailUpdateSaleModal closeUpdateSaleModal={closeUpdateSaleModal} />
-      )}
       <div className="update">가게 정보 업데이트 날짜: 2023-02-23</div>
       <div className="title">
         <img src="" alt="" />
@@ -44,6 +22,7 @@ const DetailInfo = ({ restaurantData, menuData }) => {
         <div className="hashTag">#{restaurantData.locationCategory}</div>
         <div className="hashTag">#{restaurantData.locationTag}</div>
       </div>
+
       {restaurantData.recommendCategoryList.map((recom) => (
         <div key={recom} className="recomCat">
           # {recom}
@@ -53,51 +32,32 @@ const DetailInfo = ({ restaurantData, menuData }) => {
       <div className="help">
         <img className="helpImg" src={smileIcon} alt="" />
         <div className="helpText">
-          각 메뉴를 클릭하면 사진을 확인 하거나, 사진을 올릴 수 있어요. <br />
-          메뉴 옆 숫자는 저장된 사진 개수 입니다.
+          - 메뉴 옆의 <span className="bold">카메라 버튼</span>을 누르면 메뉴
+          사진을 볼 수 있어요. <br />- 세일 메뉴의{' '}
+          <span className="bold">가격을 클릭</span>하면 세일 정보를 볼 수
+          있어요. <br />- <span className="bold">연필버튼</span>을 클릭하여
+          메뉴를 수정할 수 있어요.
         </div>
       </div>
       <div className="menu">
         <div className="menuTop">
-          <div className="menuTitle">메뉴</div>
-          <div
-            className="menuUpdate"
-            onClick={() => openUpdateMenuModal()}
-            aria-hidden="true"
+          <div className="menuTitle">📌 메뉴</div>
+          <button
+            type="button"
+            className="addMenuBtn"
+            onClick={openNewMenuModal}
           >
-            메뉴판 수정하기
-          </div>
+            메뉴 추가 +
+          </button>
         </div>
         <ul className="menuUl">
           {menuData.map((menu) => (
-            <li
+            <DetailMenuElement
               key={menu.id}
-              className="menuLi"
-              onClick={() => openMenuModal(menu)}
-              aria-hidden="true"
-            >
-              <div className="menuLiInner">
-                <div className="menuName">{menu.name}</div>
-                <div className="menuPhotoNum">({menu.photoNum})</div>
-                <div className="menuPrice">{convertNum(menu.price)}원</div>
-              </div>
-            </li>
+              menu={menu}
+              useMenuElem={useMenuElem}
+            />
           ))}
-        </ul>
-      </div>
-      <div className="sale">
-        <div className="saleTop">
-          <div className="saleTitle">세일 정보</div>
-          <div
-            className="saleUpdate"
-            onClick={() => openUpdateSaleModal()}
-            aria-hidden="true"
-          >
-            세일정보 수정하기
-          </div>
-        </div>
-        <ul className="saleUl">
-          <li className="saleLi">{'<개강 세일>'}</li>
         </ul>
       </div>
     </DetailInfoContainer>

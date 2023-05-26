@@ -10,8 +10,7 @@ export const useWish = (id) => {
   const url = `/api/restaurants/${id}/mystore`;
   const userState = useSelector((state) => state.userAuth);
 
-  const { data: isWish } =
-    id &&
+  const { data: isWish } = (id &&
     useQuery(
       ['get', 'wishIsLike', id],
       () =>
@@ -23,17 +22,16 @@ export const useWish = (id) => {
           })
           .then((res) => res.data),
       { refetchOnWindowFocus: false }
-    );
+    )) || { data: false };
 
-  const { mutate: pushWish } =
-    id &&
+  const { mutate: pushWish } = (id &&
     useMutation(() =>
       axios.post(url, null, {
         headers: {
           Authorization: `Bearer ${userState && userState.accessToken}`,
         },
       })
-    );
+    )) || { mutate: () => {} };
 
   return { isWish, pushWish };
 };

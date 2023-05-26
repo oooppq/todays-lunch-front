@@ -4,18 +4,28 @@ import DetailInfo from './DetailInfo';
 import DetailMap from './DetailMap';
 import DetailContributor from './DetailContributor';
 
-const DetailMain = ({ restaurantData, menuData }) => {
+const DetailMain = ({
+  restaurant,
+  menuData,
+  openNewMenuModal,
+  useMenuElem,
+}) => {
   const mapData = {
-    restaurantName: restaurantData.restaurantName,
-    address: restaurantData.adress,
-    lat: restaurantData.latitude,
-    lng: restaurantData.longitude,
+    restaurantName: restaurant.restaurantName,
+    address: restaurant.address,
+    lat: restaurant.latitude,
+    lng: restaurant.longitude,
   };
-  const { contributors } = restaurantData;
+  const { contributors } = restaurant;
 
   return (
     <>
-      <DetailInfo restaurantData={restaurantData} menuData={menuData} />
+      <DetailInfo
+        restaurantData={restaurant}
+        menuData={menuData}
+        openNewMenuModal={openNewMenuModal}
+        useMenuElem={useMenuElem}
+      />
       <DetailMap mapData={mapData} />
       <DetailContributor contributors={contributors} />
     </>

@@ -3,7 +3,7 @@ import React from 'react';
 import { MyPageTop } from './myPage.style';
 import ChangeProfile from './ChangeProfile';
 import MyPageNavigator from './MyPageNavigator';
-import Loading from './Loading';
+import Loading from '../../components/Loading';
 import { useProfileChange } from './myPage.helpers';
 
 const MyPageBodyTop = ({ userInfo, handleGotoOnClick }) => {
