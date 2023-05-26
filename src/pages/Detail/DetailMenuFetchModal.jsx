@@ -1,18 +1,55 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useEffect } from 'react';
 import { DetailMenuUpdateModalContainer } from './detail.style';
 import xIcon from '../../assets/img/x-icon.svg';
 import warningIcon from '../../assets/img/warning-icon.svg';
 import trashcanIcon from '../../assets/img/trashcan-icon.svg';
+import { useFetchMenu } from './detail.helpers';
+import DetailMenuDeleteModal from './DetailMenuDeleteModal';
 
-const DetailMenuUpdateModal = ({ closeMenuUpdateModal, menu }) => {
+const DetailMenuFetchModal = ({
+  closeMenuFetchModal,
+  menu,
+  fetchMenu,
+  deleteMenu,
+}) => {
+  const {
+    name,
+    setName,
+    price,
+    setPrice,
+    setSalePrice,
+    setSaleComment,
+    isWarning,
+    isMenuDeleteModalOpen,
+    setIsMenuDeleteModalOpen,
+    handleFetchMenu,
+  } = useFetchMenu();
+
+  useEffect(() => {
+    if (menu) {
+      setName(menu.name);
+      setPrice(menu.price);
+      setSalePrice(menu.salePrice);
+      setSaleComment(menu.saleComment);
+    }
+  }, [menu, setName, setPrice, setSaleComment, setSalePrice]);
+
   return (
     <DetailMenuUpdateModalContainer>
+      {isMenuDeleteModalOpen && (
+        <DetailMenuDeleteModal
+          closeModal={() => {
+            setIsMenuDeleteModalOpen(false);
+          }}
+          deleteMenu={deleteMenu}
+        />
+      )}
       <div className="modalInner">
         <button
           className="closeBtn"
           type="button"
-          onClick={closeMenuUpdateModal}
+          onClick={closeMenuFetchModal}
         >
           <img src={xIcon} alt="" />
         </button>
@@ -44,27 +81,41 @@ const DetailMenuUpdateModal = ({ closeMenuUpdateModal, menu }) => {
               className="updateInput menuName"
               placeholder="메뉴 이름"
               defaultValue={menu && menu.name}
+              onChange={(e) => {
+                setName(e.target.value);
+              }}
             />
             <input
-              type="text"
+              type="number"
               className="updateInput menuPrice"
               placeholder="메뉴 가격"
               defaultValue={menu && menu.price}
+              onChange={(e) => {
+                setPrice(e.target.value);
+              }}
             />
             <span className="won">원</span>
           </div>
-
+          <div className="warningDiv">
+            {isWarning && (!price || !name) && '다음 항목을 입력해주세요:'}{' '}
+            <span className="bold">
+              {isWarning && !name && '이름'}
+              {isWarning && !price && ' 가격'}
+            </span>
+          </div>
           <div className="saleUpdateTitle">
             세일정보 수정/추가 <span className="optional">[선택]</span>
           </div>
-
           <div className="saleUpdateInputOuter">
             <div className="saleInputLabel">세일 가격</div>
             <input
-              type="text"
+              type="number"
               className="updateInput salePrice"
               placeholder="세일 가격"
               defaultValue={menu && menu.salePrice}
+              onChange={(e) => {
+                setSalePrice(e.target.value);
+              }}
             />
             <span className="won">원</span>
             <div className="saleInputLabel saleCommentLabel">세일 설명</div>
@@ -72,20 +123,37 @@ const DetailMenuUpdateModal = ({ closeMenuUpdateModal, menu }) => {
               placeholder="예)학생증을 보여주면 1,000원을 할인해줘요."
               className="updateInput saleComment"
               defaultValue={menu && menu.saleComment}
+              onChange={(e) => {
+                setSaleComment(e.target.value);
+              }}
             />
           </div>
         </div>
         <div className="menuUpdateModalBtns">
-          <button className="menuUpdateBtn" type="button">
+          <button
+            className="menuUpdateBtn"
+            type="button"
+            onClick={() => {
+              handleFetchMenu(fetchMenu);
+            }}
+          >
             확인
           </button>
-          <button type="button" className="menuDeleteBtn">
-            <img src={trashcanIcon} alt="" className="" />
-          </button>
+          {menu ? (
+            <button
+              type="button"
+              className="menuDeleteBtn"
+              onClick={() => {
+                setIsMenuDeleteModalOpen(true);
+              }}
+            >
+              <img src={trashcanIcon} alt="" className="" />
+            </button>
+          ) : null}
         </div>
       </div>
     </DetailMenuUpdateModalContainer>
   );
 };
 
-export default DetailMenuUpdateModal;
+export default DetailMenuFetchModal;

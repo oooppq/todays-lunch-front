@@ -3,11 +3,11 @@ import React, { useEffect } from 'react';
 import { DetailReviewModalContainer } from './detail.style';
 import xIcon from '../../assets/img/x-icon.svg';
 import defaultIcon from '../../assets/img/default-icon.svg';
-import { useNewReview } from './detail.helpers';
+import { useFetchReview } from './detail.helpers';
 import Warning from '../../components/Warning';
 import DetailNewReviewRate from './DetailNewReviewRate';
 
-const DetailNewReviewModal = ({ closeModal, fetchReview, reviewData }) => {
+const DetailReviewFetchModal = ({ closeModal, fetchReview, reviewData }) => {
   const {
     content,
     setContent,
@@ -15,7 +15,7 @@ const DetailNewReviewModal = ({ closeModal, fetchReview, reviewData }) => {
     setRating,
     isWarning,
     handleFetchReview,
-  } = useNewReview();
+  } = useFetchReview();
 
   useEffect(() => {
     if (reviewData) {
@@ -30,11 +30,15 @@ const DetailNewReviewModal = ({ closeModal, fetchReview, reviewData }) => {
         <button className="closeBtn" type="button" onClick={closeModal}>
           <img src={xIcon} alt="" />
         </button>
-        <div className="newReviewTitle">리뷰 추가하기</div>
+        <div className="newReviewTitle">
+          리뷰 {reviewData ? '수정' : '추가'}하기
+        </div>
         <div className="newReviewInfo">
           <img src={defaultIcon} alt="" className="infoImg" />
           <div className="infoText">
-            맛집에 방문할 사람들을 위해 리뷰와 별점을 남겨주세요.
+            {reviewData
+              ? '리뷰를 수정하고 확인버튼을 눌러주세요.'
+              : '맛집에 방문할 사람들을 위해 리뷰와 별점을 남겨주세요.'}
           </div>
         </div>
         <div className="newReviewBody">
@@ -68,14 +72,14 @@ const DetailNewReviewModal = ({ closeModal, fetchReview, reviewData }) => {
           className="newReviewSubmitBtn"
           type="button"
           onClick={() => {
-            handleFetchReview(fetchReview, closeModal);
+            handleFetchReview(fetchReview);
           }}
         >
-          추가하기
+          확인
         </button>
       </div>
     </DetailReviewModalContainer>
   );
 };
 
-export default DetailNewReviewModal;
+export default DetailReviewFetchModal;

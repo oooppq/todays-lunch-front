@@ -5,29 +5,25 @@ import DetailTop from './DetailTop';
 import DetailMain from './DetailMain';
 import DetailReview from './DetailReview';
 import { useDetail, useDetailNav } from './detail.helpers';
-import DetailMenuUpdateModal from './DetailMenuUpdateModal';
-import DetailMenuPhotoModal from './DetailMenuPhotoModal';
-import DetailMenuSaleInfoModal from './DetailMenuSaleInfoModal';
+import DetailMenuFetchModal from './DetailMenuFetchModal';
+import Loading from '../../components/Loading';
 
 const Detail = () => {
   const { id } = useParams();
   const { tab, changeTab } = useDetailNav();
 
   const {
-    isMenuPhotoModalOpen,
-    setIsMenuPhotoModalOpen,
-    isMenuUpdateModalOpen,
-    setIsMenuUpdateModalOpen,
-    isMenuSaleInfoModalOpen,
-    setIsMenuSaleInfoModalOpen,
-    selectedMenu,
-    setSelectedMenu,
+    isNewMenuModalOpen,
+    setIsNewMenuModalOpen,
     restaurant,
     isRestaurantLoading,
     restaurantError,
     menus,
     isMenusLoading,
     menusError,
+    pushNewMenu,
+    pushNewMenuStatus,
+    useMenuElem,
   } = useDetail(id);
 
   if (isRestaurantLoading || restaurantError || isMenusLoading || menusError)
@@ -35,30 +31,13 @@ const Detail = () => {
 
   return (
     <DetailContainer>
-      {isMenuPhotoModalOpen && (
-        <DetailMenuPhotoModal
-          closeMenuPhotoModal={() => {
-            setIsMenuPhotoModalOpen(false);
-            setSelectedMenu(null);
+      {pushNewMenuStatus === 'loading' ? <Loading /> : null}
+      {isNewMenuModalOpen && (
+        <DetailMenuFetchModal
+          closeMenuFetchModal={() => {
+            setIsNewMenuModalOpen(false);
           }}
-          menu={selectedMenu}
-        />
-      )}
-      {isMenuUpdateModalOpen && (
-        <DetailMenuUpdateModal
-          closeMenuUpdateModal={() => {
-            setIsMenuUpdateModalOpen(false);
-            setSelectedMenu(null);
-          }}
-          menu={selectedMenu}
-        />
-      )}
-      {isMenuSaleInfoModalOpen && selectedMenu.saleComment && (
-        <DetailMenuSaleInfoModal
-          saleComment={selectedMenu.saleComment}
-          closeMenuSaleInfoModal={() => {
-            setIsMenuSaleInfoModalOpen(false);
-          }}
+          fetchMenu={pushNewMenu}
         />
       )}
       <DetailTop restaurant={restaurant} tab={tab} changeTab={changeTab} />
@@ -66,18 +45,10 @@ const Detail = () => {
         <DetailMain
           restaurant={restaurant}
           menuData={menus}
-          openMenuPhotoModal={(menu) => {
-            setIsMenuPhotoModalOpen(true);
-            setSelectedMenu(menu);
+          openNewMenuModal={() => {
+            setIsNewMenuModalOpen(true);
           }}
-          openMenuUpdateModal={(menu) => {
-            setIsMenuUpdateModalOpen(true);
-            setSelectedMenu(menu);
-          }}
-          openMenuSaleInfoModal={(menu) => {
-            setIsMenuSaleInfoModalOpen(true);
-            setSelectedMenu(menu);
-          }}
+          useMenuElem={useMenuElem}
         />
       ) : (
         <DetailReview restaurantId={id} />

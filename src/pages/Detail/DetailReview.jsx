@@ -4,7 +4,7 @@ import { useReview } from './detail.helpers';
 import { DetailReviewContainer } from './detail.style';
 import DetailReviewElement from './DetailReviewElement';
 import defaultIcon from '../../assets/img/default-icon.svg';
-import DetailNewReviewModal from './DetailNewReviewModal';
+import DetailReviewFetchModal from './DetailReviewFetchModal';
 import { flattenPages } from '../../libs/utils';
 import { useInfiniteScroll } from '../../libs/common.helpers';
 import Loading from '../../components/Loading';
@@ -29,7 +29,7 @@ const DetailReview = ({ restaurantId }) => {
   return (
     <DetailReviewContainer>
       {isNewReviewModalOpen && (
-        <DetailNewReviewModal
+        <DetailReviewFetchModal
           closeModal={() => {
             setIsNewReviewModalOpen(false);
           }}

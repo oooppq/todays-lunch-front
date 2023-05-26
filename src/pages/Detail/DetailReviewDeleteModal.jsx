@@ -13,7 +13,6 @@ const DetailReviewDeleteModal = ({ closeModal, deleteReview }) => {
             className="btn yesBtn"
             onClick={() => {
               deleteReview();
-              closeModal();
             }}
           >
             예

@@ -4,7 +4,7 @@ import { DetailReviewElem } from './detail.style';
 import defaultIcon from '../../assets/img/default-icon.svg';
 import { handleLikeNum, rateStarHandler } from './detail.helpers';
 import Loading from '../../components/Loading';
-import DetailNewReviewModal from './DetailNewReviewModal';
+import DetailNewReviewModal from './DetailReviewFetchModal';
 import DetailReviewDeleteModal from './DetailReviewDeleteModal';
 
 const DetailReviewElement = ({ review, useReviewElem }) => {

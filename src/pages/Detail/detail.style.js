@@ -552,7 +552,7 @@ export const DetailMenuUpdateModalContainer = styled(ModalCommon)`
         font-family: Pretendard-Regular;
       }
       .menuUpdateInputOuter {
-        margin: 15px 20px 30px 20px;
+        margin: 15px 20px 10px 20px;
         display: flex;
         align-items: center;
         font-size: 18px;
@@ -561,6 +561,15 @@ export const DetailMenuUpdateModalContainer = styled(ModalCommon)`
         .menuName {
           width: 120px;
           margin-right: 10px;
+        }
+      }
+      .warningDiv {
+        margin-left: 30px;
+        height: 20px;
+        font-size: 12px;
+        color: #ca2d18;
+        .bold {
+          font-family: Pretendard-SemiBold;
         }
       }
       .saleUpdateInputOuter {
@@ -633,6 +642,35 @@ export const DetailMenuSaleInfoModalContainer = styled(ModalCommon)`
   }
 `;
 
+export const DetailMenuDeleteModalContainer = styled(ModalCommon)`
+  .modalInner {
+    height: 60px;
+    margin: 70px;
+    padding: 20px;
+    display: flex;
+    overflow-y: clip;
+    flex-direction: column;
+    align-items: center;
+    .deleteComment {
+      // font-family: Pretendard-SemiBold;
+    }
+    .btns {
+      display: flex;
+      margin-top: 20px;
+      .btn {
+        border-radius: 10px;
+        background-color: black;
+        color: white;
+        padding: 5px 10px;
+        font-family: Pretendard-SemiBold;
+      }
+      .yesBtn {
+        margin-right: 10px;
+      }
+    }
+  }
+`;
+
 export const DetailReviewModalContainer = styled(ModalCommon)`
   .modalInner {
     display: flex;
@@ -664,7 +702,7 @@ export const DetailReviewModalContainer = styled(ModalCommon)`
     }
     .infoText {
       width: 259px;
-      height: 62px;
+      // height: 62px;
       padding: 11px 15px 11px 19px;
       box-sizing: border-box;
       font-size: 14px;
@@ -731,10 +769,11 @@ export const DetailReviewModalContainer = styled(ModalCommon)`
 `;
 export const DetailReviewDeleteModalContainer = styled(ModalCommon)`
   .modalInner {
-    height: 50px;
+    height: 60px;
     margin: 70px;
     padding: 20px;
     display: flex;
+    overflow-y: clip;
     flex-direction: column;
     align-items: center;
     .deleteComment {
@@ -742,7 +781,7 @@ export const DetailReviewDeleteModalContainer = styled(ModalCommon)`
     }
     .btns {
       display: flex;
-      margin-top: 10px;
+      margin-top: 20px;
       .btn {
         border-radius: 10px;
         background-color: black;

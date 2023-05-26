@@ -11,9 +11,7 @@ export const handleGoBack = (navigate) => {
 };
 
 export const useDetail = (id) => {
-  const [isMenuPhotoModalOpen, setIsMenuPhotoModalOpen] = useState(false);
-  const [isMenuUpdateModalOpen, setIsMenuUpdateModalOpen] = useState(false);
-  const [isMenuSaleInfoModalOpen, setIsMenuSaleInfoModalOpen] = useState(false);
+  const [isNewMenuModalOpen, setIsNewMenuModalOpen] = useState(false);
   const [selectedMenu, setSelectedMenu] = useState(null);
 
   const getRestaurantFn = () =>
@@ -38,13 +36,53 @@ export const useDetail = (id) => {
     refetchOnWindowFocus: false,
   });
 
+  const { mutate: pushNewMenu, status: pushNewMenuStatus } = useMutation(
+    ['pushNewMenu'],
+    (fd) => axios.post(`/api/restaurants/${id}/menus`, fd)
+  );
+  useEffect(() => {
+    if (pushNewMenuStatus === 'success') setIsNewMenuModalOpen(false);
+  }, [pushNewMenuStatus]);
+
+  const useMenuElem = (menuId) => {
+    const [isMenuUpdateModalOpen, setIsMenuUpdateModalOpen] = useState(false);
+    const [isMenuPhotoModalOpen, setIsMenuPhotoModalOpen] = useState(false);
+    const [isMenuSaleInfoModalOpen, setIsMenuSaleInfoModalOpen] =
+      useState(false);
+
+    const { mutate: updateMenu, status: updateMenuStatus } = useMutation(
+      ['updateNewMenu'],
+      (fd) => axios.patch(`/api/restaurants/${id}/menus/${menuId}`, fd)
+    );
+    const { mutate: deleteMenu, status: deleteMenuStatus } = useMutation(
+      ['deleteMenu'],
+      () => axios.delete(`/api/restaurants/${id}/menus/${menuId}`)
+    );
+
+    useEffect(() => {
+      if (updateMenuStatus === 'success' || deleteMenuStatus === 'success')
+        setIsMenuUpdateModalOpen(false);
+    }, [updateMenuStatus, deleteMenuStatus]);
+
+    return {
+      isMenuUpdateModalOpen,
+      setIsMenuUpdateModalOpen,
+      isMenuPhotoModalOpen,
+      setIsMenuPhotoModalOpen,
+      isMenuSaleInfoModalOpen,
+      setIsMenuSaleInfoModalOpen,
+      // isMenuDeleteModalOpen,
+      // setIsMenuDeleteModalOpen,
+      updateMenu,
+      updateMenuStatus,
+      deleteMenu,
+      deleteMenuStatus,
+    };
+  };
+
   return {
-    isMenuPhotoModalOpen,
-    setIsMenuPhotoModalOpen,
-    isMenuUpdateModalOpen,
-    setIsMenuUpdateModalOpen,
-    isMenuSaleInfoModalOpen,
-    setIsMenuSaleInfoModalOpen,
+    isNewMenuModalOpen,
+    setIsNewMenuModalOpen,
     selectedMenu,
     setSelectedMenu,
     restaurant,
@@ -53,10 +91,49 @@ export const useDetail = (id) => {
     menus,
     isMenusLoading,
     menusError,
+    pushNewMenu,
+    pushNewMenuStatus,
+    useMenuElem,
   };
 };
 
-export const useMenu = () => {};
+export const useFetchMenu = () => {
+  const [name, setName] = useState('');
+  const [price, setPrice] = useState(null);
+  const [salePrice, setSalePrice] = useState(null);
+  const [saleComment, setSaleComment] = useState('');
+  const [isWarning, setIsWarning] = useState(false);
+  const [isMenuDeleteModalOpen, setIsMenuDeleteModalOpen] = useState(false);
+
+  const handleFetchMenu = (fetchMenu) => {
+    if (!name || !price) setIsWarning(true);
+    else {
+      const fd = new FormData();
+      if (name) fd.append('name', name);
+      if (price) fd.append('price', price);
+      if (salePrice) fd.append('salePrice', salePrice);
+      if (saleComment) fd.append('saleComment', saleComment);
+      fetchMenu(fd);
+    }
+  };
+
+  return {
+    name,
+    setName,
+    price,
+    setPrice,
+    salePrice,
+    setSalePrice,
+    saleComment,
+    setSaleComment,
+    isWarning,
+    setIsWarning,
+    isMenuDeleteModalOpen,
+    setIsMenuDeleteModalOpen,
+    handleFetchMenu,
+  };
+};
+
 // 디테일페이지의 각각의 메뉴 사진을 가져오는 custom hook
 export const useMenuPhoto = (id) => {
   const url = `/api/menus/${id}/images`;
@@ -175,6 +252,10 @@ export const useReview = (id) => {
       })
   );
 
+  useEffect(() => {
+    if (pushNewReviewStatus === 'success') setIsNewReviewModalOpen(false);
+  }, [pushNewReviewStatus]);
+
   const useReviewElem = (reviewId) => {
     const [isUpdateReviewModalOpen, setIsUpdateReviewModalOpen] =
       useState(false);
@@ -207,6 +288,12 @@ export const useReview = (id) => {
     const { mutate: pushLike } = useMutation(['review', 'pushLike'], () =>
       axios.post(url.concat(`/${reviewId}/like`))
     );
+
+    useEffect(() => {
+      if (updateReviewStatus === 'success') setIsUpdateReviewModalOpen(false);
+      if (deleteReviewStatus === 'success') setIsDeleteReviewModalOpen(false);
+    }, [updateReviewStatus, deleteReviewStatus]);
+
     return {
       isUpdateReviewModalOpen,
       setIsUpdateReviewModalOpen,
@@ -235,19 +322,18 @@ export const useReview = (id) => {
   };
 };
 
-export const useNewReview = () => {
+export const useFetchReview = () => {
   const [content, setContent] = useState('');
   const [rating, setRating] = useState(0);
   const [isWarning, setIsWarning] = useState(false);
 
-  const handleFetchReview = (fetchReview, closeModal) => {
+  const handleFetchReview = (fetchReview) => {
     if (!content || !rating) setIsWarning(true);
     else {
       const fd = new FormData();
       if (rating) fd.append('rating', rating);
       if (content) fd.append('reviewContent', content);
       fetchReview(fd);
-      closeModal();
     }
   };
 

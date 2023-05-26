@@ -7,9 +7,8 @@ import DetailContributor from './DetailContributor';
 const DetailMain = ({
   restaurant,
   menuData,
-  openMenuPhotoModal,
-  openMenuUpdateModal,
-  openMenuSaleInfoModal,
+  openNewMenuModal,
+  useMenuElem,
 }) => {
   const mapData = {
     restaurantName: restaurant.restaurantName,
@@ -24,9 +23,8 @@ const DetailMain = ({
       <DetailInfo
         restaurantData={restaurant}
         menuData={menuData}
-        openMenuPhotoModal={openMenuPhotoModal}
-        openMenuUpdateModal={openMenuUpdateModal}
-        openMenuSaleInfoModal={openMenuSaleInfoModal}
+        openNewMenuModal={openNewMenuModal}
+        useMenuElem={useMenuElem}
       />
       <DetailMap mapData={mapData} />
       <DetailContributor contributors={contributors} />

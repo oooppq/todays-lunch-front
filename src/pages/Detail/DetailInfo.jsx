@@ -2,16 +2,13 @@
 import React from 'react';
 import { DetailInfoContainer } from './detail.style';
 import smileIcon from '../../assets/img/smile-icon.svg';
-import cameraIcon from '../../assets/img/colored-camera-icon.svg';
-import pencilIcon from '../../assets/img/detail-pencil-icon.svg';
-import { convertNum } from '../../libs/utils';
+import DetailMenuElement from './DetailMenuElement';
 
 const DetailInfo = ({
   restaurantData,
   menuData,
-  openMenuPhotoModal,
-  openMenuUpdateModal,
-  openMenuSaleInfoModal,
+  openNewMenuModal,
+  useMenuElem,
 }) => {
   return (
     <DetailInfoContainer>
@@ -48,56 +45,18 @@ const DetailInfo = ({
           <button
             type="button"
             className="addMenuBtn"
-            onClick={() => {
-              openMenuUpdateModal();
-            }}
+            onClick={openNewMenuModal}
           >
             메뉴 추가 +
           </button>
         </div>
         <ul className="menuUl">
           {menuData.map((menu) => (
-            <li key={menu.id} className="menuLi" aria-hidden="true">
-              <div className="menuLiInner">
-                <div className="menuName">{menu.name}</div>
-                <button
-                  type="button"
-                  className="menuPhotoBtn"
-                  onClick={() => {
-                    openMenuPhotoModal(menu);
-                  }}
-                >
-                  <img src={cameraIcon} alt="" className="" />
-                  {menu.photoNum}
-                </button>
-
-                {menu.salePrice ? (
-                  <button
-                    type="button"
-                    className="saleOuter"
-                    onClick={() => {
-                      openMenuSaleInfoModal(menu);
-                    }}
-                  >
-                    <div className="saleTag">sale</div>
-                    <div className="salePrice">
-                      {convertNum(menu.salePrice)}원
-                    </div>
-                  </button>
-                ) : (
-                  <div className="menuPrice">{convertNum(menu.price)}원</div>
-                )}
-                <button
-                  type="button"
-                  className="changeBtn"
-                  onClick={() => {
-                    openMenuUpdateModal(menu);
-                  }}
-                >
-                  <img src={pencilIcon} alt="" className="" />
-                </button>
-              </div>
-            </li>
+            <DetailMenuElement
+              key={menu.id}
+              menu={menu}
+              useMenuElem={useMenuElem}
+            />
           ))}
         </ul>
       </div>
