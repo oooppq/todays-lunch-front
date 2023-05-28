@@ -4,11 +4,14 @@ import { LoginBodyContainer } from './login.style';
 import jmcIcon from '../../assets/img/user-jmc-icon.svg';
 import { useLoginHandler } from './login.helpers';
 import LoginError from './LoginError';
-import { authStates } from '../../libs/utils';
 
 const LoginBody = ({ authState, login, refresh }) => {
-  const { handleEmailChange, handlePasswordChange, handleLogin } =
-    useLoginHandler(login, refresh);
+  const {
+    isInputMissing,
+    handleEmailChange,
+    handlePasswordChange,
+    handleLogin,
+  } = useLoginHandler(login, refresh);
 
   return (
     <LoginBodyContainer>
@@ -20,18 +23,18 @@ const LoginBody = ({ authState, login, refresh }) => {
         <div className="inputLabel">이메일</div>
         <input
           type="text"
-          className="input"
+          className="input emailInput"
           placeholder="email"
           onChange={handleEmailChange}
         />
         <div className="inputLabel">비밀번호</div>
         <input
           type="password"
-          className="input"
+          className="input passwordInput"
           placeholder="password"
           onChange={handlePasswordChange}
         />
-        {authState === authStates.INVALID ? <LoginError /> : null}
+        <LoginError authState={authState} isInputMissing={isInputMissing} />
         <button className="loginBtn" type="button" onClick={handleLogin}>
           로그인
         </button>

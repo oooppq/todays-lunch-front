@@ -10,6 +10,12 @@ export const LoginContainer = styled.div`
   background-color: white;
   display: flex;
   flex-direction: column;
+  .loginState {
+    margin: 10px 0;
+    height: 12px;
+    font-size: 12px;
+    color: #ca2d18;
+  }
 `;
 
 export const LoginBodyContainer = styled.div`
@@ -31,10 +37,11 @@ export const LoginBodyContainer = styled.div`
     margin: 13px 36px 0 36px;
     .inputLabel {
       font-size: 16px;
+      margin-left: 7px;
     }
     .input {
       box-sizing: border-box;
-      margin: 9px 0 16px 0;
+      margin-top: 9px;
       width: 100%;
       height: 45px;
       background-color: #f4f4f4;
@@ -43,8 +50,11 @@ export const LoginBodyContainer = styled.div`
       border-radius: 3px;
       padding-left: 12px;
     }
+    .emailInput {
+      margin-bottom: 16px;
+    }
     .loginBtn {
-      margin-top: 19px;
+      // margin-top: 19px;
       width: 100%;
       height: 45px;
       background-color: black;
