@@ -5,6 +5,8 @@ import { ACCESS_EXPIRE_TIME } from '../../libs/userAuth.helpers';
 export const useLoginHandler = (login, refresh) => {
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
+  const [isInputMissing, setIsInputMissing] = useState(false);
+
   const loginInfo = JSON.stringify({ email, password });
 
   const handleEmailChange = (event) => {
@@ -16,6 +18,11 @@ export const useLoginHandler = (login, refresh) => {
 
   const handleLogin = (event) => {
     event.preventDefault();
+    if (!email || !password) {
+      setIsInputMissing(true);
+      return;
+    }
+    setIsInputMissing(false);
     login(loginInfo);
 
     setTimeout(refresh, ACCESS_EXPIRE_TIME - 60000);
@@ -25,6 +32,7 @@ export const useLoginHandler = (login, refresh) => {
   return {
     email,
     password,
+    isInputMissing,
     handleEmailChange,
     handlePasswordChange,
     handleLogin,
