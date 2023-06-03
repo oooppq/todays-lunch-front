@@ -37,7 +37,7 @@ export const useMyPage = (navigate) => {
   };
 
   const handleLogout = () => {
-    setAuthInfo(authStates.UNAUTHORIZED, null, null);
+    setAuthInfo(authStates.UNAUTHORIZED, null);
     localStorage.removeItem('refreshInfo');
   };
 

@@ -1,7 +1,13 @@
 import axios from 'axios';
 import { useMutation } from 'react-query';
 import { useDispatch, useSelector } from 'react-redux';
-import { setAccessToken, setRefreshToken, setState } from '../redux/userAuth';
+import {
+  setAccessToken,
+  setEmail,
+  setId,
+  setRefreshToken,
+  setState,
+} from '../redux/userAuth';
 import { authStates } from './utils';
 
 export const ACCESS_EXPIRE_TIME = (1 / 2) * 3600 * 1000; // access token expires time 30 minutes
@@ -43,15 +49,18 @@ export const useAuth = () => {
     return userState.state === authStates.AUTHORIZED;
   };
 
-  const setAuthInfo = (state, access, refresh) => {
-    dispatch(setAccessToken(access));
-    dispatch(setRefreshToken(refresh));
+  const setAuthInfo = (state, authInfo) => {
+    dispatch(setId(authInfo ? authInfo.id : null));
+    dispatch(setEmail(authInfo ? authInfo.email : null));
+    dispatch(setAccessToken(authInfo ? authInfo.accessToken : null));
+    dispatch(setRefreshToken(authInfo ? authInfo.refreshToken : null));
+
     dispatch(setState(state));
     if (state === authStates.AUTHORIZED) {
       // axios.defaults.headers.common.Authorization = `Bearer ${access}`;
       // const expireTime = new Date().getTime() + 2000;
       const expireTime = new Date().getTime() + REFRESH_EXPIRE_TIME;
-      const refreshInfo = { token: refresh, expireTime };
+      const refreshInfo = { token: authInfo.refreshToken, expireTime };
       localStorage.setItem('refreshInfo', JSON.stringify(refreshInfo));
     } else {
       // delete axios.defaults.headers.common.Authorization;
@@ -70,10 +79,10 @@ export const useAuth = () => {
         // setTimeout(refresh, 3000);
         setTimeout(refresh, ACCESS_EXPIRE_TIME - 60000);
       } else {
-        setAuthInfo(authStates.EXPIRED, null, null);
+        setAuthInfo(authStates.EXPIRED, null);
       }
     } else {
-      setAuthInfo(authStates.UNAUTHORIZED, null, null);
+      setAuthInfo(authStates.UNAUTHORIZED, null);
     }
   };
 
@@ -100,23 +109,19 @@ export const useAuth = () => {
       case authStates.PENDING: // 상태 변화가 발생하는 중
         if (authResponse) {
           // 유저 인증이 제대로 완료됐을 때
-          setAuthInfo(
-            authStates.AUTHORIZED,
-            authResponse.data.accessToken,
-            authResponse.data.refreshToken
-          );
+          setAuthInfo(authStates.AUTHORIZED, authResponse.data);
         } else if (authError) {
           // console.log(authError.response.status);
           if (authError.response.status === 404) {
             // 유저 인증에 문제가 있을 때
-            setAuthInfo(authStates.ERROR, null, null);
+            setAuthInfo(authStates.ERROR, null);
             // window.location.reload();
           } else if (authError.response.status === 401)
-            setAuthInfo(authStates.INVALID, null, null);
+            setAuthInfo(authStates.INVALID, null);
           // 어떤 error 인지에 따라 다른 action을 취하도록 수정해야 함.
         } else if (!authIsLoading) {
           // 네트워크에 문제가 있을 때
-          setAuthInfo(authStates.ERROR, null, null);
+          setAuthInfo(authStates.ERROR, null);
         }
         break;
       case authStates.EXPIRED: // 만료되었을 때, 현재는 아무 것도 하지 않음

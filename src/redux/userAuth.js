@@ -4,6 +4,8 @@ import { authStates } from '../libs/utils';
 
 const initialState = {
   state: authStates.INITIAL,
+  id: null,
+  email: null,
   accessToken: null,
   refreshToken: null,
   expireTime: null,
@@ -39,6 +41,12 @@ export const userAuthSlice = createSlice({
         default:
       }
     },
+    setId: (state, action) => {
+      state.id = action.payload;
+    },
+    setEmail: (state, action) => {
+      state.email = action.payload;
+    },
     setAccessToken: (state, action) => {
       state.accessToken = action.payload;
     },
@@ -51,7 +59,13 @@ export const userAuthSlice = createSlice({
   },
 });
 
-export const { setState, setAccessToken, setRefreshToken, setExpireTime } =
-  userAuthSlice.actions;
+export const {
+  setState,
+  setId,
+  setEmail,
+  setAccessToken,
+  setRefreshToken,
+  setExpireTime,
+} = userAuthSlice.actions;
 
 export default userAuthSlice.reducer;
