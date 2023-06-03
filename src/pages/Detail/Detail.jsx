@@ -24,6 +24,7 @@ const Detail = () => {
     pushNewMenu,
     pushNewMenuStatus,
     useMenuElem,
+    openNewMenuModal,
   } = useDetail(id);
 
   if (isRestaurantLoading || restaurantError || isMenusLoading || menusError)
@@ -45,9 +46,7 @@ const Detail = () => {
         <DetailMain
           restaurant={restaurant}
           menuData={menus}
-          openNewMenuModal={() => {
-            setIsNewMenuModalOpen(true);
-          }}
+          openNewMenuModal={openNewMenuModal}
           useMenuElem={useMenuElem}
         />
       ) : (

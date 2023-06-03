@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { DetailMenuPhotoModalContainer } from './detail.style';
 import xIcon from '../../assets/img/x-icon.svg';
 import { useMenuPhoto } from './detail.helpers';
@@ -7,7 +8,10 @@ import Loading from '../../components/Loading';
 import DetailMenuPhotoInnerModal from './DetailMenuPhotoInnerModal';
 
 const DetailMenuPhotoModal = ({ closeMenuPhotoModal, menu }) => {
+  const navigate = useNavigate();
+
   const {
+    isAuthorized,
     selectedPhoto,
     setSelectedPhoto,
     isPhotoDeleteModalOpen,
@@ -17,9 +21,10 @@ const DetailMenuPhotoModal = ({ closeMenuPhotoModal, menu }) => {
     // photosError,
     // addMenuPhoto,
     addMenuPhotoStatus,
-    deleteMenuPhoto,
+    deleteMenuPhotoRequest,
     deleteMenuPhotoStatus,
     handleAddMenuPhoto,
+    openPhotoDeleteModal,
   } = useMenuPhoto(menu.id);
 
   return (
@@ -53,19 +58,31 @@ const DetailMenuPhotoModal = ({ closeMenuPhotoModal, menu }) => {
               ))
             : null}
         </ul>
-        <label
-          className="newPhotoBtn"
-          htmlFor="newMenuPhotoInput"
-          onChange={handleAddMenuPhoto}
-        >
-          사진 추가하기
-          <input
-            id="newMenuPhotoInput"
-            type="file"
-            accept="image/*"
-            className=""
-          />
-        </label>
+        {isAuthorized() ? (
+          <label
+            className="newPhotoBtn"
+            htmlFor="newMenuPhotoInput"
+            onChange={handleAddMenuPhoto}
+          >
+            사진 추가하기
+            <input
+              id="newMenuPhotoInput"
+              type="file"
+              accept="image/*"
+              className=""
+            />
+          </label>
+        ) : (
+          <button
+            type="button"
+            className="newPhotoBtn"
+            onClick={() => {
+              navigate('/login');
+            }}
+          >
+            사진 추가하기
+          </button>
+        )}
       </div>
       {addMenuPhotoStatus === 'loading' ||
       deleteMenuPhotoStatus === 'loading' ? (
@@ -77,13 +94,13 @@ const DetailMenuPhotoModal = ({ closeMenuPhotoModal, menu }) => {
           isPhotoDeleteModalOpen={isPhotoDeleteModalOpen}
           selectedPhoto={selectedPhoto}
           handleMenuPhotoDelete={() => {
-            deleteMenuPhoto(selectedPhoto.id);
+            deleteMenuPhotoRequest(selectedPhoto.id);
           }}
           closeMenuPhotoInnerModal={() => {
             setSelectedPhoto(null);
           }}
           openPhotoDeleteModal={() => {
-            setIsPhotoDeleteModalOpen(true);
+            openPhotoDeleteModal(navigate);
           }}
           closePhotoDeleteModal={() => {
             setIsPhotoDeleteModalOpen(false);

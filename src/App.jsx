@@ -38,21 +38,14 @@ const App = () => {
         <Route path="/play" element={<Play />} />
         <Route path="/restaurants-judge" element={<JudgeHome />} />
         <Route
-          path="restaurants-judge/new"
+          path="/restaurants-judge/new"
           element={
             <PrivateRoute>
               <JudgeNew />
             </PrivateRoute>
           }
         />
-        <Route
-          path="restaurants-judge/now"
-          element={
-            <PrivateRoute>
-              <JudgeNow />
-            </PrivateRoute>
-          }
-        />
+        <Route path="/restaurants-judge/now" element={<JudgeNow />} />
         <Route
           path="/login"
           element={<Login login={login} refresh={refresh} />}

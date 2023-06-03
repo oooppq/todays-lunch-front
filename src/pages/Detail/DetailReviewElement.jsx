@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { DetailReviewElem } from './detail.style';
 import defaultIcon from '../../assets/img/default-icon.svg';
 import { handleLikeNum, rateStarHandler } from './detail.helpers';
@@ -19,8 +20,9 @@ const DetailReviewElement = ({ review, useReviewElem }) => {
     deleteReviewStatus,
     isLiked,
     pushLike,
+    isAuthor,
   } = useReviewElem(review.id);
-
+  const navigate = useNavigate();
   // if (postIsError || postIsLoading) return null;
 
   return (
@@ -47,28 +49,30 @@ const DetailReviewElement = ({ review, useReviewElem }) => {
       )}
       <img className="profileImg" src={defaultIcon} alt="" />
       <div className="reviewBody">
-        <div className="userName">{review.userName}</div>
-        <div className="UpdateAndDeleteBtns">
-          <button
-            type="button"
-            className="deleteBtn"
-            onClick={() => {
-              setIsUpdateReviewModalOpen(true);
-            }}
-          >
-            수정
-          </button>
-          {' | '}
-          <button
-            type="button"
-            className="updateBtn"
-            onClick={() => {
-              setIsDeleteReviewModalOpen(true);
-            }}
-          >
-            삭제
-          </button>
-        </div>
+        <div className="userName">{review.member.nickname}</div>
+        {isAuthor(review.member.id) ? (
+          <div className="UpdateAndDeleteBtns">
+            <button
+              type="button"
+              className="deleteBtn"
+              onClick={() => {
+                setIsUpdateReviewModalOpen(true);
+              }}
+            >
+              수정
+            </button>
+            {' | '}
+            <button
+              type="button"
+              className="updateBtn"
+              onClick={() => {
+                setIsDeleteReviewModalOpen(true);
+              }}
+            >
+              삭제
+            </button>
+          </div>
+        ) : null}
         <div className="rating">{rateStarHandler(review.rating)}</div>
         <div className="content">{review.reviewContent}</div>
         <div className="likeAndDate">
@@ -76,7 +80,7 @@ const DetailReviewElement = ({ review, useReviewElem }) => {
             type="button"
             className={`likeBtn ${isLiked ? 'liked' : 'unliked'}`}
             onClick={() => {
-              pushLike(review.id);
+              pushLike(navigate);
             }}
           >
             <img className="likeImg" alt="" />

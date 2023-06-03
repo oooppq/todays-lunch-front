@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { convertNum } from '../../libs/utils';
 import pencilIcon from '../../assets/img/detail-pencil-icon.svg';
 import cameraIcon from '../../assets/img/colored-camera-icon.svg';
@@ -9,6 +10,8 @@ import DetailMenuPhotoModal from './DetailMenuPhotoModal';
 import DetailMenuSaleInfoModal from './DetailMenuSaleInfoModal';
 
 const DetailMenuElement = ({ menu, useMenuElem }) => {
+  const navigate = useNavigate();
+
   const {
     isMenuUpdateModalOpen,
     setIsMenuUpdateModalOpen,
@@ -20,6 +23,7 @@ const DetailMenuElement = ({ menu, useMenuElem }) => {
     updateMenuStatus,
     deleteMenu,
     deleteMenuStatus,
+    openMenuUpdateModal,
   } = useMenuElem(menu.id);
 
   return (
@@ -70,7 +74,6 @@ const DetailMenuElement = ({ menu, useMenuElem }) => {
             type="button"
             className="saleOuter"
             onClick={() => {
-              // openMenuSaleInfoModal(menu);
               setIsMenuSaleInfoModalOpen(true);
             }}
           >
@@ -84,8 +87,7 @@ const DetailMenuElement = ({ menu, useMenuElem }) => {
           type="button"
           className="changeBtn"
           onClick={() => {
-            setIsMenuUpdateModalOpen(true);
-            // openMenuUpdateModal(menu);
+            openMenuUpdateModal(navigate);
           }}
         >
           <img src={pencilIcon} alt="" className="" />
