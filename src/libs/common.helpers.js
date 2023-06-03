@@ -11,7 +11,7 @@ export const useWish = (id) => {
   const url = `/api/restaurants/${id}/mystore`;
   const { authInfo, isAuthorized } = useAuth();
 
-  const { data: isWish } = (id &&
+  const { data: isWishRes } = (id &&
     useQuery(
       ['get', 'wishIsLike', id],
       () =>
@@ -33,6 +33,8 @@ export const useWish = (id) => {
         },
       })
     )) || { mutate: () => {} };
+
+  const isWish = isAuthorized() && isWishRes;
 
   const handlePushWish = (navigate) => {
     if (isAuthorized()) {

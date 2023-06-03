@@ -331,7 +331,7 @@ export const useReview = (id) => {
       () => axios.delete(url.concat(`/${reviewId}`))
     );
 
-    const { data: isLiked } = useQuery(
+    const { data: isLikedRes } = useQuery(
       ['review', 'isLiked', reviewId],
       () => axios.get(url.concat(`/${reviewId}/like`)).then((res) => res.data),
       {
@@ -343,6 +343,7 @@ export const useReview = (id) => {
       ['review', 'pushLike'],
       () => axios.post(url.concat(`/${reviewId}/like`))
     );
+    const isLiked = isAuthorized() && isLikedRes;
 
     const pushLike = (navigate) => {
       if (isAuthorized()) {

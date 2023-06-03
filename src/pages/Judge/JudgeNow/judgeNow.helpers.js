@@ -2,7 +2,7 @@
 import axios from 'axios';
 import { useState } from 'react';
 import { useMutation, useQuery } from 'react-query';
-import { useSelector } from 'react-redux';
+import { useAuth } from '../../../libs/userAuth.helpers';
 
 /* mode => normal or myPage */
 export const useJudgeNow = () => {
@@ -30,14 +30,14 @@ export const useJudgeNow = () => {
 };
 
 export const useJudgeAgree = (id) => {
-  const userState = useSelector((state) => state.userAuth);
+  const { authInfo, isAuthorized } = useAuth();
 
-  const { data: isAgree } = useQuery(
+  const { data: isAgreeRes } = useQuery(
     ['judgeNow/agree', id],
     () =>
       axios.get(`/api/restaurants/judges/${id}/agree`).then((res) => res.data, {
         header: {
-          Authorization: `Bearer ${userState.accessToken}`,
+          Authorization: `Bearer ${authInfo.accessToken}`,
         },
       }),
     {
@@ -45,13 +45,23 @@ export const useJudgeAgree = (id) => {
     }
   );
 
-  const { mutate: pushAgree } = useMutation(() =>
+  const { mutate: pushAgreeRequest } = useMutation(() =>
     axios.post(`/api/restaurants/judges/${id}/agree`, null, {
       headers: {
-        Authorization: `Bearer ${userState.accessToken}`,
+        Authorization: `Bearer ${authInfo.accessToken}`,
       },
     })
   );
+
+  const isAgree = isAuthorized() && isAgreeRes;
+
+  const pushAgree = (navigate) => {
+    if (isAuthorized()) {
+      pushAgreeRequest();
+    } else {
+      navigate('/login');
+    }
+  };
   return { pushAgree, isAgree };
 };
 
