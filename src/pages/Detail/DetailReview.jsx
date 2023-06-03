@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useReview } from './detail.helpers';
 import { DetailReviewContainer } from './detail.style';
 import DetailReviewElement from './DetailReviewElement';
@@ -13,6 +14,7 @@ const DetailReview = ({ restaurantId }) => {
   const {
     isNewReviewModalOpen,
     setIsNewReviewModalOpen,
+    openNewReviewModal,
     reviewList,
     // reviewListIsFetching,
     // reviewListError,
@@ -21,6 +23,7 @@ const DetailReview = ({ restaurantId }) => {
     pushNewReviewStatus,
     useReviewElem,
   } = useReview(restaurantId);
+  const navigate = useNavigate();
 
   const { ObserverDiv } = useInfiniteScroll(reviewList, fetchNextPage);
 
@@ -47,7 +50,7 @@ const DetailReview = ({ restaurantId }) => {
           className="newReviewBtn"
           type="button"
           onClick={() => {
-            setIsNewReviewModalOpen(true);
+            openNewReviewModal(navigate);
           }}
         >
           댓글 추가..

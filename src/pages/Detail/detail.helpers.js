@@ -2,7 +2,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useInfiniteQuery, useMutation, useQuery } from 'react-query';
-import { useSelector } from 'react-redux';
 import fullStarIcon from '../../assets/img/full-star-icon.svg';
 import emptyStarIcon from '../../assets/img/empty-star-icon.svg';
 import { useAuth } from '../../libs/userAuth.helpers';
@@ -253,7 +252,8 @@ export const useMenuPhoto = (id) => {
 
 // 디테일 페이지의 리뷰 REST 요처을 담당하는 custom hook
 export const useReview = (id) => {
-  const userState = useSelector((state) => state.userAuth);
+  const { authInfo, isAuthorized } = useAuth();
+
   const url = `/api/restaurants/${id}/reviews`;
   // const likeUrl = `/api/reviews`;
   const [isNewReviewModalOpen, setIsNewReviewModalOpen] = useState(false);
@@ -265,12 +265,12 @@ export const useReview = (id) => {
     hasNextPage,
     fetchNextPage,
   } = useInfiniteQuery({
-    queryKey: ['wishList', id],
+    queryKey: ['reviewList', id],
     queryFn: ({ pageParam = 1 }) =>
       axios
         .get(url.concat(`?page=${pageParam}`), {
           headers: {
-            Authorization: `Bearer ${userState && userState.accessToken}`,
+            Authorization: `Bearer ${authInfo && authInfo.accessToken}`,
           },
         })
         .then((res) => {
@@ -297,6 +297,14 @@ export const useReview = (id) => {
         },
       })
   );
+
+  const openNewReviewModal = (navigate) => {
+    if (isAuthorized()) {
+      setIsNewReviewModalOpen(true);
+    } else {
+      navigate('/login');
+    }
+  };
 
   useEffect(() => {
     if (pushNewReviewStatus === 'success') setIsNewReviewModalOpen(false);
@@ -331,9 +339,25 @@ export const useReview = (id) => {
       }
     );
 
-    const { mutate: pushLike } = useMutation(['review', 'pushLike'], () =>
-      axios.post(url.concat(`/${reviewId}/like`))
+    const { mutate: pushLikeRequest } = useMutation(
+      ['review', 'pushLike'],
+      () => axios.post(url.concat(`/${reviewId}/like`))
     );
+
+    const pushLike = (navigate) => {
+      if (isAuthorized()) {
+        pushLikeRequest();
+      } else {
+        navigate('/login');
+      }
+    };
+
+    const isAuthor = (userId) => {
+      if (isAuthorized()) {
+        return authInfo.id === userId;
+      }
+      return false;
+    };
 
     useEffect(() => {
       if (updateReviewStatus === 'success') setIsUpdateReviewModalOpen(false);
@@ -351,11 +375,13 @@ export const useReview = (id) => {
       deleteReviewStatus,
       isLiked,
       pushLike,
+      isAuthor,
     };
   };
 
   return {
     isNewReviewModalOpen,
+    openNewReviewModal,
     setIsNewReviewModalOpen,
     reviewList,
     reviewListIsFetching,
