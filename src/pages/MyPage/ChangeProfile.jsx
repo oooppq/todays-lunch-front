@@ -18,7 +18,7 @@ const ChangeProfile = ({
         <button type="button" className="changeProfileImgBtn">
           <img src={cameraIcon} alt="" className="" />
         </button>
-        <label htmlFor="input-profileImg">
+        <label htmlFor="profileImgInput">
           <img
             src={userInfo.icon || defaultIcon}
             alt=""
