@@ -2,13 +2,14 @@
 import React from 'react';
 // import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 // import { useAuth } from '../libs/userAuth.helpers';
 import { authStates } from '../libs/utils';
 import Loading from './Loading';
 
 const PrivateRoute = ({ redirectPath = '/login', children }) => {
   const userState = useSelector((state) => state.userAuth.state);
+  const { pathname } = useLocation();
   // const refreshInfo = JSON.parse(localStorage.getItem('refreshInfo'));
   // const { setAuthInfo } = useAuth();
 
@@ -25,7 +26,7 @@ const PrivateRoute = ({ redirectPath = '/login', children }) => {
     return <Loading />;
 
   if (userState !== authStates.AUTHORIZED) {
-    return <Navigate to={redirectPath} replace />;
+    return <Navigate to={redirectPath} state={pathname} replace />;
   }
 
   return children;

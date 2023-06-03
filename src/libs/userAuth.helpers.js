@@ -14,7 +14,7 @@ export const ACCESS_EXPIRE_TIME = (1 / 2) * 3600 * 1000; // access token expires
 export const REFRESH_EXPIRE_TIME = 3600 * 1000; // refresh token expires time 30 minutes
 
 export const useAuth = () => {
-  const userState = useSelector((state) => state.userAuth.state);
+  const authInfo = useSelector((state) => state.userAuth);
   const dispatch = useDispatch();
   const {
     mutate: authRequest,
@@ -45,22 +45,22 @@ export const useAuth = () => {
     dispatch(setState(state));
   };
 
-  const isAuth = () => {
-    return userState.state === authStates.AUTHORIZED;
+  const isAuthorized = () => {
+    return authInfo.state === authStates.AUTHORIZED;
   };
 
-  const setAuthInfo = (state, authInfo) => {
-    dispatch(setId(authInfo ? authInfo.id : null));
-    dispatch(setEmail(authInfo ? authInfo.email : null));
-    dispatch(setAccessToken(authInfo ? authInfo.accessToken : null));
-    dispatch(setRefreshToken(authInfo ? authInfo.refreshToken : null));
+  const setAuthInfo = (state, info) => {
+    dispatch(setId(info ? info.id : null));
+    dispatch(setEmail(info ? info.email : null));
+    dispatch(setAccessToken(info ? info.accessToken : null));
+    dispatch(setRefreshToken(info ? info.refreshToken : null));
 
     dispatch(setState(state));
     if (state === authStates.AUTHORIZED) {
       // axios.defaults.headers.common.Authorization = `Bearer ${access}`;
       // const expireTime = new Date().getTime() + 2000;
       const expireTime = new Date().getTime() + REFRESH_EXPIRE_TIME;
-      const refreshInfo = { token: authInfo.refreshToken, expireTime };
+      const refreshInfo = { token: info.refreshToken, expireTime };
       localStorage.setItem('refreshInfo', JSON.stringify(refreshInfo));
     } else {
       // delete axios.defaults.headers.common.Authorization;
@@ -102,7 +102,7 @@ export const useAuth = () => {
 
   // handlers
   const handleAuthState = () => {
-    switch (userState) {
+    switch (authInfo.state) {
       case authStates.INITIAL: // initial state일 때, refresh 진행
         refresh();
         break;
@@ -131,10 +131,11 @@ export const useAuth = () => {
   };
 
   return {
+    authInfo,
     authResponse,
     authError,
     changeState,
-    isAuth,
+    isAuthorized,
     setAuthInfo,
     login,
     logout,

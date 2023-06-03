@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { JudgeNowDetailContainer, JudgeNowDetailInfo } from './judgeNow.style';
 import defaultImg from '../../../assets/img/default-image.png';
 import thumbIcon from '../../../assets/img/small-thumb-icon.svg';
@@ -14,6 +15,7 @@ const JudgeNowDetail = ({ id, setIsDetail, inListFlag }) => {
     pushAgree,
     isAgree,
   } = useJudgeNowDetail(id);
+  const navigate = useNavigate();
 
   if (restaurantIsLoading || restaurantIsError) return null;
 
@@ -51,7 +53,9 @@ const JudgeNowDetail = ({ id, setIsDetail, inListFlag }) => {
           <div
             className="imageOuter"
             aria-hidden="true"
-            onClick={pushAgree}
+            onClick={() => {
+              pushAgree(navigate);
+            }}
             style={isAgree ? { backgroundColor: '#6ab2b2' } : null}
           >
             <img src={thumbIcon} alt="" />

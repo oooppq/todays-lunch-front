@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { DetailInfoContainer } from './detail.style';
 import smileIcon from '../../assets/img/smile-icon.svg';
 import DetailMenuElement from './DetailMenuElement';
@@ -10,6 +11,7 @@ const DetailInfo = ({
   openNewMenuModal,
   useMenuElem,
 }) => {
+  const navigate = useNavigate();
   return (
     <DetailInfoContainer>
       <div className="update">가게 정보 업데이트 날짜: 2023-02-23</div>
@@ -45,7 +47,9 @@ const DetailInfo = ({
           <button
             type="button"
             className="addMenuBtn"
-            onClick={openNewMenuModal}
+            onClick={() => {
+              openNewMenuModal(navigate);
+            }}
           >
             메뉴 추가 +
           </button>

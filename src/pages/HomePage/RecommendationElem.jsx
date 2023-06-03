@@ -19,7 +19,7 @@ const RecommendationElem = ({ restaurant }) => {
   const navigate = useNavigate();
   const { isInRouletteFlag, updateRouletteFlag, pushRoulette } =
     useRoulette(restaurant);
-  const { isWish, pushWish } = useWish(restaurant.id);
+  const { isWish, handlePushWish } = useWish(restaurant.id);
 
   return (
     <RecommendationElemContainer
@@ -53,7 +53,7 @@ const RecommendationElem = ({ restaurant }) => {
             type="button"
             className={`btn wishBtn ${isWish ? 'colored' : null}`}
             onClick={(event) => {
-              pushWish();
+              handlePushWish(navigate);
               event.stopPropagation();
             }}
           >

@@ -399,6 +399,8 @@ export const DetailMenuPhotoModalContainer = styled(ModalCommon)`
 
   .newPhotoBtn {
     position: absolute;
+    display: flex;
+    justify-content: center;
     bottom: 24.66px;
     left: 83px;
     width: 188px;
@@ -410,7 +412,6 @@ export const DetailMenuPhotoModalContainer = styled(ModalCommon)`
     color: white;
     font-size: 18px;
     font-family: Pretendard-SemiBold;
-    text-align: center;
 
     input {
       display: none;

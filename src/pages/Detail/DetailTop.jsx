@@ -20,7 +20,7 @@ const DetailTop = ({ restaurant, tab, changeTab }) => {
   const navigate = useNavigate();
   const { isInRouletteFlag, updateRouletteFlag, pushRoulette } =
     useRoulette(restaurant);
-  const { isWish, pushWish } = useWish(restaurant && restaurant.id);
+  const { isWish, handlePushWish } = useWish(restaurant && restaurant.id);
 
   return (
     <DetailTopContainer>
@@ -77,7 +77,7 @@ const DetailTop = ({ restaurant, tab, changeTab }) => {
         <li
           className="navLi"
           onClick={() => {
-            pushWish();
+            handlePushWish(navigate);
           }}
           aria-hidden="true"
         >

@@ -1,23 +1,24 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable react/react-in-jsx-scope */
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { useMutation, useQuery } from 'react-query';
-import { useSelector } from 'react-redux';
+import { useAuth } from './userAuth.helpers';
 
 export const useWish = (id) => {
   const url = `/api/restaurants/${id}/mystore`;
-  const userState = useSelector((state) => state.userAuth);
+  const { authInfo, isAuthorized } = useAuth();
 
-  const { data: isWish } = (id &&
+  const { data: isWishRes } = (id &&
     useQuery(
       ['get', 'wishIsLike', id],
       () =>
         axios
           .get(url, {
             headers: {
-              Authorization: `Bearer ${userState && userState.accessToken}`,
+              Authorization: `Bearer ${authInfo && authInfo.accessToken}`,
             },
           })
           .then((res) => res.data),
@@ -28,12 +29,22 @@ export const useWish = (id) => {
     useMutation(() =>
       axios.post(url, null, {
         headers: {
-          Authorization: `Bearer ${userState && userState.accessToken}`,
+          Authorization: `Bearer ${authInfo && authInfo.accessToken}`,
         },
       })
     )) || { mutate: () => {} };
 
-  return { isWish, pushWish };
+  const isWish = isAuthorized() && isWishRes;
+
+  const handlePushWish = (navigate) => {
+    if (isAuthorized()) {
+      pushWish();
+    } else {
+      navigate('/login');
+    }
+  };
+
+  return { isWish, pushWish, handlePushWish };
 };
 
 export const useRoulette = (restaurant) => {

@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   JudgeNowListContainer,
   JudgeNowListLi,
@@ -13,6 +14,7 @@ import defaultImg from '../../../assets/img/default-image.png';
 const JudgeNowListElem = ({ restaurant }) => {
   const [isDetail, setIsDetail] = useState(false);
   const { pushAgree, isAgree } = useJudgeAgree(restaurant.id);
+  const navigate = useNavigate();
 
   return (
     <>
@@ -48,7 +50,7 @@ const JudgeNowListElem = ({ restaurant }) => {
             className="imageOuter"
             aria-hidden="true"
             onClick={(event) => {
-              pushAgree();
+              pushAgree(navigate);
               event.stopPropagation();
             }}
             style={isAgree ? { backgroundColor: '#6ab2b2' } : null}

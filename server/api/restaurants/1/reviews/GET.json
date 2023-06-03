@@ -2,7 +2,12 @@
   "data": [
     {
       "id": 1,
-      "userName": "짱짱맨",
+      "member": {
+        "id": 2,
+        "email": "jp3869@naver.com",
+        "nickname": "배고픈사람",
+        "icon": null
+      },
       "reviewContent": "정말 맛잇다",
       "rating": 4,
       "createdDate": "2023-03-13",
@@ -10,7 +15,12 @@
     },
     {
       "id": 2,
-      "userName": "배고픈사람",
+      "member": {
+        "id": 1,
+        "email": "jp3869@naver.com",
+        "nickname": "짱킹짱킹킹짱",
+        "icon": null
+      },
       "reviewContent": "정말 맛잇다!!",
       "rating": 3,
       "createdDate": "2023-03-13",
@@ -18,7 +28,12 @@
     },
     {
       "id": 3,
-      "userName": "안배고픈사람",
+      "member": {
+        "id": 2,
+        "email": "jp3869@naver.com",
+        "nickname": "배진짜하나도안고픈사람",
+        "icon": null
+      },
       "reviewContent": "정말 정말 맛잇다!!",
       "rating": 1,
       "createdDate": "2023-03-13",

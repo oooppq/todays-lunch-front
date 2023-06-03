@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { WishAndRoulette } from './restaurant.style';
 import wishIcon from '../../assets/img/restaurant-heart-icon.svg';
 import rouletteIcon from '../../assets/img/restaurant-roulette-icon.svg';
@@ -10,7 +11,8 @@ import { useRoulette, useWish } from '../../libs/common.helpers';
 const ListElemWishAndRoulette = ({ restaurant }) => {
   const { isInRouletteFlag, updateRouletteFlag, pushRoulette } =
     useRoulette(restaurant);
-  const { isWish, pushWish } = useWish(restaurant.id);
+  const { isWish, handlePushWish } = useWish(restaurant.id);
+  const navigate = useNavigate();
 
   return (
     <WishAndRoulette>
@@ -18,7 +20,7 @@ const ListElemWishAndRoulette = ({ restaurant }) => {
         className={isWish ? 'colored' : null}
         type="button"
         onClick={(event) => {
-          pushWish();
+          handlePushWish(navigate);
           event.stopPropagation();
         }}
       >
