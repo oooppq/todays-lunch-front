@@ -18,8 +18,7 @@ import { useRoulette, useWish } from '../../libs/common.helpers';
 
 const DetailTop = ({ restaurant, tab, changeTab }) => {
   const navigate = useNavigate();
-  const { isInRouletteFlag, updateRouletteFlag, pushRoulette } =
-    useRoulette(restaurant);
+  const { isInRoulette, pushRoulette } = useRoulette(restaurant.id);
   const { isWish, handlePushWish } = useWish(restaurant && restaurant.id);
 
   return (
@@ -85,11 +84,10 @@ const DetailTop = ({ restaurant, tab, changeTab }) => {
         </li>
         <li className="navLi">
           <img
-            src={isInRouletteFlag ? coloredRouletteIcon : rouletteIcon}
+            src={isInRoulette ? coloredRouletteIcon : rouletteIcon}
             alt=""
             onClick={() => {
-              pushRoulette();
-              updateRouletteFlag();
+              pushRoulette(restaurant);
             }}
             aria-hidden="true"
           />

@@ -9,8 +9,7 @@ import coloredWishIcon from '../../../assets/img/restaurant-colored-heart-icon.s
 import coloredRouletteIcon from '../../../assets/img/restaurant-colored-roulette-icon.svg';
 
 const ParticipatingRestaurantElem = ({ restaurant }) => {
-  const { isInRouletteFlag, updateRouletteFlag, pushRoulette } =
-    useRoulette(restaurant);
+  const { isInRoulette, pushRoulette } = useRoulette(restaurant.id);
   const { isWish, pushWish } = useWish(restaurant.id);
   const navigate = useNavigate();
 
@@ -40,18 +39,14 @@ const ParticipatingRestaurantElem = ({ restaurant }) => {
           <img src={isWish ? coloredWishIcon : wishIcon} alt="" />
         </button>
         <button
-          className={isInRouletteFlag ? 'colored' : null}
+          className={isInRoulette ? 'colored' : null}
           type="button"
           onClick={(event) => {
-            pushRoulette();
-            updateRouletteFlag();
+            pushRoulette(restaurant);
             event.stopPropagation();
           }}
         >
-          <img
-            src={isInRouletteFlag ? coloredRouletteIcon : rouletteIcon}
-            alt=""
-          />
+          <img src={isInRoulette ? coloredRouletteIcon : rouletteIcon} alt="" />
         </button>
       </div>
     </ParticipatingRestaurantLi>

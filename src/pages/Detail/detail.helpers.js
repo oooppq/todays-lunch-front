@@ -182,14 +182,6 @@ export const useMenuPhoto = (id) => {
       })
     );
 
-  // const addMenuPhoto = (navigate, fd) => {
-  //   if (isAuthorized()) {
-  //     addMenuPhotoRequest(fd);
-  //   } else {
-  //     navigate('/login');
-  //   }
-  // };
-
   const { mutate: deleteMenuPhotoRequest, status: deleteMenuPhotoStatus } =
     useMutation(['deleteMenuPhoto', id], (photoId) =>
       axios.delete(url.concat(`/${photoId}`))
