@@ -17,7 +17,7 @@ const ListElemInfoButton = ({ restaurant }) => {
         type="button"
         onClick={(event) => {
           dispatch(setSelectedMarker(restaurant.id));
-          dispatch(setIsMap(false));
+          dispatch(setIsMap(true));
           dispatch(
             setMapCenter({
               lat: restaurant.latitude,
