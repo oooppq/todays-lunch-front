@@ -78,9 +78,13 @@ export const PlayContainer = styled.div`
     }
   }
   .rouletteOuter {
-    margin-top: 20px;
+    // margin-top: 20px;
     position: relative;
     .rouletteContainer {
+      z-index: -1;
+      position: relative;
+      width: 364px;
+      height: 364px;
       .rouletteImg {
         width: 364px;
         height: 364px;
@@ -92,10 +96,11 @@ export const PlayContainer = styled.div`
         font-family: Pretendard-SemiBold;
         .rouletteLi {
           position: absolute;
-          left: 50%;
-          top: 52px;
+          // left: 50%;
+          // top: 50%;
+          // top: 52px;
           // margin-left: -26px;
-          transform: translate(-50%, 0%);
+          // transform: translate(-50%, -50%);
         }
       }
     }
