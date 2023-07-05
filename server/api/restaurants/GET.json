@@ -10,7 +10,7 @@
       "locationTag": "정문",
       "foodCategory": "일식",
       "rating": 4.7,
-      "review_number": 343
+      "reviewCount": 343
     },
     {
       "id": 2,
@@ -22,7 +22,7 @@
       "locationTag": "정문",
       "foodCategory": "한식",
       "rating": 4.9,
-      "review_number": 4723
+      "reviewCount": 4723
     },
     {
       "id": 3,
@@ -34,7 +34,7 @@
       "locationTag": "정문",
       "foodCategory": "한식",
       "rating": 4.9,
-      "review_number": 4723
+      "reviewCount": 4723
     },
     {
       "id": 4,
@@ -46,7 +46,7 @@
       "locationTag": "정문",
       "foodCategory": "한식",
       "rating": 4.9,
-      "review_number": 4723
+      "reviewCount": 4723
     },
     {
       "id": 5,
@@ -58,7 +58,7 @@
       "locationTag": "정문",
       "foodCategory": "한식",
       "rating": 4.9,
-      "review_number": 4723
+      "reviewCount": 4723
     },
     {
       "id": 6,
@@ -70,7 +70,19 @@
       "locationTag": "정문",
       "foodCategory": "한식",
       "rating": 4.9,
-      "review_number": 4723
+      "reviewCount": 4723
+    },
+    {
+      "id": 7,
+      "restaurantName": "test7",
+      "imageUrl": "",
+      "latitude": 37.5514818,
+      "longitude": 126.9373166,
+      "locationCategory": "서강대학교",
+      "locationTag": "정문",
+      "foodCategory": "한식",
+      "rating": 4.9,
+      "reviewCount": 4723
     }
   ],
   "totalPages": 1

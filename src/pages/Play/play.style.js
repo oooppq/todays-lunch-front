@@ -2,135 +2,183 @@ import styled from 'styled-components';
 
 // eslint-disable-next-line import/prefer-default-export
 export const PlayContainer = styled.div`
-  padding: 30px 13px 0 13px;
   overflow: clip;
+  .fullErrorContainer {
+    display: flex;
+    align-items: center;
+    background-color: #fefbe8;
+    padding: 10px;
 
-  .addedRestaurants {
-    padding-bottom: 10px;
-    margin-bottom: 10px;
-    // border-bottom: 1px solid #ededed;
-    .listTitle {
-      font-size: 18px;
+    border-radius: 20px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+    .warningIcon {
+      width: 50px;
+      margin-right: 10px;
+    }
+    .warningMessage {
+      font-size: 14px;
+      line-height: 20px;
+    }
+  }
+  .toAddContainer {
+    background-color: #fefbe8;
+    font-size: 14px;
+    padding: 7px 20px;
+    border-radius: 20px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+    .toAddBtn {
+      border-bottom: 1px solid;
+      font-size: 15px;
       font-family: Pretendard-SemiBold;
-      margin: 0 0 10px 10px;
-      .listTitleSub {
-        // color: #ff6020;
-        color: #999999;
-        font-size: 14px;
-        font-family: Pretendard;
+    }
+  }
+  .playMain {
+    padding: 0 13px;
+    .addedRestaurants {
+      padding-bottom: 10px;
+      margin-bottom: 10px;
+      // border-bottom: 1px solid #ededed;
+      .listTitle {
+        font-size: 18px;
+        font-family: Pretendard-SemiBold;
+        margin: 0 0 10px 10px;
+        .listTitleSub {
+          // color: #ff6020;
+          color: #999999;
+          font-size: 14px;
+          font-family: Pretendard;
+        }
+      }
+      .restaurantsUl {
+        list-style: none;
+        margin: 0 10px 0 20px;
+        padding: 0;
+        display: flex;
+        flex-wrap: wrap;
+        // overflow-x: auto;
+        .restaurantLi {
+          white-space: nowrap;
+          box-sizing: border-box;
+          height: 24px;
+          margin-bottom: 10px;
+          margin-right: 10px;
+          display: flex;
+          align-items: center;
+          border: 1px solid #bdbdbd;
+          border-radius: 5px;
+          padding: 0 6px;
+          // box-shadow: 0px 1px 8px 0px rgba(0, 0, 0, 0.1);
+          .restaurantName {
+            font-size: 14px;
+            height: 100%;
+            padding-right: 6px;
+            margin-right: 6px;
+            border-right: 1px solid #bdbdbd;
+          }
+          .deleteRestaurantBtn {
+            height: 15px;
+            width: 14px;
+            img {
+              height: 14px;
+              width: 14px;
+            }
+          }
+        }
+        .moreRestaurantBtn {
+          // color: #6ab2b2;
+          background-color: #6ab2b2;
+          color: white;
+          border: 1px solid #6ab2b2;
+          // box-shadow: 0px 1px 8px 0px rgba(0, 0, 0, 0.1);
+          border-radius: 5px;
+          font-family: Pretendard-SemiBold;
+          height: 24px;
+          padding: 3px 6px;
+        }
       }
     }
-    .restaurantsUl {
-      list-style: none;
-      margin: 0 0 0 20px;
-      padding: 0;
-      .restaurantLi {
-        height: 16px;
-        margin-bottom: 5px;
-        display: flex;
-        align-items: center;
-        .restaurantName {
-          font-size: 14px;
+    .needMoreRestaurantOuter {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      .moreRestaurantImg {
+        width: 300px;
+        margin-bottom: 20px;
+      }
+      .moreRestaurantText {
+        text-align: center;
+        margin-bottom: 20px;
+        line-height: 24px;
+        span {
+          font-family: Pretendard-SemiBold;
         }
-        .deleteRestaurantBtn {
-          margin-left: 5px;
-          height: 15px;
-          width: 14px;
-          img {
-            height: 14px;
-            width: 14px;
+      }
+      .moreRestaurantBtn {
+        background-color: #6ab2b2;
+        color: white;
+        padding: 7px 12px;
+        font-size: 18px;
+        font-family: Pretendard-SemiBold;
+        border-radius: 10px;
+      }
+    }
+    .rouletteOuter {
+      margin-top: 10px;
+      position: relative;
+      .rouletteContainer {
+        z-index: -1;
+        position: relative;
+        width: 100%;
+
+        .rouletteImg {
+          width: 100%;
+          display: block;
+        }
+        .rouletteUl {
+          margin: 0;
+          padding: 0;
+          list-style: none;
+          font-family: Pretendard-SemiBold;
+          .rouletteLi {
+            position: absolute;
+            // background-color: rgba(255, 255, 255, 0.3);
+            // padding: 2px 6px;
+            // border-radius: 5px;
           }
         }
       }
-    }
-    .moreRestaurantBtn {
-      color: #494949;
-
-      margin-left: 20px;
-      padding-bottom: 2px;
-      border-bottom: 1px solid #494949;
-      // padding: 3px 5px;
-      // border-radius: 3px;
-      // border: 1px solid #6ab2b2;
-      // background-color: #6ab2b2;
-      // color: white;
-    }
-  }
-  .needMoreRestaurantOuter {
-    width: 364px;
-    height: 418px;
-    position: relative;
-    .rouletteImg {
-      width: 364px;
-      height: 364px;
-    }
-    .blur {
-      text-align: center;
-      box-sizing: border-box;
-      padding-top: 150px;
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 364px;
-      height: 364px;
-      border-radius: 50%;
-      background-color: rgba(255, 255, 192, 0.1);
-      backdrop-filter: blur(10px);
-    }
-  }
-  .rouletteOuter {
-    margin-top: 20px;
-    position: relative;
-    .rouletteContainer {
-      z-index: -1;
-      position: relative;
-      width: 100%;
-
-      .rouletteImg {
+      .selectPin {
+        width: 26px;
+        height: 32px;
+        position: absolute;
+        top: -12px;
+        left: 50%;
+        transform: translate(-50%, 0%);
+      }
+      .btnsOuter {
+        margin-top: 20px;
         width: 100%;
-        display: block;
-      }
-      .rouletteUl {
-        margin: 0;
-        padding: 0;
-        list-style: none;
-        font-family: Pretendard-SemiBold;
-        .rouletteLi {
-          position: absolute;
-          background-color: rgba(255, 255, 255, 0.3);
-          padding: 2px 6px;
-          border-radius: 5px;
+        display: flex;
+        justify-content: center;
+        button {
+          margin: 0 5px;
+          width: 110px;
+          height: 35px;
+          border-radius: 20px;
+          // background-color: black;
+          color: white;
+          font-family: Pretendard-SemiBold;
+          font-size: 16px;
         }
-      }
-    }
-    .selectPin {
-      width: 26px;
-      height: 32px;
-      position: absolute;
-      top: -12px;
-      left: 50%;
-      transform: translate(-50%, 0%);
-    }
-    .btnsOuter {
-      margin-top: 15px;
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      button {
-        margin: 0 5px;
-        width: 110px;
-        height: 35px;
-        border-radius: 20px;
-        // background-color: black;
-        color: white;
-        font-family: Pretendard-SemiBold;
-        font-size: 16px;
-      }
-      .clearBtn {
-        background-color: #6f6f6f;
-      }
-      .startBtn {
-        background-color: #6ab2b2;
+        .clearBtn {
+          background-color: #6f6f6f;
+        }
+        .startBtn {
+          background-color: #6ab2b2;
+        }
       }
     }
   }

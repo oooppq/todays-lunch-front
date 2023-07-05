@@ -2,7 +2,12 @@
 import React from 'react';
 import deleteIcon from '../../assets/img/delete-icon.svg';
 
-const CandidateList = ({ rouletteList, pushRoulette, goToDetail }) => {
+const CandidateList = ({
+  rouletteList,
+  pushRoulette,
+  goToDetail,
+  goToRestaurants,
+}) => {
   return (
     <div className="addedRestaurants">
       <div className="listTitle">
@@ -36,12 +41,16 @@ const CandidateList = ({ rouletteList, pushRoulette, goToDetail }) => {
               </button>
             </li>
           ))}
+        {rouletteList.length < 6 && (
+          <button
+            type="button"
+            className="moreRestaurantBtn"
+            onClick={goToRestaurants}
+          >
+            더 담기 +
+          </button>
+        )}
       </ul>
-      {rouletteList.length >= 2 && (
-        <button type="button" className="moreRestaurantBtn">
-          더 많은 맛집 채우러 가기 +
-        </button>
-      )}
     </div>
   );
 };

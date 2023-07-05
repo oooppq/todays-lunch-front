@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useRoulette } from '../../libs/common.helpers';
 import rouletteImg2 from '../../assets/img/roulette2.png';
 import rouletteImg3 from '../../assets/img/roulette3.png';
@@ -49,10 +49,14 @@ export const usePlay = () => {
     setIsSelected(false);
     setSelectedRestaurant(null);
   };
+
   const goToDetail = (id) => {
     navigate(`/restaurants/${id}`);
   };
 
+  const goToRestaurants = () => {
+    navigate('/restaurants');
+  };
   useEffect(() => {
     const len = rouletteList.length;
 
@@ -103,8 +107,40 @@ export const usePlay = () => {
     pushRoulette,
     clearRoulette,
     goToDetail,
+    goToRestaurants,
     isSelected,
     closeSelectedModal,
     selectedRestaurant,
   };
+};
+
+export const useFullController = (rouletteList, pushRoulette) => {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const [isFullError, setIsFullError] = useState(
+    location.state && location.state.fullFlag
+  );
+  const [toAdd, setToAdd] = useState(location.state && location.state.toAdd);
+  const [addFlag, setAddFlag] = useState(false);
+
+  const addHandler = () => {
+    if (toAdd) {
+      pushRoulette(toAdd);
+      setAddFlag(false);
+      setToAdd(null);
+    }
+  };
+
+  useEffect(() => {
+    if (location.state) navigate('/play', { state: null });
+    if (isFullError) {
+      if (rouletteList.length < 6) {
+        setIsFullError(false);
+        setAddFlag(true);
+      }
+    }
+  }, [rouletteList.length, location, navigate, isFullError]);
+
+  return { toAdd, isFullError, addFlag, addHandler };
 };

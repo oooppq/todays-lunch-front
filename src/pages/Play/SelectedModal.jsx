@@ -28,7 +28,7 @@ const SelectedModal = ({
         </div>
         <div className="review">
           <span className="number">
-            {convertNum(selectedRestaurant.review_number)}
+            {convertNum(selectedRestaurant.reviewCount)}
           </span>
           개의 리뷰
         </div>

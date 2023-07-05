@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable react/react-in-jsx-scope */
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
@@ -48,6 +49,7 @@ export const useWish = (id) => {
 };
 
 export const useRoulette = (id) => {
+  const navigate = useNavigate();
   const rouletteLimit = 6;
   const [isInRoulette, setIsInRoulette] = useState(false);
 
@@ -64,7 +66,6 @@ export const useRoulette = (id) => {
 
   const pushRoulette = (restaurant) => {
     const tempRouletteList = getRouletteList();
-
     if (restaurant) {
       for (let i = 0; i < tempRouletteList.length; i += 1) {
         if (tempRouletteList[i].id === restaurant.id) {
@@ -76,12 +77,16 @@ export const useRoulette = (id) => {
           return;
         }
       }
-      localStorage.setItem(
-        'roulette',
-        JSON.stringify([...tempRouletteList, restaurant])
-      );
-      setRouletteList([...tempRouletteList, restaurant]);
-      if (id !== null) setIsInRoulette(true);
+      if (tempRouletteList.length >= 6) {
+        navigate('/play', { state: { fullFlag: true, toAdd: restaurant } });
+      } else {
+        localStorage.setItem(
+          'roulette',
+          JSON.stringify([...tempRouletteList, restaurant])
+        );
+        setRouletteList([...tempRouletteList, restaurant]);
+        if (id !== null) setIsInRoulette(true);
+      }
     }
   };
 
