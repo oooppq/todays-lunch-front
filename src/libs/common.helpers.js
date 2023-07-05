@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable react/react-in-jsx-scope */
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
@@ -47,59 +48,66 @@ export const useWish = (id) => {
   return { isWish, pushWish, handlePushWish };
 };
 
-export const useRoulette = (restaurant) => {
+export const useRoulette = (id) => {
+  const navigate = useNavigate();
   const rouletteLimit = 6;
+  const [isInRoulette, setIsInRoulette] = useState(false);
 
   const getRouletteList = () => {
     const rouletteList = JSON.parse(localStorage.getItem('roulette')) || [];
     return rouletteList;
   };
-
-  const isInRoulette = () => {
-    if (restaurant) {
-      const rouletteList = getRouletteList();
-      return rouletteList.some((rest) => rest.id === restaurant.id);
-    }
-    return false;
-  };
+  const [rouletteList, setRouletteList] = useState(getRouletteList());
 
   const isRouletteFull = () => {
-    const rouletteList = getRouletteList();
     if (rouletteList.length >= rouletteLimit) return true;
     return false;
   };
 
-  const pushRoulette = () => {
+  const pushRoulette = (restaurant) => {
+    const tempRouletteList = getRouletteList();
     if (restaurant) {
-      const rouletteList = getRouletteList();
-      for (let i = 0; i < rouletteList.length; i += 1) {
-        if (rouletteList[i].id === restaurant.id) {
-          rouletteList.splice(i, 1);
-          localStorage.setItem('roulette', JSON.stringify(rouletteList));
+      for (let i = 0; i < tempRouletteList.length; i += 1) {
+        if (tempRouletteList[i].id === restaurant.id) {
+          const newRouletteList = [...tempRouletteList];
+          newRouletteList.splice(i, 1);
+          localStorage.setItem('roulette', JSON.stringify(newRouletteList));
+          setRouletteList(newRouletteList);
+          if (id !== null) setIsInRoulette(false);
           return;
         }
       }
-      rouletteList.push(restaurant);
-      localStorage.setItem('roulette', JSON.stringify(rouletteList));
+      if (tempRouletteList.length >= 6) {
+        navigate('/play', { state: { fullFlag: true, toAdd: restaurant } });
+      } else {
+        localStorage.setItem(
+          'roulette',
+          JSON.stringify([...tempRouletteList, restaurant])
+        );
+        setRouletteList([...tempRouletteList, restaurant]);
+        if (id !== null) setIsInRoulette(true);
+      }
     }
   };
+
   const clearRoulette = () => {
     localStorage.removeItem('roulette');
+    setRouletteList([]);
   };
 
-  const [isInRouletteFlag, setIsInRouletteFlag] = useState(isInRoulette());
-
-  const updateRouletteFlag = () => {
-    setIsInRouletteFlag(isInRoulette());
-  };
+  useEffect(() => {
+    if (id !== null) {
+      setIsInRoulette(rouletteList.some((rest) => rest.id === id));
+    }
+  }, [id, rouletteList]);
 
   return {
-    getRouletteList,
+    rouletteList,
+
     isRouletteFull,
     pushRoulette,
     clearRoulette,
-    isInRouletteFlag,
-    updateRouletteFlag,
+    isInRoulette,
   };
 };
 

@@ -22,7 +22,67 @@
       "locationTag": "정문",
       "foodCategory": "한식",
       "rating": 4.9,
-      "review_number": 4723
+      "reviewCount": 4723
+    },
+    {
+      "id": 3,
+      "restaurantName": "test3",
+      "imageUrl": "",
+      "latitude": 37.5514818,
+      "longitude": 126.9373166,
+      "locationCategory": "서강대학교",
+      "locationTag": "정문",
+      "foodCategory": "한식",
+      "rating": 4.9,
+      "reviewCount": 4723
+    },
+    {
+      "id": 4,
+      "restaurantName": "test4",
+      "imageUrl": "",
+      "latitude": 37.5514818,
+      "longitude": 126.9373166,
+      "locationCategory": "서강대학교",
+      "locationTag": "정문",
+      "foodCategory": "한식",
+      "rating": 4.9,
+      "reviewCount": 4723
+    },
+    {
+      "id": 5,
+      "restaurantName": "test5",
+      "imageUrl": "",
+      "latitude": 37.5514818,
+      "longitude": 126.9373166,
+      "locationCategory": "서강대학교",
+      "locationTag": "정문",
+      "foodCategory": "한식",
+      "rating": 4.9,
+      "reviewCount": 4723
+    },
+    {
+      "id": 6,
+      "restaurantName": "test6",
+      "imageUrl": "",
+      "latitude": 37.5514818,
+      "longitude": 126.9373166,
+      "locationCategory": "서강대학교",
+      "locationTag": "정문",
+      "foodCategory": "한식",
+      "rating": 4.9,
+      "reviewCount": 4723
+    },
+    {
+      "id": 7,
+      "restaurantName": "test7",
+      "imageUrl": "",
+      "latitude": 37.5514818,
+      "longitude": 126.9373166,
+      "locationCategory": "서강대학교",
+      "locationTag": "정문",
+      "foodCategory": "한식",
+      "rating": 4.9,
+      "reviewCount": 4723
     }
   ],
   "totalPages": 1

@@ -17,8 +17,7 @@ import { useRoulette, useWish } from '../../libs/common.helpers';
 
 const RecommendationElem = ({ restaurant }) => {
   const navigate = useNavigate();
-  const { isInRouletteFlag, updateRouletteFlag, pushRoulette } =
-    useRoulette(restaurant);
+  const { isInRoulette, pushRoulette } = useRoulette(restaurant.id);
   const { isWish, handlePushWish } = useWish(restaurant.id);
 
   return (
@@ -65,16 +64,15 @@ const RecommendationElem = ({ restaurant }) => {
           </button>
           <button
             type="button"
-            className={`btn rouletteBtn ${isInRouletteFlag ? 'colored' : null}`}
+            className={`btn rouletteBtn ${isInRoulette ? 'colored' : null}`}
             onClick={(event) => {
-              pushRoulette();
-              updateRouletteFlag();
+              pushRoulette(restaurant);
               event.stopPropagation();
             }}
           >
             <img
               className="icon"
-              src={isInRouletteFlag ? coloredRouletteIcon : rouletteIcon}
+              src={isInRoulette ? coloredRouletteIcon : rouletteIcon}
               alt=""
             />
           </button>
