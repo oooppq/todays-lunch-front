@@ -251,19 +251,19 @@ export const SelectedModalContainer = styled.div`
         color: black;
       }
     }
-    .detailBtn {
-      color: #666;
-      margin-bottom: 10px;
-      border-bottom: 1px solid #666;
-    }
-    .shareBtn {
-      width: 50%;
-      height: 41px;
-      border-radius: 20px;
-      font-size: 18px;
-      font-family: Pretendard-SemiBold;
-      color: white;
-      background-color: black;
+    .innerBtns {
+      display: flex;
+      margin-top: 10px;
+      .detailBtn {
+        border-radius: 10px;
+        background-color: black;
+        color: white;
+        font-family: Pretendard-SemiBold;
+        font-size: 16px;
+        padding: 7px 12px;
+        // margin-left: 50%;
+        margin-right: 10px;
+      }
     }
   }
 `;
