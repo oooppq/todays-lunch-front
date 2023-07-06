@@ -81,10 +81,15 @@ module.exports = {
       Build Time: ${new Date().toLocaleString()}
       `,
     }),
-    new webpack.DefinePlugin({
-      PUBLIC_URL: JSON.stringify(path.resolve('./public')),
-      'api.domain': JSON.stringify('http:dev.api.domain.com/'),
+    new webpack.ProvidePlugin({
+      process: 'process/browser',
     }),
+    new webpack.DefinePlugin({
+      'process.env.PUBLIC_URL': JSON.stringify(path.resolve('./public')),
+      'process.env.api.domain': JSON.stringify('http:dev.api.domain.com/'),
+      'process.env.BASE_URL': JSON.stringify(path.resolve('./')),
+    }),
+
     new HtmlWebpackPlugin({
       template: './public/index.html',
     }),

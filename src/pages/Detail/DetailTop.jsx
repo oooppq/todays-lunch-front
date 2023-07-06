@@ -14,25 +14,29 @@ import coloredHeartIcon from '../../assets/img/colored-heart-icon.svg';
 import rouletteIcon from '../../assets/img/detail-roulette-icon.svg';
 import coloredRouletteIcon from '../../assets/img/colored-roulette-icon.svg';
 import { handleGoBack } from './detail.helpers';
-import { useRoulette, useWish } from '../../libs/common.helpers';
+import { useRoulette, useShare, useWish } from '../../libs/common.helpers';
 
 const DetailTop = ({ restaurant, tab, changeTab }) => {
   const navigate = useNavigate();
   const { isInRoulette, pushRoulette } = useRoulette(restaurant.id);
   const { isWish, handlePushWish } = useWish(restaurant && restaurant.id);
+  const { isShareModalOpen, ShareModalBtn, ShareModal } = useShare(restaurant);
 
   return (
     <DetailTopContainer>
-      <button
-        type="button"
-        className="backBtn"
-        onClick={() => {
-          handleGoBack(navigate);
-        }}
-      >
-        <img src={backIcon} alt="" />
-      </button>
-
+      <div className="detailTopBtns">
+        <button
+          type="button"
+          className="backBtn"
+          onClick={() => {
+            handleGoBack(navigate);
+          }}
+        >
+          <img src={backIcon} alt="" />
+        </button>
+        <ShareModalBtn className="shareModalBtn" />
+      </div>
+      {isShareModalOpen && <ShareModal />}
       <div className="restInfo">
         <img
           className="restImg"

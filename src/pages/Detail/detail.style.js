@@ -18,9 +18,12 @@ export const DetailTopContainer = styled.div`
   border-bottom-right-radius: 10px;
   border-bottom-left-radius: 10px;
   box-shadow: 0 4px 2.5px rgba(0, 0, 0, 0.1);
-  .backBtn {
-    margin: 20px 0 0 16px;
+  .detailTopBtns {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 16px 0 16px;
   }
+
   .restInfo {
     margin-top: 17px;
     width: 100%;
