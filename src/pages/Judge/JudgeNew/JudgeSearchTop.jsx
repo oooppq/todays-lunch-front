@@ -1,4 +1,3 @@
-/* eslint-disable prefer-template */
 /* eslint-disable react/prop-types */
 import React, { useEffect } from 'react';
 import { JudgeSearchHeader, JudgeSearchBox } from './judgeNew.style';

@@ -79,4 +79,4 @@ const RecentSearch = ({ data }) => {
   );
 };
 
-export default React.memo(RecentSearch);
+export default RecentSearch;

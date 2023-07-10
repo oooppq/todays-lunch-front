@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React, { useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import cameraIcon from '../../../assets/img/camera-icon.svg';
