@@ -36,23 +36,33 @@ export const useRestaurant = () => {
     {
       queryKey: ['location-category'],
       queryFn: () =>
-        axios.get('/api/location-category').then((res) => res.data),
+        axios
+          .get('http://localhost:3004/location-category')
+          .then((res) => res.data),
       refetchOnWindowFocus: false,
     },
     {
       queryKey: ['location-tags'],
-      queryFn: () => axios.get('/api/location-tags').then((res) => res.data),
+      queryFn: () =>
+        axios
+          .get('http://localhost:3004/location-tags')
+          .then((res) => res.data),
       refetchOnWindowFocus: false,
     },
     {
       queryKey: ['food-category'],
-      queryFn: () => axios.get('/api/food-category').then((res) => res.data),
+      queryFn: () =>
+        axios
+          .get('http://localhost:3004/food-category')
+          .then((res) => res.data),
       refetchOnWindowFocus: false,
     },
     {
       queryKey: ['recommend-category'],
       queryFn: () =>
-        axios.get('/api/recommend-category').then((res) => res.data),
+        axios
+          .get('http://localhost:3004/recommend-category')
+          .then((res) => res.data),
       refetchOnWindowFocus: false,
     },
   ]);

@@ -25,7 +25,6 @@ const Restaurant = () => {
   // const restaurants = useSelector((state) => state.restaurant.restaurants);
 
   // if (categoryIsError || categoryIsFetching) return null;
-
   return (
     <RestaurantContainer>
       {!categoryIsError && !categoryIsFetching && (
