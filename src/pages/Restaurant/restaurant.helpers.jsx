@@ -8,7 +8,8 @@ import { setMapCenter, setMapLevel } from '../../redux/map';
 import { setSelectedLocCat, setSelectedLocTag } from '../../redux/restaurant';
 
 export const restaurantUrlMaker = (state, pageNum) => {
-  let url = '/api/restaurants?';
+  // let url = '/api/restaurants?';
+  let url = 'http://localhost:3004/restaurants/?';
   // console.log(state.selectedFoodCat);
   if (state.selectedLocCat)
     url += `&location-category=${state.selectedLocCat.name}`;

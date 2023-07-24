@@ -24,16 +24,19 @@ const Restaurant = () => {
   const isMap = useSelector((state) => state.map.isMap);
   // const restaurants = useSelector((state) => state.restaurant.restaurants);
 
-  if (categoryIsError || categoryIsFetching) return null;
+  // if (categoryIsError || categoryIsFetching) return null;
 
   return (
     <RestaurantContainer>
-      <RestaurantNav
-        locCategory={locCategory.data}
-        locTag={locTag.data}
-        foodCategory={foodCategory.data}
-        recomCategory={recomCategory.data}
-      />
+      {!categoryIsError && !categoryIsFetching && (
+        <RestaurantNav
+          locCategory={locCategory.data}
+          locTag={locTag.data}
+          foodCategory={foodCategory.data}
+          recomCategory={recomCategory.data}
+        />
+      )}
+
       {isMap ? (
         <Map restaurants={getRestaurantData()} />
       ) : (

@@ -10,12 +10,13 @@ import { convertNum, gotoDetailOnClick } from '../../libs/utils';
 const queryClient = new QueryClient();
 
 const SetData = ({ navigate }) => {
-  const { isLoading, error, data } = useQuery(['sales', 'list'], () =>
-    axios.get('/api/sales').then((res) => res.data)
+  // const { isLoading, error, data } = useQuery(['sales', 'list'], () =>
+  const { data } = useQuery(['sales', 'list'], () =>
+    axios.get('http://localhost:3004/sales').then((res) => res.data)
   );
 
-  if (isLoading) return null;
-  if (error) return 'error';
+  // if (isLoading) return null;
+  // if (error) return 'error';
 
   return (
     <SaleContainer>

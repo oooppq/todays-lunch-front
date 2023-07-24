@@ -8,24 +8,29 @@ import RecommendationElem from './RecommendationElem';
 
 const Recommendation = () => {
   const { isLoading, error, data } = useQuery(['recommends', 'list'], () =>
-    axios.get('/api/recommends').then((res) => res.data)
+    axios.get('http://localhost:3004/recommends').then((res) => res.data)
   );
 
-  if (isLoading) return null;
-  if (error) return 'error!';
+  // if (isLoading) return null;
+  // if (error) return 'error!';
 
   return (
     <RecommendationContainer>
       <RecommendationTitle>
         🍚 <span>오늘의</span> 맛집
       </RecommendationTitle>
-      <Carousel showStatus={false} showArrows={false} showThumbs={false}>
-        {data
-          ? data.map((restaurant) => (
-              <RecommendationElem key={restaurant.id} restaurant={restaurant} />
-            ))
-          : null}
-      </Carousel>
+      {!isLoading && !error && (
+        <Carousel showStatus={false} showArrows={false} showThumbs={false}>
+          {data
+            ? data.map((restaurant) => (
+                <RecommendationElem
+                  key={restaurant.id}
+                  restaurant={restaurant}
+                />
+              ))
+            : null}
+        </Carousel>
+      )}
     </RecommendationContainer>
   );
 };
