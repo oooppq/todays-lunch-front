@@ -274,15 +274,17 @@ export const useChangePassword = () => {
     isLoading: isPasswordCheckLoading,
     error: passwordCheckError,
   } = useMutation(['passwordValidation'], (password) => {
-    return axios.post(
-      `${SERVER_URL}/check-pw`,
-      { password },
-      {
-        headers: {
-          Authorization: `Bearer ${authInfo.accessToken}`,
-        },
-      }
-    );
+    return axios
+      .post(
+        `${SERVER_URL}/check-pw`,
+        { password },
+        {
+          headers: {
+            Authorization: `Bearer ${authInfo.accessToken}`,
+          },
+        }
+      )
+      .then((res) => res.data);
   });
 
   const { checkPassword, checkPasswordConfirm } = useInputValidation();
