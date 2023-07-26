@@ -123,6 +123,7 @@ const JoinBodyFirst = ({
                   codeReset();
                   emailValidationRequest();
                   setValidationStatus('sent');
+                  codeRef.current.value = '';
                 }
               }}
             >
