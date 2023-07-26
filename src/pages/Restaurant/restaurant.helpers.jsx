@@ -7,9 +7,11 @@ import { flattenPages } from '../../libs/utils';
 import { setMapCenter, setMapLevel } from '../../redux/map';
 import { setSelectedLocCat, setSelectedLocTag } from '../../redux/restaurant';
 
+const SERVER_URL = import.meta.env.VITE_SERVER_URL;
+
 export const restaurantUrlMaker = (state, pageNum) => {
   // let url = '/api/restaurants?';
-  let url = 'http://localhost:3004/restaurants/?';
+  let url = `${SERVER_URL}/restaurants/?`;
   // console.log(state.selectedFoodCat);
   if (state.selectedLocCat)
     url += `&location-category=${state.selectedLocCat.name}`;
@@ -36,33 +38,25 @@ export const useRestaurant = () => {
     {
       queryKey: ['location-category'],
       queryFn: () =>
-        axios
-          .get('http://localhost:3004/location-category')
-          .then((res) => res.data),
+        axios.get(`${SERVER_URL}/location-category`).then((res) => res.data),
       refetchOnWindowFocus: false,
     },
     {
       queryKey: ['location-tags'],
       queryFn: () =>
-        axios
-          .get('http://localhost:3004/location-tags')
-          .then((res) => res.data),
+        axios.get(`${SERVER_URL}/location-tag`).then((res) => res.data),
       refetchOnWindowFocus: false,
     },
     {
       queryKey: ['food-category'],
       queryFn: () =>
-        axios
-          .get('http://localhost:3004/food-category')
-          .then((res) => res.data),
+        axios.get(`${SERVER_URL}/food-category`).then((res) => res.data),
       refetchOnWindowFocus: false,
     },
     {
       queryKey: ['recommend-category'],
       queryFn: () =>
-        axios
-          .get('http://localhost:3004/recommend-category')
-          .then((res) => res.data),
+        axios.get(`${SERVER_URL}/recommend-tag`).then((res) => res.data),
       refetchOnWindowFocus: false,
     },
   ]);

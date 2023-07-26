@@ -10,6 +10,8 @@ import {
 } from '../redux/userAuth';
 import { authStates } from './utils';
 
+const SERVER_URL = import.meta.env.VITE_SERVER_URL;
+
 export const ACCESS_EXPIRE_TIME = (1 / 2) * 3600 * 1000; // access token expires time 30 minutes
 export const REFRESH_EXPIRE_TIME = 3600 * 1000; // refresh token expires time 30 minutes
 
@@ -23,9 +25,9 @@ export const useAuth = () => {
     isLoading: authIsLoading,
     reset,
   } = useMutation(['authRequest'], ({ mode, payload }) => {
-    let url = '/api/login'; // login url
+    let url = `${SERVER_URL}/login`; // login url
     if (mode === 'refresh') {
-      url = '/api/refresh'; // refresh url
+      url = `${SERVER_URL}/login`; // refresh url
       // axios.defaults.headers.common.Authorization = `Bearer ${payload}`;
       return axios.post(url, null, {
         headers: {
@@ -93,7 +95,7 @@ export const useAuth = () => {
 
   const { mutate: logout, isSuccess: logoutIsSuccess } = useMutation(
     (accessToken) =>
-      axios.post('/api/logout', null, {
+      axios.post(`${SERVER_URL}/logout`, null, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },

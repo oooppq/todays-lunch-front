@@ -10,6 +10,8 @@ import {
 
 import Dropdown from '../../../components/Dropdown';
 
+const SERVER_URL = import.meta.env.VITE_SERVER_URL;
+
 const JudgeNewDropdown = () => {
   const foodCategory = useSelector((state) => state.judgeNew.foodCategory);
   const locationTag = useSelector((state) => state.judgeNew.locationTag);
@@ -40,28 +42,34 @@ const JudgeNewDropdown = () => {
     {
       queryKey: ['location-category'],
       queryFn: () =>
-        axios.get('/api/location-category').then((res) => res.data),
+        axios.get(`${SERVER_URL}/location-category`).then((res) => res.data),
       refetchOnWindowFocus: false,
     },
     {
       queryKey: ['location-tags'],
-      queryFn: () => axios.get('/api/location-tags').then((res) => res.data),
+      queryFn: () =>
+        axios.get(`${SERVER_URL}/location-tag`).then((res) => res.data),
       refetchOnWindowFocus: false,
     },
     {
       queryKey: ['food-category'],
-      queryFn: () => axios.get('/api/food-category').then((res) => res.data),
+      queryFn: () =>
+        axios.get(`${SERVER_URL}/food-category`).then((res) => res.data),
       refetchOnWindowFocus: false,
     },
     // {
     //   queryKey: ['recommend-category'],
     //   queryFn: () =>
-    //     axios.get('/api/recommend-category').then((res) => res.data),
+    //     axios.get('${SERVER_URL}/recommend-category').then((res) => res.data),
     //   refetchOnWindowFocus: false,
     // },
   ]);
 
-  if (ress.some((res) => res.status === 'loading')) return null;
+  if (
+    ress.some((res) => res.status === 'loading') ||
+    ress.some((res) => res.error)
+  )
+    return null;
 
   return (
     <div className="dropdowns">

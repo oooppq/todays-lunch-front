@@ -7,6 +7,8 @@ import { useAuth } from '../../libs/userAuth.helpers';
 import { authStates, flattenPages } from '../../libs/utils';
 import { useInputValidation } from '../Join/join.helpers';
 
+const SERVER_URL = import.meta.env.VITE_SERVER_URL;
+
 export const useMyPage = (navigate) => {
   const userState = useSelector((state) => state.userAuth);
 
@@ -18,7 +20,7 @@ export const useMyPage = (navigate) => {
     ['userInformation', userState.refreshToken],
     () =>
       axios
-        .get('/api/mypage', {
+        .get(`${SERVER_URL}/mypage`, {
           headers: {
             Authorization: `Bearer ${userState.accessToken}`,
           },

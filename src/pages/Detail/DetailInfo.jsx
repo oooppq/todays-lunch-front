@@ -55,13 +55,14 @@ const DetailInfo = ({
           </button>
         </div>
         <ul className="menuUl">
-          {menuData.map((menu) => (
-            <DetailMenuElement
-              key={menu.id}
-              menu={menu}
-              useMenuElem={useMenuElem}
-            />
-          ))}
+          {menuData &&
+            menuData.map((menu) => (
+              <DetailMenuElement
+                key={menu.id}
+                menu={menu}
+                useMenuElem={useMenuElem}
+              />
+            ))}
         </ul>
       </div>
     </DetailInfoContainer>

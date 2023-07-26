@@ -18,8 +18,12 @@ import { useRoulette, useShare, useWish } from '../../libs/common.helpers';
 
 const DetailTop = ({ restaurant, tab, changeTab }) => {
   const navigate = useNavigate();
+
   const { isInRoulette, pushRoulette } = useRoulette(restaurant.id);
-  const { isWish, handlePushWish } = useWish(restaurant && restaurant.id);
+  const { isWish, handlePushWish } = useWish(
+    restaurant && restaurant.id,
+    restaurant.isLike
+  );
   const { isShareModalOpen, ShareModalBtn, ShareModal } = useShare(restaurant);
 
   return (

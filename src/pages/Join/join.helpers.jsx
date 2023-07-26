@@ -3,6 +3,8 @@ import axios from 'axios';
 import { useState } from 'react';
 import { useMutation, useQueries } from 'react-query';
 
+const SERVER_URL = import.meta.env.VITE_SERVER_URL;
+
 export const useInputValidation = () => {
   const REGEX = {
     EMAIL: /\S+@\S+\.\S+/,
@@ -75,7 +77,7 @@ export const useJoinHandler = () => {
     status,
     error,
   } = useMutation(() =>
-    axios.post('/api/join', joinInfo, {
+    axios.post(`${SERVER_URL}/join`, joinInfo, {
       headers: {
         'Content-Type': `application/json`,
       },
@@ -168,12 +170,13 @@ export const useGetCategories = () => {
     {
       queryKey: ['location-category'],
       queryFn: () =>
-        axios.get('/api/location-category').then((res) => res.data),
+        axios.get(`${SERVER_URL}/location-category`).then((res) => res.data),
       refetchOnWindowFocus: false,
     },
     {
       queryKey: ['food-category'],
-      queryFn: () => axios.get('/api/food-category').then((res) => res.data),
+      queryFn: () =>
+        axios.get(`${SERVER_URL}/food-category`).then((res) => res.data),
       refetchOnWindowFocus: false,
     },
   ]);

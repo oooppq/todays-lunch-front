@@ -6,6 +6,8 @@ import fullStarIcon from '../../assets/img/full-star-icon.svg';
 import emptyStarIcon from '../../assets/img/empty-star-icon.svg';
 import { useAuth } from '../../libs/userAuth.helpers';
 
+const SERVER_URL = import.meta.env.VITE_SERVER_URL;
+
 export const handleGoBack = (navigate) => {
   navigate(-1);
 };
@@ -16,10 +18,10 @@ export const useDetail = (id) => {
   const { isAuthorized } = useAuth();
 
   const getRestaurantFn = () =>
-    axios.get(`/api/restaurants/${id}`).then((res) => res.data);
+    axios.get(`${SERVER_URL}/restaurants/${id}`).then((res) => res.data);
 
   const getMenuFn = () =>
-    axios.get(`/api/restaurants/${id}/menus`).then((res) => res.data);
+    axios.get(`${SERVER_URL}/restaurants/${id}/menus`).then((res) => res.data);
 
   const {
     data: restaurant,

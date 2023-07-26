@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
-import { useMutation, useQuery } from 'react-query';
+import { useMutation } from 'react-query';
 import { useAuth } from './userAuth.helpers';
 import xIcon from '../assets/img/x-icon.svg';
 import shareIcon from '../assets/img/share-icon.svg';
@@ -15,26 +15,29 @@ import {
   ShareModalBtnContainer,
 } from '../pages/common.style';
 
-export const useWish = (id) => {
-  const url = `/api/restaurants/${id}/mystore`;
+const SERVER_URL = import.meta.env.VITE_SERVER_URL;
+
+export const useWish = (id, _isWish) => {
+  const url = `${SERVER_URL}/restaurants/${id}/mystore`;
   const { authInfo, isAuthorized } = useAuth();
 
-  const { data: isWishRes } = (id &&
-    useQuery(
-      ['get', 'wishIsLike', id],
-      () =>
-        axios
-          .get(url, {
-            headers: {
-              Authorization: `Bearer ${authInfo && authInfo.accessToken}`,
-            },
-          })
-          .then((res) => res.data),
-      { refetchOnWindowFocus: false }
-    )) || { data: false };
+  const [isWish, setIsWish] = useState(_isWish);
+  // const { data: isWishRes } = (id &&
+  //   useQuery(
+  //     ['get', 'wishIsLike', id],
+  //     () =>
+  //       axios
+  //         .get(url, {
+  //           headers: {
+  //             Authorization: `Bearer ${authInfo && authInfo.accessToken}`,
+  //           },
+  //         })
+  //         .then((res) => res.data),
+  //     { refetchOnWindowFocus: false }
+  //   )) || { data: false };
 
   const { mutate: pushWish } = (id &&
-    useMutation(() =>
+    useMutation(['push', 'isLike'], () =>
       axios.post(url, null, {
         headers: {
           Authorization: `Bearer ${authInfo && authInfo.accessToken}`,
@@ -42,16 +45,20 @@ export const useWish = (id) => {
       })
     )) || { mutate: () => {} };
 
-  const isWish = isAuthorized() && isWishRes;
+  // const isWish = isAuthorized() && isWishRes;
 
   const handlePushWish = (navigate) => {
     if (isAuthorized()) {
       pushWish();
+      setIsWish((state) => !state);
     } else {
       navigate('/login');
     }
   };
 
+  useEffect(() => {
+    setIsWish(_isWish);
+  }, [_isWish]);
   return { isWish, pushWish, handlePushWish };
 };
 
