@@ -28,6 +28,9 @@ const Join = () => {
     deleteCategory,
     goToNextStage,
     postJoinRequest,
+    emailValidationRequest,
+    varificationCode,
+    reset,
   } = useJoinHandler();
 
   return (
@@ -43,6 +46,9 @@ const Join = () => {
             return (
               <JoinBodyFirst
                 email={email}
+                emailValidationRequest={emailValidationRequest}
+                varificationCode={varificationCode}
+                codeReset={reset}
                 nickName={nickName}
                 password={password}
                 passwordConfirm={passwordConfirm}
@@ -68,12 +74,7 @@ const Join = () => {
             );
           case 3:
             return (
-              <JoinSuccess
-                nickName={nickName}
-                email={email}
-                status={status}
-                error={error}
-              />
+              <JoinSuccess nickName={nickName} status={status} error={error} />
             );
           default:
             return null;

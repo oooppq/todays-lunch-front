@@ -67,11 +67,22 @@ export const useJoinHandler = () => {
 
   const joinInfo = {
     email,
-    nickName,
+    nickname: nickName,
     password,
-    locations: locations.map((loc) => loc.data && loc.data.name),
-    foods: foods.map((fo) => fo.data && fo.data.name),
+    locationCategoryList: locations.map((loc) => loc.name),
+    foodCategoryList: foods.map((fo) => fo.name),
   };
+
+  const {
+    mutate: emailValidationRequest,
+    data: varificationCode,
+    reset,
+  } = useMutation(() =>
+    axios
+      .post(`${SERVER_URL}/email-verification/send-code?email=${email}`)
+      .then((res) => res.data)
+  );
+
   const {
     mutate: postJoinRequest,
     status,
@@ -138,6 +149,9 @@ export const useJoinHandler = () => {
     deleteCategory,
     goToNextStage,
     postJoinRequest,
+    emailValidationRequest,
+    varificationCode,
+    reset,
   };
 };
 

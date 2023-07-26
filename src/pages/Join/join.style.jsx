@@ -46,6 +46,71 @@ export const JoinBodyFirstContainer = styled.div`
       color: #ff6020;
     }
   }
+  .email {
+    margin-top: 9px;
+    height: 40px;
+    display: flex;
+    .emailInput {
+      margin-top: 0;
+    }
+    .checkBtn {
+      margin-left: 5px;
+      width: 60px;
+      height: 100%;
+      background-color: #6ab2b2;
+      font-family: Pretendard-SemiBold;
+      color: white;
+      font-size: 15px;
+      border-radius: 3px;
+      padding: 5px 10px;
+    }
+  }
+  .validationOuter {
+    margin-top: 0;
+    padding-bottom: 15px;
+    height: 40px;
+    .validation {
+      display: flex;
+
+      .validationInput {
+        // width: 100%;
+        flex-grow: 2;
+        padding-top: 17px;
+        // padding-left: 20px;
+        height: 30px;
+        border: none;
+        border-bottom: 1px solid #e3e3e3;
+      }
+      .validationBtn {
+        margin-left: 10px;
+        margin-top: 17px;
+        width: 45px;
+        height: 30px;
+        background-color: #7a7a7a;
+        font-family: Pretendard-SemiBold;
+        color: white;
+        font-size: 13px;
+        border-radius: 3px;
+        padding: 5px 5px;
+      }
+      .againBtn {
+        margin-left: 5px;
+        background-color: black;
+      }
+    }
+    .validationMessage {
+      margin-top: 7px;
+      color: #7a7a7a;
+      font-size: 12px;
+    }
+    .success {
+      color: #4bb543;
+    }
+    .fail {
+      color: rgb(202, 45, 24);
+    }
+  }
+
   .input {
     box-sizing: border-box;
     width: 100%;
@@ -139,7 +204,7 @@ export const JoinBodySecondContainer = styled.div`
 `;
 
 export const JoinSuccessContainer = styled.div`
-  margin: 38px 36px 0 36px;
+  margin: 70px 36px 0 36px;
   .successContent {
     text-align: center;
     font-size: 16px;
