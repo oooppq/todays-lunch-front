@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import { useMutation } from 'react-query';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -7,6 +8,7 @@ import {
   setId,
   setRefreshToken,
   setState,
+  setTemporary,
 } from '../redux/userAuth';
 import { authStates } from './utils';
 
@@ -16,6 +18,7 @@ export const ACCESS_EXPIRE_TIME = (1 / 2) * 3600 * 1000; // access token expires
 export const REFRESH_EXPIRE_TIME = 3600 * 1000; // refresh token expires time 30 minutes
 
 export const useAuth = () => {
+  const navigate = useNavigate();
   const authInfo = useSelector((state) => state.userAuth);
   const dispatch = useDispatch();
   const {
@@ -56,7 +59,7 @@ export const useAuth = () => {
     dispatch(setEmail(info ? info.email : null));
     dispatch(setAccessToken(info ? info.accessToken : null));
     dispatch(setRefreshToken(info ? info.refreshToken : null));
-
+    dispatch(setTemporary(info && info.temporary));
     dispatch(setState(state));
     if (state === authStates.AUTHORIZED) {
       // axios.defaults.headers.common.Authorization = `Bearer ${access}`;
@@ -112,6 +115,9 @@ export const useAuth = () => {
         if (authResponse) {
           // 유저 인증이 제대로 완료됐을 때
           setAuthInfo(authStates.AUTHORIZED, authResponse.data);
+          setTimeout(() => {
+            navigate('/mypage/change-password');
+          }, 1);
         } else if (authError) {
           // console.log(authError.response.status);
           if (authError.response.status === 404) {

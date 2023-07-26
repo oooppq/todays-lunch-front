@@ -267,14 +267,23 @@ export const useChangePassword = () => {
   const [newPassword, setNewPassword] = useState('');
   const [newPasswordConfirm, setNewPasswordConfirm] = useState('');
 
+  const authInfo = useSelector((state) => state.userAuth);
   const {
     mutate: checkCurrentPassword,
     data: isCorrectPassword,
     isLoading: isPasswordCheckLoading,
     error: passwordCheckError,
-  } = useMutation(['passwordValidation'], (password) =>
-    axios.post('/api/mypage/password-check', password).then((res) => res.data)
-  );
+  } = useMutation(['passwordValidation'], (password) => {
+    return axios.post(
+      `${SERVER_URL}/check-pw`,
+      { password },
+      {
+        headers: {
+          Authorization: `Bearer ${authInfo.accessToken}`,
+        },
+      }
+    );
+  });
 
   const { checkPassword, checkPasswordConfirm } = useInputValidation();
   const {
@@ -282,10 +291,27 @@ export const useChangePassword = () => {
     error: passwordChangeError,
     status: passwordChangeStatus,
   } = useMutation(['changePassword'], (password) => {
-    const fd = new FormData();
-    fd.append('password', password);
+    // const fd = new FormData();
+    // fd.append('password', password);
 
-    return axios.post('/api/mypage/password-change', fd);
+    // return axios({
+    //   method: 'patch',
+    //   url: `${SERVER_URL}/change-pw`,
+    //   data: fd,
+    //   headers: {
+    //     'Content-Type': 'multipart/form-data',
+    //     Authorization: `Bearer ${authInfo.accessToken}`,
+    //   },
+    // });
+    return axios.patch(
+      `${SERVER_URL}/change-pw`,
+      { password },
+      {
+        headers: {
+          Authorization: `Bearer ${authInfo.accessToken}`,
+        },
+      }
+    );
   });
 
   const handlePasswordChangeSubmit = () => {

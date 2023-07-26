@@ -16,7 +16,7 @@ const LoginBottom = ({ openFindPassword }) => {
         className="findPasswordBtn"
         onClick={() => openFindPassword()}
       >
-        비번 찾기
+        비밀번호 찾기
       </button>
     </LoginBottomContainer>
   );

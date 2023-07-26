@@ -102,17 +102,102 @@ export const FindPasswordModalContainer = styled.div`
   right: 0;
   z-index: 999;
   .modalInner {
+    // padding-bottom: 30px;
+    box-sizing: border-box;
+    padding: 16px 16px 30px 16px;
     position: relative;
     display: flex;
     flex-direction: column;
     width: 354px;
-    height: 521px;
+    min-height: 250px;
     background-color: white;
     border-radius: 10px;
     .closeBtn {
       position: absolute;
       top: 16px;
       right: 18px;
+    }
+    .title {
+      margin-left: 2px;
+      font-size: 20px;
+      font-family: Pretendard-SemiBold;
+    }
+    .main {
+      margin-top: 30px;
+      text-align: center;
+      .explain {
+        line-height: 24px;
+      }
+      .emailInputOuter {
+        margin: 30px 15px 0 15px;
+
+        display: flex;
+        .emailInput {
+          box-sizing: border-box;
+
+          flex-grow: 2;
+          height: 45px;
+          background-color: #f4f4f4;
+          color: #707070;
+          border: 1px solid #e3e3e3;
+          border-radius: 3px;
+          padding-left: 12px;
+        }
+        .sendBtn {
+          margin-left: 5px;
+          width: 60px;
+          font-size: 16px;
+          font-family: Pretendard-SemiBold;
+          background-color: #6ab2b2;
+          border-radius: 3px;
+          color: white;
+        }
+      }
+    }
+    .success {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 20px;
+      margin-top: 20px;
+      .successExplain {
+        text-align: center;
+        line-height: 28px;
+        font-size: 15px;
+        margin-bottom: 20px;
+      }
+      .btns {
+        width: 100%;
+        display: flex;
+        justify-content: start;
+        align-items: end;
+        .okBtn {
+          margin-left: 50%;
+          transform: translate(-50%, 0);
+
+          // margin-top: auto;
+          width: 80px;
+          height: 40px;
+          font-size: 16px;
+          font-family: Pretendard-SemiBold;
+          background-color: black;
+          border-radius: 3px;
+          color: white;
+        }
+        .againBtn {
+          color: #707070;
+          margin-left: -30px;
+          padding-bottom: 2px;
+          margin-bottom: 5px;
+          // margin-left: 10px;
+          border-bottom: 1px solid #707070;
+        }
+      }
+    }
+    .warning {
+      margin: 10px 0 0 20px;
+      font-size: 13px;
+      color: rgb(202, 45, 24);
     }
   }
 `;
