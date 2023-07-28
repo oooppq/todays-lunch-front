@@ -302,10 +302,34 @@ export const JudgeSearchBox = styled.div`
   }
 `;
 export const StyledMap = styled(Map)`
+  position: relative;
   width: 100%;
   height: 587px;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
+  .currentLocationBtn {
+    background-color: green;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+  }
+`;
+
+export const CurrentLocationBtn = styled.button`
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  bottom: 30px;
+  right: 20px;
+  z-index: 1000;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  padding: 5px;
+  img {
+    width: 20px;
+    height: 20px;
+  }
 `;
 
 export const SelectedResultContainer = styled.div`
@@ -532,7 +556,8 @@ export const JudgeNewDoneModalInner = styled.div`
 `;
 
 export const JudgeRecentSearchContainer = styled.div`
-  margin: 67.5px 25px 0 25px;
+  margin-top: 67.5px;
+  padding: 0 25px;
   height: 515px;
   overflow-y: auto;
 `;
