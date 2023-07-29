@@ -17,15 +17,19 @@ const JudgeNewDoneModal = ({ setIsDone }) => {
   const fd = new FormData();
   Object.entries(judgeNewStates).forEach(([key, value]) => {
     if (value) {
-      if (key === 'locationCategory')
-        fd.append('locationCategoryName', value.name);
-      else if (key === 'locationTag') fd.append('locationTagName', value.name);
-      else if (key === 'foodCategory')
-        fd.append('foodCategoryName', value.name);
-      else if (key === 'recommendCategory' && value.length)
-        fd.append('ecommendCategory', value);
-      else fd.append(key, value);
-    }
+      // if (key === 'locationCategory')
+      //   fd.append('locationCategoryName', value.name);
+      // else if (key === 'locationTag') fd.append('locationTagName', value.name);
+      if (key === 'foodCategory') fd.append('foodCategoryName', value.name);
+      else if (key === 'recommendCategory') {
+        if (value.length)
+          fd.append(
+            'recommendCategoryIds',
+            value.map((cat) => cat.id)
+          );
+        else fd.append('recommendCategoryIds', null);
+      } else fd.append(key, value);
+    } else fd.append(key, null);
   });
 
   const { mutate, isLoading } = useMutation((toSend) =>
@@ -55,31 +59,29 @@ const JudgeNewDoneModal = ({ setIsDone }) => {
               <img src={xIcon} alt="" />
             </button>
             <div className="confirmDiv">
-              <div>
-                맛집 등록하기
-                <br />
-                작성을 완료하셨나요?
+              <div className="comment">작성을 완료하셨나요?</div>
+              <div className="btns">
+                <button
+                  type="button"
+                  className="yesNoBtn"
+                  onClick={() => {
+                    mutate(fd);
+                    dispatch(reset());
+                    setIsYes(true);
+                  }}
+                >
+                  네
+                </button>
+                <button
+                  type="button"
+                  className="yesNoBtn"
+                  onClick={() => {
+                    setIsDone(false);
+                  }}
+                >
+                  아니요
+                </button>
               </div>
-              <button
-                type="button"
-                className="yesNoBtn"
-                onClick={() => {
-                  mutate(fd);
-                  dispatch(reset());
-                  setIsYes(true);
-                }}
-              >
-                네
-              </button>
-              <button
-                type="button"
-                className="yesNoBtn"
-                onClick={() => {
-                  setIsDone(false);
-                }}
-              >
-                아니요
-              </button>
             </div>
           </>
         )}

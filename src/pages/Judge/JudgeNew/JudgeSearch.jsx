@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types */
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
 import {
   JudgeSearchContainer,
   JudgeSearchInner,
   JudgeRecentSearchContainer,
 } from './judgeNew.style';
-
 import JudgeSearchResult from './JudgeSearchResult';
 import JudgeSearchMap from './JudgeSearchMap';
 import RecentSearch from '../../../components/RecentSearch';
@@ -21,10 +21,28 @@ const JudgeSearch = ({ setIsSearch }) => {
   const [keyBuffer, setKeyBuffer] = useState('');
   const [keyword, setKeyword] = useState('');
   const inputRef = useRef();
-
+  const judgeNewState = useSelector((state) => state.judgeNew);
+  useEffect(() => {
+    if (judgeNewState.restaurantName) {
+      const prev = {
+        place_name: judgeNewState.restaurantName,
+        address_name: judgeNewState.address,
+        x: judgeNewState.longitude,
+        y: judgeNewState.latitude,
+      };
+      setSelected(prev);
+      setResult([prev]);
+    }
+  }, [
+    judgeNewState.restaurantName,
+    judgeNewState.address,
+    judgeNewState.longitude,
+    judgeNewState.latitude,
+  ]);
   const searchActions = (input) => {
     setKeyword(input);
     setMode('result');
+
     setSelected(null);
     pushRecentSearch('recentSearch/judge', input, 0);
     inputRef.current.blur();

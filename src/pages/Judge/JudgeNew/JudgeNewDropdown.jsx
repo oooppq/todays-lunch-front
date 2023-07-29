@@ -3,8 +3,8 @@ import { useQueries } from 'react-query';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 import {
-  setLocationCategory,
-  setLocationTag,
+  // setLocationCategory,
+  // setLocationTag,
   setFoodCategory,
 } from '../../../redux/judgeNew';
 
@@ -14,10 +14,10 @@ const SERVER_URL = import.meta.env.VITE_SERVER_URL;
 
 const JudgeNewDropdown = () => {
   const foodCategory = useSelector((state) => state.judgeNew.foodCategory);
-  const locationTag = useSelector((state) => state.judgeNew.locationTag);
-  const locationCategory = useSelector(
-    (state) => state.judgeNew.locationCategory
-  );
+  // const locationTag = useSelector((state) => state.judgeNew.locationTag);
+  // const locationCategory = useSelector(
+  //   (state) => state.judgeNew.locationCategory
+  // );
   const dropdownStyle = `
     .selectedLabel {
       background-color: white;
@@ -73,7 +73,7 @@ const JudgeNewDropdown = () => {
 
   return (
     <div className="dropdowns">
-      <Dropdown
+      {/* <Dropdown
         data={ress[0].data}
         selected={locationCategory}
         setSelected={(toSelect) => {
@@ -94,7 +94,7 @@ const JudgeNewDropdown = () => {
         }}
         defaultValue="상세 위치"
         style={dropdownStyle}
-      />
+      /> */}
       <Dropdown
         data={ress[2].data}
         selected={foodCategory}
