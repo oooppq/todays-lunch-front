@@ -1,12 +1,13 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react';
-import { MapMarker } from 'react-kakao-maps-sdk';
-import { pushRecentSearch } from '../../../libs/utils';
 import { CurrentLocationBtn, StyledMap } from './judgeNew.style';
 import curLocIcon from '../../../assets/img/current-location-icon.png';
+import MarkerElement from './MarkerElement';
 
 const JudgeSearchMap = ({ data, selected, setSelected }) => {
   const [map, setMap] = useState();
+  const [clickedMarker, setClickedMarker] = useState(null);
+
   useEffect(() => {
     if (map && data.length) {
       const bounds = new window.kakao.maps.LatLngBounds();
@@ -20,10 +21,10 @@ const JudgeSearchMap = ({ data, selected, setSelected }) => {
 
   useEffect(() => {
     if (map && selected) {
-      // const bounds = new window.kakao.maps.LatLngBounds();
-      // bounds.extend(new window.kakao.maps.LatLng(selected.y, selected.x));
-      // map.setBounds(bounds);
-      map.panTo(new window.kakao.maps.LatLng(selected.y, selected.x));
+      map.setLevel(Math.min(map.getLevel(), 5), {
+        animate: true,
+        anchor: new window.kakao.maps.LatLng(selected.y, selected.x),
+      });
     }
   }, [map, selected]);
 
@@ -41,14 +42,16 @@ const JudgeSearchMap = ({ data, selected, setSelected }) => {
           if (addr.length === 0) return;
 
           const clicked = {};
-          clicked.place_name = '클릭된놈';
+          clicked.place_name = '';
 
           if (addr[0].road_address)
             clicked.address_name = addr[0].road_address.address_name;
           else clicked.address_name = addr[0].address.address_name;
           clicked.x = e.latLng.getLng();
           clicked.y = e.latLng.getLat();
+          clicked.id = '-1';
           setSelected(clicked);
+          setClickedMarker(clicked);
         });
       }}
     >
@@ -59,6 +62,7 @@ const JudgeSearchMap = ({ data, selected, setSelected }) => {
           navigator.geolocation.getCurrentPosition(
             (pos) => {
               if (map) {
+                map.setLevel(Math.min(map.getLevel(), 5), { animate: true });
                 map.panTo(
                   new window.kakao.maps.LatLng(
                     pos.coords.latitude,
@@ -77,15 +81,20 @@ const JudgeSearchMap = ({ data, selected, setSelected }) => {
       >
         <img src={curLocIcon} alt="" />
       </CurrentLocationBtn>
+      {clickedMarker && (
+        <MarkerElement
+          data={clickedMarker}
+          isClicked={selected && clickedMarker.id === selected.id}
+          setSelected={setSelected}
+        />
+      )}
       {data.length
         ? data.map((d) => (
-            <MapMarker
+            <MarkerElement
               key={`marker-${d.place_name}-${d.y},${d.x}`}
-              position={{ lat: d.y, lng: d.x }}
-              onClick={() => {
-                setSelected(d);
-                pushRecentSearch('recentSearch/judge', d.place_name, 1, d);
-              }}
+              data={d}
+              isClicked={selected && d.id === selected.id}
+              setSelected={setSelected}
             />
           ))
         : null}

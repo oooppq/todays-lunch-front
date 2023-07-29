@@ -307,12 +307,6 @@ export const StyledMap = styled(Map)`
   height: 587px;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
-  .currentLocationBtn {
-    background-color: green;
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-  }
 `;
 
 export const CurrentLocationBtn = styled.button`
@@ -321,7 +315,7 @@ export const CurrentLocationBtn = styled.button`
   height: 30px;
   bottom: 30px;
   right: 20px;
-  z-index: 1000;
+  z-index: 300;
   background-color: white;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
@@ -339,19 +333,38 @@ export const SelectedResultContainer = styled.div`
   right: 0;
   height: 192px;
   z-index: 999;
+  box-shadow: 0 10px 70px rgba(0, 0, 0, 0.25);
   background-color: white;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
+  border-radius: 10px;
+  // border-bottom-left-radius: 10px;
+  // border-bottom-right-radius: 10px;
 `;
 
 export const SelectedResult = styled.div`
   margin: 20px 30px 51px 20px;
   overflow: hidden;
   white-space: nowrap;
+  z-index: 400;
   .placeName {
     font-size: 16px;
     line-height: 19.09px;
     margin-bottom: 4px;
+  }
+  .inputOuter {
+    display: flex;
+    align-items: center;
+    margin-bottom: 7px;
+    .placeNameInput {
+      font-size: 16px;
+      padding-bottom: 4px;
+      border: none;
+      border-bottom: 1px solid
+        ${(props) =>
+          props.isWarning ? 'rgb(202, 45, 24)' : 'rgb(124, 124, 124)'};
+    }
+    .placeNameInput::placeholder {
+      ${(props) => props.isWarning && 'color:rgb(202, 45, 24);'}
+    }
   }
   .address {
     margin-left: 1px;
@@ -488,7 +501,7 @@ export const JudgeNewDoneModalInner = styled.div`
   position: relative;
   margin: 0 38px;
   width: 314px;
-  height: 323px;
+  // height: 180px;
   border-radius: 17px;
   background-color: white;
   text-align: center;
@@ -523,29 +536,34 @@ export const JudgeNewDoneModalInner = styled.div`
   }
 
   .confirmDiv {
-    height: 173px;
-    div {
+    // height: 173px;
+    .comment {
       margin-top: 69px;
       margin-bottom: 30px;
     }
-    .yesNoBtn {
-      width: 187.74px;
-      height: 41px;
-      background-color: black;
-      color: white;
-      border-radius: 20px;
-      margin-bottom: 18.66px;
-      font-family: Pretendard-SemiBold;
-      font-size: 18px;
+    .btns {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      margin-bottom: 25px;
+      .yesNoBtn {
+        width: 100px;
+        height: 40px;
+        margin: 0 5px;
+        background-color: black;
+        color: white;
+        border-radius: 20px;
+
+        font-family: Pretendard-SemiBold;
+        font-size: 18px;
+      }
     }
   }
 
   .doneBtn {
-    position: absolute;
-    left: 63px;
-    right: 63px;
-    bottom: 23.66px;
     height: 41px;
+    width: 200px;
+    margin: 30px 0;
     background-color: black;
     color: white;
     border-radius: 20px;

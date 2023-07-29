@@ -96,8 +96,8 @@ const JudgeNew = () => {
             judgeNewStates.restaurantName &&
             judgeNewStates.latitude &&
             judgeNewStates.longitude &&
-            judgeNewStates.locationCategory &&
-            judgeNewStates.locationTag &&
+            // judgeNewStates.locationCategory &&
+            // judgeNewStates.locationTag &&
             judgeNewStates.foodCategory &&
             judgeNewStates.introduction.length
           ) {
