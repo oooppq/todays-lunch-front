@@ -105,24 +105,69 @@ export const DetailInfoContainer = styled.div`
     font-size: 20px;
     margin-left: 20px;
   }
-  .hashTags {
-    display: flex;
-    margin: 15px 0 0 46px;
-    color: #666666;
-    .hashTag {
-      margin-right: 5px;
+  .infos {
+    margin: 15px 0 0 35px;
+    .info {
+      display: flex;
+      // align-items: center;
+      margin-bottom: 10px;
+      font-size: 14px;
+      .key {
+        color: #666666;
+        width: 70px;
+      }
+      .value {
+        font-family: Pretendard-Regular;
+        flex-grow: 2;
+      }
+      .recom {
+        display: flex;
+        align-items: center;
+      }
+      .recomTag {
+        border: 1px solid;
+        border-radius: 15px;
+        margin-right: 5px;
+        padding: 1px 9px;
+        font-size: 11px;
+        .hash {
+        }
+      }
+      .more {
+        margin-top: 5px;
+        width: max-content;
+      }
+
+      .etc {
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        img {
+          margin-left: 5px;
+          margin-top: 1px;
+          width: 13px;
+          height: 13px;
+        }
+        .moreBtn {
+          margin-left: 3px;
+          font-size: 10px;
+          color: #707070;
+          width: 12px;
+          height: 12px;
+        }
+      }
+      .recomTagChangeBtn {
+        height: 15px;
+        width: 15px;
+        margin-right: 25px;
+        img {
+          height: 15px;
+          width: 15px;
+        }
+      }
     }
   }
-  .recomCat {
-    display: inline-block;
-    box-sizing: border-box;
-    margin-left: 43px;
-    border: 1px solid #6ab2b2;
-    border-radius: 15px;
-    padding: 3px 14px;
-    margin-top: 9px;
-    font-size: 15px;
-  }
+
   .help {
     margin: 21px 20px 0 20px;
     display: flex;
@@ -353,6 +398,51 @@ const ModalCommon = styled.div`
       position: absolute;
       top: 16px;
       right: 18px;
+    }
+  }
+`;
+
+export const RecomTagModalContainer = styled(ModalCommon)`
+  .modalInner {
+    .title {
+      margin-top: 15px;
+    }
+    .subTitle {
+      color: #6b6b6b;
+      font-size: 13px;
+      margin-left: 20px;
+      margin-top: 5px;
+    }
+    .tagsUl {
+      list-style: none;
+      padding: 0;
+      padding-left: 20px;
+      .tagLi {
+        height: 18px;
+        width: max-content;
+        // flex-shrink: 1;
+        font-size: 15px;
+        border: 1px solid;
+        border-radius: 15px;
+        padding: 5px 14px;
+        margin-bottom: 10px;
+        margin-right: auto;
+        .hash {
+          font-family: Pretendard-SemiBold;
+        }
+      }
+    }
+    .okBtn {
+      margin-left: 50%;
+      margin-bottom: 20px;
+      transform: translate(-50%, 0%);
+      width: 188px;
+      height: 41px;
+      border-radius: 10px;
+      background-color: black;
+      color: white;
+      font-size: 18px;
+      font-family: Pretendard-SemiBold;
     }
   }
 `;

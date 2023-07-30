@@ -73,7 +73,7 @@ export const useMyJudge = () => {
     ['myJudge', 'list'],
     () =>
       axios
-        .get('/api/restaurants/judges', {
+        .get(`${SERVER_URL}/restaurants/judges`, {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
@@ -99,7 +99,7 @@ export const useWishlist = () => {
     queryKey: 'wishList',
     queryFn: ({ pageParam = 1 }) =>
       axios
-        .get(`/api/restaurants?page=${pageParam}`, {
+        .get(`${SERVER_URL}/restaurants?page=${pageParam}`, {
           headers: {
             Authorization: `Bearer ${userState && userState.accessToken}`,
           },
@@ -141,7 +141,7 @@ export const useParticipatingRestaurant = () => {
     queryKey: ['userAddedRestaurants', 'list'],
     queryFn: ({ pageParam = 1 }) =>
       axios
-        .get(`/api/restaurants?page=${pageParam}`, {
+        .get(`${SERVER_URL}/restaurants?page=${pageParam}`, {
           headers: {
             Authorization: `Bearer ${userState && userState.accessToken}`,
           },
@@ -170,7 +170,7 @@ export const useParticipatingRestaurant = () => {
     queryKey: ['userContributingRestaurants', 'list'],
     queryFn: ({ pageParam = 1 }) =>
       axios
-        .get(`/api/restaurants?page=${pageParam}`, {
+        .get(`${SERVER_URL}/restaurants?page=${pageParam}`, {
           headers: {
             Authorization: `Bearer ${userState && userState.accessToken}`,
           },
@@ -216,7 +216,7 @@ export const useMyReview = () => {
     queryKey: ['myReview', 'list'],
     queryFn: ({ pageParam = 1 }) =>
       axios
-        .get(`/api/my-review?page=${pageParam}`, {
+        .get(`${SERVER_URL}/my-review?page=${pageParam}`, {
           headers: {
             Authorization: `Bearer ${userState && userState.accessToken}`,
           },
@@ -397,11 +397,11 @@ export const useProfileChange = (userInfo) => {
 
   const { mutate: patchNickname, status: patchNicknameStatus } = useMutation(
     ['nicknameChange'],
-    (fd) => axios.patch('/api/mypage', fd)
+    (fd) => axios.patch(`${SERVER_URL}/mypage`, fd)
   );
   const { mutate: patchProfileImage, status: patchProfileImageStatus } =
     useMutation(['profileImageChange'], (fd) =>
-      axios.patch('/api/mypage', fd, {
+      axios.patch(`${SERVER_URL}/mypage`, fd, {
         headers: {
           'Content-Type': `multipart/form-data; `,
         },
@@ -484,7 +484,7 @@ export const useCategoryChange = (
   setIsCategoryChanging,
   setIsCategoryModalOpen
 ) => {
-  const url = `/api/${category}-category`;
+  const url = `${SERVER_URL}/${category}-category`;
 
   const [selectedCategoryList, setSelectedCategoryList] =
     useState(currentCategory);
@@ -499,7 +499,7 @@ export const useCategoryChange = (
 
   const { mutate: patchCategory, status: patchCategoryStatus } = useMutation(
     [`${category}CategoryChange`],
-    (fd) => axios.patch('/api/mypage', fd)
+    (fd) => axios.patch(`${SERVER_URL}/mypage`, fd)
   );
 
   const addCategory = (cat) => {
