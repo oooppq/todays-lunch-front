@@ -10,7 +10,7 @@ import coloredRouletteIcon from '../../../assets/img/restaurant-colored-roulette
 
 const ParticipatingRestaurantElem = ({ restaurant }) => {
   const { isInRoulette, pushRoulette } = useRoulette(restaurant.id);
-  const { isWish, pushWish } = useWish(restaurant.id);
+  const { isWish, pushWish } = useWish(restaurant.id, restaurant.liked);
   const navigate = useNavigate();
 
   return (

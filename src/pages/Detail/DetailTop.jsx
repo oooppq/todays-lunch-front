@@ -22,7 +22,7 @@ const DetailTop = ({ restaurant, tab, changeTab }) => {
   const { isInRoulette, pushRoulette } = useRoulette(restaurant.id);
   const { isWish, handlePushWish } = useWish(
     restaurant && restaurant.id,
-    restaurant.isLike
+    restaurant.liked
   );
   const { isShareModalOpen, ShareModalBtn, ShareModal } = useShare(restaurant);
 

@@ -1,7 +1,13 @@
 /* eslint-disable react/react-in-jsx-scope */
 import axios from 'axios';
+import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { useInfiniteQuery, useMutation, useQuery } from 'react-query';
+import {
+  useInfiniteQuery,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from 'react-query';
 import fullStarIcon from '../../assets/img/full-star-icon.svg';
 import emptyStarIcon from '../../assets/img/empty-star-icon.svg';
 import { useAuth } from '../../libs/userAuth.helpers';
@@ -16,6 +22,8 @@ export const useDetail = (id) => {
   const [isNewMenuModalOpen, setIsNewMenuModalOpen] = useState(false);
   const [selectedMenu, setSelectedMenu] = useState(null);
   const { isAuthorized } = useAuth();
+  const queryClient = useQueryClient();
+  const accessToken = useSelector((state) => state.userAuth.accessToken);
 
   const getRestaurantFn = () =>
     axios.get(`${SERVER_URL}/restaurants/${id}`).then((res) => res.data);
@@ -41,7 +49,13 @@ export const useDetail = (id) => {
 
   const { mutate: pushNewMenu, status: pushNewMenuStatus } = useMutation(
     ['pushNewMenu'],
-    (fd) => axios.post(`/api/restaurants/${id}/menus`, fd)
+    (payload) =>
+      axios.post(`${SERVER_URL}/restaurants/${id}/menus`, payload, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }),
+    { onSuccess: () => queryClient.invalidateQueries(['menus', id]) }
   );
 
   const openNewMenuModal = (navigate) => {
@@ -64,11 +78,28 @@ export const useDetail = (id) => {
 
     const { mutate: updateMenu, status: updateMenuStatus } = useMutation(
       ['updateNewMenu'],
-      (fd) => axios.patch(`/api/restaurants/${id}/menus/${menuId}`, fd)
+      (payload) =>
+        axios.patch(
+          `${SERVER_URL}/restaurants/${id}/menus/${menuId}`,
+          payload,
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        ),
+      { onSuccess: () => queryClient.invalidateQueries(['menus', id]) }
     );
+
     const { mutate: deleteMenu, status: deleteMenuStatus } = useMutation(
       ['deleteMenu'],
-      () => axios.delete(`/api/restaurants/${id}/menus/${menuId}`)
+      () =>
+        axios.delete(`${SERVER_URL}/restaurants/${id}/menus/${menuId}`, {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }),
+      { onSuccess: () => queryClient.invalidateQueries(['menus', id]) }
     );
 
     const openMenuUpdateModal = (navigate) => {
@@ -128,12 +159,12 @@ export const useFetchMenu = () => {
   const handleFetchMenu = (fetchMenu) => {
     if (!name || !price) setIsWarning(true);
     else {
-      const fd = new FormData();
-      if (name) fd.append('name', name);
-      if (price) fd.append('price', price);
-      if (salePrice) fd.append('salePrice', salePrice);
-      if (saleComment) fd.append('saleComment', saleComment);
-      fetchMenu(fd);
+      fetchMenu({
+        name,
+        price,
+        salePrice: salePrice || null,
+        saleComment: salePrice ? saleComment : '',
+      });
     }
   };
 
@@ -156,8 +187,9 @@ export const useFetchMenu = () => {
 
 // 디테일페이지의 각각의 메뉴 사진을 가져오는 custom hook
 export const useMenuPhoto = (id) => {
-  const url = `/api/menus/${id}/images`;
-
+  const url = `${import.meta.env.VITE_SERVER_URL}/menus/${id}/images`;
+  const accessToken = useSelector((state) => state.userAuth.accessToken);
+  const queryClient = useQueryClient();
   const [selectedPhoto, setSelectedPhoto] = useState(null);
   const [isPhotoDeleteModalOpen, setIsPhotoDeleteModalOpen] = useState(false);
 
@@ -176,17 +208,28 @@ export const useMenuPhoto = (id) => {
   );
 
   const { mutate: addMenuPhotoRequest, status: addMenuPhotoStatus } =
-    useMutation(['addMenuPhoto', id], (fd) =>
-      axios.post(url, fd, {
-        headers: {
-          'Content-Type': `multipart/form-data; `,
-        },
-      })
+    useMutation(
+      ['addMenuPhoto', id],
+      (fd) =>
+        axios.post(url, fd, {
+          headers: {
+            'Content-Type': `multipart/form-data; `,
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }),
+      { onSuccess: () => queryClient.invalidateQueries(['menuPhotos', id]) }
     );
 
   const { mutate: deleteMenuPhotoRequest, status: deleteMenuPhotoStatus } =
-    useMutation(['deleteMenuPhoto', id], (photoId) =>
-      axios.delete(url.concat(`/${photoId}`))
+    useMutation(
+      ['deleteMenuPhoto', id],
+      (photoId) =>
+        axios.delete(url.concat(`/${photoId}`), {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }),
+      { onSuccess: () => queryClient.invalidateQueries(['menuPhotos', id]) }
     );
 
   const deleteMenuPhoto = (navigate, photoId) => {
@@ -244,11 +287,11 @@ export const useMenuPhoto = (id) => {
   };
 };
 
-// 디테일 페이지의 리뷰 REST 요처을 담당하는 custom hook
+// 디테일 페이지의 리뷰 REST 요청을 담당하는 custom hook
 export const useReview = (id) => {
   const { authInfo, isAuthorized } = useAuth();
-
-  const url = `/api/restaurants/${id}/reviews`;
+  const accessToken = useSelector((state) => state.userAuth.accessToken);
+  const url = `${import.meta.env.VITE_SERVER_URL}/restaurants/${id}/reviews`;
   // const likeUrl = `/api/reviews`;
   const [isNewReviewModalOpen, setIsNewReviewModalOpen] = useState(false);
 
@@ -261,35 +304,33 @@ export const useReview = (id) => {
   } = useInfiniteQuery({
     queryKey: ['reviewList', id],
     queryFn: ({ pageParam = 1 }) =>
-      axios
-        .get(url.concat(`?page=${pageParam}`), {
-          headers: {
-            Authorization: `Bearer ${authInfo && authInfo.accessToken}`,
-          },
-        })
-        .then((res) => {
-          return {
-            data: res.data.data,
-            pageNum: pageParam,
-            isLast: pageParam === res.data.totalPages,
-            totalReviewCount: res.data.totalReviewCount,
-          };
-        }),
+      axios.get(url.concat(`?page=${pageParam}`)).then((res) => {
+        return {
+          data: res.data.data,
+          pageNum: pageParam,
+          isLast: pageParam === res.data.totalPages,
+          totalReviewCount: res.data.totalReviewCount,
+        };
+      }),
     getNextPageParam: (lastPage) => {
       if (lastPage.isLast) return undefined;
       return lastPage.pageNum + 1;
     },
     refetchOnWindowFocus: false,
   });
-
+  const queryClient = useQueryClient();
   const { mutate: pushNewReview, status: pushNewReviewStatus } = useMutation(
     ['pushNewReview'],
     (data) =>
       axios.post(url, data, {
         headers: {
           'Content-Type': `application/json`,
+          Authorization: `Bearer ${accessToken}`,
         },
-      })
+      }),
+    {
+      onSuccess: () => queryClient.invalidateQueries(['reviewList', id]),
+    }
   );
 
   const openNewReviewModal = (navigate) => {
@@ -304,44 +345,52 @@ export const useReview = (id) => {
     if (pushNewReviewStatus === 'success') setIsNewReviewModalOpen(false);
   }, [pushNewReviewStatus]);
 
-  const useReviewElem = (reviewId) => {
+  const useReviewElem = (review) => {
     const [isUpdateReviewModalOpen, setIsUpdateReviewModalOpen] =
       useState(false);
     const [isDeleteReviewModalOpen, setIsDeleteReviewModalOpen] =
       useState(false);
+    const [isLike, setIsLike] = useState(review.liked);
 
     const { mutate: updateReview, status: updateReviewStatus } = useMutation(
       ['updateReview', id],
       (fd) =>
-        axios.patch(url.concat(`/${reviewId}`), fd, {
+        axios.patch(url.concat(`/${review.id}`), fd, {
           headers: {
             'Content-Type': `application/json`,
+            Authorization: `Bearer ${accessToken}`,
           },
-        })
+        }),
+      {
+        onSuccess: () => queryClient.invalidateQueries(['reviewList', id]),
+      }
     );
 
     const { mutate: deleteReview, status: deleteReviewStatus } = useMutation(
       ['deleteReview', id],
-      () => axios.delete(url.concat(`/${reviewId}`))
-    );
-
-    const { data: isLikedRes } = useQuery(
-      ['review', 'isLiked', reviewId],
-      () => axios.get(url.concat(`/${reviewId}/like`)).then((res) => res.data),
+      () =>
+        axios.delete(url.concat(`/${review.id}`), {
+          headers: { Authorization: `Bearer ${accessToken}` },
+        }),
       {
-        refetchOnWindowFocus: false,
+        onSuccess: () => queryClient.invalidateQueries(['reviewList', id]),
       }
     );
 
     const { mutate: pushLikeRequest } = useMutation(
       ['review', 'pushLike'],
-      () => axios.post(url.concat(`/${reviewId}/like`))
+      () =>
+        axios.post(url.concat(`/${review.id}/like`), null, {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        })
     );
-    const isLiked = isAuthorized() && isLikedRes;
 
     const pushLike = (navigate) => {
       if (isAuthorized()) {
         pushLikeRequest();
+        setIsLike((state) => !state);
       } else {
         navigate('/login');
       }
@@ -368,9 +417,9 @@ export const useReview = (id) => {
       updateReviewStatus,
       deleteReview,
       deleteReviewStatus,
-      isLiked,
       pushLike,
       isAuthor,
+      isLike,
     };
   };
 

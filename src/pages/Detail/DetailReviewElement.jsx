@@ -18,10 +18,10 @@ const DetailReviewElement = ({ review, useReviewElem }) => {
     updateReviewStatus,
     deleteReview,
     deleteReviewStatus,
-    isLiked,
     pushLike,
     isAuthor,
-  } = useReviewElem(review.id);
+    isLike,
+  } = useReviewElem(review);
   const navigate = useNavigate();
   // if (postIsError || postIsLoading) return null;
 
@@ -47,7 +47,11 @@ const DetailReviewElement = ({ review, useReviewElem }) => {
           deleteReview={deleteReview}
         />
       )}
-      <img className="profileImg" src={defaultIcon} alt="" />
+      <img
+        className="profileImg"
+        src={review.member.icon || defaultIcon}
+        alt=""
+      />
       <div className="reviewBody">
         <div className="userName">{review.member.nickname}</div>
         {isAuthor(review.member.id) ? (
@@ -78,7 +82,7 @@ const DetailReviewElement = ({ review, useReviewElem }) => {
         <div className="likeAndDate">
           <button
             type="button"
-            className={`likeBtn ${isLiked ? 'liked' : 'unliked'}`}
+            className={`likeBtn ${isLike ? 'liked' : 'unliked'}`}
             onClick={() => {
               pushLike(navigate);
             }}

@@ -215,6 +215,7 @@ export const DetailInfoContainer = styled.div`
       flex-direction: column;
       .menuLiInner {
         display: flex;
+        align-items: top;
         font-size: 17px;
         margin-bottom: 10px;
         .menuName {
@@ -968,6 +969,7 @@ export const DetailReviewElem = styled.li`
       line-height: 20px;
       margin-top: 2px;
       // height: 60px;
+      white-space: pre-wrap;
     }
     .likeAndDate {
       margin-top: 22px;

@@ -1,7 +1,12 @@
 /* eslint-disable no-restricted-syntax */
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { useInfiniteQuery, useMutation, useQuery } from 'react-query';
+import {
+  useInfiniteQuery,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from 'react-query';
 import { useSelector } from 'react-redux';
 import { useAuth } from '../../libs/userAuth.helpers';
 import { authStates, flattenPages } from '../../libs/utils';
@@ -101,7 +106,7 @@ export const useWishlist = () => {
       axios
         .get(`${SERVER_URL}/restaurants?page=${pageParam}`, {
           headers: {
-            Authorization: `Bearer ${userState && userState.accessToken}`,
+            Authorization: `Bearer ${userState.accessToken}`,
           },
         })
         .then((res) => {
@@ -143,7 +148,7 @@ export const useParticipatingRestaurant = () => {
       axios
         .get(`${SERVER_URL}/restaurants?page=${pageParam}`, {
           headers: {
-            Authorization: `Bearer ${userState && userState.accessToken}`,
+            Authorization: `Bearer ${userState.accessToken}`,
           },
         })
         .then((res) => {
@@ -172,7 +177,7 @@ export const useParticipatingRestaurant = () => {
       axios
         .get(`${SERVER_URL}/restaurants?page=${pageParam}`, {
           headers: {
-            Authorization: `Bearer ${userState && userState.accessToken}`,
+            Authorization: `Bearer ${userState.accessToken}`,
           },
         })
         .then((res) => {
@@ -218,7 +223,7 @@ export const useMyReview = () => {
       axios
         .get(`${SERVER_URL}/my-review?page=${pageParam}`, {
           headers: {
-            Authorization: `Bearer ${userState && userState.accessToken}`,
+            Authorization: `Bearer ${userState.accessToken}`,
           },
         })
         .then((res) => {
@@ -380,6 +385,9 @@ export const useChangePassword = () => {
 };
 
 export const useProfileChange = (userInfo) => {
+  const authInfo = useSelector((state) => state.userAuth);
+  const { checkNickName } = useInputValidation();
+  const queryClient = useQueryClient();
   const [isProfileChanging, setIsProfileChanging] = useState(false);
   const [isNicknameChange, setIsNicknameChange] = useState(false);
   const [isFoodCategoryChangeOpen, setIsFoodCategoryChangeOpen] =
@@ -387,6 +395,7 @@ export const useProfileChange = (userInfo) => {
   const [isLocationCategoryChangeOpen, setIsLocationCategoryChangeOpen] =
     useState(false);
   const [newNickname, setNewNickname] = useState('');
+  const [isNicknameError, setIsNicknameError] = useState(false);
 
   useEffect(() => {
     setNewNickname(userInfo && userInfo.nickname);
@@ -397,15 +406,20 @@ export const useProfileChange = (userInfo) => {
 
   const { mutate: patchNickname, status: patchNicknameStatus } = useMutation(
     ['nicknameChange'],
-    (fd) => axios.patch(`${SERVER_URL}/mypage`, fd)
+    (fd) => axios.patch(`${SERVER_URL}/mypage/nickname`, fd),
+    { onSuccess: () => queryClient.invalidateQueries(['userInformation']) }
   );
   const { mutate: patchProfileImage, status: patchProfileImageStatus } =
-    useMutation(['profileImageChange'], (fd) =>
-      axios.patch(`${SERVER_URL}/mypage`, fd, {
-        headers: {
-          'Content-Type': `multipart/form-data; `,
-        },
-      })
+    useMutation(
+      ['profileImageChange'],
+      (fd) =>
+        axios.patch(`${SERVER_URL}/mypage/icon`, fd, {
+          headers: {
+            'Content-Type': `multipart/form-data; `,
+            Authorization: `Bearer ${authInfo.accessToken}`,
+          },
+        }),
+      { onSuccess: () => queryClient.invalidateQueries(['userInformation']) }
     );
 
   useEffect(() => {
@@ -423,9 +437,8 @@ export const useProfileChange = (userInfo) => {
   }, [patchNicknameStatus, patchProfileImageStatus]);
 
   const handleNicknameChange = () => {
-    const fd = new FormData();
-    fd.append('nickname', newNickname);
-    patchNickname(fd);
+    if (checkNickName(newNickname)) patchNickname({ nickname: newNickname });
+    else setIsNicknameError(true);
   };
 
   const handleProfileChange = (event) => {
@@ -448,6 +461,7 @@ export const useProfileChange = (userInfo) => {
     setIsNicknameChange,
     isFoodCategoryChangeOpen,
     isLocationCategoryChangeOpen,
+    isNicknameError,
     newNickname,
     foodCategory,
     locationCategory,
@@ -484,8 +498,9 @@ export const useCategoryChange = (
   setIsCategoryChanging,
   setIsCategoryModalOpen
 ) => {
-  const url = `${SERVER_URL}/${category}-category`;
-
+  const url = `${SERVER_URL}/mypage/${category}-category`;
+  const authInfo = useSelector((state) => state.userAuth);
+  const queryClient = useQueryClient();
   const [selectedCategoryList, setSelectedCategoryList] =
     useState(currentCategory);
 
@@ -493,13 +508,23 @@ export const useCategoryChange = (
 
   const { data: categoryList } = useQuery(
     [`${category}-category`],
-    () => axios.get(url).then((res) => res.data),
+    () =>
+      axios.get(`${SERVER_URL}/${category}-category`).then((res) => res.data),
+    {
+      headers: { Authorization: `Bearer ${authInfo.accessToken}` },
+    },
     { refetchOnWindowFocus: false }
   );
 
   const { mutate: patchCategory, status: patchCategoryStatus } = useMutation(
     [`${category}CategoryChange`],
-    (fd) => axios.patch(`${SERVER_URL}/mypage`, fd)
+    (fd) =>
+      axios.patch(url, fd, {
+        headers: {
+          Authorization: `Bearer ${authInfo.accessToken}`,
+        },
+      }),
+    { onSuccess: () => queryClient.invalidateQueries(['userInformation']) }
   );
 
   const addCategory = (cat) => {
@@ -522,7 +547,7 @@ export const useCategoryChange = (
       const newList = [];
       for (const foodCat of categoryList) {
         if (!selectedCategoryList.some((elem) => elem.id === foodCat.id))
-          newList.push(foodCat);
+          newList.push({ id: foodCat.id, name: foodCat.name });
       }
       setUnSelectedCategoryList(newList);
     }
@@ -540,12 +565,7 @@ export const useCategoryChange = (
   });
 
   const handleCategoryChange = () => {
-    const fd = new FormData();
-    fd.append(
-      category === 'food' ? 'foodCategoryList' : 'locationCategoryList',
-      JSON.stringify(selectedCategoryList)
-    );
-    patchCategory(fd);
+    patchCategory({ categoryList: selectedCategoryList });
   };
 
   return {

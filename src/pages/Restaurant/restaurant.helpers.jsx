@@ -10,7 +10,6 @@ import { setSelectedLocCat, setSelectedLocTag } from '../../redux/restaurant';
 const SERVER_URL = import.meta.env.VITE_SERVER_URL;
 
 export const restaurantUrlMaker = (state, pageNum) => {
-  // let url = '/api/restaurants?';
   let url = `${SERVER_URL}/restaurants/?`;
   // console.log(state.selectedFoodCat);
   if (state.selectedLocCat)

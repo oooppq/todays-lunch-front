@@ -10,7 +10,7 @@ import { flattenPages } from '../../libs/utils';
 import { useInfiniteScroll } from '../../libs/common.helpers';
 import Loading from '../../components/Loading';
 
-const DetailReview = ({ restaurantId }) => {
+const DetailReview = ({ restaurantId, reviewNumber }) => {
   const {
     isNewReviewModalOpen,
     setIsNewReviewModalOpen,
@@ -41,8 +41,8 @@ const DetailReview = ({ restaurantId }) => {
       )}
       {pushNewReviewStatus === 'loading' ? <Loading /> : null}
       <div className="reviewTitle">
-        📌 가게 리뷰
-        <span>({reviewList && reviewList.pages[0].totalReviewCount})</span>
+        📌 리뷰
+        <span>({reviewNumber})</span>
       </div>
       <div className="newReview">
         <img className="myProfileImg" src={defaultIcon} alt="" />

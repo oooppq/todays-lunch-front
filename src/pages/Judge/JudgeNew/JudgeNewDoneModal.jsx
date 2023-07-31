@@ -14,6 +14,7 @@ import xIcon from '../../../assets/img/x-icon.svg';
 const JudgeNewDoneModal = ({ setIsDone }) => {
   const [isYes, setIsYes] = useState(false);
   const judgeNewStates = useSelector((state) => state.judgeNew);
+  const accessToken = useSelector((state) => state.userAuth.accessToken);
   const fd = new FormData();
   Object.entries(judgeNewStates).forEach(([key, value]) => {
     if (value) {
@@ -33,9 +34,10 @@ const JudgeNewDoneModal = ({ setIsDone }) => {
   });
 
   const { mutate, isLoading } = useMutation((toSend) =>
-    axios.post('/api/restaurants', toSend, {
+    axios.post(`${import.meta.env.VITE_SERVER_URL}/restaurants`, toSend, {
       headers: {
         'Content-Type': `multipart/form-data; `,
+        Authorization: `Bearer ${accessToken}`,
       },
     })
   );

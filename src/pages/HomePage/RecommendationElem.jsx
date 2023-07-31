@@ -18,7 +18,7 @@ import { useRoulette, useWish } from '../../libs/common.helpers';
 const RecommendationElem = ({ restaurant }) => {
   const navigate = useNavigate();
   const { isInRoulette, pushRoulette } = useRoulette(restaurant.id);
-  const { isWish, handlePushWish } = useWish(restaurant.id);
+  const { isWish, handlePushWish } = useWish(restaurant.id, restaurant.liked);
 
   return (
     <RecommendationElemContainer

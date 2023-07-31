@@ -49,7 +49,7 @@ const Detail = () => {
           useMenuElem={useMenuElem}
         />
       ) : (
-        <DetailReview restaurantId={id} />
+        <DetailReview restaurantId={id} reviewNumber={restaurant.reviewCount} />
       )}
     </DetailContainer>
   );

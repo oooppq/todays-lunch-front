@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { useQuery } from 'react-query';
 import axios from 'axios';
 import { Carousel } from 'react-responsive-carousel';
@@ -7,8 +8,14 @@ import { RecommendationContainer, RecommendationTitle } from './homePage.style';
 import RecommendationElem from './RecommendationElem';
 
 const Recommendation = () => {
+  const accessToken = useSelector((state) => state.userAuth.accessToken);
+
   const { isLoading, error, data } = useQuery(['recommends', 'list'], () =>
-    axios.get('http://localhost:3004/recommends').then((res) => res.data)
+    axios
+      .get(`${import.meta.env.VITE_SERVER_URL}/recommends`, {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      })
+      .then((res) => res.data)
   );
 
   // if (isLoading) return null;

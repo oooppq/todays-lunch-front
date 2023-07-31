@@ -82,6 +82,7 @@ const DetailInfo = ({
             {isMore &&
               restaurantData.recommendCategoryList.slice(1).map((tag) => (
                 <div
+                  key={tag.id}
                   className="recomTag more"
                   style={{
                     borderColor: tag.color,

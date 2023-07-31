@@ -30,7 +30,7 @@ export const useAuth = () => {
   } = useMutation(['authRequest'], ({ mode, payload }) => {
     let url = `${SERVER_URL}/login`; // login url
     if (mode === 'refresh') {
-      url = `${SERVER_URL}/login`; // refresh url
+      url = `${SERVER_URL}/refresh`; // refresh url
       // axios.defaults.headers.common.Authorization = `Bearer ${payload}`;
       return axios.post(url, null, {
         headers: {

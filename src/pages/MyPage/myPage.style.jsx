@@ -71,6 +71,7 @@ export const MyPageTop = styled.div`
         bottom: -3px;
         right: -3px;
         width: 22px;
+        box-sizing: border-box;
         height: 22px;
         border: 1px solid #9b9b9b;
         border-radius: 50%;
@@ -85,6 +86,7 @@ export const MyPageTop = styled.div`
       }
     }
     .userName {
+      position: relative;
       font-family: Pretendard-SemiBold;
       font-size: 20px;
       color: #9b9b9b;
@@ -98,6 +100,14 @@ export const MyPageTop = styled.div`
         padding: 7px;
         width: 170px;
         color: #707070;
+      }
+      .nicknameChangeError {
+        position: absolute;
+        margin-top: 3px;
+        margin-left: 3px;
+        font-size: 11px;
+        color: rgb(202, 45, 24);
+        font-family: Pretendard-Regular;
       }
     }
     .changeNameBtn {
@@ -181,7 +191,8 @@ export const MyPageMid = styled.div`
     .categoryBody {
       display: flex;
       align-items: center;
-      margin: 14px 2px 0 35px;
+
+      margin: 4px 2px 0 35px;
       .categorySubTitle {
         font-family: Pretendard-SemiBold;
         font-size: 12px;
@@ -189,8 +200,9 @@ export const MyPageMid = styled.div`
       }
       .categories {
         display: flex;
-        width: 170px;
-        margin-right: auto;
+        width: 160px;
+        margin-right: 20px;
+        padding: 10px 0;
         overflow-x: auto;
         white-space: nowrap;
         .category {

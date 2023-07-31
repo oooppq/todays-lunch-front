@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useMutation, useQuery } from 'react-query';
 import { useAuth } from '../../../libs/userAuth.helpers';
 
+const url = `${import.meta.env.VITE_SERVER_URL}/restaurants/judges`;
 /* mode => normal or myPage */
 export const useJudgeNow = () => {
   const [isList, setIsList] = useState(true);
@@ -13,7 +14,7 @@ export const useJudgeNow = () => {
     isError: restaurantsIsError,
   } = useQuery(
     ['judgeNow', 'list'],
-    () => axios.get('/api/restaurants/judges').then((res) => res.data),
+    () => axios.get(url).then((res) => res.data),
     {
       refetchOnWindowFocus: false,
     }
@@ -34,7 +35,7 @@ export const useJudgeAgree = (id) => {
   const { data: isAgreeRes } = useQuery(
     ['judgeNow/agree', id],
     () =>
-      axios.get(`/api/restaurants/judges/${id}/agree`).then((res) => res.data, {
+      axios.get(url.concat(`/${id}/agree`)).then((res) => res.data, {
         header: {
           Authorization: `Bearer ${authInfo.accessToken}`,
         },
@@ -45,7 +46,7 @@ export const useJudgeAgree = (id) => {
   );
 
   const { mutate: pushAgreeRequest } = useMutation(() =>
-    axios.post(`/api/restaurants/judges/${id}/agree`, null, {
+    axios.post(url.concat(`/${id}/agree`), null, {
       headers: {
         Authorization: `Bearer ${authInfo.accessToken}`,
       },
@@ -71,7 +72,7 @@ export const useJudgeNowDetail = (id) => {
     isError: restaurantIsError,
   } = useQuery(
     ['judgeNow', 'detail', id],
-    () => axios.get(`/api/restaurants/judges/${id}`).then((res) => res.data),
+    () => axios.get(url.concat(`/${id}`)).then((res) => res.data),
     {
       refetchOnWindowFocus: false,
     }
