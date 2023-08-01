@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useState } from 'react';
-import { useMutation, useQuery } from 'react-query';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { useAuth } from '../../../libs/userAuth.helpers';
 
 const url = `${import.meta.env.VITE_SERVER_URL}/restaurants/judges`;
@@ -31,29 +31,22 @@ export const useJudgeNow = () => {
 
 export const useJudgeAgree = (id) => {
   const { authInfo, isAuthorized } = useAuth();
+  const queryClient = useQueryClient();
 
-  const { data: isAgreeRes } = useQuery(
-    ['judgeNow/agree', id],
+  const { mutate: pushAgreeRequest } = useMutation(
     () =>
-      axios.get(url.concat(`/${id}/agree`)).then((res) => res.data, {
-        header: {
+      axios.post(url.concat(`/${id}/agree`), null, {
+        headers: {
           Authorization: `Bearer ${authInfo.accessToken}`,
         },
       }),
     {
-      refetchOnWindowFocus: false,
+      onSuccess: () => {
+        queryClient.invalidateQueries(['judgeNow', 'list']);
+        queryClient.invalidateQueries(['judgeNow', 'detail', id]);
+      },
     }
   );
-
-  const { mutate: pushAgreeRequest } = useMutation(() =>
-    axios.post(url.concat(`/${id}/agree`), null, {
-      headers: {
-        Authorization: `Bearer ${authInfo.accessToken}`,
-      },
-    })
-  );
-
-  const isAgree = isAuthorized() && isAgreeRes;
 
   const pushAgree = (navigate) => {
     if (isAuthorized()) {
@@ -62,7 +55,7 @@ export const useJudgeAgree = (id) => {
       navigate('/login');
     }
   };
-  return { pushAgree, isAgree };
+  return { pushAgree };
 };
 
 export const useJudgeNowDetail = (id) => {
@@ -78,13 +71,12 @@ export const useJudgeNowDetail = (id) => {
     }
   );
 
-  const { pushAgree, isAgree } = useJudgeAgree(id);
+  const { pushAgree } = useJudgeAgree(id);
 
   return {
     restaurant,
     restaurantIsLoading,
     restaurantIsError,
     pushAgree,
-    isAgree,
   };
 };

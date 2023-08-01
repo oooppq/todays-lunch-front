@@ -8,20 +8,15 @@ import xIcon from '../../../assets/img/x-icon.svg';
 import { useJudgeNowDetail } from './judgeNow.helpers';
 
 const JudgeNowDetail = ({ id, setIsDetail, inListFlag }) => {
-  const {
-    restaurant,
-    restaurantIsLoading,
-    restaurantIsError,
-    pushAgree,
-    isAgree,
-  } = useJudgeNowDetail(id);
+  const { restaurant, restaurantIsLoading, restaurantIsError, pushAgree } =
+    useJudgeNowDetail(id);
   const navigate = useNavigate();
 
   if (restaurantIsLoading || restaurantIsError) return null;
 
   return (
     <JudgeNowDetailContainer>
-      <img src={defaultImg} alt="" className="restImg" />
+      <img src={restaurant.imageUrl || defaultImg} alt="" className="restImg" />
       {inListFlag ? (
         <button
           className="xBtn"
@@ -54,15 +49,18 @@ const JudgeNowDetail = ({ id, setIsDetail, inListFlag }) => {
             className="imageOuter"
             aria-hidden="true"
             onClick={() => {
+              // if (isAgreed) setAgreementCount((state) => state - 1);
+              // else setAgreementCount((state) => state + 1);
+              // setIsAgreed((state) => !state);
               pushAgree(navigate);
             }}
-            style={isAgree ? { backgroundColor: '#6ab2b2' } : null}
+            style={restaurant.agreed ? { backgroundColor: '#6ab2b2' } : null}
           >
             <img src={thumbIcon} alt="" />
           </div>
           <div
             className="recomNum"
-            style={isAgree ? { backgroundColor: '#6ab2b2' } : null}
+            style={restaurant.agreed ? { backgroundColor: '#6ab2b2' } : null}
           >
             {restaurant.agreementCount}
           </div>

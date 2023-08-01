@@ -101,10 +101,10 @@ export const useWishlist = () => {
     hasNextPage,
     fetchNextPage,
   } = useInfiniteQuery({
-    queryKey: 'wishList',
+    queryKey: ['wishList'],
     queryFn: ({ pageParam = 1 }) =>
       axios
-        .get(`${SERVER_URL}/restaurants?page=${pageParam}`, {
+        .get(`${SERVER_URL}/mystore?page=${pageParam}`, {
           headers: {
             Authorization: `Bearer ${userState.accessToken}`,
           },
@@ -221,7 +221,7 @@ export const useMyReview = () => {
     queryKey: ['myReview', 'list'],
     queryFn: ({ pageParam = 1 }) =>
       axios
-        .get(`${SERVER_URL}/my-review?page=${pageParam}`, {
+        .get(`${SERVER_URL}/myreviews?page=${pageParam}`, {
           headers: {
             Authorization: `Bearer ${userState.accessToken}`,
           },
@@ -246,13 +246,6 @@ export const useMyReview = () => {
     hasNextPage,
     fetchNextPage,
   };
-};
-
-export const handleLongReview = (review) => {
-  if (review.length > 20) {
-    return review.slice(0, 20).concat('...');
-  }
-  return review;
 };
 
 export const useChangePassword = () => {

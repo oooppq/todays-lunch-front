@@ -20,7 +20,7 @@ import Warning from '../../../components/Warning';
 const JudgeNew = () => {
   const dispatch = useDispatch();
   const judgeNewStates = useSelector((state) => state.judgeNew);
-
+  // const reader = new FileReader();
   // 각종 modal을 위한 state
   const [isOut, setIsOut] = useState(false);
   const [isSearch, setIsSearch] = useState(false);

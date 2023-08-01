@@ -12,6 +12,7 @@ import { reset } from '../../../redux/judgeNew';
 import xIcon from '../../../assets/img/x-icon.svg';
 
 const JudgeNewDoneModal = ({ setIsDone }) => {
+  // console.log(reader);
   const [isYes, setIsYes] = useState(false);
   const judgeNewStates = useSelector((state) => state.judgeNew);
   const accessToken = useSelector((state) => state.userAuth.accessToken);
@@ -22,24 +23,29 @@ const JudgeNewDoneModal = ({ setIsDone }) => {
       //   fd.append('locationCategoryName', value.name);
       // else if (key === 'locationTag') fd.append('locationTagName', value.name);
       if (key === 'foodCategory') fd.append('foodCategoryName', value.name);
+      // else if (key === 'restaurantImage') fd.append(reader.result.toString());
       else if (key === 'recommendCategory') {
-        if (value.length)
+        if (value.length) {
           fd.append(
             'recommendCategoryIds',
             value.map((cat) => cat.id)
           );
-        else fd.append('recommendCategoryIds', null);
+        } else fd.append('recommendCategoryIds', null);
       } else fd.append(key, value);
     } else fd.append(key, null);
   });
 
   const { mutate, isLoading } = useMutation((toSend) =>
-    axios.post(`${import.meta.env.VITE_SERVER_URL}/restaurants`, toSend, {
-      headers: {
-        'Content-Type': `multipart/form-data; `,
-        Authorization: `Bearer ${accessToken}`,
-      },
-    })
+    axios.post(
+      `${import.meta.env.VITE_SERVER_URL}/restaurants/judges`,
+      toSend,
+      {
+        headers: {
+          'Content-Type': `multipart/form-data; `,
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    )
   );
   const dispatch = useDispatch();
 

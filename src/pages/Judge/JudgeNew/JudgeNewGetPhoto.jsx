@@ -41,12 +41,14 @@ const JudgeNewGetPhoto = () => {
             type="file"
             accept="image/*"
             onChange={(e) => {
-              dispatch(setRestaurantImage(e.target.files[0]));
-              const reader = new FileReader();
               if (e.target.files && e.target.files.length) {
+                const reader = new FileReader();
                 reader.readAsDataURL(e.target.files[0]);
                 reader.onloadend = () => {
-                  if (reader.result) setImg(reader.result.toString());
+                  if (reader.result) {
+                    dispatch(setRestaurantImage(reader.result.toString()));
+                    setImg(reader.result.toString());
+                  }
                 };
               }
             }}

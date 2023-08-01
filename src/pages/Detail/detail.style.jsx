@@ -740,7 +740,8 @@ export const DetailMenuSaleInfoModalContainer = styled(ModalCommon)`
 export const DetailMenuDeleteModalContainer = styled(ModalCommon)`
   .modalInner {
     height: 60px;
-    margin: 70px;
+    // margin: 70px;
+    width: 200px;
     padding: 20px;
     display: flex;
     overflow-y: clip;
@@ -865,7 +866,8 @@ export const DetailReviewModalContainer = styled(ModalCommon)`
 export const DetailReviewDeleteModalContainer = styled(ModalCommon)`
   .modalInner {
     height: 60px;
-    margin: 70px;
+    width: 200px;
+    // margin: 70px;
     padding: 20px;
     display: flex;
     overflow-y: clip;
@@ -929,13 +931,18 @@ export const DetailReviewContainer = styled.div`
   }
   .reviews {
     list-style: none;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0;
     padding: 0;
-    margin: 18px 23px 0 15px;
+    padding: 18px 23px 0 15px;
   }
 `;
 
 export const DetailReviewElem = styled.li`
   display: flex;
+  // width: 100%;
+  min-width: 0;
   padding-bottom: 15px;
   margin-top: 15px;
   border-bottom: 1px solid #f4f4f4;
@@ -945,7 +952,10 @@ export const DetailReviewElem = styled.li`
     margin-right: 10px;
   }
   .reviewBody {
-    width: 100%;
+    flex: 1;
+    // max-width: 308px;
+    // box-sizing: border-box;
+
     position: relative;
     .userName {
       font-family: Pretendard-SemiBold;
@@ -965,6 +975,9 @@ export const DetailReviewElem = styled.li`
       margin-top: 4px;
     }
     .content {
+      box-sizing: border-box;
+      width: 100%;
+      overflow-wrap: break-word;
       font-size: 14px;
       line-height: 20px;
       margin-top: 2px;

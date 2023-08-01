@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import likeIcon from '../../../assets/img/review-like-icon.svg';
+import whiteLikeIcon from '../../../assets/img/review-white-like-icon.svg';
 
 export const MyReviewContainer = styled.div`
   position: absolute;
@@ -36,57 +38,71 @@ export const MyReviewUl = styled.ul`
 `;
 
 export const MyReviewLi = styled.li`
-  margin-bottom: 9px;
-  width:100%;
-  height 97px;
+  padding-bottom: 7px;
+  margin-bottom: 8px;
+  width: 100%;
+  // height: 97px;
   display: flex;
+  border-bottom: 1px solid rgb(264, 244, 244);
   .restaurantImg {
     height: 100%;
     width: 97px;
     border-radius: 3px;
   }
   .restaurantInfo {
-    width:220px;
+    width: 220px;
     margin-left: 20px;
     display: flex;
     flex-direction: column;
 
     .restaurantName {
-        font-size: 18px;
-        line-height: 21px;
+      font-size: 18px;
+      line-height: 21px;
     }
     .rating {
-        margin-top: 4px;
+      margin-top: 4px;
     }
     .content {
-        margin-top: 5px;
-        height: 32px;
-        overflow: hidden;
-        color: #494242;
-        
-        font-size: 12px;
+      margin-top: 5px;
+      margin-bottom: 10px;
+      color: #494242;
+
+      font-size: 12px;
     }
     .likeBtnAndDate {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 5px;
       .likeBtn {
-        height:22px;
+        height: 22px;
         width: 62px;
-        border: 1px solid #bdbdbd;
         border-radius: 10px;
         display: flex;
         justify-content: center;
         align-items: center;
-        
         .likeImg {
-            width: 15px;
-            height: 15px;
-            padding-bottom:1px;
+          width: 15px;
+          height: 15px;
+          padding-bottom: 1px;
         }
         .likeNum {
-            margin-left: 6px;
-            font-size: 12px;
+          margin-left: 6px;
+          font-size: 12px;
+        }
+      }
+      .liked {
+        background-color: #6ab2b2;
+        color: white;
+        img {
+          content: url(${whiteLikeIcon});
+        }
+      }
+      .unliked {
+        border: 1px solid #bdbdbd;
+        color: #5e5e5e;
+        img {
+          content: url(${likeIcon});
         }
       }
       .date {

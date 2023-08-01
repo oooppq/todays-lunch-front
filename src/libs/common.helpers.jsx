@@ -1,10 +1,9 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable react/react-in-jsx-scope */
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
-import { useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import { useAuth } from './userAuth.helpers';
 import xIcon from '../assets/img/x-icon.svg';
 import shareIcon from '../assets/img/share-icon.svg';
@@ -20,7 +19,7 @@ const SERVER_URL = import.meta.env.VITE_SERVER_URL;
 export const useWish = (id, _isWish) => {
   const url = `${SERVER_URL}/restaurants/${id}/mystore`;
   const { authInfo, isAuthorized } = useAuth();
-
+  const queryClient = useQueryClient();
   const [isWish, setIsWish] = useState(_isWish);
   // const { data: isWishRes } = (id &&
   //   useQuery(
@@ -36,14 +35,16 @@ export const useWish = (id, _isWish) => {
   //     { refetchOnWindowFocus: false }
   //   )) || { data: false };
 
-  const { mutate: pushWish } = (id &&
-    useMutation(['push', 'isLike'], () =>
+  const { mutate: pushWish } = useMutation(
+    ['push', 'isLike'],
+    () =>
       axios.post(url, null, {
         headers: {
           Authorization: `Bearer ${authInfo && authInfo.accessToken}`,
         },
-      })
-    )) || { mutate: () => {} };
+      }),
+    { onSuccess: () => queryClient.invalidateQueries(['wishList']) }
+  );
 
   // const isWish = isAuthorized() && isWishRes;
 

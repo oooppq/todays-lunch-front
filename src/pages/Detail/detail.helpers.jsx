@@ -488,6 +488,13 @@ export const handleLikeNum = (num) => {
   return num;
 };
 
+export const handleLongReview = (review) => {
+  // if (review.length > 20) {
+  //   return review.slice(0, 20).concat('...');
+  // }
+  return review;
+};
+
 export const useDetailNav = () => {
   const [tab, setTab] = useState('main');
   const changeTab = (toChange) => setTab(toChange);
