@@ -62,12 +62,7 @@ const JudgeNew = () => {
         <div className="category">
           <div className="bodyTitle">카테고리 설정</div>
           <JudgeNewDropdown />
-          {isSomethingEmpty &&
-          !(
-            judgeNewStates.locationCategory &&
-            judgeNewStates.locationTag &&
-            judgeNewStates.foodCategory
-          ) ? (
+          {isSomethingEmpty && !judgeNewStates.foodCategory ? (
             <Warning element="카테고리를" />
           ) : null}
         </div>
