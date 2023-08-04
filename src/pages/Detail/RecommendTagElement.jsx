@@ -9,7 +9,10 @@ const RecommendTagElement = ({ tag, isSelected, setTags }) => {
     <li
       key={tag.id}
       className="tagLi"
-      style={{ background: isSelected ? 'grey' : null }}
+      style={{
+        background: isSelected ? 'grey' : null,
+        border: isSelected ? 'none' : `1px solid ${tag.color}`,
+      }}
       onClick={() => {
         setTags((tags) => {
           const newTags = tags.filter((id) => id !== tag.id);

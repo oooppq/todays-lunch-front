@@ -419,11 +419,12 @@ export const RecomTagModalContainer = styled(ModalCommon)`
       padding: 0;
       padding-left: 20px;
       .tagLi {
-        height: 18px;
+        height: 28px;
         width: max-content;
         // flex-shrink: 1;
         font-size: 15px;
-        border: 1px solid;
+        // border: 1px solid;
+        box-sizing: border-box;
         border-radius: 15px;
         padding: 5px 14px;
         margin-bottom: 10px;
