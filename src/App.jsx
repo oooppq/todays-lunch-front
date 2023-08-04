@@ -26,7 +26,6 @@ const App = () => {
   const { login, refresh, handleAuthState } = useAuth();
 
   useEffect(handleAuthState);
-
   return (
     <>
       <Header />

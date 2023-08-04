@@ -10,7 +10,11 @@ const DetailContributor = ({ contributors }) => {
       <ul className="contributors">
         {contributors.map((user) => (
           <li key={user.id} className="contributorLi">
-            <img className="profileImg" src={defaultIcon} alt="" />
+            <img
+              className="profileImg"
+              src={user.profileImage || defaultIcon}
+              alt=""
+            />
             <div className="nickName">{user.nickname}</div>
           </li>
         ))}

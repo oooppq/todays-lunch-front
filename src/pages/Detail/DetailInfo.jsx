@@ -1,9 +1,14 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { DetailInfoContainer } from './detail.style';
 import smileIcon from '../../assets/img/smile-icon.svg';
+import pencilIcon from '../../assets/img/detail-pencil-icon.svg';
 import DetailMenuElement from './DetailMenuElement';
+import RecommendTagFetchModal from './RecommendTagFetchModal';
+import { useAuth } from '../../libs/userAuth.helpers';
 
 const DetailInfo = ({
   restaurantData,
@@ -12,6 +17,17 @@ const DetailInfo = ({
   useMenuElem,
 }) => {
   const navigate = useNavigate();
+  const [isMore, setIsMore] = useState(false);
+  const [isRecomTagOpen, setIsRecomTagOpen] = useState(false);
+  const { isAuthorized } = useAuth();
+
+  const openRecomTagModal = () => {
+    if (isAuthorized()) {
+      setIsRecomTagOpen(true);
+    } else {
+      navigate('/login');
+    }
+  };
   return (
     <DetailInfoContainer>
       <div className="update">가게 정보 업데이트 날짜: 2023-02-23</div>
@@ -19,17 +35,92 @@ const DetailInfo = ({
         <img src="" alt="" />
         📌 가게 정보
       </div>
-      <div className="hashTags">
-        <div className="hashTag">#{restaurantData.foodCategory}</div>
-        <div className="hashTag">#{restaurantData.locationCategory}</div>
-        <div className="hashTag">#{restaurantData.locationTag}</div>
-      </div>
-
-      {restaurantData.recommendCategoryList.map((recom) => (
-        <div key={recom} className="recomCat">
-          # {recom}
+      <div className="infos">
+        <div className="info">
+          <div className="key">음식 종류</div>
+          <div className="value">{restaurantData.foodCategory}</div>
         </div>
-      ))}
+        <div className="info">
+          <div className="key">위치</div>
+          <div className="value">
+            {restaurantData.locationCategory} {'>'} {restaurantData.locationTag}
+          </div>
+        </div>
+        <div
+          className="info"
+          onClick={() => {
+            setIsMore((state) => !state);
+          }}
+        >
+          <div className="key">추천 태그</div>
+          <div className="value">
+            <div className="recom">
+              <div
+                className="recomTag"
+                style={{
+                  borderColor: restaurantData.recommendCategoryList[0].color,
+                }}
+              >
+                <span
+                  className="hash"
+                  style={{
+                    color: restaurantData.recommendCategoryList[0].color,
+                  }}
+                >
+                  #{' '}
+                </span>
+                {restaurantData.recommendCategoryList[0].name}
+              </div>
+              <button type="button" className="etc">
+                <span className="">
+                  외 {restaurantData.recommendCategoryList.length - 1}개
+                </span>
+                {/* <img src={detailIcon} alt="" className="" /> */}
+                <span className="moreBtn">{isMore ? '▲' : '▼'}</span>
+              </button>
+            </div>
+            {isMore &&
+              restaurantData.recommendCategoryList.slice(1).map((tag) => (
+                <div
+                  key={tag.id}
+                  className="recomTag more"
+                  style={{
+                    borderColor: tag.color,
+                  }}
+                >
+                  <span
+                    className="hash"
+                    style={{
+                      color: tag.color,
+                    }}
+                  >
+                    #
+                  </span>{' '}
+                  {tag.name}
+                </div>
+              ))}
+          </div>
+          <button
+            type="button"
+            className="recomTagChangeBtn"
+            onClick={(e) => {
+              openRecomTagModal();
+              e.stopPropagation();
+            }}
+          >
+            <img src={pencilIcon} alt="" className="" />
+          </button>
+        </div>
+      </div>
+      {isRecomTagOpen && (
+        <RecommendTagFetchModal
+          closeModal={() => {
+            setIsRecomTagOpen(false);
+          }}
+          restId={restaurantData.id}
+          recommendTag={restaurantData.recommendCategoryList}
+        />
+      )}
 
       <div className="help">
         <img className="helpImg" src={smileIcon} alt="" />
@@ -55,13 +146,14 @@ const DetailInfo = ({
           </button>
         </div>
         <ul className="menuUl">
-          {menuData.map((menu) => (
-            <DetailMenuElement
-              key={menu.id}
-              menu={menu}
-              useMenuElem={useMenuElem}
-            />
-          ))}
+          {menuData &&
+            menuData.map((menu) => (
+              <DetailMenuElement
+                key={menu.id}
+                menu={menu}
+                useMenuElem={useMenuElem}
+              />
+            ))}
         </ul>
       </div>
     </DetailInfoContainer>

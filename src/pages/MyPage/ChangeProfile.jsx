@@ -6,6 +6,7 @@ import cameraIcon from '../../assets/img/empty-camera-icon.svg';
 const ChangeProfile = ({
   userInfo,
   isNicknameChange,
+  isNicknameError,
   setIsNicknameChange,
   newNickname,
   setNewNickname,
@@ -15,14 +16,14 @@ const ChangeProfile = ({
   return (
     <div className="userInfo">
       <div className="profileImgOuter">
-        <button type="button" className="changeProfileImgBtn">
-          <img src={cameraIcon} alt="" className="" />
-        </button>
         <label htmlFor="profileImgInput">
+          <div className="changeProfileImgBtn">
+            <img src={cameraIcon} alt="" className="" />
+          </div>
           <img
             src={userInfo.icon || defaultIcon}
             alt=""
-            className="profileImgInput"
+            className="profileImg"
           />
           <input
             id="profileImgInput"
@@ -34,14 +35,21 @@ const ChangeProfile = ({
       </div>
       <div className="userName">
         {isNicknameChange ? (
-          <input
-            type="text"
-            className="nicknameInput"
-            value={newNickname}
-            onChange={(e) => {
-              setNewNickname(e.target.value);
-            }}
-          />
+          <>
+            <input
+              type="text"
+              className="nicknameInput"
+              value={newNickname}
+              onChange={(e) => {
+                setNewNickname(e.target.value);
+              }}
+            />
+            {isNicknameError && (
+              <div className="nicknameChangeError">
+                한글,영문,숫자로 이루어진 1~7자리
+              </div>
+            )}
+          </>
         ) : (
           <>
             <span className="nicknameSpan">{userInfo.nickname}</span>님

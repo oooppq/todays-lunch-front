@@ -31,11 +31,13 @@ const WishList = () => {
           📌 <span className="userName">알바트로스님</span>이 찜한 맛집 리스트
         </div>
       </WishListHeader>
-      <List
-        restaurants={flattenPages(wishlist && wishlist.pages)}
-        handlePageNum={fetchNextPage}
-        className="myRestaurantList"
-      />
+      {wishlist ? (
+        <List
+          restaurants={flattenPages(wishlist.pages)}
+          handlePageNum={fetchNextPage}
+          className="myRestaurantList"
+        />
+      ) : null}
     </WishListContainer>
   );
 };

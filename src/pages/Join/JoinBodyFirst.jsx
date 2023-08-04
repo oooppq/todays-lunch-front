@@ -1,11 +1,15 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useInputValidation, useWarningHandler } from './join.helpers';
 import { JoinBodyFirstContainer } from './join.style';
 import JoinWarningMessage from './JoinWarningMessage';
+import EmailValidationMessage from './EmailValidationMessage';
 
 const JoinBodyFirst = ({
   email,
+  emailValidationRequest,
+  varificationCode,
+  codeReset,
   nickName,
   password,
   passwordConfirm,
@@ -34,18 +38,102 @@ const JoinBodyFirst = ({
     checkAllForFirst,
   } = useInputValidation();
 
+  const [isValidation, setIsValidation] = useState(false);
+  const [validationStatus, setValidationStatus] = useState('sent');
+  const [isEmailChanged, setIsEmailChanged] = useState(false);
+  const [notValidatedError, setNotValidatedError] = useState(false);
+  useEffect(() => {
+    if (validationStatus === 'success') {
+      setNotValidatedError(false);
+    }
+  }, [validationStatus, setNotValidatedError]);
+
+  const codeRef = useRef();
+
   return (
     <JoinBodyFirstContainer>
-      <div className="label emailLabel">이메일</div>
-      <input
-        type="text"
-        className="input"
-        placeholder="example@example.com"
-        onChange={handleEmailChange}
-        onBlur={(event) => {
-          setEmailWarning(!checkEmail(event.target.value));
-        }}
-      />
+      <div className="label emailLabel">
+        이메일{' '}
+        {notValidatedError && (
+          <span
+            className=""
+            style={{ color: 'rgb(202, 45, 24)', fontSize: '12px' }}
+          >
+            ⚠️ 이메일 인증을 완료해주세요.
+          </span>
+        )}
+      </div>
+      <div className="email emailOuter">
+        <input
+          type="text"
+          className="input emailInput"
+          placeholder="example@example.com"
+          onChange={(e) => {
+            handleEmailChange(e);
+            setIsValidation(false);
+            setIsEmailChanged(true);
+          }}
+          onBlur={(event) => {
+            setEmailWarning(!checkEmail(event.target.value));
+          }}
+        />
+        <button
+          type="button"
+          className="checkBtn"
+          onClick={() => {
+            if (email && !emailWarning && isEmailChanged) {
+              codeReset();
+              emailValidationRequest();
+              setValidationStatus('sent');
+              setIsValidation(true);
+              setIsEmailChanged(false);
+            }
+          }}
+        >
+          확인
+        </button>
+      </div>
+      {isValidation && (
+        <div className="validationOuter">
+          <div className="validation">
+            <input
+              type="text"
+              className="validationInput"
+              ref={codeRef}
+              disabled={validationStatus === 'success' && true}
+            />
+            <button
+              type="button"
+              className="validationBtn"
+              onClick={() => {
+                if (codeRef.current.value === varificationCode) {
+                  setValidationStatus('success');
+                } else {
+                  setValidationStatus('fail');
+                }
+              }}
+            >
+              인증
+            </button>
+            <button
+              type="button"
+              className="validationBtn againBtn"
+              onClick={() => {
+                if (email && !emailWarning) {
+                  codeReset();
+                  emailValidationRequest();
+                  setValidationStatus('sent');
+                  codeRef.current.value = '';
+                }
+              }}
+            >
+              재전송
+            </button>
+          </div>
+          <EmailValidationMessage validationStatus={validationStatus} />
+        </div>
+      )}
+
       <JoinWarningMessage
         flag={emailWarning}
         message="이메일을 확인해주세요."
@@ -106,9 +194,12 @@ const JoinBodyFirst = ({
         type="button"
         className="nextStageBtn"
         onClick={() => {
-          if (checkAllForFirst(email, nickName, password, passwordConfirm))
-            goToNextStage();
-          else {
+          if (checkAllForFirst(email, nickName, password, passwordConfirm)) {
+            if (validationStatus === 'success') goToNextStage();
+            else {
+              setNotValidatedError(true);
+            }
+          } else {
             setEmailWarning(!checkEmail(email));
             setNickNameWarning(!checkNickName(nickName));
             setPasswordWarning(!checkPassword(password));

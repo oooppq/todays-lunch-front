@@ -19,16 +19,15 @@ const Detail = () => {
     isRestaurantLoading,
     restaurantError,
     menus,
-    isMenusLoading,
-    menusError,
+    // isMenusLoading,
+    // menusError,
     pushNewMenu,
     pushNewMenuStatus,
     useMenuElem,
     openNewMenuModal,
   } = useDetail(id);
 
-  if (isRestaurantLoading || restaurantError || isMenusLoading || menusError)
-    return null;
+  if (isRestaurantLoading || restaurantError) return null;
 
   return (
     <DetailContainer>
@@ -50,7 +49,7 @@ const Detail = () => {
           useMenuElem={useMenuElem}
         />
       ) : (
-        <DetailReview restaurantId={id} />
+        <DetailReview restaurantId={id} reviewNumber={restaurant.reviewCount} />
       )}
     </DetailContainer>
   );

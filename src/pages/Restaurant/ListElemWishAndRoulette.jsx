@@ -10,7 +10,7 @@ import { useRoulette, useWish } from '../../libs/common.helpers';
 
 const ListElemWishAndRoulette = ({ restaurant }) => {
   const { isInRoulette, pushRoulette } = useRoulette(restaurant.id);
-  const { isWish, handlePushWish } = useWish(restaurant.id);
+  const { isWish, handlePushWish } = useWish(restaurant.id, restaurant.liked);
   const navigate = useNavigate();
 
   return (

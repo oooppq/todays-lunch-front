@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
+import { useSelector } from 'react-redux';
 import {
   DetailMenuPhotoInnerModalContainer,
   DetailMenuPhotoDeleteModalContainer,
@@ -15,6 +16,7 @@ const DetailMenuPhotoInnerModal = ({
   openPhotoDeleteModal,
   closePhotoDeleteModal,
 }) => {
+  const userId = useSelector((state) => state.userAuth.id);
   return (
     <DetailMenuPhotoInnerModalContainer>
       {isPhotoDeleteModalOpen ? (
@@ -55,15 +57,18 @@ const DetailMenuPhotoInnerModal = ({
         {/* <div className="fileName">{selectedPhoto.originalName}</div> */}
         <div className="photoInfo">
           <div className="userName">
-            photo by <span className="bold">{selectedPhoto.userName}</span>
+            photo by{' '}
+            <span className="bold">{selectedPhoto.member.nickname}</span>
           </div>
-          <button
-            type="button"
-            className="deleteBtn"
-            onClick={openPhotoDeleteModal}
-          >
-            <img src={trashIcon} alt="" className="" />
-          </button>
+          {selectedPhoto.member.id === userId && (
+            <button
+              type="button"
+              className="deleteBtn"
+              onClick={openPhotoDeleteModal}
+            >
+              <img src={trashIcon} alt="" className="" />
+            </button>
+          )}
         </div>
       </div>
     </DetailMenuPhotoInnerModalContainer>
