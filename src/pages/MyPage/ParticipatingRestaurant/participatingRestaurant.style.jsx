@@ -99,6 +99,26 @@ export const ParticipatingRestaurantLi = styled.li`
       }
     }
   }
+  .rating {
+    margin-top: 13px;
+    font-size: 22px;
+    margin-right: 15px;
+    color: #6ab2b2;
+  }
+  .review {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 10px;
+    margin-top: 5px;
+    .reviewIcon {
+      width: 25px;
+      margin-bottom: 3px;
+    }
+    .reviewNum {
+      font-size: 13px;
+    }
+  }
   .wishAndRoulette {
     button {
       width: 37px;

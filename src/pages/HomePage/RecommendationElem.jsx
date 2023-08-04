@@ -42,7 +42,9 @@ const RecommendationElem = ({ restaurant }) => {
           </div>
           <div className="comment">"{restaurant.bestReview}"</div>
           <div className="reviewRate">
-            <span className="reviewNum">리뷰 {restaurant.reviewCount}개</span>
+            <span className="reviewNum">
+              리뷰 {convertNum(restaurant.reviewCount)}개
+            </span>
             {' | '}
             <span className="rating">별점 {restaurant.rating}</span>
           </div>

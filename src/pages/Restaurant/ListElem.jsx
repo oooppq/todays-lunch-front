@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { gotoDetailOnClick } from '../../libs/utils';
+import { convertNum, gotoDetailOnClick } from '../../libs/utils';
 import {
   ListElemContainer,
   ListElemImg,
@@ -13,6 +13,7 @@ import ListElemWishAndRoulette from './ListElemWishAndRoulette';
 
 const ListElem = ({ restaurant }) => {
   const navigate = useNavigate();
+
   return (
     <ListElemContainer
       key={restaurant.id}
@@ -32,7 +33,7 @@ const ListElem = ({ restaurant }) => {
             ) : null}
           </div>
           <div className="reviewRate">
-            <span>리뷰 {restaurant.reviewCount}개</span>
+            <span>리뷰 {convertNum(restaurant.reviewCount)}개</span>
             {' | '}
             <span>평점 {restaurant.rating}</span>
           </div>
