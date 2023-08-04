@@ -144,7 +144,7 @@ export const JudgeNewBody = styled.div`
   }
 
   .photo {
-    height: 168px;
+    // height: 168px;
     .photoInner {
       border: none;
       border-radius: 4px;
@@ -204,6 +204,7 @@ export const JudgeNewBody = styled.div`
   }
 
   .review {
+    margin-top: 30px;
     width: 100%;
     margin-bottom: 35px;
     display: flex;

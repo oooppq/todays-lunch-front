@@ -55,19 +55,21 @@ const JudgeNew = () => {
             <img src={markerIcon} alt="" />
             <div>{judgeNewStates.restaurantName || '맛집 설정하기'}</div>
           </button>
-          {isSomethingEmpty && !judgeNewStates.restaurantName ? (
+          {isSomethingEmpty && !judgeNewStates.restaurantName && (
             <Warning element="맛집을" />
-          ) : null}
+          )}
         </div>
         <div className="category">
           <div className="bodyTitle">카테고리 설정</div>
           <JudgeNewDropdown />
-          {isSomethingEmpty && !judgeNewStates.foodCategory ? (
+          {isSomethingEmpty && !judgeNewStates.foodCategory && (
             <Warning element="카테고리를" />
-          ) : null}
+          )}
         </div>
         <JudgeNewGetPhoto />
-
+        {isSomethingEmpty && !judgeNewStates.restaurantImage && (
+          <Warning element="사진을" />
+        )}
         <div className="review">
           <div className="bodyTitle">리뷰</div>
           <textarea
@@ -79,9 +81,9 @@ const JudgeNew = () => {
               dispatch(setIntroduction(e.target.value));
             }}
           />
-          {isSomethingEmpty && !judgeNewStates.introduction ? (
+          {isSomethingEmpty && !judgeNewStates.introduction && (
             <Warning element="리뷰를" />
-          ) : null}
+          )}
         </div>
         <JudgeNewRecommendCategory />
       </JudgeNewBody>
@@ -91,6 +93,7 @@ const JudgeNew = () => {
             judgeNewStates.restaurantName &&
             judgeNewStates.latitude &&
             judgeNewStates.longitude &&
+            judgeNewStates.restaurantImage &&
             // judgeNewStates.locationCategory &&
             // judgeNewStates.locationTag &&
             judgeNewStates.foodCategory &&
