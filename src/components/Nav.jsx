@@ -29,7 +29,7 @@ const Nav = () => {
           id="restaurants-judge"
           onClick={navOnClick}
         >
-          맛집심사
+          새로운 맛집
         </NavLi>
       </NavUl>
     </NavContainer>

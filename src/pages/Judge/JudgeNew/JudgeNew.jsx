@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import JudgeSearch from './JudgeSearch';
@@ -21,7 +20,7 @@ import Warning from '../../../components/Warning';
 const JudgeNew = () => {
   const dispatch = useDispatch();
   const judgeNewStates = useSelector((state) => state.judgeNew);
-
+  // const reader = new FileReader();
   // 각종 modal을 위한 state
   const [isOut, setIsOut] = useState(false);
   const [isSearch, setIsSearch] = useState(false);
@@ -63,12 +62,7 @@ const JudgeNew = () => {
         <div className="category">
           <div className="bodyTitle">카테고리 설정</div>
           <JudgeNewDropdown />
-          {isSomethingEmpty &&
-          !(
-            judgeNewStates.locationCategory &&
-            judgeNewStates.locationTag &&
-            judgeNewStates.foodCategory
-          ) ? (
+          {isSomethingEmpty && !judgeNewStates.foodCategory ? (
             <Warning element="카테고리를" />
           ) : null}
         </div>
@@ -97,8 +91,8 @@ const JudgeNew = () => {
             judgeNewStates.restaurantName &&
             judgeNewStates.latitude &&
             judgeNewStates.longitude &&
-            judgeNewStates.locationCategory &&
-            judgeNewStates.locationTag &&
+            // judgeNewStates.locationCategory &&
+            // judgeNewStates.locationTag &&
             judgeNewStates.foodCategory &&
             judgeNewStates.introduction.length
           ) {

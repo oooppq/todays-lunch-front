@@ -1,4 +1,3 @@
-/* eslint-disable prefer-template */
 /* eslint-disable react/prop-types */
 import React, { useEffect } from 'react';
 import { JudgeSearchHeader, JudgeSearchBox } from './judgeNew.style';
@@ -53,11 +52,18 @@ const JudgeSearchTop = ({
           ref={inputRef}
           type="text"
           placeholder="가게 이름을 검색해보세요."
-          onFocus={() => {
-            setMode('recent');
-          }}
           onChange={(e) => {
             setKeyBuffer(e.target.value);
+            if (e.target.value.length > 0) {
+              setMode('recent');
+            } else {
+              setMode((state) => {
+                if (state === 'recent' || state === 'result') {
+                  return 'map';
+                }
+                return state;
+              });
+            }
           }}
           onKeyDown={(e) => {
             if (e.nativeEvent.isComposing) return;

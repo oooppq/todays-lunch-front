@@ -1,6 +1,5 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable react/no-unescaped-entities */
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { useQuery } from 'react-query';
 import axios from 'axios';
 import { Carousel } from 'react-responsive-carousel';
@@ -9,25 +8,36 @@ import { RecommendationContainer, RecommendationTitle } from './homePage.style';
 import RecommendationElem from './RecommendationElem';
 
 const Recommendation = () => {
+  const accessToken = useSelector((state) => state.userAuth.accessToken);
+
   const { isLoading, error, data } = useQuery(['recommends', 'list'], () =>
-    axios.get('/api/recommends').then((res) => res.data)
+    axios
+      .get(`${import.meta.env.VITE_SERVER_URL}/recommends`, {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      })
+      .then((res) => res.data)
   );
 
-  if (isLoading) return null;
-  if (error) return 'error!';
+  // if (isLoading) return null;
+  // if (error) return 'error!';
 
   return (
     <RecommendationContainer>
       <RecommendationTitle>
         🍚 <span>오늘의</span> 맛집
       </RecommendationTitle>
-      <Carousel showStatus={false} showArrows={false} showThumbs={false}>
-        {data
-          ? data.map((restaurant) => (
-              <RecommendationElem key={restaurant.id} restaurant={restaurant} />
-            ))
-          : null}
-      </Carousel>
+      {!isLoading && !error && (
+        <Carousel showStatus={false} showArrows={false} showThumbs={false}>
+          {data
+            ? data.map((restaurant) => (
+                <RecommendationElem
+                  key={restaurant.id}
+                  restaurant={restaurant}
+                />
+              ))
+            : null}
+        </Carousel>
+      )}
     </RecommendationContainer>
   );
 };

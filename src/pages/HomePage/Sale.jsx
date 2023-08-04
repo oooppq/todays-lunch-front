@@ -1,21 +1,22 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import { QueryClient, QueryClientProvider, useQuery } from 'react-query';
+import { useQuery } from 'react-query';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { SaleContainer, SaleTitle, SaleUl, SaleLi } from './homePage.style';
 import defaultImage from '../../assets/img/default-image.png';
 import { convertNum, gotoDetailOnClick } from '../../libs/utils';
 
-const queryClient = new QueryClient();
-
 const SetData = ({ navigate }) => {
-  const { isLoading, error, data } = useQuery(['sales', 'list'], () =>
-    axios.get('/api/sales').then((res) => res.data)
+  // const { isLoading, error, data } = useQuery(['sales', 'list'], () =>
+  const { data } = useQuery(['sales', 'list'], () =>
+    axios
+      .get(`${import.meta.env.VITE_SERVER_URL}/sales`)
+      .then((res) => res.data)
   );
 
-  if (isLoading) return null;
-  if (error) return 'error';
+  // if (isLoading) return null;
+  // if (error) return 'error';
 
   return (
     <SaleContainer>
@@ -52,11 +53,7 @@ const SetData = ({ navigate }) => {
 };
 const Sale = () => {
   const navigate = useNavigate();
-  return (
-    <QueryClientProvider client={queryClient}>
-      <SetData navigate={navigate} />
-    </QueryClientProvider>
-  );
+  return <SetData navigate={navigate} />;
 };
 
 export default Sale;

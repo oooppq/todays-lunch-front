@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
 import { MyJudgeContainer, MyJudgeHeader } from './myJudge.style';
 import JudgeNowList from '../../Judge/JudgeNow/JudgeNowList';

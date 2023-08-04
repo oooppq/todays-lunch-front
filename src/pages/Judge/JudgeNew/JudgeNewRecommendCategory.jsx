@@ -11,7 +11,10 @@ import {
 const JudgeNewRecommendCategory = () => {
   const { data, error, isLoading } = useQuery(
     'recommend-category',
-    () => axios.get('/api/recommend-category').then((res) => res.data),
+    () =>
+      axios
+        .get(`${import.meta.env.VITE_SERVER_URL}/recommend-tag`)
+        .then((res) => res.data),
     { refetchOnWindowFocus: false }
   );
   const dispatch = useDispatch();

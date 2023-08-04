@@ -18,7 +18,7 @@ const ListElem = ({ restaurant }) => {
       key={restaurant.id}
       onClick={() => gotoDetailOnClick(restaurant.id, navigate)}
     >
-      <ListElemImg src={defaultImage} />
+      <ListElemImg src={restaurant.imageUrl || defaultImage} />
       <ListElemInfo>
         <div className="title">
           <span>{restaurant.restaurantName}</span>

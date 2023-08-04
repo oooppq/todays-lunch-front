@@ -11,6 +11,7 @@ const MyPageBodyTop = ({ userInfo, handleGotoOnClick }) => {
     isProfileChanging,
     isNicknameChange,
     setIsNicknameChange,
+    isNicknameError,
     newNickname,
     setNewNickname,
     handleNicknameChange,
@@ -23,6 +24,7 @@ const MyPageBodyTop = ({ userInfo, handleGotoOnClick }) => {
         <ChangeProfile
           userInfo={userInfo}
           isNicknameChange={isNicknameChange}
+          isNicknameError={isNicknameError}
           setIsNicknameChange={setIsNicknameChange}
           newNickname={newNickname}
           setNewNickname={setNewNickname}

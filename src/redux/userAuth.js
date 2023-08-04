@@ -9,6 +9,7 @@ const initialState = {
   accessToken: null,
   refreshToken: null,
   expireTime: null,
+  temporary: false,
 };
 
 export const userAuthSlice = createSlice({
@@ -56,6 +57,9 @@ export const userAuthSlice = createSlice({
     setExpireTime: (state, action) => {
       state.expireTime = action.payload;
     },
+    setTemporary: (state, action) => {
+      state.temporary = action.payload;
+    },
   },
 });
 
@@ -66,6 +70,7 @@ export const {
   setAccessToken,
   setRefreshToken,
   setExpireTime,
+  setTemporary,
 } = userAuthSlice.actions;
 
 export default userAuthSlice.reducer;

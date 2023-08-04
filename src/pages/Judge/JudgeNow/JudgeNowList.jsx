@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -13,7 +15,7 @@ import defaultImg from '../../../assets/img/default-image.png';
 
 const JudgeNowListElem = ({ restaurant }) => {
   const [isDetail, setIsDetail] = useState(false);
-  const { pushAgree, isAgree } = useJudgeAgree(restaurant.id);
+  const { pushAgree } = useJudgeAgree(restaurant.id);
   const navigate = useNavigate();
 
   return (
@@ -32,7 +34,11 @@ const JudgeNowListElem = ({ restaurant }) => {
           setIsDetail(true);
         }}
       >
-        <img className="restImage" src={defaultImg} alt="" />
+        <img
+          className="restImage"
+          src={restaurant.imageUrl || defaultImg}
+          alt=""
+        />
         {/* <img className="restImage" src={e.imageUrl} alt="" /> */}
         <div className="info">
           <div className="title">{restaurant.restaurantName}</div>
@@ -45,21 +51,27 @@ const JudgeNowListElem = ({ restaurant }) => {
           </div>
           <div className="credit">post by {restaurant.registrant}</div>
         </div>
-        <div className="recommend">
+        <div
+          className="recommend"
+          onClick={(e) => {
+            // if (isAgreed) setAgreementCount((state) => state - 1);
+            // else setAgreementCount((state) => state + 1);
+            // setIsAgreed((state) => !state);
+
+            pushAgree(navigate);
+            e.stopPropagation();
+          }}
+        >
           <div
             className="imageOuter"
             aria-hidden="true"
-            onClick={(event) => {
-              pushAgree(navigate);
-              event.stopPropagation();
-            }}
-            style={isAgree ? { backgroundColor: '#6ab2b2' } : null}
+            style={restaurant.agreed ? { backgroundColor: '#6ab2b2' } : null}
           >
             <img src={thumbIcon} alt="" />
           </div>
           <div
             className="recomNum"
-            style={isAgree ? { backgroundColor: '#6ab2b2' } : null}
+            style={restaurant.agreed ? { backgroundColor: '#6ab2b2' } : null}
           >
             {restaurant.agreementCount}
           </div>

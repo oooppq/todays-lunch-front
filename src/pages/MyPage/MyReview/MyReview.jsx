@@ -30,9 +30,9 @@ const MyReview = () => {
         <div className="title">
           📌{' '}
           <span className="userName">
-            {userInfoIsFetching || userInfoError ? null : userInfo.nickname}님
+            {userInfoIsFetching || userInfoError ? null : userInfo.nickname}
           </span>
-          이 작성한 리뷰 리스트
+          님이 작성한 리뷰 리스트
         </div>
       </MyReviewHeader>
       <MyReviewUl>

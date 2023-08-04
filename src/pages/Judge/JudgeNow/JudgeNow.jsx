@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
 import { JudgeNowContainer, JudgeNowHeader } from './judgeNow.style';
 import swipeIcon from '../../../assets/img/swipe-icon.svg';
