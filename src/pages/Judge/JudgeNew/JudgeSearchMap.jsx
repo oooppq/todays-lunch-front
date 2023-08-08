@@ -1,12 +1,17 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { CurrentLocationBtn, StyledMap } from './judgeNew.style';
 import curLocIcon from '../../../assets/img/current-location-icon.png';
 import MarkerElement from './MarkerElement';
+import { distance } from './judgeNew.helpers';
 
 const JudgeSearchMap = ({ data, selected, setSelected }) => {
   const [map, setMap] = useState();
   const [clickedMarker, setClickedMarker] = useState(null);
+  const locationCategory = useSelector(
+    (state) => state.judgeNew.locationCategory
+  );
 
   useEffect(() => {
     if (map && data.length) {
@@ -30,13 +35,33 @@ const JudgeSearchMap = ({ data, selected, setSelected }) => {
 
   return (
     <StyledMap
-      center={{ lat: 37.5509442, lng: 126.9410023 }}
+      center={{
+        lat: locationCategory.latitude,
+        lng: locationCategory.longitude,
+      }}
       level={5}
       onCreate={setMap}
       onDragStart={() => {
         setSelected(null);
       }}
       onClick={(_e, e) => {
+        if (
+          distance(
+            e.latLng.getLat(),
+            e.latLng.getLng(),
+            locationCategory.latitude,
+            locationCategory.longitude
+          ) > 1
+        ) {
+          map.panTo(
+            new window.kakao.maps.LatLng(
+              locationCategory.latitude,
+              locationCategory.longitude
+            )
+          );
+          return;
+        }
+
         const geocoder = new window.kakao.maps.services.Geocoder();
         geocoder.coord2Address(e.latLng.getLng(), e.latLng.getLat(), (addr) => {
           if (addr.length === 0) return;

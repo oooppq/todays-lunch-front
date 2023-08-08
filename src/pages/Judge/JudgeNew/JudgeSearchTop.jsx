@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { JudgeSearchHeader, JudgeSearchBox } from './judgeNew.style';
 import xIcon from '../../../assets/img/x-icon.svg';
 import searchIcon from '../../../assets/img/search-icon.svg';
@@ -16,21 +17,41 @@ const JudgeSearchTop = ({
   inputRef,
   searchActions,
 }) => {
+  const locationCategory = useSelector(
+    (state) => state.judgeNew.locationCategory
+  );
+
   useEffect(() => {
     if (keyword === 'SKIP_SEARCHING') return;
     setResult([]); // 새로운 키워드 입력됐을 때, data 초기화
     if (keyword.length) {
       const placeSearch = new window.kakao.maps.services.Places();
-      placeSearch.keywordSearch(keyword, (data, status, _pagination) => {
-        if (status === window.kakao.maps.services.Status.OK) {
-          setResult((state) => [...state, ...data]); // 페이지 넘어가도 기존 data 이어지도록..
-          setPagination(_pagination);
-        } else if (status === window.kakao.maps.services.Status.ZERO_RESULT) {
-          setResult([]);
+      placeSearch.keywordSearch(
+        keyword,
+        (data, status, _pagination) => {
+          if (status === window.kakao.maps.services.Status.OK) {
+            setResult((state) => [...state, ...data]); // 페이지 넘어가도 기존 data 이어지도록..
+            setPagination(_pagination);
+          } else if (status === window.kakao.maps.services.Status.ZERO_RESULT) {
+            setResult([]);
+          }
+        },
+        {
+          location: new window.kakao.maps.LatLng(
+            locationCategory.latitude,
+            locationCategory.longitude
+          ),
+          radius: 1000,
         }
-      });
+      );
     }
-  }, [keyword, setPagination, setResult]);
+  }, [
+    keyword,
+    locationCategory.latitude,
+    locationCategory.longitude,
+    setPagination,
+    setResult,
+  ]);
 
   return (
     <>

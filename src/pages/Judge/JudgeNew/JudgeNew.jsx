@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useQueries } from 'react-query';
+import axios from 'axios';
 import JudgeSearch from './JudgeSearch';
 import JudgeNewGetPhoto from './JudgeNewGetPhoto';
 import {
@@ -14,8 +16,28 @@ import JudgeNewOutModal from './JudgeNewOutModal';
 import JudgeNewDoneModal from './JudgeNewDoneModal';
 import JudgeNewDropdown from './JudgeNewDropdown';
 import JudgeNewRecommendCategory from './JudgeNewRecommendCategory';
-import { setIntroduction } from '../../../redux/judgeNew';
+import { setLocationCategory, setIntroduction } from '../../../redux/judgeNew';
 import Warning from '../../../components/Warning';
+import Dropdown from '../../../components/Dropdown';
+
+const SERVER_URL = import.meta.env.VITE_SERVER_URL;
+
+const dropdownStyle = `
+    .selectedLabel {
+      background-color: white;
+      height: 32px;
+      width: 98px;
+      font-size: 12px;
+      border-radius: 30px;
+      border: 1px solid #bdbdbd;
+      padding: 0 16px;
+      color: #7c7c7c;
+      .triangle {
+        right: 11px;
+        color: #cbcbcb;
+      }
+    }
+  `;
 
 const JudgeNew = () => {
   const dispatch = useDispatch();
@@ -26,6 +48,28 @@ const JudgeNew = () => {
   const [isSearch, setIsSearch] = useState(false);
   const [isDone, setIsDone] = useState(false);
   const [isSomethingEmpty, setIsSomethingEmpty] = useState(false);
+
+  const locationCategory = useSelector(
+    (state) => state.judgeNew.locationCategory
+  );
+
+  const ress = useQueries(
+    [
+      {
+        queryKey: ['location-category'],
+        queryFn: () =>
+          axios.get(`${SERVER_URL}/location-category`).then((res) => res.data),
+      },
+      {
+        queryKey: ['food-category'],
+        queryFn: () =>
+          axios.get(`${SERVER_URL}/food-category`).then((res) => res.data),
+      },
+    ],
+    {
+      refetchOnWindowFocus: false,
+    }
+  );
 
   return (
     <JudgeNewContainer>
@@ -44,24 +88,45 @@ const JudgeNew = () => {
       {isSearch ? <JudgeSearch setIsSearch={setIsSearch} /> : null}
       <JudgeNewBody>
         <div className="search">
-          <div className="bodyTitle">맛집 찾기</div>
-          <button
-            type="button"
-            className="bodyBtn saerchBtn"
-            onClick={() => {
-              setIsSearch(true);
-            }}
-          >
-            <img src={markerIcon} alt="" />
-            <div>{judgeNewStates.restaurantName || '맛집 설정하기'}</div>
-          </button>
+          <div className="titleOuter">
+            <div className="bodyTitle">맛집 찾기</div>
+            <div className="bodySubTitle">
+              [설정한 위치 1km 이내의 맛집만 등록할 수 있어요.]
+            </div>
+          </div>
+
+          <div className="searchBtnOuter">
+            {ress[0] && (
+              <Dropdown
+                data={ress[0].data}
+                selected={locationCategory}
+                setSelected={(toSelect) => {
+                  dispatch(setLocationCategory(toSelect));
+                }}
+                defaultValue="위치"
+                style={dropdownStyle}
+              />
+            )}
+            {locationCategory && (
+              <button
+                type="button"
+                className="saerchBtn"
+                onClick={() => {
+                  setIsSearch(true);
+                }}
+              >
+                <img src={markerIcon} alt="" />
+                <div>{judgeNewStates.restaurantName || '맛집 설정하기'}</div>
+              </button>
+            )}
+          </div>
           {isSomethingEmpty && !judgeNewStates.restaurantName && (
             <Warning element="맛집을" />
           )}
         </div>
         <div className="category">
           <div className="bodyTitle">카테고리 설정</div>
-          <JudgeNewDropdown />
+          <JudgeNewDropdown foodCategoryRes={ress[1]} />
           {isSomethingEmpty && !judgeNewStates.foodCategory && (
             <Warning element="카테고리를" />
           )}
