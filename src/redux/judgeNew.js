@@ -48,6 +48,15 @@ export const judgeNewSlice = createSlice({
     setIntroduction: (state, action) => {
       state.introduction = action.payload;
     },
+    resetRestaurantInfo: (state) => {
+      Object.assign(state, {
+        restaurantName: null,
+        latitude: null,
+        longitude: null,
+        address: null,
+        locationCategory: null,
+      });
+    },
     reset: (state) => {
       Object.assign(state, initialState);
     },
@@ -65,6 +74,7 @@ export const {
   setLongitude,
   setAddress,
   setIntroduction,
+  resetRestaurantInfo,
   reset,
 } = judgeNewSlice.actions;
 

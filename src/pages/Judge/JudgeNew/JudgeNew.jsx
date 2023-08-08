@@ -11,12 +11,17 @@ import {
   DoneBtn,
 } from './judgeNew.style';
 import xIcon from '../../../assets/img/x-icon.svg';
+import refreshIcon from '../../../assets/img/refresh-icon.png';
 import markerIcon from '../../../assets/img/marker-icon.svg';
 import JudgeNewOutModal from './JudgeNewOutModal';
 import JudgeNewDoneModal from './JudgeNewDoneModal';
 import JudgeNewDropdown from './JudgeNewDropdown';
 import JudgeNewRecommendCategory from './JudgeNewRecommendCategory';
-import { setLocationCategory, setIntroduction } from '../../../redux/judgeNew';
+import {
+  setLocationCategory,
+  setIntroduction,
+  resetRestaurantInfo,
+} from '../../../redux/judgeNew';
 import Warning from '../../../components/Warning';
 import Dropdown from '../../../components/Dropdown';
 
@@ -96,28 +101,42 @@ const JudgeNew = () => {
           </div>
 
           <div className="searchBtnOuter">
-            {ress[0] && (
+            {ress[0] && !locationCategory && (
               <Dropdown
                 data={ress[0].data}
                 selected={locationCategory}
                 setSelected={(toSelect) => {
                   dispatch(setLocationCategory(toSelect));
                 }}
-                defaultValue="위치"
+                defaultValue="위치 설정"
                 style={dropdownStyle}
               />
             )}
             {locationCategory && (
-              <button
-                type="button"
-                className="saerchBtn"
-                onClick={() => {
-                  setIsSearch(true);
-                }}
-              >
-                <img src={markerIcon} alt="" />
-                <div>{judgeNewStates.restaurantName || '맛집 설정하기'}</div>
-              </button>
+              <>
+                <button
+                  type="button"
+                  className="saerchBtn"
+                  onClick={() => {
+                    setIsSearch(true);
+                  }}
+                >
+                  <img src={markerIcon} alt="" />
+                  <div>{judgeNewStates.restaurantName || '맛집 설정하기'}</div>
+                </button>
+                <div className="selectedLoc">
+                  <div className="">위치: {locationCategory.name}</div>
+                  <button
+                    type="button"
+                    className="refreshBtn"
+                    onClick={() => {
+                      dispatch(resetRestaurantInfo());
+                    }}
+                  >
+                    <img src={refreshIcon} alt="" className="" />
+                  </button>
+                </div>
+              </>
             )}
           </div>
           {isSomethingEmpty && !judgeNewStates.restaurantName && (
