@@ -95,11 +95,21 @@ export const OutModalInner = styled.div`
 export const JudgeNewBody = styled.div`
   margin: 33px 39px 0 39px;
   width: auto;
+  .titleOuter {
+    display: flex;
+    align-items: center;
+    .bodySubTitle {
+      margin-left: 3px;
+      font-size: 12px;
+      color: #ff6020;
+    }
+  }
   .bodyTitle {
     font-family: Pretendard-SemiBold;
     font-size: 18px;
     color: #494949;
   }
+
   .bodyBtn {
     margin: 13px 0 0 9px;
     padding: 0;
@@ -107,26 +117,32 @@ export const JudgeNewBody = styled.div`
 
   .search {
     height: 109px;
-    .saerchBtn {
-      border: 1px solid #d9d9d9;
-      border-radius: 4px;
-      background-color: transparent;
-      height: 36px;
-      width: 138.86px;
+    .searchBtnOuter {
+      margin: 15px 0 0 5px;
       display: flex;
       align-items: center;
-      padding-left: 14px;
-      padding-right: 15px;
-      img {
-        height: 18px;
-        width: 18px;
-        margin-right: 6px;
-      }
-      div {
-        font-size: 14px;
-        color: #7c7c7c;
-        white-space: nowrap;
-        overflow: hidden;
+      .saerchBtn {
+        margin-left: 20px;
+        border: 1px solid #616161;
+        border-radius: 4px;
+        background-color: transparent;
+        height: 32px;
+        width: 138.86px;
+        display: flex;
+        align-items: center;
+        padding-left: 14px;
+        padding-right: 15px;
+        img {
+          height: 18px;
+          width: 18px;
+          margin-right: 6px;
+        }
+        div {
+          font-size: 14px;
+          color: #616161;
+          white-space: nowrap;
+          overflow: hidden;
+        }
       }
     }
   }

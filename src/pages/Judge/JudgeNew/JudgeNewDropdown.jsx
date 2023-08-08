@@ -1,7 +1,6 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
-import { useQueries } from 'react-query';
 import { useSelector, useDispatch } from 'react-redux';
-import axios from 'axios';
 import {
   // setLocationCategory,
   // setLocationTag,
@@ -10,14 +9,8 @@ import {
 
 import Dropdown from '../../../components/Dropdown';
 
-const SERVER_URL = import.meta.env.VITE_SERVER_URL;
-
-const JudgeNewDropdown = () => {
+const JudgeNewDropdown = ({ foodCategoryRes }) => {
   const foodCategory = useSelector((state) => state.judgeNew.foodCategory);
-  // const locationTag = useSelector((state) => state.judgeNew.locationTag);
-  // const locationCategory = useSelector(
-  //   (state) => state.judgeNew.locationCategory
-  // );
   const dropdownStyle = `
     .selectedLabel {
       background-color: white;
@@ -36,40 +29,6 @@ const JudgeNewDropdown = () => {
   `;
 
   const dispatch = useDispatch();
-
-  // server data state 관리를 위한 state
-  const ress = useQueries([
-    {
-      queryKey: ['location-category'],
-      queryFn: () =>
-        axios.get(`${SERVER_URL}/location-category`).then((res) => res.data),
-      refetchOnWindowFocus: false,
-    },
-    {
-      queryKey: ['location-tags'],
-      queryFn: () =>
-        axios.get(`${SERVER_URL}/location-tag`).then((res) => res.data),
-      refetchOnWindowFocus: false,
-    },
-    {
-      queryKey: ['food-category'],
-      queryFn: () =>
-        axios.get(`${SERVER_URL}/food-category`).then((res) => res.data),
-      refetchOnWindowFocus: false,
-    },
-    // {
-    //   queryKey: ['recommend-category'],
-    //   queryFn: () =>
-    //     axios.get('${SERVER_URL}/recommend-category').then((res) => res.data),
-    //   refetchOnWindowFocus: false,
-    // },
-  ]);
-
-  if (
-    ress.some((res) => res.status === 'loading') ||
-    ress.some((res) => res.error)
-  )
-    return null;
 
   return (
     <div className="dropdowns">
@@ -95,15 +54,17 @@ const JudgeNewDropdown = () => {
         defaultValue="상세 위치"
         style={dropdownStyle}
       /> */}
-      <Dropdown
-        data={ress[2].data}
-        selected={foodCategory}
-        setSelected={(toSelect) => {
-          dispatch(setFoodCategory(toSelect));
-        }}
-        defaultValue="음식 종류"
-        style={dropdownStyle}
-      />
+      {foodCategoryRes && (
+        <Dropdown
+          data={foodCategoryRes.data}
+          selected={foodCategory}
+          setSelected={(toSelect) => {
+            dispatch(setFoodCategory(toSelect));
+          }}
+          defaultValue="음식 종류"
+          style={dropdownStyle}
+        />
+      )}
     </div>
   );
 };
