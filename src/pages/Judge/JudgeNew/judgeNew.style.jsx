@@ -122,8 +122,8 @@ export const JudgeNewBody = styled.div`
       display: flex;
       align-items: center;
       .saerchBtn {
-        margin-left: 20px;
-        border: 1px solid #616161;
+        // margin-left: 20px;
+        border: 1px solid #bdbdbd;
         border-radius: 4px;
         background-color: transparent;
         height: 32px;
@@ -142,6 +142,26 @@ export const JudgeNewBody = styled.div`
           color: #616161;
           white-space: nowrap;
           overflow: hidden;
+        }
+      }
+      .selectedLoc {
+        height: 16px;
+        margin-left: 10px;
+        margin-top: 8px;
+        font-size: 12px;
+        font-color: #bdbdbd;
+        display: flex;
+        align-items: center;
+        div {
+          height: 16px;
+        }
+        .refreshBtn {
+          margin-left: 2px;
+          height: 100%;
+          img {
+            height: 12px;
+            width: 12px;
+          }
         }
       }
     }

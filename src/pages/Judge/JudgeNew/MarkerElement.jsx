@@ -28,8 +28,8 @@ const MarkerElement = ({ data, isClicked, setSelected }) => {
           : {
               src: smallMarker,
               size: {
-                width: 18,
-                height: 25,
+                width: 12,
+                height: 18,
               },
             }
       }

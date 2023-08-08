@@ -30,7 +30,7 @@ const JudgeNewSelected = ({ setIsSearch, selected }) => {
               type="text"
               className="placeNameInput"
               placeholder="맛집 이름을 입력해주세요."
-              maxLength={20}
+              maxLength={16}
               onChange={() => {
                 setIsWarning(false);
               }}
