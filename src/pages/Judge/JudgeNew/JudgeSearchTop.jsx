@@ -41,7 +41,7 @@ const JudgeSearchTop = ({
             locationCategory.latitude,
             locationCategory.longitude
           ),
-          radius: 1000,
+          radius: 5000,
         }
       );
     }

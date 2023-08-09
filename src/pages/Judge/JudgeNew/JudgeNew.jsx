@@ -96,7 +96,7 @@ const JudgeNew = () => {
           <div className="titleOuter">
             <div className="bodyTitle">맛집 찾기</div>
             <div className="bodySubTitle">
-              [설정한 위치 1km 이내의 맛집만 등록할 수 있어요.]
+              [설정한 위치 5km 이내의 맛집만 등록할 수 있어요.]
             </div>
           </div>
 
