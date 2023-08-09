@@ -12,7 +12,6 @@ const WishList = () => {
     // wishlistError,
     // hasNextPage,
     fetchNextPage,
-    flattenPages,
   } = useWishlist();
 
   return (
@@ -33,7 +32,7 @@ const WishList = () => {
       </WishListHeader>
       {wishlist ? (
         <List
-          restaurants={flattenPages(wishlist.pages)}
+          restaurants={wishlist}
           handlePageNum={fetchNextPage}
           className="myRestaurantList"
         />

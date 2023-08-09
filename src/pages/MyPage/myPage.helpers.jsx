@@ -113,7 +113,7 @@ export const useWishlist = () => {
           return {
             data: res.data.data,
             pageNum: pageParam,
-            isLast: pageParam === res.data.totalPages,
+            isLast: pageParam >= res.data.totalPages,
           };
         }),
     getNextPageParam: (lastPage) => {
@@ -155,7 +155,7 @@ export const useParticipatingRestaurant = () => {
           return {
             data: res.data.data,
             pageNum: pageParam,
-            isLast: pageParam === res.data.totalPages,
+            isLast: pageParam >= res.data.totalPages,
           };
         }),
     getNextPageParam: (lastPage) => {
@@ -184,7 +184,7 @@ export const useParticipatingRestaurant = () => {
           return {
             data: res.data.data,
             pageNum: pageParam,
-            isLast: pageParam === res.data.totalPages,
+            isLast: pageParam >= res.data.totalPages,
           };
         }),
     getNextPageParam: (lastPage) => {
@@ -230,7 +230,7 @@ export const useMyReview = () => {
           return {
             data: res.data.data,
             pageNum: pageParam,
-            isLast: pageParam === res.data.totalPages,
+            isLast: pageParam >= res.data.totalPages,
           };
         }),
     getNextPageParam: (lastPage) => {

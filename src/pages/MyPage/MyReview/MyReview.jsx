@@ -19,7 +19,7 @@ const MyReview = () => {
     // hasNextPage,
     fetchNextPage,
   } = useMyReview();
-  const { ObserverDiv } = useInfiniteScroll(myReviews, fetchNextPage);
+  const { observerRef } = useInfiniteScroll(myReviews, fetchNextPage);
 
   return (
     <MyReviewContainer>
@@ -41,7 +41,7 @@ const MyReview = () => {
             {flattenPages(myReviews.pages).map((review) => (
               <MyReviewElem key={review.reviewId} review={review} />
             ))}
-            {ObserverDiv}
+            <div ref={observerRef} className="observer" />
           </>
         ) : null}
       </MyReviewUl>

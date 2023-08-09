@@ -29,7 +29,7 @@ const DetailReview = ({ restaurantId, reviewNumber }) => {
   } = useReview(restaurantId);
   const navigate = useNavigate();
 
-  const { ObserverDiv } = useInfiniteScroll(reviewList, fetchNextPage);
+  const { observerRef } = useInfiniteScroll(reviewList, fetchNextPage);
 
   // if (reviewListIsFetching || reviewListError) return null;
 
@@ -76,7 +76,7 @@ const DetailReview = ({ restaurantId, reviewNumber }) => {
                 review={review}
               />
             ))}
-            {ObserverDiv}
+            <div ref={observerRef} className="observer" />
           </>
         ) : null}
       </ul>

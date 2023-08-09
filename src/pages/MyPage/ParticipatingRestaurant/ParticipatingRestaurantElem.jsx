@@ -36,28 +36,6 @@ const ParticipatingRestaurantElem = ({ restaurant }) => {
         <img src={reviewIcon} alt="" className="reviewIcon" />
         <div className="reviewNum">{convertNum(4712)}</div>
       </div>
-      {/* <div className="wishAndRoulette">
-        <button
-          className={isWish ? 'colored' : null}
-          type="button"
-          onClick={(event) => {
-            pushWish();
-            event.stopPropagation();
-          }}
-        >
-          <img src={isWish ? coloredWishIcon : wishIcon} alt="" />
-        </button>
-        <button
-          className={isInRoulette ? 'colored' : null}
-          type="button"
-          onClick={(event) => {
-            pushRoulette(restaurant);
-            event.stopPropagation();
-          }}
-        >
-          <img src={isInRoulette ? coloredRouletteIcon : rouletteIcon} alt="" />
-        </button>
-      </div> */}
     </ParticipatingRestaurantLi>
   );
 };

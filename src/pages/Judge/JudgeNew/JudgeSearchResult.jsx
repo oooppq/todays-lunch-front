@@ -7,7 +7,7 @@ import { useInfiniteScroll } from '../../../libs/common.helpers';
 import JudgeSearchResultElem from './JudgeSearchResultElem';
 
 const JudgeSearchResult = ({ data, pagination, setMode, setSelected }) => {
-  const { ObserverDiv } = useInfiniteScroll(data.length, () => {
+  const { observerRef } = useInfiniteScroll(data.length, () => {
     if (pagination) pagination.nextPage();
   });
 
@@ -24,7 +24,7 @@ const JudgeSearchResult = ({ data, pagination, setMode, setSelected }) => {
               setSelected={setSelected}
             />
           ))}
-          {ObserverDiv}
+          <div ref={observerRef} className="observer" />
         </>
       ) : (
         <div className="noResult">

@@ -195,16 +195,62 @@ export const useMenuPhoto = (id) => {
 
   const { isAuthorized } = useAuth();
 
+  // const {
+  //   data: reviewList,
+  //   isFetching: reviewListIsFetching,
+  //   error: reviewListError,
+  //   hasNextPage,
+  //   fetchNextPage,
+  // } = useInfiniteQuery({
+  //   queryKey: ['reviewList', id, sort, order],
+  //   queryFn: async ({ queryKey, pageParam = 1 }) => {
+  //     const res = await axios.get(
+  //       url.concat(
+  //         `?page=${pageParam}&sort=${queryKey[2]}&order=${queryKey[3]}`
+  //       )
+  //     );
+  //     return {
+  //       data: res.data.data,
+  //       pageNum: pageParam,
+  //       isLast: pageParam === res.data.totalPages,
+  //       totalReviewCount: res.data.totalReviewCount,
+  //     };
+  //   },
+  //   getNextPageParam: (lastPage) => {
+  //     if (lastPage.isLast) return undefined;
+  //     return lastPage.pageNum + 1;
+  //   },
+  //   refetchOnWindowFocus: false,
+  // });
+
   const {
     data: photos,
-    isLoading: isPhotosLoading,
+    isFetching: isPhotosFetching,
     error: photosError,
-  } = useQuery(
+    hasNextPage,
+    fetchNextPage,
+  } = useInfiniteQuery(
     ['menuPhotos', id],
-    () => axios.get(url).then((res) => res.data),
+    ({ pageParam = 1 }) =>
+      axios.get(url.concat(`/?page=${pageParam}`)).then((res) => {
+        return {
+          data: res.data.data,
+          pageNum: pageParam,
+          isLast: pageParam >= res.data.totalPages,
+        };
+      }),
     {
+      getNextPageParam: (lastPage) => {
+        if (lastPage.isLast) return undefined;
+        return lastPage.pageNum + 1;
+      },
       refetchOnWindowFocus: false,
     }
+    //   getNextPageParam: (lastPage) => {
+    //   if (lastPage.isLast) return undefined;
+    //   return lastPage.pageNum + 1;
+    // },
+    //   refetchOnWindowFocus: false,
   );
 
   const { mutate: addMenuPhotoRequest, status: addMenuPhotoStatus } =
@@ -276,7 +322,9 @@ export const useMenuPhoto = (id) => {
     isPhotoDeleteModalOpen,
     setIsPhotoDeleteModalOpen,
     photos,
-    isPhotosLoading,
+    isPhotosFetching,
+    hasNextPage,
+    fetchNextPage,
     photosError,
     addMenuPhotoStatus,
     deleteMenuPhoto,
@@ -314,7 +362,7 @@ export const useReview = (id) => {
       return {
         data: res.data.data,
         pageNum: pageParam,
-        isLast: pageParam === res.data.totalPages,
+        isLast: pageParam >= res.data.totalPages,
         totalReviewCount: res.data.totalReviewCount,
       };
     },

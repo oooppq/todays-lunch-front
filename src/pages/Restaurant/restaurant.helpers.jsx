@@ -1,9 +1,6 @@
 import axios from 'axios';
-import { useEffect } from 'react';
-// import { useState } from 'react';
-import { useInfiniteQuery, useQueries, useQuery } from 'react-query';
+import { useInfiniteQuery, useQueries } from 'react-query';
 import { useDispatch, useSelector } from 'react-redux';
-import { flattenPages } from '../../libs/utils';
 import { setMapCenter, setMapLevel } from '../../redux/map';
 import { setSelectedLocCat, setSelectedLocTag } from '../../redux/restaurant';
 
@@ -11,7 +8,7 @@ const SERVER_URL = import.meta.env.VITE_SERVER_URL;
 
 export const restaurantUrlMaker = (state, pageNum) => {
   let url = `${SERVER_URL}/restaurants/?`;
-  // console.log(state.selectedFoodCat);
+
   if (state.selectedLocCat)
     url += `&location-category=${state.selectedLocCat.name}`;
 
@@ -61,41 +58,21 @@ export const useRestaurant = () => {
   ]);
 
   const {
-    data: restData,
-    isFetching: restIsFetching,
-    isError: restIsError,
-  } = useQuery(
-    [
-      'restaurants',
-      restaurantState.selectedLocCat,
-      restaurantState.selectedLocTag,
-      restaurantState.selectedFoodCat,
-      restaurantState.selectedRecomCat,
-      restaurantState.searchKeyword,
-      restaurantState.sortBy,
-    ],
-    () =>
-      axios.get(restaurantUrlMaker(restaurantState)).then((res) => res.data),
-    { refetchOnWindowFocus: false }
-  );
-
-  const {
-    data: restDataPagination,
-    isFetching: restPaginationIsFetching,
-    isError: restPaginationIsError,
+    data: restaurants,
+    isFetching: restaurantsIsFetching,
+    isError: restaurantsIsError,
     hasNextPage,
     fetchNextPage,
-    remove,
   } = useInfiniteQuery({
-    queryKey: ['restaurants', 'pagination'],
-    queryFn: ({ pageParam = 1 }) =>
-      axios.get(restaurantUrlMaker(restaurantState, pageParam)).then((res) => {
-        return {
-          data: res.data.data,
-          pageNum: pageParam,
-          isLast: pageParam === res.data.totalPages,
-        };
-      }),
+    queryKey: ['restaurants', restaurantState],
+    queryFn: async ({ queryKey, pageParam = 1 }) => {
+      const res = await axios.get(restaurantUrlMaker(queryKey[1], pageParam));
+      return {
+        data: res.data.data,
+        pageNum: pageParam,
+        isLast: pageParam >= res.data.totalPages,
+      };
+    },
     getNextPageParam: (lastPage) => {
       if (lastPage.isLast) return undefined;
       return lastPage.pageNum + 1;
@@ -103,41 +80,22 @@ export const useRestaurant = () => {
     refetchOnWindowFocus: false,
   });
 
-  useEffect(() => {
-    remove();
-  }, [remove, restaurantState]);
-
-  const restaurantIsFetching = restIsFetching || restPaginationIsFetching;
-
-  const restaurantIsError = restIsError || restPaginationIsError;
-
   const categoryIsFetching = ress.some((res) => res.isFetching);
 
   const categoryIsError = ress.some((res) => res.isError);
-
-  const getRestaurantData = () => {
-    if (!restaurantIsError && !restaurantIsFetching) {
-      if (restDataPagination.pages.length > 1) {
-        return flattenPages(restDataPagination.pages);
-      }
-      return restData.data;
-    }
-    return null;
-  };
 
   return {
     locCategory: ress[0],
     locTag: ress[1],
     foodCategory: ress[2],
     recomCategory: ress[3],
-    restaurants: restData,
+    restaurants,
     hasNextPage,
     fetchNextPage,
-    restaurantIsFetching,
-    restaurantIsError,
+    restaurantsIsFetching,
+    restaurantsIsError,
     categoryIsFetching,
     categoryIsError,
-    getRestaurantData,
   };
 };
 

@@ -12,13 +12,14 @@ const Restaurant = () => {
     locTag,
     foodCategory,
     recomCategory,
+    restaurants,
     // restaurantIsFetching,
     // restaurantIsError,
     categoryIsFetching,
     categoryIsError,
     // hasNextPage,
     fetchNextPage,
-    getRestaurantData,
+    // getRestaurantData,
   } = useRestaurant();
 
   const isMap = useSelector((state) => state.map.isMap);
@@ -37,9 +38,9 @@ const Restaurant = () => {
       )}
 
       {isMap ? (
-        <Map restaurants={getRestaurantData()} />
+        <Map restaurants={restaurants} />
       ) : (
-        <List restaurants={getRestaurantData()} handlePageNum={fetchNextPage} />
+        <List restaurants={restaurants} handlePageNum={fetchNextPage} />
       )}
     </RestaurantContainer>
   );
