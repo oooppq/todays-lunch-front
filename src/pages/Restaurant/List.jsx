@@ -4,19 +4,20 @@ import { ListUl, ListContainer } from './restaurant.style';
 
 import ListElem from './ListElem';
 import { useInfiniteScroll } from '../../libs/common.helpers';
+import { flattenPages } from '../../libs/utils';
 
 const List = ({ restaurants, handlePageNum, className }) => {
-  const { ObserverDiv } = useInfiniteScroll(restaurants, handlePageNum);
+  const { observerRef } = useInfiniteScroll(restaurants, handlePageNum);
 
   return (
     <ListContainer className={className}>
       <ListUl>
         {restaurants ? (
           <>
-            {restaurants.map((restaurant) => (
+            {flattenPages(restaurants.pages).map((restaurant) => (
               <ListElem key={restaurant.id} restaurant={restaurant} />
             ))}
-            {ObserverDiv}
+            <div ref={observerRef} className="observer" />
           </>
         ) : null}
       </ListUl>

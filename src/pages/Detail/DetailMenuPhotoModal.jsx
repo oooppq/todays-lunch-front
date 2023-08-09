@@ -6,6 +6,8 @@ import xIcon from '../../assets/img/x-icon.svg';
 import { useMenuPhoto } from './detail.helpers';
 import Loading from '../../components/Loading';
 import DetailMenuPhotoInnerModal from './DetailMenuPhotoInnerModal';
+import { useInfiniteScroll } from '../../libs/common.helpers';
+import { flattenPages } from '../../libs/utils';
 
 const DetailMenuPhotoModal = ({ closeMenuPhotoModal, menu }) => {
   const navigate = useNavigate();
@@ -17,6 +19,7 @@ const DetailMenuPhotoModal = ({ closeMenuPhotoModal, menu }) => {
     isPhotoDeleteModalOpen,
     setIsPhotoDeleteModalOpen,
     photos,
+    fetchNextPage,
     // isPhotosLoading,
     // photosError,
     // addMenuPhoto,
@@ -26,6 +29,7 @@ const DetailMenuPhotoModal = ({ closeMenuPhotoModal, menu }) => {
     handleAddMenuPhoto,
     openPhotoDeleteModal,
   } = useMenuPhoto(menu.id);
+  const { observerRef } = useInfiniteScroll(photos, fetchNextPage);
 
   return (
     <DetailMenuPhotoModalContainer>
@@ -41,23 +45,24 @@ const DetailMenuPhotoModal = ({ closeMenuPhotoModal, menu }) => {
           <div className="menuPhotoModalTitle">{menu.name}</div>
           <span className="menuModalPhotoPhotoNum">({menu.photoNum})</span>
         </div>
-        <ul className="menuPhotoModalUl">
-          {photos
-            ? photos.map((image) => (
-                <li key={image.id} className="menuPhotoModalLi">
-                  <img
-                    src={image.imageUrl}
-                    alt=""
-                    className="menuPhoto"
-                    onClick={() => {
-                      setSelectedPhoto(image);
-                    }}
-                    aria-hidden="true"
-                  />
-                </li>
-              ))
-            : null}
-        </ul>
+        {photos && (
+          <ul className="menuPhotoModalUl">
+            {flattenPages(photos.pages).map((image) => (
+              <li key={image.id} className="menuPhotoModalLi">
+                <img
+                  src={image.imageUrl}
+                  alt=""
+                  className="menuPhoto"
+                  onClick={() => {
+                    setSelectedPhoto(image);
+                  }}
+                  aria-hidden="true"
+                />
+              </li>
+            ))}
+            <div ref={observerRef} className="observer" />
+          </ul>
+        )}
         {isAuthorized() ? (
           <label
             className="newPhotoBtn"

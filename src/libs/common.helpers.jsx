@@ -157,9 +157,11 @@ export const useInfiniteScroll = (data, getNextPage) => {
     }
   }, [inview]);
 
-  const ObserverDiv = <div ref={ref} className="observer" />;
+  // const ObserverDiv = () => {
+  //   return <div ref={ref} className="observer" />;
+  // };
 
-  return { ObserverDiv };
+  return { observerRef: ref };
 };
 
 export const useShare = (restaurant) => {

@@ -110,13 +110,13 @@ export const ParticipatingRestaurantLi = styled.li`
     flex-direction: column;
     align-items: center;
     margin-right: 10px;
-    margin-top: 5px;
+    margin-top: 10px;
     .reviewIcon {
-      width: 25px;
+      width: 15px;
       margin-bottom: 3px;
     }
     .reviewNum {
-      font-size: 13px;
+      font-size: 10px;
     }
   }
   .wishAndRoulette {
