@@ -911,8 +911,8 @@ export const DetailReviewContainer = styled.div`
   .newReview {
     margin-top: 29px;
     display: flex;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #dfdfdf;
+    padding-bottom: 30px;
+    // border-bottom: 1px solid #dfdfdf;
     .myProfileImg {
       width: 31px;
       height: 34px;
@@ -930,13 +930,34 @@ export const DetailReviewContainer = styled.div`
       padding: 7px 0 7px 13px;
     }
   }
+  .reviewFilters {
+    display: flex;
+    margin: 0 15px;
+    // margin-left: 4px;
+    // margin-right: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #dfdfdf;
+    .filterBtn {
+      color: #929292;
+      margin-right: 11px;
+      font-size: 14px;
+    }
+    .selected {
+      font-family: Pretendard-SemiBold;
+      color: #222;
+    }
+    .ascDesc {
+      margin-left: auto;
+      margin-right: 0;
+    }
+  }
   .reviews {
     list-style: none;
     width: 100%;
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    padding: 18px 23px 0 15px;
+    padding: 18px 15px 0 15px;
   }
 `;
 

@@ -289,11 +289,13 @@ export const useMenuPhoto = (id) => {
 
 // 디테일 페이지의 리뷰 REST 요청을 담당하는 custom hook
 export const useReview = (id) => {
-  const { authInfo, isAuthorized } = useAuth();
+  const { isAuthorized } = useAuth();
   const accessToken = useSelector((state) => state.userAuth.accessToken);
   const url = `${import.meta.env.VITE_SERVER_URL}/restaurants/${id}/reviews`;
-  // const likeUrl = `/api/reviews`;
+  const queryClient = useQueryClient();
   const [isNewReviewModalOpen, setIsNewReviewModalOpen] = useState(false);
+  const [sort, setSort] = useState('likeCount');
+  const [order, setOrder] = useState('descending');
 
   const {
     data: reviewList,
@@ -302,23 +304,27 @@ export const useReview = (id) => {
     hasNextPage,
     fetchNextPage,
   } = useInfiniteQuery({
-    queryKey: ['reviewList', id],
-    queryFn: ({ pageParam = 1 }) =>
-      axios.get(url.concat(`?page=${pageParam}`)).then((res) => {
-        return {
-          data: res.data.data,
-          pageNum: pageParam,
-          isLast: pageParam === res.data.totalPages,
-          totalReviewCount: res.data.totalReviewCount,
-        };
-      }),
+    queryKey: ['reviewList', id, sort, order],
+    queryFn: async ({ queryKey, pageParam = 1 }) => {
+      const res = await axios.get(
+        url.concat(
+          `?page=${pageParam}&sort=${queryKey[2]}&order=${queryKey[3]}`
+        )
+      );
+      return {
+        data: res.data.data,
+        pageNum: pageParam,
+        isLast: pageParam === res.data.totalPages,
+        totalReviewCount: res.data.totalReviewCount,
+      };
+    },
     getNextPageParam: (lastPage) => {
       if (lastPage.isLast) return undefined;
       return lastPage.pageNum + 1;
     },
     refetchOnWindowFocus: false,
   });
-  const queryClient = useQueryClient();
+
   const { mutate: pushNewReview, status: pushNewReviewStatus } = useMutation(
     ['pushNewReview'],
     (data) =>
@@ -345,88 +351,14 @@ export const useReview = (id) => {
     if (pushNewReviewStatus === 'success') setIsNewReviewModalOpen(false);
   }, [pushNewReviewStatus]);
 
-  const useReviewElem = (review) => {
-    const [isUpdateReviewModalOpen, setIsUpdateReviewModalOpen] =
-      useState(false);
-    const [isDeleteReviewModalOpen, setIsDeleteReviewModalOpen] =
-      useState(false);
-    const [isLike, setIsLike] = useState(review.liked);
-
-    const { mutate: updateReview, status: updateReviewStatus } = useMutation(
-      ['updateReview', id],
-      (fd) =>
-        axios.patch(url.concat(`/${review.id}`), fd, {
-          headers: {
-            'Content-Type': `application/json`,
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }),
-      {
-        onSuccess: () => queryClient.invalidateQueries(['reviewList', id]),
-      }
-    );
-
-    const { mutate: deleteReview, status: deleteReviewStatus } = useMutation(
-      ['deleteReview', id],
-      () =>
-        axios.delete(url.concat(`/${review.id}`), {
-          headers: { Authorization: `Bearer ${accessToken}` },
-        }),
-      {
-        onSuccess: () => queryClient.invalidateQueries(['reviewList', id]),
-      }
-    );
-
-    const { mutate: pushLikeRequest } = useMutation(
-      ['review', 'pushLike'],
-      () =>
-        axios.post(url.concat(`/${review.id}/like`), null, {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        })
-    );
-
-    const pushLike = (navigate) => {
-      if (isAuthorized()) {
-        pushLikeRequest();
-        setIsLike((state) => !state);
-      } else {
-        navigate('/login');
-      }
-    };
-
-    const isAuthor = (userId) => {
-      if (isAuthorized()) {
-        return authInfo.id === userId;
-      }
-      return false;
-    };
-
-    useEffect(() => {
-      if (updateReviewStatus === 'success') setIsUpdateReviewModalOpen(false);
-      if (deleteReviewStatus === 'success') setIsDeleteReviewModalOpen(false);
-    }, [updateReviewStatus, deleteReviewStatus]);
-
-    return {
-      isUpdateReviewModalOpen,
-      setIsUpdateReviewModalOpen,
-      isDeleteReviewModalOpen,
-      setIsDeleteReviewModalOpen,
-      updateReview,
-      updateReviewStatus,
-      deleteReview,
-      deleteReviewStatus,
-      pushLike,
-      isAuthor,
-      isLike,
-    };
-  };
-
   return {
     isNewReviewModalOpen,
     openNewReviewModal,
     setIsNewReviewModalOpen,
+    sort,
+    setSort,
+    order,
+    setOrder,
     reviewList,
     reviewListIsFetching,
     reviewListError,
@@ -434,7 +366,93 @@ export const useReview = (id) => {
     fetchNextPage,
     pushNewReview,
     pushNewReviewStatus,
-    useReviewElem,
+  };
+};
+
+export const useReviewElem = (restId, review) => {
+  const { authInfo, isAuthorized } = useAuth();
+  const accessToken = useSelector((state) => state.userAuth.accessToken);
+  const url = `${
+    import.meta.env.VITE_SERVER_URL
+  }/restaurants/${restId}/reviews`;
+  const queryClient = useQueryClient();
+
+  const [isUpdateReviewModalOpen, setIsUpdateReviewModalOpen] = useState(false);
+  const [isDeleteReviewModalOpen, setIsDeleteReviewModalOpen] = useState(false);
+  const [isLike, setIsLike] = useState(review.liked);
+
+  const { mutate: updateReview, status: updateReviewStatus } = useMutation(
+    ['updateReview', restId],
+    (fd) =>
+      axios.patch(url.concat(`/${review.id}`), fd, {
+        headers: {
+          'Content-Type': `application/json`,
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(['reviewList', restId], { exact: false });
+        queryClient.invalidateQueries(['myReview', 'list'], { exact: false });
+      },
+    }
+  );
+
+  const { mutate: deleteReview, status: deleteReviewStatus } = useMutation(
+    ['deleteReview', restId],
+    () =>
+      axios.delete(url.concat(`/${review.id}`), {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      }),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(['reviewList', restId], { exact: false });
+        queryClient.invalidateQueries(['myReview', 'list'], { exact: false });
+      },
+    }
+  );
+
+  const { mutate: pushLikeRequest } = useMutation(['review', 'pushLike'], () =>
+    axios.post(url.concat(`/${review.id}/like`), null, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    })
+  );
+
+  const pushLike = (navigate) => {
+    if (isAuthorized()) {
+      pushLikeRequest();
+      setIsLike((state) => !state);
+    } else {
+      navigate('/login');
+    }
+  };
+
+  const isAuthor = (userId) => {
+    if (isAuthorized()) {
+      return authInfo.id === userId;
+    }
+    return false;
+  };
+
+  useEffect(() => {
+    if (updateReviewStatus === 'success') setIsUpdateReviewModalOpen(false);
+    if (deleteReviewStatus === 'success') setIsDeleteReviewModalOpen(false);
+  }, [updateReviewStatus, deleteReviewStatus]);
+
+  return {
+    isUpdateReviewModalOpen,
+    setIsUpdateReviewModalOpen,
+    isDeleteReviewModalOpen,
+    setIsDeleteReviewModalOpen,
+    updateReview,
+    updateReviewStatus,
+    deleteReview,
+    deleteReviewStatus,
+    pushLike,
+    isAuthor,
+    isLike,
   };
 };
 

@@ -9,19 +9,23 @@ import DetailReviewFetchModal from './DetailReviewFetchModal';
 import { flattenPages } from '../../libs/utils';
 import { useInfiniteScroll } from '../../libs/common.helpers';
 import Loading from '../../components/Loading';
+import DetailReviewFilter from './DetailReviewFilter';
 
 const DetailReview = ({ restaurantId, reviewNumber }) => {
   const {
     isNewReviewModalOpen,
     setIsNewReviewModalOpen,
     openNewReviewModal,
+    sort,
+    setSort,
+    order,
+    setOrder,
     reviewList,
     // reviewListIsFetching,
     // reviewListError,
     fetchNextPage,
     pushNewReview,
     pushNewReviewStatus,
-    useReviewElem,
   } = useReview(restaurantId);
   const navigate = useNavigate();
 
@@ -56,14 +60,20 @@ const DetailReview = ({ restaurantId, reviewNumber }) => {
           댓글 추가..
         </button>
       </div>
+      <DetailReviewFilter
+        sort={sort}
+        order={order}
+        setSort={setSort}
+        setOrder={setOrder}
+      />
       <ul className="reviews">
         {reviewList ? (
           <>
             {flattenPages(reviewList.pages).map((review) => (
               <DetailReviewElement
                 key={review.id}
+                restaurantId={restaurantId}
                 review={review}
-                useReviewElem={useReviewElem}
               />
             ))}
             {ObserverDiv}

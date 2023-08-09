@@ -149,7 +149,7 @@ export const JudgeNewBody = styled.div`
         margin-left: 10px;
         margin-top: 8px;
         font-size: 12px;
-        font-color: #bdbdbd;
+        color: #7a7a7a;
         display: flex;
         align-items: center;
         div {

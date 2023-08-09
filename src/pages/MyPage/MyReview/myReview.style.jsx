@@ -54,10 +54,19 @@ export const MyReviewLi = styled.li`
     margin-left: 20px;
     display: flex;
     flex-direction: column;
-
+    position: relative;
     .restaurantName {
       font-size: 18px;
       line-height: 21px;
+    }
+    .UpdateAndDeleteBtns {
+      position: absolute;
+      top: 0;
+      right: 0;
+      font-size: 11px;
+      button {
+        color: #737373;
+      }
     }
     .rating {
       margin-top: 4px;

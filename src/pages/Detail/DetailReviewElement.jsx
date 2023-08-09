@@ -7,12 +7,13 @@ import {
   handleLikeNum,
   handleLongReview,
   rateStarHandler,
+  useReviewElem,
 } from './detail.helpers';
 import Loading from '../../components/Loading';
-import DetailNewReviewModal from './DetailReviewFetchModal';
+import DetailReviewFetchModal from './DetailReviewFetchModal';
 import DetailReviewDeleteModal from './DetailReviewDeleteModal';
 
-const DetailReviewElement = ({ review, useReviewElem }) => {
+const DetailReviewElement = ({ restaurantId, review }) => {
   const {
     isUpdateReviewModalOpen,
     setIsUpdateReviewModalOpen,
@@ -25,7 +26,8 @@ const DetailReviewElement = ({ review, useReviewElem }) => {
     pushLike,
     isAuthor,
     isLike,
-  } = useReviewElem(review);
+  } = useReviewElem(restaurantId, review);
+
   const navigate = useNavigate();
   // if (postIsError || postIsLoading) return null;
 
@@ -35,7 +37,7 @@ const DetailReviewElement = ({ review, useReviewElem }) => {
         <Loading />
       ) : null}
       {isUpdateReviewModalOpen && (
-        <DetailNewReviewModal
+        <DetailReviewFetchModal
           closeModal={() => {
             setIsUpdateReviewModalOpen(false);
           }}

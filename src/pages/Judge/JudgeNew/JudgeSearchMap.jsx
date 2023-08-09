@@ -51,7 +51,7 @@ const JudgeSearchMap = ({ data, selected, setSelected }) => {
             e.latLng.getLng(),
             locationCategory.latitude,
             locationCategory.longitude
-          ) > 1
+          ) > 5
         ) {
           map.panTo(
             new window.kakao.maps.LatLng(
