@@ -1,0 +1,39 @@
+name: deploy
+on:
+  push:
+    branches: ['deploy']
+
+env:
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install yarn
+        run: npm install -g yarn
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Generate Environment Variables File for Production
+        env:
+          API_BASE_URL: ${{ secrets.API_BASE_URL }}
+          KAKAO_DEV_APP_KEY: ${{ secrets.KAKAO_DEV_APP_KEY }}
+        run: |
+          echo "VITE_API_BASE_URL=$API_BASE_URL" >> .env.production
+          echo "VITE_KAKAO_DEV_APP_KEY=$KAKAO_DEV_APP_KEY" >> .env.production
+
+      - name: Build
+        run: yarn build
+
+      - name: Sync S3 bucket
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        run: aws s3 sync ./dist s3://todays-lunch --profile=todays-lunch --delete

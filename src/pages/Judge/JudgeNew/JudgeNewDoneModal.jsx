@@ -37,7 +37,7 @@ const JudgeNewDoneModal = ({ setIsDone }) => {
 
   const { mutate, isLoading } = useMutation((toSend) =>
     axios.post(
-      `${import.meta.env.VITE_SERVER_URL}/restaurants/judges`,
+      `${import.meta.env.VITE_API_BASE_URL}/restaurants/judges`,
       toSend,
       {
         headers: {

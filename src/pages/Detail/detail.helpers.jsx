@@ -12,7 +12,7 @@ import fullStarIcon from '../../assets/img/full-star-icon.svg';
 import emptyStarIcon from '../../assets/img/empty-star-icon.svg';
 import { useAuth } from '../../libs/userAuth.helpers';
 
-const SERVER_URL = import.meta.env.VITE_SERVER_URL;
+const SERVER_URL = import.meta.env.VITE_API_BASE_URL;
 
 export const handleGoBack = (navigate) => {
   navigate(-1);
@@ -187,7 +187,7 @@ export const useFetchMenu = () => {
 
 // 디테일페이지의 각각의 메뉴 사진을 가져오는 custom hook
 export const useMenuPhoto = (id) => {
-  const url = `${import.meta.env.VITE_SERVER_URL}/menus/${id}/images`;
+  const url = `${import.meta.env.VITE_API_BASE_URL}/menus/${id}/images`;
   const accessToken = useSelector((state) => state.userAuth.accessToken);
   const queryClient = useQueryClient();
   const [selectedPhoto, setSelectedPhoto] = useState(null);
@@ -339,7 +339,7 @@ export const useMenuPhoto = (id) => {
 export const useReview = (id) => {
   const { isAuthorized } = useAuth();
   const accessToken = useSelector((state) => state.userAuth.accessToken);
-  const url = `${import.meta.env.VITE_SERVER_URL}/restaurants/${id}/reviews`;
+  const url = `${import.meta.env.VITE_API_BASE_URL}/restaurants/${id}/reviews`;
   const queryClient = useQueryClient();
   const [isNewReviewModalOpen, setIsNewReviewModalOpen] = useState(false);
   const [sort, setSort] = useState('likeCount');
@@ -421,7 +421,7 @@ export const useReviewElem = (restId, review) => {
   const { authInfo, isAuthorized } = useAuth();
   const accessToken = useSelector((state) => state.userAuth.accessToken);
   const url = `${
-    import.meta.env.VITE_SERVER_URL
+    import.meta.env.VITE_API_BASE_URL
   }/restaurants/${restId}/reviews`;
   const queryClient = useQueryClient();
 

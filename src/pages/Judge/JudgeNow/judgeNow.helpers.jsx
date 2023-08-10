@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { useAuth } from '../../../libs/userAuth.helpers';
 
-const url = `${import.meta.env.VITE_SERVER_URL}/restaurants/judges`;
+const url = `${import.meta.env.VITE_API_BASE_URL}/restaurants/judges`;
 /* mode => normal or myPage */
 export const useJudgeNow = () => {
   const [isList, setIsList] = useState(true);

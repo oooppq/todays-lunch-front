@@ -14,7 +14,7 @@ import {
   ShareModalBtnContainer,
 } from '../pages/common.style';
 
-const SERVER_URL = import.meta.env.VITE_SERVER_URL;
+const SERVER_URL = import.meta.env.VITE_API_BASE_URL;
 
 export const useWish = (id, _isWish) => {
   const url = `${SERVER_URL}/restaurants/${id}/mystore`;
@@ -181,7 +181,7 @@ export const useShare = (restaurant) => {
   const kakaoShare = () => {
     if (window.Kakao) {
       const kakao = window.Kakao;
-      const appKey = '29d882a1b8ccf782c6db4d2eb0eac6b3';
+      const appKey = import.meta.env.VITE_KAKAO_DEV_APP_KEY;
       const templateId = 95761;
       if (!kakao.isInitialized()) {
         kakao.init(appKey);

@@ -3,7 +3,7 @@ import { useMutation } from 'react-query';
 import axios from 'axios';
 import { ACCESS_EXPIRE_TIME } from '../../libs/userAuth.helpers';
 
-const SERVER_URL = import.meta.env.VITE_SERVER_URL;
+const SERVER_URL = import.meta.env.VITE_API_BASE_URL;
 
 export const useLoginHandler = (login, refresh) => {
   const [email, setEmail] = useState(null);

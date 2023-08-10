@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setMapCenter, setMapLevel } from '../../redux/map';
 import { setSelectedLocCat, setSelectedLocTag } from '../../redux/restaurant';
 
-const SERVER_URL = import.meta.env.VITE_SERVER_URL;
+const SERVER_URL = import.meta.env.VITE_API_BASE_URL;
 
 export const restaurantUrlMaker = (state, pageNum) => {
   let url = `${SERVER_URL}/restaurants/?`;

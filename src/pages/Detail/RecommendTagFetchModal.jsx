@@ -10,7 +10,7 @@ import RecommendTagElement from './RecommendTagElement';
 import Loading from '../../components/Loading';
 
 const RecommendTagFetchModal = ({ closeModal, restId, recommendTag }) => {
-  const SERVER_URL = import.meta.env.VITE_SERVER_URL;
+  const SERVER_URL = import.meta.env.VITE_API_BASE_URL;
   const [tags, setTags] = useState([]);
   const recommendTagIds = recommendTag.map((tag) => tag.id);
   const accessToken = useSelector((state) => state.userAuth.accessToken);

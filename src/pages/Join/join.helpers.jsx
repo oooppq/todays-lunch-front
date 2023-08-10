@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useState } from 'react';
 import { useMutation, useQueries } from 'react-query';
 
-const SERVER_URL = import.meta.env.VITE_SERVER_URL;
+const SERVER_URL = import.meta.env.VITE_API_BASE_URL;
 
 export const useInputValidation = () => {
   const REGEX = {

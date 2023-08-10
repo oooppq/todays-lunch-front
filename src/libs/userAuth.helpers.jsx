@@ -12,7 +12,7 @@ import {
 } from '../redux/userAuth';
 import { authStates } from './utils';
 
-const SERVER_URL = import.meta.env.VITE_SERVER_URL;
+const SERVER_URL = import.meta.env.VITE_API_BASE_URL;
 
 export const ACCESS_EXPIRE_TIME = (1 / 2) * 3600 * 1000; // access token expires time 30 minutes
 export const REFRESH_EXPIRE_TIME = 3600 * 1000; // refresh token expires time 30 minutes

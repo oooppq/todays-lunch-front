@@ -12,7 +12,7 @@ import { useAuth } from '../../libs/userAuth.helpers';
 import { authStates, flattenPages } from '../../libs/utils';
 import { useInputValidation } from '../Join/join.helpers';
 
-const SERVER_URL = import.meta.env.VITE_SERVER_URL;
+const SERVER_URL = import.meta.env.VITE_API_BASE_URL;
 
 export const useMyPage = (navigate) => {
   const userState = useSelector((state) => state.userAuth);

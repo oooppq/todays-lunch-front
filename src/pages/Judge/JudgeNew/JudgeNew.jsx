@@ -25,7 +25,7 @@ import {
 import Warning from '../../../components/Warning';
 import Dropdown from '../../../components/Dropdown';
 
-const SERVER_URL = import.meta.env.VITE_SERVER_URL;
+const SERVER_URL = import.meta.env.VITE_API_BASE_URL;
 
 const dropdownStyle = `
     .selectedLabel {
