@@ -3,8 +3,6 @@ on:
   push:
     branches: ['deploy']
 
-env:
-
 jobs:
   deploy:
     name: Deploy
