@@ -53,7 +53,7 @@ const SetData = ({ navigate }) => {
               key={e.id}
               onClick={() => gotoDetailOnClick(e.id, navigate)}
             >
-              <img src={defaultImage} alt="" />
+              <img src={e.imageUrl || defaultImage} alt="" />
               <div className="info">
                 <div className="storeName">{e.restaurant_name}</div>
                 <div className="menuName">{e.menu_name}</div>

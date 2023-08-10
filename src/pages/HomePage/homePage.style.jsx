@@ -38,20 +38,21 @@ export const RecommendationTitle = styled.div`
 export const RecommendationElemContainer = styled.div`
   width: 100%;
   text-align: left !important;
+  position: relative;
 `;
 
 export const RecommendationInfoUp = styled.div`
   position: relative;
-  height: 161px;
+  height: 266px;
   .restaurantImage {
-    height: 161px;
+    height: 266px;
     width: 100%;
   }
   .infoUpInner {
     display: flex;
     position: absolute;
     align-items: baseline;
-    bottom: 15px;
+    bottom: 125px;
     width: 100%;
     height: 30px;
     .lowestPrice {
@@ -68,16 +69,23 @@ export const RecommendationInfoUp = styled.div`
 `;
 
 export const RecommendationInfoDown = styled.div`
-  margin: 19px 20px 0 22px;
+  padding: 19px 20px 10px 22px;
   display: flex;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgb(255, 255, 255, 0.9);
   .left {
     overflow: hidden;
     white-space: nowrap;
     color: #4e4e4e;
-    .title {
-      font-family: 'Pretendard-SemiBold';
-      color: #4e4e4e;
+    .titleOuter {
       font-size: 20px;
+      .title {
+        font-family: 'Pretendard-SemiBold';
+        color: #4e4e4e;
+      }
     }
     .comment {
       color: #4f4f4f;

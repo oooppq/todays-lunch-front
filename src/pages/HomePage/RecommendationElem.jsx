@@ -7,7 +7,7 @@ import {
   RecommendationInfoDown,
   RecommendationElemContainer,
 } from './homePage.style';
-import defaultImage from '../../assets/img/가츠벤또.png';
+import defaultImage from '../../assets/img/default-image.png';
 import wishIcon from '../../assets/img/restaurant-heart-icon.svg';
 import rouletteIcon from '../../assets/img/restaurant-roulette-icon.svg';
 import coloredWishIcon from '../../assets/img/restaurant-colored-heart-icon.svg';
@@ -26,7 +26,15 @@ const RecommendationElem = ({ restaurant }) => {
       onClick={() => gotoDetailOnClick(restaurant.id, navigate)}
     >
       <RecommendationInfoUp>
-        <img className="restaurantImage" src={defaultImage} alt="" />
+        <img
+          className="restaurantImage"
+          src={
+            restaurant.imageUrl ||
+            // 'https://mblogthumb-phinf.pstatic.net/MjAyMzAxMDVfMjEw/MDAxNjcyODcyMjUxNDU2.dnL2Cq177pkrplvgXF99--Jasv8ULxd6ImN9YBupoDsg.RX2oGYLCRxjStsNM1WDdHbbD-CbFltS_wm9xbDWqMoog.JPEG.kims9280/6._%EC%9D%8C%EC%8B%9D3.jpg?type=w800'
+            defaultImage
+          }
+          alt=""
+        />
         <div className="infoUpInner">
           <div className="lowestPrice">
             {convertNum(restaurant.lowestPrice)}원 ~
@@ -35,10 +43,10 @@ const RecommendationElem = ({ restaurant }) => {
       </RecommendationInfoUp>
       <RecommendationInfoDown>
         <div className="left">
-          <div className="title">
+          <div className="titleOuter">
             <span>[{restaurant.locationCategory}</span>
             <span> {restaurant.locationTag}] </span>
-            <span>{restaurant.name}</span>
+            <span className="title">{restaurant.restaurantName}</span>
           </div>
           <div className="comment">"{restaurant.bestReview}"</div>
           <div className="reviewRate">
