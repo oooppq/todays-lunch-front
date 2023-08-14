@@ -79,6 +79,7 @@ const DetailMenuFetchModal = ({
             <input
               type="text"
               className="updateInput menuName"
+              maxLength={20}
               placeholder="메뉴 이름"
               defaultValue={menu && menu.name}
               onChange={(e) => {

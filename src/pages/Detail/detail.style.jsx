@@ -455,11 +455,20 @@ export const DetailMenuPhotoModalContainer = styled(ModalCommon)`
   }
   .menuPhotoModalTop {
     display: flex;
-    margin: 30px 0 22px 33px;
-    font-size: 20px;
+    align-items: center;
+    height: 22.5px;
+    margin: 20px 0 22px 33px;
+    font-size: 19px;
     font-family: Pretendard-Medium;
+    .menuPhotoModalTitle {
+      max-width: 200px;
+      white-space: nowrap;
+      overflow-x: auto;
+    }
     .menuModalPhotoPhotoNum {
-      margin-left: 5px;
+      height: 100%;
+      margin-left: 3px;
+      line-height: 22px;
       color: #6ab2b2;
     }
   }
@@ -522,8 +531,17 @@ export const DetailMenuPhotoInnerModalContainer = styled(ModalCommon)`
     align-items: center;
 
     color: #525252;
+    .thumbBtn {
+      margin-top: 15px;
+      background-color: #6ab2b2;
+      font-family: Pretendard-SemiBold;
+      font-size: 14px;
+      color: white;
+      border-radius: 10px;
+      padding: 5px 10px;
+    }
     .detailPhoto {
-      margin-top: 47px;
+      margin-top: 10px;
       width: 273px;
       height: 273px;
       border-radius: 3px;
@@ -1046,6 +1064,35 @@ export const DetailReviewElem = styled.li`
       .date {
         font-size: 13px;
         color: #bdbdbd;
+      }
+    }
+  }
+`;
+
+export const ChangeThumbModalContainer = styled(ModalCommon)`
+  .modalInner {
+    height: 110px;
+    width: 320px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 10px;
+    box-sizing: border-box;
+    .changeTitle {
+      font-family: Pretendard-SemiBold;
+      font-size: 16px;
+    }
+
+    .btnOuter {
+      display: flex;
+      .changeInnerBtn {
+        margin: 25px 5px 0 5px;
+        font-family: Pretendard-SemiBold;
+        background-color: #6a6a6a;
+        border-radius: 10px;
+        padding: 5px 10px;
+        color: white;
       }
     }
   }

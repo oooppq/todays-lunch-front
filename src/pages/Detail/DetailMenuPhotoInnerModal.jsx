@@ -4,9 +4,11 @@ import { useSelector } from 'react-redux';
 import {
   DetailMenuPhotoInnerModalContainer,
   DetailMenuPhotoDeleteModalContainer,
+  ChangeThumbModalContainer,
 } from './detail.style';
 import xIcon from '../../assets/img/x-icon.svg';
 import trashIcon from '../../assets/img/colored-trashcan-icon.svg';
+import { useChnageThumbImage } from './detail.helpers';
 
 const DetailMenuPhotoInnerModal = ({
   isPhotoDeleteModalOpen,
@@ -17,9 +19,44 @@ const DetailMenuPhotoInnerModal = ({
   closePhotoDeleteModal,
 }) => {
   const userId = useSelector((state) => state.userAuth.id);
+
+  const {
+    isChangeModalOpen,
+    setIsChangeModalOpen,
+    changeThumbRequest,
+    handleClickChangeThumbBtn,
+  } = useChnageThumbImage(selectedPhoto.id);
+
   return (
     <DetailMenuPhotoInnerModalContainer>
-      {isPhotoDeleteModalOpen ? (
+      {isChangeModalOpen && (
+        <ChangeThumbModalContainer>
+          <div className="modalInner">
+            <div className="changeTitle">
+              해당 사진을 대표 이미지로 설정하시겠습니까?
+            </div>
+            <div className="btnOuter">
+              <button
+                type="button"
+                className="changeInnerBtn"
+                onClick={changeThumbRequest}
+              >
+                확인
+              </button>
+              <button
+                type="button"
+                className="changeInnerBtn"
+                onClick={() => {
+                  setIsChangeModalOpen(false);
+                }}
+              >
+                취소
+              </button>
+            </div>
+          </div>
+        </ChangeThumbModalContainer>
+      )}
+      {isPhotoDeleteModalOpen && (
         <DetailMenuPhotoDeleteModalContainer>
           <div className="modalInner">
             <div className="deleteTitle">해당 사진을 삭제하시겠습니까?</div>
@@ -44,7 +81,7 @@ const DetailMenuPhotoInnerModal = ({
             </div>
           </div>
         </DetailMenuPhotoDeleteModalContainer>
-      ) : null}
+      )}
       <div className="modalInner">
         <button
           className="closeBtn"
@@ -52,6 +89,13 @@ const DetailMenuPhotoInnerModal = ({
           onClick={closeMenuPhotoInnerModal}
         >
           <img src={xIcon} alt="" />
+        </button>
+        <button
+          type="button"
+          className="thumbBtn"
+          onClick={handleClickChangeThumbBtn}
+        >
+          대표이미지 지정
         </button>
         <img src={selectedPhoto.imageUrl} alt="" className="detailPhoto" />
         {/* <div className="fileName">{selectedPhoto.originalName}</div> */}

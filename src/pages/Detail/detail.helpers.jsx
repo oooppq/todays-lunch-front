@@ -2,6 +2,7 @@
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   useInfiniteQuery,
   useMutation,
@@ -565,4 +566,41 @@ export const useDetailNav = () => {
   const [tab, setTab] = useState('main');
   const changeTab = (toChange) => setTab(toChange);
   return { tab, changeTab };
+};
+
+export const useChnageThumbImage = (id) => {
+  const accessToken = useSelector((state) => state.userAuth.accessToken);
+  const navigate = useNavigate();
+  const [isChangeModalOpen, setIsChangeModalOpen] = useState(false);
+  const { mutate: changeThumbRequest, status } = useMutation(
+    ['change-thumb'],
+    () =>
+      axios.post(
+        `${import.meta.env.VITE_API_BASE_URL}/menus/best?imageId=${id}`
+      ),
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
+  );
+  const handleClickChangeThumbBtn = () => {
+    if (accessToken) {
+      setIsChangeModalOpen(true);
+    } else {
+      navigate('/login');
+    }
+  };
+  useEffect(() => {
+    if (status === 'success') {
+      setIsChangeModalOpen(false);
+    }
+  }, [status]);
+
+  return {
+    isChangeModalOpen,
+    setIsChangeModalOpen,
+    changeThumbRequest,
+    handleClickChangeThumbBtn,
+  };
 };

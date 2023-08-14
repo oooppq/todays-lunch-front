@@ -40,6 +40,8 @@ const DetailMenuElement = ({ menu, useMenuElem }) => {
           deleteMenu={deleteMenu}
         />
       )}
+
+      {/* {true && ( */}
       {isMenuPhotoModalOpen && (
         <DetailMenuPhotoModal
           closeMenuPhotoModal={() => {
