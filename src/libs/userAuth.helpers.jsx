@@ -15,7 +15,7 @@ import { authStates } from './utils';
 const SERVER_URL = import.meta.env.VITE_API_BASE_URL;
 
 export const ACCESS_EXPIRE_TIME = (1 / 2) * 3600 * 1000; // access token expires time 30 minutes
-export const REFRESH_EXPIRE_TIME = 3600 * 1000; // refresh token expires time 30 minutes
+// export const REFRESH_EXPIRE_TIME = 3600 * 1000; // refresh token expires time 30 minutes
 
 export const useAuth = () => {
   const navigate = useNavigate();
@@ -55,16 +55,19 @@ export const useAuth = () => {
   };
 
   const setAuthInfo = (state, info) => {
-    dispatch(setId(info ? info.id : null));
-    dispatch(setEmail(info ? info.email : null));
-    dispatch(setAccessToken(info ? info.accessToken : null));
-    dispatch(setRefreshToken(info ? info.refreshToken : null));
-    dispatch(setTemporary(info && info.temporary));
-    dispatch(setState(state));
+    if (info) {
+      dispatch(setId(info.id));
+      dispatch(setEmail(info.email));
+      dispatch(setAccessToken(info.accessToken));
+      dispatch(setRefreshToken(info.refreshToken));
+      dispatch(setTemporary(info.temporary));
+      dispatch(setState(state));
+    }
+
     if (state === authStates.AUTHORIZED) {
       // axios.defaults.headers.common.Authorization = `Bearer ${access}`;
       // const expireTime = new Date().getTime() + 2000;
-      const expireTime = new Date().getTime() + REFRESH_EXPIRE_TIME;
+      const expireTime = new Date().getTime() + info.refreshTokenExpiresTime;
       const refreshInfo = { token: info.refreshToken, expireTime };
       localStorage.setItem('refreshInfo', JSON.stringify(refreshInfo));
     } else {
@@ -79,6 +82,7 @@ export const useAuth = () => {
     const refreshInfo = JSON.parse(localStorage.getItem('refreshInfo'));
     if (refreshInfo) {
       if (refreshInfo.expireTime > new Date().getTime()) {
+        // if (refreshInfo.expireTime > refreshInfo.expireTime + 1) {
         reset();
         authRequest({ mode: 'refresh', payload: refreshInfo.token });
         // setTimeout(refresh, 3000);
@@ -87,7 +91,7 @@ export const useAuth = () => {
         setAuthInfo(authStates.EXPIRED, null);
       }
     } else {
-      setAuthInfo(authStates.UNAUTHORIZED, null);
+      setAuthInfo(authStates.EXPIRED, null);
     }
   };
 
@@ -135,6 +139,8 @@ export const useAuth = () => {
         }
         break;
       case authStates.EXPIRED: // 만료되었을 때, 현재는 아무 것도 하지 않음
+        setAuthInfo(authStates.UNAUTHORIZED, null);
+        // navigate('/login');
         break;
       default:
     }

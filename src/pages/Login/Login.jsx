@@ -23,7 +23,7 @@ const Login = ({ login, refresh }) => {
   // return <Navigate to={url || -1} replace />;
 
   // return <Navigate to={-1} replace />;
-  if (authState === authStates.PENDING) return null;
+  else if (authState === authStates.PENDING) return null;
   return (
     <LoginContainer>
       {isFindPassword ? (
