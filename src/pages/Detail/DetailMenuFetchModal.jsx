@@ -90,9 +90,19 @@ const DetailMenuFetchModal = ({
               type="number"
               className="updateInput menuPrice"
               placeholder="메뉴 가격"
+              min="1"
+              max="5"
               defaultValue={menu && menu.price}
               onChange={(e) => {
-                setPrice(e.target.value);
+                const num = Number(e.target.value);
+                if (num >= 0 && num < 1000000) setPrice(num);
+                else if (num < 0) {
+                  e.target.value = 0;
+                  setPrice(0);
+                } else {
+                  e.target.value = 999999;
+                  setPrice(999999);
+                }
               }}
             />
             <span className="won">원</span>
@@ -115,7 +125,20 @@ const DetailMenuFetchModal = ({
               placeholder="세일 가격"
               defaultValue={menu && menu.salePrice}
               onChange={(e) => {
-                setSalePrice(e.target.value);
+                const num = Number(e.target.value);
+                if (num >= 0 && num < 1000000) {
+                  if (num < price) setSalePrice(num);
+                  else {
+                    setSalePrice(price);
+                    e.target.value = price;
+                  }
+                } else if (num < 0) {
+                  e.target.value = 0;
+                  setSalePrice(0);
+                } else {
+                  e.target.value = 999999;
+                  setSalePrice(999999);
+                }
               }}
             />
             <span className="won">원</span>
@@ -124,6 +147,7 @@ const DetailMenuFetchModal = ({
               placeholder="예)학생증을 보여주면 1,000원을 할인해줘요."
               className="updateInput saleComment"
               defaultValue={menu && menu.saleComment}
+              maxLength={200}
               onChange={(e) => {
                 setSaleComment(e.target.value);
               }}

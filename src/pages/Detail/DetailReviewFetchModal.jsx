@@ -50,6 +50,7 @@ const DetailReviewFetchModal = ({ closeModal, fetchReview, reviewData }) => {
             rows="10"
             className="newReviewContent"
             placeholder="리뷰 추가.."
+            maxLength={300}
             onChange={(e) => {
               setContent(e.target.value);
             }}

@@ -61,8 +61,8 @@ export const useAuth = () => {
       dispatch(setAccessToken(info.accessToken));
       dispatch(setRefreshToken(info.refreshToken));
       dispatch(setTemporary(info.temporary));
-      dispatch(setState(state));
     }
+    dispatch(setState(state));
 
     if (state === authStates.AUTHORIZED) {
       // axios.defaults.headers.common.Authorization = `Bearer ${access}`;
@@ -91,7 +91,7 @@ export const useAuth = () => {
         setAuthInfo(authStates.EXPIRED, null);
       }
     } else {
-      setAuthInfo(authStates.EXPIRED, null);
+      setAuthInfo(authStates.UNAUTHORIZED, null);
     }
   };
 

@@ -161,6 +161,7 @@ const JudgeNew = () => {
             id=""
             cols="30"
             rows="10"
+            maxLength={300}
             onChange={(e) => {
               dispatch(setIntroduction(e.target.value));
             }}

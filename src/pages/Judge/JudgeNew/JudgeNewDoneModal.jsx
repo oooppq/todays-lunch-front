@@ -19,9 +19,9 @@ const JudgeNewDoneModal = ({ setIsDone }) => {
   const fd = new FormData();
   Object.entries(judgeNewStates).forEach(([key, value]) => {
     if (value) {
-      // if (key === 'locationCategory')
       //   fd.append('locationCategoryName', value.name);
       // else if (key === 'locationTag') fd.append('locationTagName', value.name);
+      if (key === 'locationCategory') return;
       if (key === 'foodCategory') fd.append('foodCategoryName', value.name);
       // else if (key === 'restaurantImage') fd.append(reader.result.toString());
       else if (key === 'recommendCategory') {
