@@ -27,7 +27,12 @@ const Recommendation = () => {
         🍚 <span>오늘의</span> 맛집
       </RecommendationTitle>
       {!isLoading && !error && (
-        <Carousel showStatus={false} showArrows={false} showThumbs={false}>
+        <Carousel
+          showStatus={false}
+          showArrows={false}
+          showThumbs={false}
+          emulateTouch
+        >
           {data
             ? data.map((restaurant) => (
                 <RecommendationElem
