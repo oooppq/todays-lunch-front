@@ -18,7 +18,7 @@ const RecommendTagFetchModal = ({ closeModal, restId, recommendTag }) => {
   const { data: recommendTags } = useQuery(
     'recommend-category',
     () =>
-      axios.get(`${SERVER_URL}/recommend-tag`).then((res) => {
+      axios.get(`${SERVER_URL}/recommend-category`).then((res) => {
         for (const tag of res.data) {
           if (recommendTagIds.includes(tag.id)) {
             setTags((state) => [...state, tag.id]);

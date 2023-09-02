@@ -12,7 +12,7 @@ const Recommendation = () => {
 
   const { isLoading, error, data } = useQuery(['recommends', 'list'], () =>
     axios
-      .get(`${import.meta.env.VITE_API_BASE_URL}/recommends`, {
+      .get(`${import.meta.env.VITE_API_BASE_URL}/restaurants/recommendation`, {
         headers: { Authorization: `Bearer ${accessToken}` },
       })
       .then((res) => res.data)

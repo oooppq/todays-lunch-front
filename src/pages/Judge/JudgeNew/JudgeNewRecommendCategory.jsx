@@ -13,7 +13,7 @@ const JudgeNewRecommendCategory = () => {
     'recommend-category',
     () =>
       axios
-        .get(`${import.meta.env.VITE_API_BASE_URL}/recommend-tag`)
+        .get(`${import.meta.env.VITE_API_BASE_URL}/recommend-category`)
         .then((res) => res.data),
     { refetchOnWindowFocus: false }
   );

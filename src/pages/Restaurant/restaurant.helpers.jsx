@@ -52,7 +52,7 @@ export const useRestaurant = () => {
     {
       queryKey: ['recommend-category'],
       queryFn: () =>
-        axios.get(`${SERVER_URL}/recommend-tag`).then((res) => res.data),
+        axios.get(`${SERVER_URL}/recommend-category`).then((res) => res.data),
       refetchOnWindowFocus: false,
     },
   ]);

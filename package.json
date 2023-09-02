@@ -66,5 +66,5 @@
   "lint-staged": {
     "*.{js,jsx}": "eslint --fix"
   },
-  "proxy": "http://localhost:3004"
+  "proxy": "https://api.todayslunchserver.site"
 }

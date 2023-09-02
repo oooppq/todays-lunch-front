@@ -19,7 +19,9 @@ const SetData = ({ navigate }) => {
     ['sales', 'list'],
     ({ pageParam = 1 }) =>
       axios
-        .get(`${import.meta.env.VITE_API_BASE_URL}/sales/?page=${pageParam}`)
+        .get(
+          `${import.meta.env.VITE_API_BASE_URL}/menus/sale?page=${pageParam}`
+        )
         .then((res) => {
           return {
             data: res.data.data,
