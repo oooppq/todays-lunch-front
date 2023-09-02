@@ -1,7 +1,8 @@
 /* eslint-disable no-restricted-syntax */
 // 숫자에 세 자리마다 콤마(,) 추가하기
 export const convertNum = (num) => {
-  return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  if (num) return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  return num;
 };
 
 export const gotoDetailOnClick = (id, navigate) => {

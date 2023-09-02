@@ -42,7 +42,7 @@ const JudgeNewDoneModal = ({ setIsDone }) => {
       {
         headers: {
           'Content-Type': `multipart/form-data; `,
-          Authorization: `Bearer ${accessToken}`,
+          Authorization: `${accessToken}`,
         },
       }
     )

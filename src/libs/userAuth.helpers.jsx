@@ -32,11 +32,22 @@ export const useAuth = () => {
     if (mode === 'refresh') {
       url = `${SERVER_URL}/refresh`; // refresh url
       // axios.defaults.headers.common.Authorization = `Bearer ${payload}`;
-      return axios.post(url, null, {
-        headers: {
-          Authorization: `Bearer ${payload}`,
+      return axios.post(
+        url,
+        // JSON.stringify({
+        //   accessToken: payload.accessToken,
+        //   refreshToken: payload.refreshToken,
+        // })
+        {
+          accessToken: payload.accessToken,
+          refreshToken: payload.refreshToken,
         },
-      });
+        {
+          headers: {
+            Authorization: `bearer ${payload.accessToken}`,
+          },
+        }
+      );
     }
 
     return axios.post(url, payload, {
@@ -68,23 +79,34 @@ export const useAuth = () => {
       // axios.defaults.headers.common.Authorization = `Bearer ${access}`;
       // const expireTime = new Date().getTime() + 2000;
       const expireTime = new Date().getTime() + info.refreshTokenExpiresTime;
-      const refreshInfo = { token: info.refreshToken, expireTime };
-      localStorage.setItem('refreshInfo', JSON.stringify(refreshInfo));
+      const refreshInfo = {
+        accessToken: info.accessToken,
+        refreshToken: info.refreshToken,
+        expireTime,
+      };
+      localStorage.setItem('tokenInfo', JSON.stringify(refreshInfo));
     } else {
       // delete axios.defaults.headers.common.Authorization;
-      localStorage.removeItem('refreshInfo');
+      localStorage.removeItem('tokenInfo');
     }
   };
 
   // refresh token이 local storage에 저장되어 있으면 refresh 진행, expired 되어 있다면 expire로 상태 변경
   const refresh = () => {
     dispatch(setState(authStates.PENDING));
-    const refreshInfo = JSON.parse(localStorage.getItem('refreshInfo'));
-    if (refreshInfo) {
-      if (refreshInfo.expireTime > new Date().getTime()) {
+    const tokenInfo = JSON.parse(localStorage.getItem('tokenInfo'));
+    if (tokenInfo) {
+      if (tokenInfo.expireTime > new Date().getTime()) {
         // if (refreshInfo.expireTime > refreshInfo.expireTime + 1) {
         reset();
-        authRequest({ mode: 'refresh', payload: refreshInfo.token });
+        // authRequest({ mode: 'refresh', payload: refreshInfo.token });
+        authRequest({
+          mode: 'refresh',
+          payload: {
+            accessToken: tokenInfo.accessToken,
+            refreshToken: tokenInfo.refreshToken,
+          },
+        });
         // setTimeout(refresh, 3000);
         setTimeout(refresh, ACCESS_EXPIRE_TIME - 60000);
       } else {
