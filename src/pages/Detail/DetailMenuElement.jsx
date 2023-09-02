@@ -41,7 +41,6 @@ const DetailMenuElement = ({ menu, useMenuElem }) => {
         />
       )}
 
-      {/* {true && ( */}
       {isMenuPhotoModalOpen && (
         <DetailMenuPhotoModal
           closeMenuPhotoModal={() => {

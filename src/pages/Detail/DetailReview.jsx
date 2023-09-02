@@ -78,7 +78,9 @@ const DetailReview = ({ restaurantId, reviewNumber }) => {
             ))}
             <div ref={observerRef} className="observer" />
           </>
-        ) : null}
+        ) : (
+          <div className="">댓글 등록해주세요!</div>
+        )}
       </ul>
     </DetailReviewContainer>
   );

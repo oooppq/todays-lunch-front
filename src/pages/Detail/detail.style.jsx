@@ -225,11 +225,11 @@ export const DetailInfoContainer = styled.div`
           padding-bottom: 10px;
         }
         .menuPhotoBtn {
-          width: 40px;
+          // width: 40px;
           height: 20px;
           margin-top: 1px;
           margin-left: 7px;
-          padding: 1px 2px 2px 2px;
+          padding: 1px 3px 2px 3px;
           color: #6ab2b2;
           font-family: Pretendard-SemiBold;
           display: flex;
@@ -368,9 +368,13 @@ export const DetailContributorContainer = styled.div`
       margin-right: 20px;
       font-size: 15px;
       color: #525252;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       .profileImg {
         width: 41.7px;
         height: 45.73px;
+        margin-bottom: 5px;
       }
     }
   }

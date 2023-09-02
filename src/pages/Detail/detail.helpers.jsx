@@ -30,7 +30,9 @@ export const useDetail = (id) => {
     axios.get(`${SERVER_URL}/restaurants/${id}`).then((res) => res.data);
 
   const getMenuFn = () =>
-    axios.get(`${SERVER_URL}/restaurants/${id}/menus`).then((res) => res.data);
+    axios
+      .get(`${SERVER_URL}/restaurants/${id}/menus`)
+      .then((res) => res.data.data);
 
   const {
     data: restaurant,

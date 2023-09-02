@@ -30,7 +30,9 @@ const DetailInfo = ({
   };
   return (
     <DetailInfoContainer>
-      <div className="update">가게 정보 업데이트 날짜: 2023-02-23</div>
+      <div className="update">
+        가게 정보 업데이트 날짜: {restaurantData.updatedDate}
+      </div>
       <div className="title">
         <img src="" alt="" />
         📌 가게 정보
