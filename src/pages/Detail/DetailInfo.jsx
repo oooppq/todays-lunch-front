@@ -46,71 +46,73 @@ const DetailInfo = ({
             {restaurantData.locationCategory} {'>'} {restaurantData.locationTag}
           </div>
         </div>
-        <div
-          className="info"
-          onClick={() => {
-            setIsMore((state) => !state);
-          }}
-        >
-          <div className="key">추천 태그</div>
-          <div className="value">
-            <div className="recom">
-              <div
-                className="recomTag"
-                style={{
-                  borderColor: restaurantData.recommendCategoryList[0].color,
-                }}
-              >
-                <span
-                  className="hash"
-                  style={{
-                    color: restaurantData.recommendCategoryList[0].color,
-                  }}
-                >
-                  #{' '}
-                </span>
-                {restaurantData.recommendCategoryList[0].name}
-              </div>
-              <button type="button" className="etc">
-                <span className="">
-                  외 {restaurantData.recommendCategoryList.length - 1}개
-                </span>
-                {/* <img src={detailIcon} alt="" className="" /> */}
-                <span className="moreBtn">{isMore ? '▲' : '▼'}</span>
-              </button>
-            </div>
-            {isMore &&
-              restaurantData.recommendCategoryList.slice(1).map((tag) => (
+        {restaurantData.recommendCategoryList.length > 0 && (
+          <div
+            className="info"
+            onClick={() => {
+              setIsMore((state) => !state);
+            }}
+          >
+            <div className="key">추천 태그</div>
+            <div className="value">
+              <div className="recom">
                 <div
-                  key={tag.id}
-                  className="recomTag more"
+                  className="recomTag"
                   style={{
-                    borderColor: tag.color,
+                    borderColor: restaurantData.recommendCategoryList[0].color,
                   }}
                 >
                   <span
                     className="hash"
                     style={{
-                      color: tag.color,
+                      color: restaurantData.recommendCategoryList[0].color,
                     }}
                   >
-                    #
-                  </span>{' '}
-                  {tag.name}
+                    #{' '}
+                  </span>
+                  {restaurantData.recommendCategoryList[0].name}
                 </div>
-              ))}
+                <button type="button" className="etc">
+                  <span className="">
+                    외 {restaurantData.recommendCategoryList.length - 1}개
+                  </span>
+                  {/* <img src={detailIcon} alt="" className="" /> */}
+                  <span className="moreBtn">{isMore ? '▲' : '▼'}</span>
+                </button>
+              </div>
+              {isMore &&
+                restaurantData.recommendCategoryList.slice(1).map((tag) => (
+                  <div
+                    key={tag.id}
+                    className="recomTag more"
+                    style={{
+                      borderColor: tag.color,
+                    }}
+                  >
+                    <span
+                      className="hash"
+                      style={{
+                        color: tag.color,
+                      }}
+                    >
+                      #
+                    </span>{' '}
+                    {tag.name}
+                  </div>
+                ))}
+            </div>
+            <button
+              type="button"
+              className="recomTagChangeBtn"
+              onClick={(e) => {
+                openRecomTagModal();
+                e.stopPropagation();
+              }}
+            >
+              <img src={pencilIcon} alt="" className="" />
+            </button>
           </div>
-          <button
-            type="button"
-            className="recomTagChangeBtn"
-            onClick={(e) => {
-              openRecomTagModal();
-              e.stopPropagation();
-            }}
-          >
-            <img src={pencilIcon} alt="" className="" />
-          </button>
-        </div>
+        )}
       </div>
       {isRecomTagOpen && (
         <RecommendTagFetchModal
