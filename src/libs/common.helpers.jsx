@@ -28,7 +28,7 @@ export const useWish = (id, _isWish) => {
   //       axios
   //         .get(url, {
   //           headers: {
-  //             Authorization: `Bearer ${authInfo && authInfo.accessToken}`,
+  //             Authorization: `${authInfo && authInfo.accessToken}`,
   //           },
   //         })
   //         .then((res) => res.data),
@@ -40,7 +40,7 @@ export const useWish = (id, _isWish) => {
     () =>
       axios.post(url, null, {
         headers: {
-          Authorization: `Bearer ${authInfo && authInfo.accessToken}`,
+          Authorization: `${authInfo && authInfo.accessToken}`,
         },
       }),
     { onSuccess: () => queryClient.invalidateQueries(['wishList']) }

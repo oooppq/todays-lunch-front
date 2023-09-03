@@ -37,7 +37,7 @@ export const useJudgeAgree = (id) => {
     () =>
       axios.post(url.concat(`/${id}/agree`), null, {
         headers: {
-          Authorization: `Bearer ${authInfo.accessToken}`,
+          Authorization: `${authInfo.accessToken}`,
         },
       }),
     {

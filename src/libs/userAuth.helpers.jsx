@@ -31,7 +31,7 @@ export const useAuth = () => {
     let url = `${SERVER_URL}/login`; // login url
     if (mode === 'refresh') {
       url = `${SERVER_URL}/refresh`; // refresh url
-      // axios.defaults.headers.common.Authorization = `Bearer ${payload}`;
+      // axios.defaults.headers.common.Authorization = `${payload}`;
       return axios.post(
         url,
         // JSON.stringify({
@@ -44,7 +44,7 @@ export const useAuth = () => {
         },
         {
           headers: {
-            Authorization: `bearer ${payload.accessToken}`,
+            Authorization: `${payload.accessToken}`,
           },
         }
       );
@@ -76,7 +76,7 @@ export const useAuth = () => {
     dispatch(setState(state));
 
     if (state === authStates.AUTHORIZED) {
-      // axios.defaults.headers.common.Authorization = `Bearer ${access}`;
+      // axios.defaults.headers.common.Authorization = `${access}`;
       // const expireTime = new Date().getTime() + 2000;
       const expireTime = new Date().getTime() + info.refreshTokenExpiresTime;
       const refreshInfo = {
@@ -126,7 +126,7 @@ export const useAuth = () => {
     (accessToken) =>
       axios.post(`${SERVER_URL}/logout`, null, {
         headers: {
-          Authorization: `Bearer ${accessToken}`,
+          Authorization: `${accessToken}`,
         },
       })
   );

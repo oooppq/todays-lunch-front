@@ -55,7 +55,7 @@ export const useDetail = (id) => {
     (payload) =>
       axios.post(`${SERVER_URL}/restaurants/${id}/menus`, payload, {
         headers: {
-          Authorization: `Bearer ${accessToken}`,
+          Authorization: `${accessToken}`,
         },
       }),
     { onSuccess: () => queryClient.invalidateQueries(['menus', id]) }
@@ -87,7 +87,7 @@ export const useDetail = (id) => {
           payload,
           {
             headers: {
-              Authorization: `Bearer ${accessToken}`,
+              Authorization: `${accessToken}`,
             },
           }
         ),
@@ -99,7 +99,7 @@ export const useDetail = (id) => {
       () =>
         axios.delete(`${SERVER_URL}/restaurants/${id}/menus/${menuId}`, {
           headers: {
-            Authorization: `Bearer ${accessToken}`,
+            Authorization: `${accessToken}`,
           },
         }),
       { onSuccess: () => queryClient.invalidateQueries(['menus', id]) }
@@ -263,7 +263,7 @@ export const useMenuPhoto = (id) => {
         axios.post(url, fd, {
           headers: {
             'Content-Type': `multipart/form-data; `,
-            Authorization: `Bearer ${accessToken}`,
+            Authorization: `${accessToken}`,
           },
         }),
       { onSuccess: () => queryClient.invalidateQueries(['menuPhotos', id]) }
@@ -275,7 +275,7 @@ export const useMenuPhoto = (id) => {
       (photoId) =>
         axios.delete(url.concat(`/${photoId}`), {
           headers: {
-            Authorization: `Bearer ${accessToken}`,
+            Authorization: `${accessToken}`,
           },
         }),
       { onSuccess: () => queryClient.invalidateQueries(['menuPhotos', id]) }
@@ -382,7 +382,7 @@ export const useReview = (id) => {
       axios.post(url, data, {
         headers: {
           'Content-Type': `application/json`,
-          Authorization: `Bearer ${accessToken}`,
+          Authorization: `${accessToken}`,
         },
       }),
     {
@@ -438,7 +438,7 @@ export const useReviewElem = (restId, review) => {
       axios.patch(url.concat(`/${review.id}`), fd, {
         headers: {
           'Content-Type': `application/json`,
-          Authorization: `Bearer ${accessToken}`,
+          Authorization: `${accessToken}`,
         },
       }),
     {
@@ -453,7 +453,7 @@ export const useReviewElem = (restId, review) => {
     ['deleteReview', restId],
     () =>
       axios.delete(url.concat(`/${review.id}`), {
-        headers: { Authorization: `Bearer ${accessToken}` },
+        headers: { Authorization: `${accessToken}` },
       }),
     {
       onSuccess: () => {
@@ -466,7 +466,7 @@ export const useReviewElem = (restId, review) => {
   const { mutate: pushLikeRequest } = useMutation(['review', 'pushLike'], () =>
     axios.post(url.concat(`/${review.id}/like`), null, {
       headers: {
-        Authorization: `Bearer ${accessToken}`,
+        Authorization: `${accessToken}`,
       },
     })
   );
@@ -582,7 +582,7 @@ export const useChnageThumbImage = (id) => {
       ),
     {
       headers: {
-        Authorization: `Bearer ${accessToken}`,
+        Authorization: `${accessToken}`,
       },
     }
   );

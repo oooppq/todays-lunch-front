@@ -16,7 +16,7 @@ const Recommendation = () => {
         `${import.meta.env.VITE_API_BASE_URL}/restaurants/recommendation`,
         accessToken
           ? {
-              headers: { Authorization: `bearer ${accessToken}` },
+              headers: { Authorization: `${accessToken}` },
             }
           : null
       )

@@ -27,7 +27,7 @@ export const useMyPage = (navigate) => {
       axios
         .get(`${SERVER_URL}/mypage`, {
           headers: {
-            Authorization: `Bearer ${userState.accessToken}`,
+            Authorization: `${userState.accessToken}`,
           },
         })
         .then((res) => res.data),
@@ -80,7 +80,7 @@ export const useMyJudge = () => {
       axios
         .get(`${SERVER_URL}/restaurants/judges`, {
           headers: {
-            Authorization: `Bearer ${accessToken}`,
+            Authorization: `${accessToken}`,
           },
         })
         .then((res) => res.data),
@@ -106,7 +106,7 @@ export const useWishlist = () => {
       axios
         .get(`${SERVER_URL}/mystore?page=${pageParam}`, {
           headers: {
-            Authorization: `Bearer ${userState.accessToken}`,
+            Authorization: `${userState.accessToken}`,
           },
         })
         .then((res) => {
@@ -148,7 +148,7 @@ export const useParticipatingRestaurant = () => {
       axios
         .get(`${SERVER_URL}/restaurants?page=${pageParam}`, {
           headers: {
-            Authorization: `Bearer ${userState.accessToken}`,
+            Authorization: `${userState.accessToken}`,
           },
         })
         .then((res) => {
@@ -177,7 +177,7 @@ export const useParticipatingRestaurant = () => {
       axios
         .get(`${SERVER_URL}/restaurants?page=${pageParam}`, {
           headers: {
-            Authorization: `Bearer ${userState.accessToken}`,
+            Authorization: `${userState.accessToken}`,
           },
         })
         .then((res) => {
@@ -223,7 +223,7 @@ export const useMyReview = () => {
       axios
         .get(`${SERVER_URL}/myreviews?page=${pageParam}`, {
           headers: {
-            Authorization: `Bearer ${userState.accessToken}`,
+            Authorization: `${userState.accessToken}`,
           },
         })
         .then((res) => {
@@ -278,7 +278,7 @@ export const useChangePassword = () => {
         { password },
         {
           headers: {
-            Authorization: `Bearer ${authInfo.accessToken}`,
+            Authorization: `${authInfo.accessToken}`,
           },
         }
       )
@@ -300,7 +300,7 @@ export const useChangePassword = () => {
     //   data: fd,
     //   headers: {
     //     'Content-Type': 'multipart/form-data',
-    //     Authorization: `Bearer ${authInfo.accessToken}`,
+    //     Authorization: `${authInfo.accessToken}`,
     //   },
     // });
     return axios.patch(
@@ -308,7 +308,7 @@ export const useChangePassword = () => {
       { password },
       {
         headers: {
-          Authorization: `Bearer ${authInfo.accessToken}`,
+          Authorization: `${authInfo.accessToken}`,
         },
       }
     );
@@ -409,7 +409,7 @@ export const useProfileChange = (userInfo) => {
         axios.patch(`${SERVER_URL}/mypage/icon`, fd, {
           headers: {
             'Content-Type': `multipart/form-data; `,
-            Authorization: `Bearer ${authInfo.accessToken}`,
+            Authorization: `${authInfo.accessToken}`,
           },
         }),
       { onSuccess: () => queryClient.invalidateQueries(['userInformation']) }
@@ -504,7 +504,7 @@ export const useCategoryChange = (
     () =>
       axios.get(`${SERVER_URL}/${category}-category`).then((res) => res.data),
     {
-      headers: { Authorization: `Bearer ${authInfo.accessToken}` },
+      headers: { Authorization: `${authInfo.accessToken}` },
     },
     { refetchOnWindowFocus: false }
   );
@@ -514,7 +514,7 @@ export const useCategoryChange = (
     (fd) =>
       axios.patch(url, fd, {
         headers: {
-          Authorization: `Bearer ${authInfo.accessToken}`,
+          Authorization: `${authInfo.accessToken}`,
         },
       }),
     { onSuccess: () => queryClient.invalidateQueries(['userInformation']) }

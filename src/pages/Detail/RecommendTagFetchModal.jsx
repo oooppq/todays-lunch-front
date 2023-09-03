@@ -39,7 +39,7 @@ const RecommendTagFetchModal = ({ closeModal, restId, recommendTag }) => {
         },
         {
           headers: {
-            Authorization: `Bearer ${accessToken}`,
+            Authorization: `${accessToken}`,
           },
         }
       )
