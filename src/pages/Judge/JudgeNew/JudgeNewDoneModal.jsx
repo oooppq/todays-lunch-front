@@ -17,23 +17,34 @@ const JudgeNewDoneModal = ({ setIsDone }) => {
   const judgeNewStates = useSelector((state) => state.judgeNew);
   const accessToken = useSelector((state) => state.userAuth.accessToken);
   const fd = new FormData();
-  Object.entries(judgeNewStates).forEach(([key, value]) => {
-    if (value) {
-      //   fd.append('locationCategoryName', value.name);
-      // else if (key === 'locationTag') fd.append('locationTagName', value.name);
-      if (key === 'locationCategory') return;
-      if (key === 'foodCategory') fd.append('foodCategoryName', value.name);
-      // else if (key === 'restaurantImage') fd.append(reader.result.toString());
-      else if (key === 'recommendCategory') {
-        if (value.length) {
-          fd.append(
-            'recommendCategoryIds',
-            value.map((cat) => cat.id)
-          );
-        } else fd.append('recommendCategoryIds', null);
-      } else fd.append(key, value);
-    } else fd.append(key, null);
-  });
+  const createDto = {
+    restaurantName: judgeNewStates.restaurantName,
+    address: judgeNewStates.address,
+    recommendCategoryIds: judgeNewStates.recommendCategory.map((cat) => cat.id),
+    longitude: judgeNewStates.longitude,
+    latitude: judgeNewStates.latitude,
+    introduction: judgeNewStates.introduction,
+    foodCategoryName: judgeNewStates.foodCategory.name,
+  };
+  fd.append('restaurantImage', judgeNewStates.restaurantImage);
+  fd.append('createDto', JSON.stringify(createDto));
+  // Object.entries(judgeNewStates).forEach(([key, value]) => {
+  //   if (value) {
+  //     //   fd.append('locationCategoryName', value.name);
+  //     // else if (key === 'locationTag') fd.append('locationTagName', value.name);
+  //     if (key === 'locationCategory') return;
+  //     if (key === 'foodCategory') fd.append('foodCategoryName', value.name);
+  //     // else if (key === 'restaurantImage') fd.append(reader.result.toString());
+  //     else if (key === 'recommendCategory') {
+  //       if (value.length) {
+  //         fd.append(
+  //           'recommendCategoryIds',
+  //           value.map((cat) => cat.id)
+  //         );
+  //       } else fd.append('recommendCategoryIds', null);
+  //     } else fd.append(key, value);
+  //   } else fd.append(key, null);
+  // });
 
   const { mutate, isLoading } = useMutation((toSend) =>
     axios.post(
