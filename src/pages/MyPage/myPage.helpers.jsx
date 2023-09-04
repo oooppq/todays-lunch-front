@@ -16,7 +16,7 @@ const SERVER_URL = import.meta.env.VITE_API_BASE_URL;
 
 export const useMyPage = (navigate) => {
   const userState = useSelector((state) => state.userAuth);
-
+  const { logout, logoutIsSuccess, logoutStatus, setAuthInfo } = useAuth();
   const {
     data: userInfo,
     isFetching: userInfoIsFetching,
@@ -33,25 +33,26 @@ export const useMyPage = (navigate) => {
         .then((res) => res.data),
     {
       refetchOnWindowFocus: false,
+      // enabled:
     }
   );
-  const { logout, logoutIsSuccess, setAuthInfo } = useAuth();
 
   const handleGoToLogout = () => {
-    if (logoutIsSuccess) {
+    // navigate('/logout');
+    if (logoutStatus === 'loading') {
       navigate('/logout');
     }
   };
 
   const handleLogout = () => {
     setAuthInfo(authStates.UNAUTHORIZED, null);
-    localStorage.removeItem('refreshInfo');
   };
 
   const handleGotoOnClick = (event) => {
     navigate(`./${event.target.id}`);
   };
   const handleLogoutOnClick = () => {
+    localStorage.removeItem('tokenInfo');
     logout(userState.accessToken);
   };
 

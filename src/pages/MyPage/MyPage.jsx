@@ -13,6 +13,7 @@ const MyPage = () => {
     userInfo,
     userInfoIsFetching,
     userInfoError,
+    // isLogoutLoading,
     handleLogoutOnClick,
     handleGoToLogout,
     handleGotoOnClick,

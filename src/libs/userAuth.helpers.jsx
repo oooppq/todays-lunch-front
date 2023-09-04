@@ -9,6 +9,7 @@ import {
   setRefreshToken,
   setState,
   setTemporary,
+  reset,
 } from '../redux/userAuth';
 import { authStates } from './utils';
 
@@ -21,12 +22,13 @@ export const useAuth = () => {
   const navigate = useNavigate();
   const authInfo = useSelector((state) => state.userAuth);
   const dispatch = useDispatch();
+  // const queryClient = useQueryClient();
   const {
     mutate: authRequest,
     data: authResponse,
     error: authError,
     isLoading: authIsLoading,
-    reset,
+    reset: authReset,
   } = useMutation(['authRequest'], ({ mode, payload }) => {
     let url = `${SERVER_URL}/login`; // login url
     if (mode === 'refresh') {
@@ -72,7 +74,7 @@ export const useAuth = () => {
       dispatch(setAccessToken(info.accessToken));
       dispatch(setRefreshToken(info.refreshToken));
       dispatch(setTemporary(info.temporary));
-    }
+    } else dispatch(reset());
     dispatch(setState(state));
 
     if (state === authStates.AUTHORIZED) {
@@ -98,7 +100,7 @@ export const useAuth = () => {
     if (tokenInfo) {
       if (tokenInfo.expireTime > new Date().getTime()) {
         // if (refreshInfo.expireTime > refreshInfo.expireTime + 1) {
-        reset();
+        authReset();
         // authRequest({ mode: 'refresh', payload: refreshInfo.token });
         authRequest({
           mode: 'refresh',
@@ -122,13 +124,16 @@ export const useAuth = () => {
     authRequest({ mode: 'login', payload: loginInfo });
   };
 
-  const { mutate: logout, isSuccess: logoutIsSuccess } = useMutation(
-    (accessToken) =>
-      axios.post(`${SERVER_URL}/logout`, null, {
-        headers: {
-          Authorization: `${accessToken}`,
-        },
-      })
+  const {
+    mutate: logout,
+    status: logoutStatus,
+    isSuccess: logoutIsSuccess,
+  } = useMutation((accessToken) =>
+    axios.post(`${SERVER_URL}/logout-member`, null, {
+      headers: {
+        Authorization: `${accessToken}`,
+      },
+    })
   );
 
   // handlers
@@ -177,6 +182,7 @@ export const useAuth = () => {
     setAuthInfo,
     login,
     logout,
+    logoutStatus,
     logoutIsSuccess,
     refresh,
     handleAuthState,

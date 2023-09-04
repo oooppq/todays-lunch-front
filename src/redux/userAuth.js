@@ -60,6 +60,9 @@ export const userAuthSlice = createSlice({
     setTemporary: (state, action) => {
       state.temporary = action.payload;
     },
+    reset: (state) => {
+      Object.assign(state, { ...initialState, state: state.state });
+    },
   },
 });
 
@@ -71,6 +74,7 @@ export const {
   setRefreshToken,
   setExpireTime,
   setTemporary,
+  reset,
 } = userAuthSlice.actions;
 
 export default userAuthSlice.reducer;
