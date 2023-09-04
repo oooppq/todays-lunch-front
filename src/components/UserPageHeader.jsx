@@ -2,8 +2,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserPageHeaderContainer } from './userPageHeader.style';
-import backIcon from '../assets/img/user-back-icon.svg';
-import homeIcon from '../assets/img/user-home-icon.svg';
+import backIcon from '../assets/img/user-back-icon.png';
+import homeIcon from '../assets/img/user-home-icon.png';
 import { useCustomNavigate } from '../libs/common.helpers';
 
 const UserPageHeader = ({ children }) => {

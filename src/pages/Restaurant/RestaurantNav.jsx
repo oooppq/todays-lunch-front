@@ -18,9 +18,9 @@ import {
   normalDropdownStyle,
   recomDropdownStyle,
 } from './restaurant.style';
-import mapIcon from '../../assets/img/map-icon.svg';
-import listIcon from '../../assets/img/list-icon.svg';
-import searchIcon from '../../assets/img/search-icon.svg';
+import mapIcon from '../../assets/img/map-icon.png';
+import listIcon from '../../assets/img/list-icon.png';
+import searchIcon from '../../assets/img/search-icon.png';
 import { useCategory } from './restaurant.helpers';
 
 const sortOptions = [
@@ -52,8 +52,10 @@ const RestaurantNav = ({
           <img
             src={isMap ? listIcon : mapIcon}
             alt=""
-            width={isMap ? '32px' : '40px'}
-            height={isMap ? '32px' : '40px'}
+            // width={isMap ? '32px' : '40px'}
+            // height={isMap ? '32px' : '40px'}
+            width="40"
+            height="40"
           />
         </MapBtn>
         <SearchBox>

@@ -21,9 +21,17 @@ export const UserPageHeaderContainer = styled.div`
   .backBtn {
     width: 25px;
     height: 25px;
+    img {
+      width: 100%;
+      height: 100%;
+    }
   }
   .homeBtn {
     width: 25px;
     height: 25px;
+    img {
+      width: 100%;
+      height: 100%;
+    }
   }
 `;

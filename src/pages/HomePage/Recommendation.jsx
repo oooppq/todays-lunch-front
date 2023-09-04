@@ -6,6 +6,7 @@ import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { RecommendationContainer, RecommendationTitle } from './homePage.style';
 import RecommendationElem from './RecommendationElem';
+import riceIcon from '../../assets/img/rice-icon.png';
 
 const Recommendation = () => {
   const accessToken = useSelector((state) => state.userAuth.accessToken);
@@ -29,7 +30,8 @@ const Recommendation = () => {
   return (
     <RecommendationContainer>
       <RecommendationTitle>
-        🍚 <span>오늘의</span> 맛집
+        <img src={riceIcon} alt="" className="riceIcon" />
+        <span>오늘의</span> 맛집
       </RecommendationTitle>
       {!isLoading && !error && (
         <Carousel

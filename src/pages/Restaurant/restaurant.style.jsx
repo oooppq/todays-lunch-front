@@ -98,11 +98,11 @@ export const SearchBox = styled.div`
   button {
     padding: 0;
     margin: auto 15px;
-    height: 23px;
-    width: 23px;
+    height: 18px;
+    width: 18px;
     img {
-      height: 23px;
-      width: 23px;
+      height: 100%;
+      width: 100%;
     }
   }
 `;

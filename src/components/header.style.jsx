@@ -8,6 +8,25 @@ export const HeaderContainer = styled.div`
   text-align: left;
   margin-bottom: 22px;
   position: relative;
+  .profileButton {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 19px 29.3px 0 0;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    border: 1.5px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .profileIcon {
+      border-radius: 50%;
+      // border: 1px solid black;
+      height: 100%;
+      width: 100%;
+    }
+  }
 `;
 // export const HeaderLogo = styled.img`
 //   content: url(${logo});

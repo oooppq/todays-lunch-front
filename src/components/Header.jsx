@@ -4,12 +4,11 @@ import { useSelector } from 'react-redux';
 import {
   HeaderContainer,
   HeaderLogo,
-  HeaderMyPageIcon,
   HeaderBasketModal,
   HeaderBasketIcon,
 } from './header.style';
-import defaultUser from '../assets/img/default-icon.svg';
-import basket from '../assets/img/header-heart-icon.svg';
+import defaultUser from '../assets/img/profile-icon.png';
+import basket from '../assets/img/header-heart-icon.png';
 import { authStates } from '../libs/utils';
 
 const Header = () => {
@@ -37,13 +36,23 @@ const Header = () => {
           navigate('/wishlist');
         }}
       />
-      <HeaderMyPageIcon
+      <button
+        type="button"
+        className="profileButton"
+        onClick={() => {
+          if (userState === authStates.AUTHORIZED) navigate('/mypage');
+          else navigate('/login');
+        }}
+      >
+        <img src={defaultUser} alt="" className="profileIcon" />
+      </button>
+      {/* <HeaderMyPageIcon
         src={defaultUser}
         onClick={() => {
           if (userState === authStates.AUTHORIZED) navigate('/mypage');
           else navigate('/login');
         }}
-      />
+      /> */}
     </HeaderContainer>
   );
 };

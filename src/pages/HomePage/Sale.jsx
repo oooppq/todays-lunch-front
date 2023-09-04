@@ -7,6 +7,7 @@ import { SaleContainer, SaleTitle, SaleUl, SaleLi } from './homePage.style';
 import defaultImage from '../../assets/img/default-image.png';
 import { convertNum, flattenPages, gotoDetailOnClick } from '../../libs/utils';
 import { useInfiniteScroll } from '../../libs/common.helpers';
+import saleIcon from '../../assets/img/sale-icon.png';
 
 const SetData = ({ navigate }) => {
   const {
@@ -45,7 +46,8 @@ const SetData = ({ navigate }) => {
   return (
     <SaleContainer>
       <SaleTitle className="bold">
-        💸 할인 <span>정보</span>
+        <img src={saleIcon} alt="" className="saleIcon" />
+        할인 <span>정보</span>
       </SaleTitle>
       {sales && (
         <SaleUl>

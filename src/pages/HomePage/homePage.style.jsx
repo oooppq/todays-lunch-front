@@ -30,6 +30,13 @@ export const RecommendationTitle = styled.div`
   font-size: 22px;
   height: 26px;
   margin: 0 20px 20px 20px;
+  display: flex;
+  align-items: center;
+  .riceIcon {
+    height: 24px;
+    width: 24px;
+    margin-right: 7px;
+  }
   span {
     color: #9b9b9b;
   }
@@ -143,6 +150,13 @@ export const SaleTitle = styled.div`
   font-size: 22px;
   margin: 0 20px;
   height: 26px;
+  display: flex;
+  align-items: center;
+  .saleIcon {
+    width: 24px;
+    height: 24px;
+    margin-right: 7px;
+  }
   span {
     color: #9b9b9b;
   }

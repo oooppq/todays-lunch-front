@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { JudgeSearchHeader, JudgeSearchBox } from './judgeNew.style';
 import xIcon from '../../../assets/img/x-icon.svg';
-import searchIcon from '../../../assets/img/search-icon.svg';
+import searchIcon from '../../../assets/img/search-icon.png';
 
 const JudgeSearchTop = ({
   setIsSearch,
