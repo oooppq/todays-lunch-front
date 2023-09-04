@@ -24,6 +24,7 @@ const DetailTop = ({ restaurant, tab, changeTab }) => {
     restaurant && restaurant.id,
     restaurant.liked
   );
+
   const { isShareModalOpen, ShareModalBtn, ShareModal } = useShare(restaurant);
 
   return (
@@ -55,10 +56,10 @@ const DetailTop = ({ restaurant, tab, changeTab }) => {
           </div>
           <div className="wishDiv">
             <img src={smallHeartIcon} alt="" />
-            <span>{restaurant.wishCount}</span>
+            <span>{restaurant.likeCount}</span>
           </div>
         </div>
-        <div className="rate">{restaurant.rating}</div>
+        <div className="rate">{Number(restaurant.rating).toFixed(1)}</div>
         <div className="bestReview">"{restaurant.bestReview}"</div>
       </div>
 

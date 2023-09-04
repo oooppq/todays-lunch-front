@@ -42,7 +42,7 @@ const ParticipatingRestaurant = () => {
             <span className="bold number">
               {userInfoIsFetching || userInfoError
                 ? null
-                : userInfo.contributionCount}
+                : userInfo.participationCount}
               개
             </span>
             의 맛집을 직접 추가했고,
@@ -50,7 +50,7 @@ const ParticipatingRestaurant = () => {
             <span className="bold number">
               {userInfoIsFetching || userInfoError
                 ? null
-                : userInfo.infoChangeCount}
+                : userInfo.contributionCount}
               개
             </span>
             의 맛집의 정보에 기여헸어요 🙂

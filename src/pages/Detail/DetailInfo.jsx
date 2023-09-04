@@ -48,16 +48,16 @@ const DetailInfo = ({
             {restaurantData.locationCategory} {'>'} {restaurantData.locationTag}
           </div>
         </div>
-        {restaurantData.recommendCategoryList.length > 0 && (
-          <div
-            className="info"
-            onClick={() => {
-              setIsMore((state) => !state);
-            }}
-          >
-            <div className="key">추천 태그</div>
-            <div className="value">
-              <div className="recom">
+        <div
+          className="info"
+          onClick={() => {
+            setIsMore((state) => !state);
+          }}
+        >
+          <div className="key">추천 태그</div>
+          <div className="value">
+            <div className="recom">
+              {restaurantData.recommendCategoryList.length > 0 ? (
                 <div
                   className="recomTag"
                   style={{
@@ -74,6 +74,10 @@ const DetailInfo = ({
                   </span>
                   {restaurantData.recommendCategoryList[0].name}
                 </div>
+              ) : (
+                <div className="">추천 태그를 추가해주세요.</div>
+              )}
+              {restaurantData.recommendCategoryList.length > 1 && (
                 <button type="button" className="etc">
                   <span className="">
                     외 {restaurantData.recommendCategoryList.length - 1}개
@@ -81,40 +85,40 @@ const DetailInfo = ({
                   {/* <img src={detailIcon} alt="" className="" /> */}
                   <span className="moreBtn">{isMore ? '▲' : '▼'}</span>
                 </button>
-              </div>
-              {isMore &&
-                restaurantData.recommendCategoryList.slice(1).map((tag) => (
-                  <div
-                    key={tag.id}
-                    className="recomTag more"
+              )}
+            </div>
+            {isMore &&
+              restaurantData.recommendCategoryList.slice(1).map((tag) => (
+                <div
+                  key={tag.id}
+                  className="recomTag more"
+                  style={{
+                    borderColor: tag.color,
+                  }}
+                >
+                  <span
+                    className="hash"
                     style={{
-                      borderColor: tag.color,
+                      color: tag.color,
                     }}
                   >
-                    <span
-                      className="hash"
-                      style={{
-                        color: tag.color,
-                      }}
-                    >
-                      #
-                    </span>{' '}
-                    {tag.name}
-                  </div>
-                ))}
-            </div>
-            <button
-              type="button"
-              className="recomTagChangeBtn"
-              onClick={(e) => {
-                openRecomTagModal();
-                e.stopPropagation();
-              }}
-            >
-              <img src={pencilIcon} alt="" className="" />
-            </button>
+                    #
+                  </span>{' '}
+                  {tag.name}
+                </div>
+              ))}
           </div>
-        )}
+          <button
+            type="button"
+            className="recomTagChangeBtn"
+            onClick={(e) => {
+              openRecomTagModal();
+              e.stopPropagation();
+            }}
+          >
+            <img src={pencilIcon} alt="" className="" />
+          </button>
+        </div>
       </div>
       {isRecomTagOpen && (
         <RecommendTagFetchModal

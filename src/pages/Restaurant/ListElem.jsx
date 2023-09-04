@@ -35,7 +35,7 @@ const ListElem = ({ restaurant }) => {
           <div className="reviewRate">
             <span>리뷰 {convertNum(restaurant.reviewCount)}개</span>
             {' | '}
-            <span>평점 {restaurant.rating}</span>
+            <span>평점 {Number(restaurant.rating).toFixed(1)}</span>
           </div>
           <ListElemInfoButton restaurant={restaurant} />
         </div>

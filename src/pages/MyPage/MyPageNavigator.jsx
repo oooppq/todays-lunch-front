@@ -21,7 +21,9 @@ const MyPageNavigator = ({ userInfo, handleGotoOnClick }) => {
         className="myPageBtn"
         onClick={handleGotoOnClick}
       >
-        <div className="count">{userInfo.paricipationCount}</div>
+        <div className="count">
+          {userInfo.participationCount + userInfo.contributionCount}
+        </div>
         참여한
         <br />
         맛집

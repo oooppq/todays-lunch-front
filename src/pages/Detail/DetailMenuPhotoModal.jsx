@@ -43,8 +43,8 @@ const DetailMenuPhotoModal = ({ closeMenuPhotoModal, menu }) => {
         </button>
         <div className="menuPhotoModalTop">
           <div className="menuPhotoModalTitle">{menu.name}</div>
-          {menu.photoNum && (
-            <div className="menuModalPhotoPhotoNum">[{menu.photoNum}]</div>
+          {menu.imageCount && (
+            <div className="menuModalPhotoPhotoNum">[{menu.imageCount}]</div>
           )}
           {/* <button type="button" className="changeThumbBtn">
             대표 이미지 설정

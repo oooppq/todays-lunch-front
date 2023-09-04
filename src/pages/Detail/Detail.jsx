@@ -16,8 +16,9 @@ const Detail = () => {
     isNewMenuModalOpen,
     setIsNewMenuModalOpen,
     restaurant,
-    isRestaurantLoading,
-    restaurantError,
+    // isRestaurantLoading,
+    // restaurantError,
+    restaurantStatus,
     menus,
     // isMenusLoading,
     // menusError,
@@ -27,7 +28,7 @@ const Detail = () => {
     openNewMenuModal,
   } = useDetail(id);
 
-  if (isRestaurantLoading || restaurantError) return null;
+  if (restaurantStatus !== 'success') return null;
 
   return (
     <DetailContainer>

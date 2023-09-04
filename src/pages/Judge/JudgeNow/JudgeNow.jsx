@@ -11,11 +11,12 @@ const JudgeNow = () => {
     isList,
     setIsList,
     restaurants,
-    restaurantsIsLoading,
-    restaurantsIsError,
+    // restaurantsIsLoading,
+    // restaurantsIsError,
+    restaurantStatus,
   } = useJudgeNow();
 
-  if (restaurantsIsLoading || restaurantsIsError) return null;
+  if (restaurantStatus !== 'success') return null;
 
   return (
     <JudgeNowContainer>

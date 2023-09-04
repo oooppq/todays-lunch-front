@@ -101,10 +101,9 @@ const DetailMenuPhotoInnerModal = ({
         {/* <div className="fileName">{selectedPhoto.originalName}</div> */}
         <div className="photoInfo">
           <div className="userName">
-            photo by{' '}
-            <span className="bold">{selectedPhoto.member.nickname}</span>
+            photo by <span className="bold">{selectedPhoto.nickname}</span>
           </div>
-          {selectedPhoto.member.id === userId && (
+          {selectedPhoto.userId === userId && (
             <button
               type="button"
               className="deleteBtn"

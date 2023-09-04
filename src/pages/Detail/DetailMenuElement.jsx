@@ -49,9 +49,9 @@ const DetailMenuElement = ({ menu, useMenuElem }) => {
           menu={menu}
         />
       )}
-      {isMenuSaleInfoModalOpen && menu.saleComment && (
+      {isMenuSaleInfoModalOpen && menu.saleExplain && (
         <DetailMenuSaleInfoModal
-          saleComment={menu.saleComment}
+          saleExplain={menu.saleExplain}
           closeMenuSaleInfoModal={() => {
             setIsMenuSaleInfoModalOpen(false);
           }}
@@ -67,7 +67,7 @@ const DetailMenuElement = ({ menu, useMenuElem }) => {
           }}
         >
           <img src={cameraIcon} alt="" className="" />
-          {menu.photoNum}
+          <div className="imageCount">{menu.imageCount}</div>
         </button>
 
         {menu.salePrice ? (

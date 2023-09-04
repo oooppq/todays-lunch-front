@@ -7,7 +7,7 @@ import { setSelectedLocCat, setSelectedLocTag } from '../../redux/restaurant';
 const SERVER_URL = import.meta.env.VITE_API_BASE_URL;
 
 export const restaurantUrlMaker = (state, pageNum) => {
-  let url = `${SERVER_URL}/restaurants/?`;
+  let url = `${SERVER_URL}/restaurants?`;
 
   if (state.selectedLocCat)
     url += `&location-category=${state.selectedLocCat.name}`;
@@ -18,17 +18,18 @@ export const restaurantUrlMaker = (state, pageNum) => {
     url += `&food-category=${state.selectedFoodCat.name}`;
 
   if (state.selectedRecomCat)
-    url += `&recommendation-category=${state.selectedRecomCat.id}`;
+    url += `&recommend-category-id=${state.selectedRecomCat.id}`;
 
   if (state.searchKeyword.length !== 0)
     url += `&keyword=${state.searchKeyword}`;
-  url += `&sort=${state.sortBy.query}&page=${pageNum || 1}&size=10`;
+  url += `&sort=${state.sortBy.query}&page=${pageNum || 0}&size=10`;
   url += `&order=descending`;
   return url;
 };
 
 export const useRestaurant = () => {
   const restaurantState = useSelector((state) => state.restaurant);
+  const accessToken = useSelector((state) => state.userAuth.accessToken);
 
   const ress = useQueries([
     {
@@ -65,12 +66,19 @@ export const useRestaurant = () => {
     fetchNextPage,
   } = useInfiniteQuery({
     queryKey: ['restaurants', restaurantState],
-    queryFn: async ({ queryKey, pageParam = 1 }) => {
-      const res = await axios.get(restaurantUrlMaker(queryKey[1], pageParam));
+    queryFn: async ({ queryKey, pageParam = 0 }) => {
+      const res = await axios.get(
+        restaurantUrlMaker(queryKey[1], pageParam),
+        accessToken
+          ? {
+              headers: { Authorization: `${accessToken}` },
+            }
+          : null
+      );
       return {
         data: res.data.data,
         pageNum: pageParam,
-        isLast: pageParam >= res.data.totalPages,
+        isLast: pageParam >= res.data.totalPages - 1,
       };
     },
     getNextPageParam: (lastPage) => {
@@ -84,6 +92,7 @@ export const useRestaurant = () => {
 
   const categoryIsError = ress.some((res) => res.isError);
 
+  const isCategoryFetchingDone = ress.every((res) => res.status === 'success');
   return {
     locCategory: ress[0],
     locTag: ress[1],
@@ -96,6 +105,7 @@ export const useRestaurant = () => {
     restaurantsIsError,
     categoryIsFetching,
     categoryIsError,
+    isCategoryFetchingDone,
   };
 };
 

@@ -19,7 +19,7 @@ const DetailMenuFetchModal = ({
     price,
     setPrice,
     setSalePrice,
-    setSaleComment,
+    setSaleExplain,
     isWarning,
     isMenuDeleteModalOpen,
     setIsMenuDeleteModalOpen,
@@ -31,9 +31,9 @@ const DetailMenuFetchModal = ({
       setName(menu.name);
       setPrice(menu.price);
       setSalePrice(menu.salePrice);
-      setSaleComment(menu.saleComment);
+      setSaleExplain(menu.saleExplain);
     }
-  }, [menu, setName, setPrice, setSaleComment, setSalePrice]);
+  }, [menu, setName, setPrice, setSaleExplain, setSalePrice]);
 
   return (
     <DetailMenuUpdateModalContainer>
@@ -146,10 +146,10 @@ const DetailMenuFetchModal = ({
             <textarea
               placeholder="예)학생증을 보여주면 1,000원을 할인해줘요."
               className="updateInput saleComment"
-              defaultValue={menu && menu.saleComment}
+              defaultValue={menu && menu.saleExplain}
               maxLength={200}
               onChange={(e) => {
-                setSaleComment(e.target.value);
+                setSaleExplain(e.target.value);
               }}
             />
           </div>

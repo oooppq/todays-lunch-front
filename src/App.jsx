@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
+import { useQueryClient } from 'react-query';
+import { useSelector } from 'react-redux';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Nav from './components/Nav';
@@ -24,8 +26,16 @@ import ParticipatingRestaurant from './pages/MyPage/ParticipatingRestaurant/Part
 
 const App = () => {
   const { login, refresh, handleAuthState } = useAuth();
+  const authState = useSelector((state) => state.userAuth.state);
+  const queryClient = useQueryClient();
+  queryClient.setDefaultOptions({
+    queries: {
+      enabled: authState !== 'initial' && authState !== 'pending',
+    },
+  });
 
   useEffect(handleAuthState);
+
   return (
     <>
       <Header />

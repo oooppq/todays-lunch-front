@@ -24,27 +24,13 @@ const JudgeNewDoneModal = ({ setIsDone }) => {
     longitude: judgeNewStates.longitude,
     latitude: judgeNewStates.latitude,
     introduction: judgeNewStates.introduction,
-    foodCategoryName: judgeNewStates.foodCategory.name,
+    foodCategoryName: judgeNewStates.foodCategory?.name,
   };
+  const blob = new Blob([JSON.stringify(createDto)], {
+    type: 'application/json',
+  });
   fd.append('restaurantImage', judgeNewStates.restaurantImage);
-  fd.append('createDto', JSON.stringify(createDto));
-  // Object.entries(judgeNewStates).forEach(([key, value]) => {
-  //   if (value) {
-  //     //   fd.append('locationCategoryName', value.name);
-  //     // else if (key === 'locationTag') fd.append('locationTagName', value.name);
-  //     if (key === 'locationCategory') return;
-  //     if (key === 'foodCategory') fd.append('foodCategoryName', value.name);
-  //     // else if (key === 'restaurantImage') fd.append(reader.result.toString());
-  //     else if (key === 'recommendCategory') {
-  //       if (value.length) {
-  //         fd.append(
-  //           'recommendCategoryIds',
-  //           value.map((cat) => cat.id)
-  //         );
-  //       } else fd.append('recommendCategoryIds', null);
-  //     } else fd.append(key, value);
-  //   } else fd.append(key, null);
-  // });
+  fd.append('createDto', blob);
 
   const { mutate, isLoading } = useMutation((toSend) =>
     axios.post(

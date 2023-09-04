@@ -54,7 +54,9 @@ const RecommendationElem = ({ restaurant }) => {
               리뷰 {convertNum(restaurant.reviewCount)}개
             </span>
             {' | '}
-            <span className="rating">별점 {restaurant.rating}</span>
+            <span className="rating">
+              별점 {Number(restaurant.rating).toFixed(1)}
+            </span>
           </div>
         </div>
         <div className="right">

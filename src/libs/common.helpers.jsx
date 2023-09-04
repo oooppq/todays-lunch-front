@@ -21,19 +21,6 @@ export const useWish = (id, _isWish) => {
   const { authInfo, isAuthorized } = useAuth();
   const queryClient = useQueryClient();
   const [isWish, setIsWish] = useState(_isWish);
-  // const { data: isWishRes } = (id &&
-  //   useQuery(
-  //     ['get', 'wishIsLike', id],
-  //     () =>
-  //       axios
-  //         .get(url, {
-  //           headers: {
-  //             Authorization: `${authInfo && authInfo.accessToken}`,
-  //           },
-  //         })
-  //         .then((res) => res.data),
-  //     { refetchOnWindowFocus: false }
-  //   )) || { data: false };
 
   const { mutate: pushWish } = useMutation(
     ['push', 'isLike'],
@@ -43,7 +30,12 @@ export const useWish = (id, _isWish) => {
           Authorization: `${authInfo && authInfo.accessToken}`,
         },
       }),
-    { onSuccess: () => queryClient.invalidateQueries(['wishList']) }
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(['wishList']);
+        queryClient.invalidateQueries(['restaurant', String(id)]);
+      },
+    }
   );
 
   // const isWish = isAuthorized() && isWishRes;
@@ -191,7 +183,7 @@ export const useShare = (restaurant) => {
         templateArgs: {
           imgUrl: restaurant.imageUrl,
           title: restaurant.restaurantName,
-          rating: restaurant.rating,
+          rating: Number(restaurant.rating).toFixed(1),
           reviewCount: restaurant.reviewCount,
           tags: `#${restaurant.foodCategory} #${restaurant.locationCategory} #${restaurant.locationTag}`,
           btnTitle: "'점메추'에서 자세히 보기",

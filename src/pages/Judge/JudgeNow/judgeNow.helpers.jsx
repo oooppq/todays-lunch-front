@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { useSelector } from 'react-redux';
 import { useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { useAuth } from '../../../libs/userAuth.helpers';
@@ -7,16 +8,22 @@ const url = `${import.meta.env.VITE_API_BASE_URL}/restaurants/judges`;
 /* mode => normal or myPage */
 export const useJudgeNow = () => {
   const [isList, setIsList] = useState(true);
+  const userAuth = useSelector((state) => state.userAuth);
 
   const {
     data: restaurants,
     isLoading: restaurantsIsLoading,
     isError: restaurantsIsError,
+    status: restaurantStatus,
   } = useQuery(
     ['judgeNow', 'list'],
-    () => axios.get(url).then((res) => res.data),
+    () =>
+      axios
+        .get(url, { headers: { Authorization: userAuth.accessToken } })
+        .then((res) => res.data),
     {
       refetchOnWindowFocus: false,
+      // enabled: userAuth.state !== 'pending',
     }
   );
 
@@ -26,6 +33,7 @@ export const useJudgeNow = () => {
     restaurants,
     restaurantsIsLoading,
     restaurantsIsError,
+    restaurantStatus,
   };
 };
 

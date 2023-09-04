@@ -69,6 +69,7 @@ export const useMyPage = (navigate) => {
 
 export const useMyJudge = () => {
   const accessToken = useSelector((state) => state.userAuth.accessToken);
+  const userId = useSelector((state) => state.userAuth.id);
 
   const {
     data: restaurants,
@@ -78,7 +79,7 @@ export const useMyJudge = () => {
     ['myJudge', 'list'],
     () =>
       axios
-        .get(`${SERVER_URL}/restaurants/judges`, {
+        .get(`${SERVER_URL}/restaurants/judges?registrant-id=${userId}`, {
           headers: {
             Authorization: `${accessToken}`,
           },
@@ -102,9 +103,9 @@ export const useWishlist = () => {
     fetchNextPage,
   } = useInfiniteQuery({
     queryKey: ['wishList'],
-    queryFn: ({ pageParam = 1 }) =>
+    queryFn: ({ pageParam = 0 }) =>
       axios
-        .get(`${SERVER_URL}/mystore?page=${pageParam}`, {
+        .get(`${SERVER_URL}/restaurants/mystore?page=${pageParam}`, {
           headers: {
             Authorization: `${userState.accessToken}`,
           },
@@ -113,7 +114,7 @@ export const useWishlist = () => {
           return {
             data: res.data.data,
             pageNum: pageParam,
-            isLast: pageParam >= res.data.totalPages,
+            isLast: pageParam >= res.data.totalPages - 1,
           };
         }),
     getNextPageParam: (lastPage) => {
@@ -144,18 +145,18 @@ export const useParticipatingRestaurant = () => {
     fetchNextPage: arFetchNextPage,
   } = useInfiniteQuery({
     queryKey: ['userAddedRestaurants', 'list'],
-    queryFn: ({ pageParam = 1 }) =>
+    queryFn: ({ pageParam = 0 }) =>
       axios
-        .get(`${SERVER_URL}/restaurants?page=${pageParam}`, {
+        .get(`${SERVER_URL}/restaurants/participate?page=${pageParam}`, {
           headers: {
             Authorization: `${userState.accessToken}`,
           },
         })
         .then((res) => {
           return {
-            data: res.data.data,
+            data: res.data.participation,
             pageNum: pageParam,
-            isLast: pageParam >= res.data.totalPages,
+            isLast: pageParam >= res.data.totalPages - 1,
           };
         }),
     getNextPageParam: (lastPage) => {
@@ -173,18 +174,18 @@ export const useParticipatingRestaurant = () => {
     fetchNextPage: crFetchNextPage,
   } = useInfiniteQuery({
     queryKey: ['userContributingRestaurants', 'list'],
-    queryFn: ({ pageParam = 1 }) =>
+    queryFn: ({ pageParam = 0 }) =>
       axios
-        .get(`${SERVER_URL}/restaurants?page=${pageParam}`, {
+        .get(`${SERVER_URL}/restaurants/contribute?page=${pageParam}`, {
           headers: {
             Authorization: `${userState.accessToken}`,
           },
         })
         .then((res) => {
           return {
-            data: res.data.data,
+            data: res.data.contribution,
             pageNum: pageParam,
-            isLast: pageParam >= res.data.totalPages,
+            isLast: pageParam >= res.data.totalPages - 1,
           };
         }),
     getNextPageParam: (lastPage) => {
@@ -219,18 +220,21 @@ export const useMyReview = () => {
     fetchNextPage,
   } = useInfiniteQuery({
     queryKey: ['myReview', 'list'],
-    queryFn: ({ pageParam = 1 }) =>
+    queryFn: ({ pageParam = 0 }) =>
       axios
-        .get(`${SERVER_URL}/myreviews?page=${pageParam}`, {
-          headers: {
-            Authorization: `${userState.accessToken}`,
-          },
-        })
+        .get(
+          `${SERVER_URL}/myreviews?reviewer-id=${userState.id}&page=${pageParam}`,
+          {
+            headers: {
+              Authorization: `${userState.accessToken}`,
+            },
+          }
+        )
         .then((res) => {
           return {
             data: res.data.data,
             pageNum: pageParam,
-            isLast: pageParam >= res.data.totalPages,
+            isLast: pageParam >= res.data.totalPages - 1,
           };
         }),
     getNextPageParam: (lastPage) => {
@@ -273,15 +277,11 @@ export const useChangePassword = () => {
     error: passwordCheckError,
   } = useMutation(['passwordValidation'], (password) => {
     return axios
-      .post(
-        `${SERVER_URL}/check-pw`,
-        { password },
-        {
-          headers: {
-            Authorization: `${authInfo.accessToken}`,
-          },
-        }
-      )
+      .get(`${SERVER_URL}/check-pw?password=${password}`, {
+        headers: {
+          Authorization: `${authInfo.accessToken}`,
+        },
+      })
       .then((res) => res.data);
   });
 
@@ -303,15 +303,11 @@ export const useChangePassword = () => {
     //     Authorization: `${authInfo.accessToken}`,
     //   },
     // });
-    return axios.patch(
-      `${SERVER_URL}/change-pw`,
-      { password },
-      {
-        headers: {
-          Authorization: `${authInfo.accessToken}`,
-        },
-      }
-    );
+    return axios.patch(`${SERVER_URL}/change-pw?password=${password}`, null, {
+      headers: {
+        Authorization: `${authInfo.accessToken}`,
+      },
+    });
   });
 
   const handlePasswordChangeSubmit = () => {
@@ -399,7 +395,12 @@ export const useProfileChange = (userInfo) => {
 
   const { mutate: patchNickname, status: patchNicknameStatus } = useMutation(
     ['nicknameChange'],
-    (fd) => axios.patch(`${SERVER_URL}/mypage/nickname`, fd),
+    (fd) =>
+      axios.patch(`${SERVER_URL}/mypage/nickname?nickname=${fd}`, null, {
+        headers: {
+          Authorization: `${authInfo.accessToken}`,
+        },
+      }),
     { onSuccess: () => queryClient.invalidateQueries(['userInformation']) }
   );
   const { mutate: patchProfileImage, status: patchProfileImageStatus } =
@@ -430,21 +431,24 @@ export const useProfileChange = (userInfo) => {
   }, [patchNicknameStatus, patchProfileImageStatus]);
 
   const handleNicknameChange = () => {
-    if (checkNickName(newNickname)) patchNickname({ nickname: newNickname });
+    if (checkNickName(newNickname)) patchNickname(newNickname);
     else setIsNicknameError(true);
   };
 
   const handleProfileChange = (event) => {
-    const reader = new FileReader();
+    // const reader = new FileReader();
     if (event.target.files && event.target.files.length) {
-      reader.readAsDataURL(event.target.files[0]);
-      reader.onloadend = () => {
-        if (reader.result) {
-          const fd = new FormData();
-          fd.append('icon', reader.result.toString());
-          patchProfileImage(fd);
-        }
-      };
+      const fd = new FormData();
+      fd.append('icon', event.target.files[0]);
+      patchProfileImage(fd);
+      // reader.readAsDataURL(event.target.files[0]);
+      // reader.onloadend = () => {
+      //   if (reader.result) {
+      //     const fd = new FormData();
+      //     fd.append('icon', reader.result.toString());
+      //     patchProfileImage(fd);
+      //   }
+      // };
     }
   };
 
@@ -558,7 +562,9 @@ export const useCategoryChange = (
   });
 
   const handleCategoryChange = () => {
-    patchCategory({ categoryList: selectedCategoryList });
+    patchCategory({
+      categoryList: selectedCategoryList.map((cat) => cat.name),
+    });
   };
 
   return {

@@ -26,6 +26,7 @@ const DetailReviewElement = ({ restaurantId, review }) => {
     pushLike,
     isAuthor,
     isLike,
+    likeCount,
   } = useReviewElem(restaurantId, review);
 
   const navigate = useNavigate();
@@ -94,7 +95,7 @@ const DetailReviewElement = ({ restaurantId, review }) => {
             }}
           >
             <img className="likeImg" alt="" />
-            <span className="likeNum">{handleLikeNum(review.likeCount)}</span>
+            <span className="likeNum">{handleLikeNum(likeCount)}</span>
           </button>
           <div className="date">{review.createdDate}</div>
         </div>

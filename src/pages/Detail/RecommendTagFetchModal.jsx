@@ -2,7 +2,7 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useMutation, useQuery } from 'react-query';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 import axios from 'axios';
 import { RecomTagModalContainer } from './detail.style';
 import xIcon from '../../assets/img/x-icon.svg';
@@ -14,6 +14,7 @@ const RecommendTagFetchModal = ({ closeModal, restId, recommendTag }) => {
   const [tags, setTags] = useState([]);
   const recommendTagIds = recommendTag.map((tag) => tag.id);
   const accessToken = useSelector((state) => state.userAuth.accessToken);
+  const queryClient = useQueryClient();
 
   const { data: recommendTags } = useQuery(
     'recommend-category',
@@ -26,7 +27,9 @@ const RecommendTagFetchModal = ({ closeModal, restId, recommendTag }) => {
         }
         return res.data;
       }),
-    { refetchOnWindowFocus: false }
+    {
+      refetchOnWindowFocus: false,
+    }
   );
 
   const { mutate: updateRecommendTag, status } = useMutation(
@@ -42,7 +45,12 @@ const RecommendTagFetchModal = ({ closeModal, restId, recommendTag }) => {
             Authorization: `${accessToken}`,
           },
         }
-      )
+      ),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(['restaurant', String(restId)]);
+      },
+    }
   );
 
   useEffect(() => {

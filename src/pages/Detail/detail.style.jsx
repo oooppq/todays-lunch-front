@@ -117,12 +117,15 @@ export const DetailInfoContainer = styled.div`
         width: 70px;
       }
       .value {
+        width: fit-content;
         font-family: Pretendard-Regular;
-        flex-grow: 2;
+        // flex-grow: 2;
       }
       .recom {
         display: flex;
         align-items: center;
+        width: fit-content;
+        margin-right: 0;
       }
       .recomTag {
         border: 1px solid;
@@ -142,6 +145,7 @@ export const DetailInfoContainer = styled.div`
         font-size: 14px;
         display: flex;
         align-items: center;
+        flex-grow: 2;
         img {
           margin-left: 5px;
           margin-top: 1px;
@@ -160,6 +164,7 @@ export const DetailInfoContainer = styled.div`
         height: 15px;
         width: 15px;
         margin-right: 25px;
+        margin-left: 15px;
         img {
           height: 15px;
           width: 15px;
@@ -240,6 +245,9 @@ export const DetailInfoContainer = styled.div`
           margin-right: auto;
           img {
             width: 14px;
+          }
+          .imageCount {
+            margin-left: 3px;
           }
         }
         .saleOuter {
@@ -409,6 +417,7 @@ const ModalCommon = styled.div`
 
 export const RecomTagModalContainer = styled(ModalCommon)`
   .modalInner {
+    // align-items: center;
     .title {
       margin-top: 15px;
     }

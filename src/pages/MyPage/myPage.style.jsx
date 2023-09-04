@@ -56,7 +56,7 @@ export const MyPageTop = styled.div`
     align-items: center;
     .profileImgOuter {
       width: 55px;
-      height: 60px;
+      height: 55px;
       margin-right: 17px;
       position: relative;
       input {
@@ -64,7 +64,7 @@ export const MyPageTop = styled.div`
       }
       .profileImg {
         width: 55px;
-        height: 60px;
+        height: 55px;
       }
       .changeProfileImgBtn {
         position: absolute;

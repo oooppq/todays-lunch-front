@@ -27,7 +27,13 @@ export const useDetail = (id) => {
   const accessToken = useSelector((state) => state.userAuth.accessToken);
 
   const getRestaurantFn = () =>
-    axios.get(`${SERVER_URL}/restaurants/${id}`).then((res) => res.data);
+    axios
+      .get(`${SERVER_URL}/restaurants/${id}`, {
+        headers: {
+          Authorization: accessToken,
+        },
+      })
+      .then((res) => res.data);
 
   const getMenuFn = () =>
     axios
@@ -36,9 +42,10 @@ export const useDetail = (id) => {
 
   const {
     data: restaurant,
+    status: restaurantStatus,
     isLoading: isRestaurantLoading,
     error: restaurantError,
-  } = useQuery(['retaurant', id], () => getRestaurantFn(id), {
+  } = useQuery(['restaurant', id], () => getRestaurantFn(id), {
     refetchOnWindowFocus: false,
   });
 
@@ -141,6 +148,7 @@ export const useDetail = (id) => {
     restaurant,
     isRestaurantLoading,
     restaurantError,
+    restaurantStatus,
     menus,
     isMenusLoading,
     menusError,
@@ -155,7 +163,7 @@ export const useFetchMenu = () => {
   const [name, setName] = useState('');
   const [price, setPrice] = useState(null);
   const [salePrice, setSalePrice] = useState(null);
-  const [saleComment, setSaleComment] = useState('');
+  const [saleExplain, setSaleExplain] = useState('');
   const [isWarning, setIsWarning] = useState(false);
   const [isMenuDeleteModalOpen, setIsMenuDeleteModalOpen] = useState(false);
 
@@ -166,7 +174,7 @@ export const useFetchMenu = () => {
         name,
         price,
         salePrice: salePrice || null,
-        saleComment: salePrice ? saleComment : '',
+        saleExplain: salePrice ? saleExplain : '',
       });
     }
   };
@@ -178,8 +186,8 @@ export const useFetchMenu = () => {
     setPrice,
     salePrice,
     setSalePrice,
-    saleComment,
-    setSaleComment,
+    saleExplain,
+    setSaleExplain,
     isWarning,
     setIsWarning,
     isMenuDeleteModalOpen,
@@ -198,34 +206,6 @@ export const useMenuPhoto = (id) => {
 
   const { isAuthorized } = useAuth();
 
-  // const {
-  //   data: reviewList,
-  //   isFetching: reviewListIsFetching,
-  //   error: reviewListError,
-  //   hasNextPage,
-  //   fetchNextPage,
-  // } = useInfiniteQuery({
-  //   queryKey: ['reviewList', id, sort, order],
-  //   queryFn: async ({ queryKey, pageParam = 1 }) => {
-  //     const res = await axios.get(
-  //       url.concat(
-  //         `?page=${pageParam}&sort=${queryKey[2]}&order=${queryKey[3]}`
-  //       )
-  //     );
-  //     return {
-  //       data: res.data.data,
-  //       pageNum: pageParam,
-  //       isLast: pageParam === res.data.totalPages,
-  //       totalReviewCount: res.data.totalReviewCount,
-  //     };
-  //   },
-  //   getNextPageParam: (lastPage) => {
-  //     if (lastPage.isLast) return undefined;
-  //     return lastPage.pageNum + 1;
-  //   },
-  //   refetchOnWindowFocus: false,
-  // });
-
   const {
     data: photos,
     isFetching: isPhotosFetching,
@@ -234,12 +214,12 @@ export const useMenuPhoto = (id) => {
     fetchNextPage,
   } = useInfiniteQuery(
     ['menuPhotos', id],
-    ({ pageParam = 1 }) =>
+    ({ pageParam = 0 }) =>
       axios.get(url.concat(`/?page=${pageParam}`)).then((res) => {
         return {
           data: res.data.data,
           pageNum: pageParam,
-          isLast: pageParam >= res.data.totalPages,
+          isLast: pageParam >= res.data.totalPages - 1,
         };
       }),
     {
@@ -249,11 +229,6 @@ export const useMenuPhoto = (id) => {
       },
       refetchOnWindowFocus: false,
     }
-    //   getNextPageParam: (lastPage) => {
-    //   if (lastPage.isLast) return undefined;
-    //   return lastPage.pageNum + 1;
-    // },
-    //   refetchOnWindowFocus: false,
   );
 
   const { mutate: addMenuPhotoRequest, status: addMenuPhotoStatus } =
@@ -266,7 +241,12 @@ export const useMenuPhoto = (id) => {
             Authorization: `${accessToken}`,
           },
         }),
-      { onSuccess: () => queryClient.invalidateQueries(['menuPhotos', id]) }
+      {
+        onSuccess: () => {
+          queryClient.invalidateQueries(['menuPhotos', id]);
+          queryClient.invalidateQueries(['menus'], { exact: false });
+        },
+      }
     );
 
   const { mutate: deleteMenuPhotoRequest, status: deleteMenuPhotoStatus } =
@@ -290,16 +270,10 @@ export const useMenuPhoto = (id) => {
   };
 
   const handleAddMenuPhoto = (event) => {
-    const reader = new FileReader();
     if (event.target.files && event.target.files.length) {
-      reader.readAsDataURL(event.target.files[0]);
-      reader.onloadend = () => {
-        if (reader.result) {
-          const fd = new FormData();
-          fd.append('menuImage', reader.result.toString());
-          addMenuPhotoRequest(fd);
-        }
-      };
+      const fd = new FormData();
+      fd.append('menu-image', event.target.files[0]);
+      addMenuPhotoRequest(fd);
     }
   };
 
@@ -356,16 +330,21 @@ export const useReview = (id) => {
     fetchNextPage,
   } = useInfiniteQuery({
     queryKey: ['reviewList', id, sort, order],
-    queryFn: async ({ queryKey, pageParam = 1 }) => {
+    queryFn: async ({ queryKey, pageParam = 0 }) => {
       const res = await axios.get(
         url.concat(
           `?page=${pageParam}&sort=${queryKey[2]}&order=${queryKey[3]}`
-        )
+        ),
+        {
+          headers: {
+            Authorization: accessToken,
+          },
+        }
       );
       return {
         data: res.data.data,
         pageNum: pageParam,
-        isLast: pageParam >= res.data.totalPages,
+        isLast: pageParam >= res.data.totalPages - 1,
         totalReviewCount: res.data.totalReviewCount,
       };
     },
@@ -386,7 +365,10 @@ export const useReview = (id) => {
         },
       }),
     {
-      onSuccess: () => queryClient.invalidateQueries(['reviewList', id]),
+      onSuccess: () => {
+        queryClient.invalidateQueries(['reviewList', id]);
+        queryClient.invalidateQueries(['restaurant', id]);
+      },
     }
   );
 
@@ -430,7 +412,8 @@ export const useReviewElem = (restId, review) => {
 
   const [isUpdateReviewModalOpen, setIsUpdateReviewModalOpen] = useState(false);
   const [isDeleteReviewModalOpen, setIsDeleteReviewModalOpen] = useState(false);
-  const [isLike, setIsLike] = useState(review.liked);
+  const [isLike, setIsLike] = useState(review.liked === 'true');
+  const [likeCount, setLikeCount] = useState(review.likeCount);
 
   const { mutate: updateReview, status: updateReviewStatus } = useMutation(
     ['updateReview', restId],
@@ -443,6 +426,7 @@ export const useReviewElem = (restId, review) => {
       }),
     {
       onSuccess: () => {
+        queryClient.invalidateQueries(['restaurant', restId], { exact: false });
         queryClient.invalidateQueries(['reviewList', restId], { exact: false });
         queryClient.invalidateQueries(['myReview', 'list'], { exact: false });
       },
@@ -457,6 +441,7 @@ export const useReviewElem = (restId, review) => {
       }),
     {
       onSuccess: () => {
+        queryClient.invalidateQueries(['restaurant', restId], { exact: false });
         queryClient.invalidateQueries(['reviewList', restId], { exact: false });
         queryClient.invalidateQueries(['myReview', 'list'], { exact: false });
       },
@@ -475,6 +460,10 @@ export const useReviewElem = (restId, review) => {
     if (isAuthorized()) {
       pushLikeRequest();
       setIsLike((state) => !state);
+      setLikeCount((state) => {
+        if (isLike) return state - 1;
+        return state + 1;
+      });
     } else {
       navigate('/login');
     }
@@ -504,6 +493,7 @@ export const useReviewElem = (restId, review) => {
     pushLike,
     isAuthor,
     isLike,
+    likeCount,
   };
 };
 
@@ -578,13 +568,14 @@ export const useChnageThumbImage = (id) => {
     ['change-thumb'],
     () =>
       axios.post(
-        `${import.meta.env.VITE_API_BASE_URL}/menus/best?imageId=${id}`
-      ),
-    {
-      headers: {
-        Authorization: `${accessToken}`,
-      },
-    }
+        `${import.meta.env.VITE_API_BASE_URL}/menus/best?image-id=${id}`,
+        null,
+        {
+          headers: {
+            Authorization: accessToken,
+          },
+        }
+      )
   );
   const handleClickChangeThumbBtn = () => {
     if (accessToken) {

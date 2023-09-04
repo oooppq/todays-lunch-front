@@ -3,7 +3,7 @@ import React from 'react';
 import { DetailMenuSaleInfoModalContainer } from './detail.style';
 import xIcon from '../../assets/img/x-icon.svg';
 
-const DetailMenuSaleInfoModal = ({ saleComment, closeMenuSaleInfoModal }) => {
+const DetailMenuSaleInfoModal = ({ saleExplain, closeMenuSaleInfoModal }) => {
   return (
     <DetailMenuSaleInfoModalContainer>
       <div className="modalInner">
@@ -15,7 +15,7 @@ const DetailMenuSaleInfoModal = ({ saleComment, closeMenuSaleInfoModal }) => {
           <img src={xIcon} alt="" />
         </button>
         <div className="saleCommentTitle">세일 설명</div>
-        <div className="saleComment">{saleComment}</div>
+        <div className="saleComment">{saleExplain}</div>
       </div>
     </DetailMenuSaleInfoModalContainer>
   );

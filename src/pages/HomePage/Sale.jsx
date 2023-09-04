@@ -17,7 +17,7 @@ const SetData = ({ navigate }) => {
     fetchNextPage,
   } = useInfiniteQuery(
     ['sales', 'list'],
-    ({ pageParam = 1 }) =>
+    ({ pageParam = 0 }) =>
       axios
         .get(
           `${import.meta.env.VITE_API_BASE_URL}/menus/sale?page=${pageParam}`
@@ -26,7 +26,7 @@ const SetData = ({ navigate }) => {
           return {
             data: res.data.data,
             pageNum: pageParam,
-            isLast: pageParam >= res.data.totalPages,
+            isLast: pageParam >= res.data.totalPages - 1,
           };
         }),
     {
@@ -52,18 +52,16 @@ const SetData = ({ navigate }) => {
           {flattenPages(sales.pages).map((e) => (
             <SaleLi
               id={e.id}
-              key={e.id}
-              onClick={() => gotoDetailOnClick(e.id, navigate)}
+              key={e.imageUrl}
+              onClick={() => gotoDetailOnClick(e.restaurantId, navigate)}
             >
               <img src={e.imageUrl || defaultImage} alt="" />
               <div className="info">
-                <div className="storeName">{e.restaurant_name}</div>
-                <div className="menuName">{e.menu_name}</div>
+                <div className="storeName">{e.restaurantName}</div>
+                <div className="menuName">{e.name}</div>
                 <div className="priceDiv">
-                  <div className="salePrice">{convertNum(e.sale_price)}원</div>
-                  <div className="originalPrice">
-                    {convertNum(e.original_price)}원
-                  </div>
+                  <div className="salePrice">{convertNum(e.salePrice)}원</div>
+                  <div className="originalPrice">{convertNum(e.price)}원</div>
                 </div>
               </div>
             </SaleLi>
