@@ -36,11 +36,13 @@ const ParticipatingRestaurantElem = ({ restaurant }) => {
           <div className="cat locCat">#{restaurant.locationCategory}</div>
         </div>
       </div>
-      <div className="rating">4.0</div>
-      <div className="review">
-        <img src={reviewIcon} alt="" className="reviewIcon" />
-        <div className="reviewNum">{convertNum(4712)}</div>
-      </div>
+      <div className="rating">{restaurant.rating.toFixed(1)}</div>
+      {restaurant.reviewCount && (
+        <div className="review">
+          <img src={reviewIcon} alt="" className="reviewIcon" />(
+          <div className="reviewNum">{convertNum(restaurant.reviewCount)}</div>)
+        </div>
+      )}
     </ParticipatingRestaurantLi>
   );
 };

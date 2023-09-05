@@ -37,7 +37,7 @@ export const JudgeNowListContainer = styled.ul`
 `;
 
 export const JudgeNowListLi = styled.li`
-  height: 94px;
+  // height: 94px;
   margin-bottom: 9px;
   display: flex;
 
@@ -101,7 +101,8 @@ export const JudgeNowListLi = styled.li`
 `;
 
 export const JudgeNowDetailModal = styled.div`
-  position: absolute;
+  z-index: 200;
+  position: fixed;
   top: 0;
   bottom: 0;
   left: 0;

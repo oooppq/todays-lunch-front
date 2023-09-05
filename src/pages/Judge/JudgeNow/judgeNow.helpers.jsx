@@ -52,6 +52,7 @@ export const useJudgeAgree = (id) => {
       onSuccess: () => {
         queryClient.invalidateQueries(['judgeNow', 'list']);
         queryClient.invalidateQueries(['judgeNow', 'detail', id]);
+        queryClient.resetQueries(['myJudge', 'list']);
       },
     }
   );

@@ -7,6 +7,7 @@ const CroppedImage = ({ style, src }) => {
       style={{
         ...style,
         position: 'relative',
+        overflow: 'hidden',
       }}
     >
       <img

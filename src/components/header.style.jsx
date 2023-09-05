@@ -34,15 +34,25 @@ export const HeaderContainer = styled.div`
 // `;
 
 export const HeaderLogo = styled.div`
-  font-family: 'Jejudoldam';
+  // font-family: Pretendard-Bold;
+  @font-face {
+    font-family: 'KOTRA_BOLD-Bold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10-21@1.1/KOTRA_BOLD-Bold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+  } 
+  font-family:'KOTRA_BOLD-Bold';
+  font-weight:100,
   width: 96px;
   height: 49px;
-  margin: 19px 0 0 30px;
+  margin: 22px 0 0 30px;
   font-size: 32px;
   // line-height: 37.5px;
 
   .second {
-    // color: ${mainColor};
+    // color: #6ab2b2;
+    // color:${mainColor};
+    color: #f59e0b;
   }
 `;
 

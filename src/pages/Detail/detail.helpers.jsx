@@ -65,7 +65,12 @@ export const useDetail = (id) => {
           Authorization: `${accessToken}`,
         },
       }),
-    { onSuccess: () => queryClient.invalidateQueries(['menus', id]) }
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(['menus', id]);
+        queryClient.resetQueries(['sales', 'list']);
+      },
+    }
   );
 
   const openNewMenuModal = (navigate) => {
@@ -98,7 +103,12 @@ export const useDetail = (id) => {
             },
           }
         ),
-      { onSuccess: () => queryClient.invalidateQueries(['menus', id]) }
+      {
+        onSuccess: () => {
+          queryClient.invalidateQueries(['menus', id]);
+          queryClient.resetQueries(['sales', 'list']);
+        },
+      }
     );
 
     const { mutate: deleteMenu, status: deleteMenuStatus } = useMutation(
@@ -109,7 +119,12 @@ export const useDetail = (id) => {
             Authorization: `${accessToken}`,
           },
         }),
-      { onSuccess: () => queryClient.invalidateQueries(['menus', id]) }
+      {
+        onSuccess: () => {
+          queryClient.invalidateQueries(['menus', id]);
+          queryClient.resetQueries(['sales', 'list']);
+        },
+      }
     );
 
     const openMenuUpdateModal = (navigate) => {
@@ -367,6 +382,7 @@ export const useReview = (id) => {
     {
       onSuccess: () => {
         queryClient.invalidateQueries(['reviewList', id]);
+        queryClient.resetQueries(['myReview', 'list']);
         queryClient.invalidateQueries(['restaurant', id]);
       },
     }
@@ -418,7 +434,7 @@ export const useReviewElem = (restId, review) => {
   const { mutate: updateReview, status: updateReviewStatus } = useMutation(
     ['updateReview', restId],
     (fd) =>
-      axios.patch(url.concat(`/${review.id}`), fd, {
+      axios.patch(url.concat(`/${review.id || review.reviewId}`), fd, {
         headers: {
           'Content-Type': `application/json`,
           Authorization: `${accessToken}`,
@@ -436,7 +452,7 @@ export const useReviewElem = (restId, review) => {
   const { mutate: deleteReview, status: deleteReviewStatus } = useMutation(
     ['deleteReview', restId],
     () =>
-      axios.delete(url.concat(`/${review.id}`), {
+      axios.delete(url.concat(`/${review.id || review.reviewId}`), {
         headers: { Authorization: `${accessToken}` },
       }),
     {
@@ -563,6 +579,7 @@ export const useDetailNav = () => {
 export const useChnageThumbImage = (id) => {
   const accessToken = useSelector((state) => state.userAuth.accessToken);
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const [isChangeModalOpen, setIsChangeModalOpen] = useState(false);
   const { mutate: changeThumbRequest, status } = useMutation(
     ['change-thumb'],
@@ -575,7 +592,10 @@ export const useChnageThumbImage = (id) => {
             Authorization: accessToken,
           },
         }
-      )
+      ),
+    {
+      onSuccess: () => queryClient.resetQueries(['sales', 'list']),
+    }
   );
   const handleClickChangeThumbBtn = () => {
     if (accessToken) {
