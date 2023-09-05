@@ -52,14 +52,37 @@ export const flattenPages = (pages) => {
 };
 
 export const CompressImage = async (image) => {
-  const temp = await heic2any({ blob: image, toType: 'image/jpeg' });
+  let temp = null;
+  try {
+    temp = await heic2any({ blob: image, toType: 'image/jpeg' });
+  } catch {
+    temp = image;
+  }
   const options = {
     maxSizeMB: 1,
     maxWidthOrHeight: 1920,
     useWebWorker: true,
+    // fileType: 'image/jpeg',
   };
   try {
     const compressedFile = await imageCompression(temp, options);
+    // console.log(compressedFile);
+    // console.log(
+    //   new File(
+    //     [compressedFile],
+    //     compressedFile.name || `noname.${compressedFile.type}`,
+    //     {
+    //       type: compressedFile.type,
+    //     }
+    //   )
+    // );
+    // return new File(
+    //   [compressedFile],
+    //   compressedFile.name || `noname.${compressedFile.type}`,
+    //   {
+    //     type: compressedFile.type,
+    //   }
+    // );
     return compressedFile;
   } catch (error) {
     return null;
