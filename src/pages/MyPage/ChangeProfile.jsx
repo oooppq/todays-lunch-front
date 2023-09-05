@@ -28,7 +28,7 @@ const ChangeProfile = ({
           <input
             id="profileImgInput"
             type="file"
-            accept="image/*"
+            accept="image/* .heic .heif"
             onChange={handleProfileChange}
           />
         </label>

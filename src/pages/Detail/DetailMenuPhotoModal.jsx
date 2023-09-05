@@ -80,7 +80,7 @@ const DetailMenuPhotoModal = ({ closeMenuPhotoModal, menu }) => {
             <input
               id="newMenuPhotoInput"
               type="file"
-              accept="image/*"
+              accept="image/* .heic .heif"
               className=""
             />
           </label>

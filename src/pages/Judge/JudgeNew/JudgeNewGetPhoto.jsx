@@ -39,7 +39,7 @@ const JudgeNewGetPhoto = () => {
             ref={fileRef}
             id="input-file"
             type="file"
-            accept="image/*"
+            accept="image/* .heic .heif"
             onChange={(e) => {
               if (e.target.files && e.target.files.length) {
                 dispatch(setRestaurantImage(e.target.files[0]));
