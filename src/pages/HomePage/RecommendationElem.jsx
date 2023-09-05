@@ -14,6 +14,7 @@ import coloredWishIcon from '../../assets/img/restaurant-colored-heart-icon.svg'
 import coloredRouletteIcon from '../../assets/img/restaurant-colored-roulette-icon.svg';
 import { gotoDetailOnClick, convertNum } from '../../libs/utils';
 import { useRoulette, useWish } from '../../libs/common.helpers';
+import CroppedImage from '../../components/CroppedImage';
 
 const RecommendationElem = ({ restaurant }) => {
   const navigate = useNavigate();
@@ -26,15 +27,14 @@ const RecommendationElem = ({ restaurant }) => {
       onClick={() => gotoDetailOnClick(restaurant.id, navigate)}
     >
       <RecommendationInfoUp>
-        <img
-          className="restaurantImage"
-          src={
-            restaurant.imageUrl ||
-            // 'https://mblogthumb-phinf.pstatic.net/MjAyMzAxMDVfMjEw/MDAxNjcyODcyMjUxNDU2.dnL2Cq177pkrplvgXF99--Jasv8ULxd6ImN9YBupoDsg.RX2oGYLCRxjStsNM1WDdHbbD-CbFltS_wm9xbDWqMoog.JPEG.kims9280/6._%EC%9D%8C%EC%8B%9D3.jpg?type=w800'
-            defaultImage
-          }
-          alt=""
+        <CroppedImage
+          style={{
+            width: '100%',
+            height: '266px',
+          }}
+          src={restaurant.imageUrl || defaultImage}
         />
+
         <div className="infoUpInner">
           <div className="lowestPrice">
             {convertNum(restaurant.lowestPrice)}원 ~
@@ -48,7 +48,9 @@ const RecommendationElem = ({ restaurant }) => {
             <span> {restaurant.locationTag}] </span>
             <span className="title">{restaurant.restaurantName}</span>
           </div>
-          <div className="comment">"{restaurant.bestReview}"</div>
+          {restaurant.bestReview && (
+            <div className="comment">"{restaurant.bestReview}"</div>
+          )}
           <div className="reviewRate">
             <span className="reviewNum">
               리뷰 {convertNum(restaurant.reviewCount)}개

@@ -2,14 +2,11 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { convertNum, gotoDetailOnClick } from '../../libs/utils';
-import {
-  ListElemContainer,
-  ListElemImg,
-  ListElemInfo,
-} from './restaurant.style';
+import { ListElemContainer, ListElemInfo } from './restaurant.style';
 import defaultImage from '../../assets/img/default-image.png';
 import ListElemInfoButton from './ListElemInfoButton';
 import ListElemWishAndRoulette from './ListElemWishAndRoulette';
+import CroppedImage from '../../components/CroppedImage';
 
 const ListElem = ({ restaurant }) => {
   const navigate = useNavigate();
@@ -19,7 +16,16 @@ const ListElem = ({ restaurant }) => {
       key={restaurant.id}
       onClick={() => gotoDetailOnClick(restaurant.id, navigate)}
     >
-      <ListElemImg src={restaurant.imageUrl || defaultImage} />
+      <CroppedImage
+        src={restaurant.imageUrl || defaultImage}
+        style={{
+          height: '100%',
+          width: '100px',
+          marginRight: '16px',
+          borderRadius: '3px',
+          boxSizing: 'border-box',
+        }}
+      />
       <ListElemInfo>
         <div className="title">
           <span>{restaurant.restaurantName}</span>

@@ -5,6 +5,7 @@ import { SelectedModalContainer } from './play.style';
 import xIcon from '../../assets/img/x-icon.svg';
 import { convertNum } from '../../libs/utils';
 import { useShare } from '../../libs/common.helpers';
+import CroppedImage from '../../components/CroppedImage';
 
 const SelectedModal = ({
   closeSelectedModal,
@@ -13,6 +14,7 @@ const SelectedModal = ({
 }) => {
   const { isShareModalOpen, ShareModalBtn, ShareModal } =
     useShare(selectedRestaurant);
+
   return (
     <>
       {isShareModalOpen && <ShareModal />}
@@ -26,14 +28,21 @@ const SelectedModal = ({
             <img src={xIcon} alt="" className="" />
           </button>
           <div className="modalHeader">오늘의 점심은?</div>
-          <img
-            src={selectedRestaurant.imgUrl}
-            alt=""
-            className="restaurantImg"
+          <CroppedImage
+            src={selectedRestaurant.imageUrl}
+            style={{
+              marginBottom: '7px',
+              width: '140px',
+              height: '140px',
+              borderRadius: '3px',
+            }}
           />
+
           <div className="restaurantNameAndRating">
             {selectedRestaurant.restaurantName}
-            <span className="rating">{selectedRestaurant.rating}</span>
+            <span className="rating">
+              {selectedRestaurant.rating.toFixed(1)}
+            </span>
           </div>
           <div className="tags">
             <div className="">#{selectedRestaurant.locationCategory}</div>

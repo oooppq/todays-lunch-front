@@ -78,11 +78,7 @@ export const ParticipatingRestaurantLi = styled.li`
   height: 50px;
   padding: 10px 0;
   border-bottom: 1px solid #f0f0f0;
-  .restImg {
-    width: 50px;
-    height: 50px;
-    margin-right: 10px;
-  }
+
   .restInfo {
     margin-right: auto;
     .restTitle {

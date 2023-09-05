@@ -41,16 +41,11 @@ export const MyReviewLi = styled.li`
   padding-bottom: 7px;
   margin-bottom: 8px;
   width: 100%;
-  // height: 97px;
   display: flex;
   border-bottom: 1px solid rgb(264, 244, 244);
-  .restaurantImg {
-    height: 100%;
-    width: 97px;
-    border-radius: 3px;
-  }
+
   .restaurantInfo {
-    width: 220px;
+    flex: 1;
     margin-left: 20px;
     display: flex;
     flex-direction: column;

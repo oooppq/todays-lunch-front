@@ -51,10 +51,7 @@ export const RecommendationElemContainer = styled.div`
 export const RecommendationInfoUp = styled.div`
   position: relative;
   height: 266px;
-  .restaurantImage {
-    height: 266px;
-    width: 100%;
-  }
+
   .infoUpInner {
     display: flex;
     position: absolute;
@@ -179,12 +176,7 @@ export const SaleLi = styled.li`
   // width: 50%;
   // padding: 0 6px;
   margin-bottom: 10px;
-  img {
-    // width: 100%;
-    width: 166px;
-    height: 166px;
-    border-radius: 3px;
-  }
+
   .info {
     margin-left: 9px;
     margin-top: 9px;

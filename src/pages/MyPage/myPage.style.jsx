@@ -358,9 +358,11 @@ export const ChangeCategoryModalContainer = styled.div`
 export const InquiryModalContainer = styled.div`
   position: fixed;
   z-index: 102;
-  width: 100%;
+  // width: 100%;
   top: 0;
   bottom: 0;
+  left: 0;
+  right: 0;
   background-color: rgba(0, 0, 0, 0.4);
   display: flex;
   flex-direction: column;
@@ -368,16 +370,20 @@ export const InquiryModalContainer = styled.div`
   justify-content: center;
   .modalInner {
     position: relative;
-    width: 354px;
-    height: 60%;
-    min-height: 440px;
+    width: 200px;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    // min-height: 440px;
     background-color: white;
     border-radius: 10px;
     .modalTop {
       display: flex;
+      width: 100%;
       position: relative;
       justify-content: center;
-      margin-bottom: 100px;
+      // margin-bottom: 100px;
       .modalTitle {
         font-family: 'Pretendard-Bold';
         font-size: 19px;
@@ -389,6 +395,21 @@ export const InquiryModalContainer = styled.div`
         top: 16px;
         right: 18px;
       }
+    }
+    .kakaoOpenChatButton {
+      text-decoration: none;
+      // background-color: #fee502;
+      div {
+        margin-left: 5px;
+        white-space: nowrwap;
+      }
+      color: #1a1a1c;
+      padding: 10px 20px;
+      font-family: Pretendard-SemiBold;
+      border-radius: 30px;
+      display: flex;
+      align-items: center;
+      width: 100px;
     }
   }
 `;

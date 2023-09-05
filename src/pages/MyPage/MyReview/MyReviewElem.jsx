@@ -12,6 +12,7 @@ import {
 import Loading from '../../../components/Loading';
 import DetailReviewDeleteModal from '../../Detail/DetailReviewDeleteModal';
 import DetailReviewFetchModal from '../../Detail/DetailReviewFetchModal';
+import CroppedImage from '../../../components/CroppedImage';
 
 const MyReviewElem = ({ review }) => {
   const navigate = useNavigate();
@@ -53,7 +54,15 @@ const MyReviewElem = ({ review }) => {
           navigate(`/restaurants/${review.restaurantId}`);
         }}
       >
-        <img src={review.imageUrl} alt="" className="restaurantImg" />
+        <CroppedImage
+          src={review.imageUrl}
+          style={{
+            height: '97px',
+            width: '97px',
+            borderRadius: '3px',
+          }}
+        />
+        {/* <img src={review.imageUrl} alt="" className="restaurantImg" /> */}
         <div className="restaurantInfo">
           <div className="restaurantName">{review.restaurantName}</div>
           <div className="UpdateAndDeleteBtns">

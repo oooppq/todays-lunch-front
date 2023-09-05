@@ -73,7 +73,7 @@ export const useAuth = () => {
       dispatch(setEmail(info.email));
       dispatch(setAccessToken(info.accessToken));
       dispatch(setRefreshToken(info.refreshToken));
-      dispatch(setTemporary(info.temporary));
+      dispatch(setTemporary(info.temporaryPw));
     } else dispatch(reset());
     dispatch(setState(state));
 
@@ -146,7 +146,7 @@ export const useAuth = () => {
         if (authResponse) {
           // 유저 인증이 제대로 완료됐을 때
           setAuthInfo(authStates.AUTHORIZED, authResponse.data);
-          if (authResponse.data.temporary) {
+          if (authResponse.data.temporaryPw) {
             setTimeout(() => {
               navigate('/mypage/change-password');
             }, 1);

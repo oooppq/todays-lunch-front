@@ -74,7 +74,7 @@ export const useFindPassword = () => {
   const emailRef = useRef();
   const {
     mutate: findPasswordRequest,
-    data: isExist,
+    // data: isExist,
     status,
   } = useMutation(['post', 'find-password'], (_email) =>
     axios.post(`${SERVER_URL}/find-pw?email=${_email}`).then((res) => res.data)
@@ -91,10 +91,9 @@ export const useFindPassword = () => {
 
   useEffect(() => {
     if (status === 'success') {
-      if (isExist) setFindPwState(states.SUCCESS);
-      else setFindPwState(states.WRONG);
-    }
-  }, [status, isExist, states.SUCCESS, states.WRONG]);
+      setFindPwState(states.SUCCESS);
+    } else if (status === 'error') setFindPwState(states.WRONG);
+  }, [status, states.SUCCESS, states.WRONG]);
 
   return { emailRef, states, findPwState, email, findPasswordOnClick };
 };

@@ -7,8 +7,8 @@ import {
   JudgeBtn,
 } from './judge.style';
 import defaultIcon from '../../assets/img/default-icon.svg';
-import pencilIcon from '../../assets/img/pencil-icon.svg';
-import thumbIcon from '../../assets/img/thumb-icon.svg';
+import pencilIcon from '../../assets/img/pencil-icon.png';
+import thumbIcon from '../../assets/img/thumb-icon.png';
 
 const JudgeHome = () => {
   const navigate = useNavigate();
@@ -18,8 +18,8 @@ const JudgeHome = () => {
       <JudgeHeader>
         <img src={defaultIcon} alt="" />
         <div className="announce">
-          맛집 등록과 맛집 평가에 활발하게 참여한 유저에게는 소정의 상품이
-          지급됩니다!
+          맛집 등록과 맛집 평가에 활발하게 참여한 유저에게는 항상 행운이
+          가득하실거에요!
         </div>
       </JudgeHeader>
       <JudgeBody>

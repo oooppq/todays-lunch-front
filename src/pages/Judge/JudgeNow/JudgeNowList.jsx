@@ -12,6 +12,7 @@ import JudgeNowDetail from './JudgeNowDetail';
 import { useJudgeAgree } from './judgeNow.helpers';
 import thumbIcon from '../../../assets/img/small-thumb-icon.svg';
 import defaultImg from '../../../assets/img/default-image.png';
+import CroppedImage from '../../../components/CroppedImage';
 
 const JudgeNowListElem = ({ restaurant }) => {
   const [isDetail, setIsDetail] = useState(false);
@@ -34,12 +35,14 @@ const JudgeNowListElem = ({ restaurant }) => {
           setIsDetail(true);
         }}
       >
-        <img
-          className="restImage"
+        <CroppedImage
           src={restaurant.imageUrl || defaultImg}
-          alt=""
+          style={{
+            height: '94px',
+            width: '94px',
+            borderRadius: '3px',
+          }}
         />
-        {/* <img className="restImage" src={e.imageUrl} alt="" /> */}
         <div className="info">
           <div className="title">{restaurant.restaurantName}</div>
           <div className="content">
@@ -49,15 +52,13 @@ const JudgeNowListElem = ({ restaurant }) => {
             </div>
             <div className="down">#{restaurant.locationCategory}</div>
           </div>
-          <div className="credit">post by {restaurant.registrant}</div>
+          <div className="credit">
+            <span className="">{restaurant.registrant}</span>님의 맛집
+          </div>
         </div>
         <div
           className="recommend"
           onClick={(e) => {
-            // if (isAgreed) setAgreementCount((state) => state - 1);
-            // else setAgreementCount((state) => state + 1);
-            // setIsAgreed((state) => !state);
-
             pushAgree(navigate);
             e.stopPropagation();
           }}

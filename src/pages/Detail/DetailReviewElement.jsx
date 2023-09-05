@@ -12,6 +12,7 @@ import {
 import Loading from '../../components/Loading';
 import DetailReviewFetchModal from './DetailReviewFetchModal';
 import DetailReviewDeleteModal from './DetailReviewDeleteModal';
+import CroppedImage from '../../components/CroppedImage';
 
 const DetailReviewElement = ({ restaurantId, review }) => {
   const {
@@ -54,11 +55,15 @@ const DetailReviewElement = ({ restaurantId, review }) => {
           deleteReview={deleteReview}
         />
       )}
-      <img
-        className="profileImg"
+      <CroppedImage
         src={review.member.icon || defaultIcon}
-        alt=""
+        style={{
+          height: '34px',
+          width: '34px',
+          marginRight: '10px',
+        }}
       />
+
       <div className="reviewBody">
         <div className="userName">{review.member.nickname}</div>
         {isAuthor(review.member.id) ? (

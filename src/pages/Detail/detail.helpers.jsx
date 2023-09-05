@@ -412,7 +412,7 @@ export const useReviewElem = (restId, review) => {
 
   const [isUpdateReviewModalOpen, setIsUpdateReviewModalOpen] = useState(false);
   const [isDeleteReviewModalOpen, setIsDeleteReviewModalOpen] = useState(false);
-  const [isLike, setIsLike] = useState(review.liked === 'true');
+  const [isLike, setIsLike] = useState(review.liked);
   const [likeCount, setLikeCount] = useState(review.likeCount);
 
   const { mutate: updateReview, status: updateReviewStatus } = useMutation(

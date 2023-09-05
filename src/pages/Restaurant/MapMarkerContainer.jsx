@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { CustomOverlayMap, MapMarker } from 'react-kakao-maps-sdk';
 import { CustomOverlayElem } from './restaurant.style';
 import { gotoDetailOnClick } from '../../libs/utils';
-import { setMapCenter, setSelectedMarker } from '../../redux/map';
+import { setMapCenter, setMapLevel, setSelectedMarker } from '../../redux/map';
 import marker from '../../assets/img/marker.png';
 
 const MapMarkerContainer = ({ index, position, content }) => {
@@ -22,6 +22,7 @@ const MapMarkerContainer = ({ index, position, content }) => {
         onClick={() => {
           dispatch(setSelectedMarker(index));
           dispatch(setMapCenter(position));
+          dispatch(setMapLevel(4));
         }}
         image={{
           src: marker,

@@ -9,6 +9,7 @@ import {
 import xIcon from '../../assets/img/x-icon.svg';
 import trashIcon from '../../assets/img/colored-trashcan-icon.svg';
 import { useChnageThumbImage } from './detail.helpers';
+import CroppedImage from '../../components/CroppedImage';
 
 const DetailMenuPhotoInnerModal = ({
   isPhotoDeleteModalOpen,
@@ -97,7 +98,16 @@ const DetailMenuPhotoInnerModal = ({
         >
           대표이미지 지정
         </button>
-        <img src={selectedPhoto.imageUrl} alt="" className="detailPhoto" />
+        <CroppedImage
+          src={selectedPhoto.imageUrl}
+          style={{
+            marginTop: '10px',
+            width: '273px',
+            height: ' 273px',
+            borderRadius: '3px',
+          }}
+        />
+        {/* <img src={selectedPhoto.imageUrl} alt="" className="detailPhoto" /> */}
         {/* <div className="fileName">{selectedPhoto.originalName}</div> */}
         <div className="photoInfo">
           <div className="userName">

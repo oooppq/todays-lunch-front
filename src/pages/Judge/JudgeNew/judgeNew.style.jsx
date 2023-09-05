@@ -97,8 +97,9 @@ export const JudgeNewBody = styled.div`
   width: auto;
   .titleOuter {
     display: flex;
-    align-items: center;
+    // align-items: center;
     .bodySubTitle {
+      margin-top: 1px;
       margin-left: 3px;
       font-size: 12px;
       color: #ff6020;
@@ -108,6 +109,7 @@ export const JudgeNewBody = styled.div`
     font-family: Pretendard-SemiBold;
     font-size: 18px;
     color: #494949;
+    white-space: nowrap;
   }
 
   .bodyBtn {

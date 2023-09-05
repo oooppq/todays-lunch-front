@@ -5,7 +5,7 @@ export const JudgeContainer = styled.div`
 `;
 
 export const JudgeHeader = styled.div`
-  height: 65px;
+  // height: 65px;
   display: flex;
   img {
     margin-right: 8.5px;

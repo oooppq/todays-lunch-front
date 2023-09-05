@@ -38,8 +38,8 @@ const Restaurant = () => {
         />
       )}
 
-      {isMap ? (
-        <Map restaurants={restaurants} />
+      {isMap && restaurants ? (
+        <Map restaurants={restaurants} handlePageNum={fetchNextPage} />
       ) : (
         <List restaurants={restaurants} handlePageNum={fetchNextPage} />
       )}

@@ -109,6 +109,20 @@ export const SearchBox = styled.div`
 
 // elements for Map
 export const MapContainer = styled.div`
+  position: relative;
+  .moreButton {
+    z-index: 120;
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    background-color: #6ab2b2;
+    color: white;
+    border-radius: 10px;
+    padding: 5px 10px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.3);
+  }
+
   .kakaoMap {
     width: 100%;
     height: 450px;
@@ -156,7 +170,7 @@ export const ListUl = styled.ul`
 
 export const ListElemContainer = styled.li`
   display: flex;
-  height: 118px;
+  height: 100px;
   margin: 19px 0 0 0;
   padding-bottom: 19px;
   border-bottom: 1px solid #f0f0f0;
@@ -171,13 +185,17 @@ export const ListElemImg = styled.img`
 `;
 
 export const ListElemInfo = styled.div`
-  width: 60%;
+  // width: 60%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
   white-space: nowrap;
   .title {
     font-size: 18px;
   }
   .etc {
+    flex-grow: 2;
     display: flex;
     flex-direction: column;
     margin-top: 3px;
@@ -189,12 +207,13 @@ export const ListElemInfo = styled.div`
     }
     .reviewRate {
       margin-top: 4px;
-      margin-bottom: 34px;
+      // margin-bottom: 34px;
       font-size: 12px;
       color: #356461;
       // text-align: right;
     }
     .btnContainer {
+      margin-top: auto;
       margin-bottom: 6px;
       button {
         font-size: 11px;
@@ -215,7 +234,10 @@ export const ListElemInfo = styled.div`
 `;
 
 export const WishAndRoulette = styled.div`
+  margin-left: auto;
   text-align: right;
+  display: flex;
+  flex-direction: column;
   button {
     width: 37px;
     height: 37px;

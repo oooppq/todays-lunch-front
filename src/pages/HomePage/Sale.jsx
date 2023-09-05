@@ -8,6 +8,7 @@ import defaultImage from '../../assets/img/default-image.png';
 import { convertNum, flattenPages, gotoDetailOnClick } from '../../libs/utils';
 import { useInfiniteScroll } from '../../libs/common.helpers';
 import saleIcon from '../../assets/img/sale-icon.png';
+import CroppedImage from '../../components/CroppedImage';
 
 const SetData = ({ navigate }) => {
   const {
@@ -57,7 +58,11 @@ const SetData = ({ navigate }) => {
               key={e.imageUrl}
               onClick={() => gotoDetailOnClick(e.restaurantId, navigate)}
             >
-              <img src={e.imageUrl || defaultImage} alt="" />
+              <CroppedImage
+                style={{ width: '166px', height: '166px' }}
+                src={e.imageUrl || defaultImage}
+              />
+
               <div className="info">
                 <div className="storeName">{e.restaurantName}</div>
                 <div className="menuName">{e.name}</div>

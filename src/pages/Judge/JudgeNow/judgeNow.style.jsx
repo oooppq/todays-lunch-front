@@ -40,11 +40,7 @@ export const JudgeNowListLi = styled.li`
   height: 94px;
   margin-bottom: 9px;
   display: flex;
-  .restImage {
-    height: 94px;
-    width: 94px;
-    border-radius: 3px;
-  }
+
   .info {
     margin-left: 20px;
     margin-right: auto;
@@ -68,6 +64,9 @@ export const JudgeNowListLi = styled.li`
       margin-left: 1px;
       font-size: 12px;
       color: #929292;
+      span {
+        font-family: Pretendard-SemiBold;
+      }
     }
   }
   .recommend {
@@ -142,6 +141,7 @@ export const JudgeNowSlideContainer = styled.div`
 `;
 
 export const JudgeNowDetailContainer = styled.div`
+  z-index: 100;
   position: relative;
   max-width: 352px;
   width: 100%;

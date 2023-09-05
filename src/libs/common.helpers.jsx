@@ -6,7 +6,7 @@ import { useInView } from 'react-intersection-observer';
 import { useMutation, useQueryClient } from 'react-query';
 import { useAuth } from './userAuth.helpers';
 import xIcon from '../assets/img/x-icon.svg';
-import shareIcon from '../assets/img/share-icon.svg';
+import shareIcon from '../assets/img/share-icon.png';
 import copyIcon from '../assets/img/copy-icon.svg';
 
 import {
@@ -32,7 +32,8 @@ export const useWish = (id, _isWish) => {
       }),
     {
       onSuccess: () => {
-        queryClient.invalidateQueries(['wishList']);
+        // queryClient.invalidateQueries(['wishList']);
+        queryClient.resetQueries(['wishList']);
         queryClient.invalidateQueries(['restaurant', String(id)]);
       },
     }

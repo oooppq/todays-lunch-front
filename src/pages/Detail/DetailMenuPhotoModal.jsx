@@ -8,6 +8,7 @@ import Loading from '../../components/Loading';
 import DetailMenuPhotoInnerModal from './DetailMenuPhotoInnerModal';
 import { useInfiniteScroll } from '../../libs/common.helpers';
 import { flattenPages } from '../../libs/utils';
+import CroppedImage from '../../components/CroppedImage';
 
 const DetailMenuPhotoModal = ({ closeMenuPhotoModal, menu }) => {
   const navigate = useNavigate();
@@ -54,6 +55,7 @@ const DetailMenuPhotoModal = ({ closeMenuPhotoModal, menu }) => {
           <ul className="menuPhotoModalUl">
             {flattenPages(photos.pages).map((image) => (
               <li key={image.id} className="menuPhotoModalLi">
+                <CroppedImage src={image.imageUrl} />
                 <img
                   src={image.imageUrl}
                   alt=""

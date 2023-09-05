@@ -6,6 +6,7 @@ import defaultImg from '../../../assets/img/default-image.png';
 import thumbIcon from '../../../assets/img/small-thumb-icon.svg';
 import xIcon from '../../../assets/img/x-icon.svg';
 import { useJudgeNowDetail } from './judgeNow.helpers';
+import CroppedImage from '../../../components/CroppedImage';
 
 const JudgeNowDetail = ({ id, setIsDetail, inListFlag }) => {
   const { restaurant, restaurantIsLoading, restaurantIsError, pushAgree } =
@@ -16,7 +17,17 @@ const JudgeNowDetail = ({ id, setIsDetail, inListFlag }) => {
 
   return (
     <JudgeNowDetailContainer>
-      <img src={restaurant.imageUrl || defaultImg} alt="" className="restImg" />
+      <CroppedImage
+        src={restaurant.imageUrl || defaultImg}
+        style={{
+          borderTopLeftRadius: '10px',
+          borderTopRightRadius: '10px',
+          height: '247px',
+          width: '100%',
+          marginBottom: '13px',
+        }}
+      />
+      {/* <img src={restaurant.imageUrl || defaultImg} alt="" className="restImg" /> */}
       {inListFlag ? (
         <button
           className="xBtn"

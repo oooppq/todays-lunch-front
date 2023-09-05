@@ -11,6 +11,9 @@ export const DetailContainer = styled.div`
   background-color: #f4f4f4;
   display: flex;
   flex-direction: column;
+  .detailMain {
+    flex: 1;
+  }
 `;
 
 export const DetailTopContainer = styled.div`
@@ -507,6 +510,11 @@ export const DetailMenuPhotoModalContainer = styled(ModalCommon)`
         left: 0;
         width: 100%;
         height: 100%;
+        transform: translate(50, 50);
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        margin: auto;
         padding: 2.5px;
         box-sizing: border-box;
         border-radius: 6px;
@@ -926,6 +934,7 @@ export const DetailReviewDeleteModalContainer = styled(ModalCommon)`
 `;
 
 export const DetailReviewContainer = styled.div`
+  flex: 1;
   background-color: white;
   margin-top: 26px;
   .reviewTitle {

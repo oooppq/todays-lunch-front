@@ -218,12 +218,12 @@ export const SelectedModalContainer = styled.div`
       top: 16px;
       right: 18px;
     }
-    .restaurantImg {
-      margin-bottom: 7px;
-      width: 140px;
-      height: 140px;
-      border-radius: 3px;
-    }
+    // .restaurantImg {
+    //   margin-bottom: 7px;
+    //   width: 140px;
+    //   height: 140px;
+    //   border-radius: 3px;
+    // }
     .restaurantNameAndRating {
       margin-bottom: 5px;
       font-size: 18px;

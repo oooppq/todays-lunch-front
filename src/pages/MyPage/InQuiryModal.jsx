@@ -2,7 +2,7 @@
 import React from 'react';
 import { InquiryModalContainer } from './myPage.style';
 import xIcon from '../../assets/img/x-icon.svg';
-import Preparing from '../../components/Preparing';
+import kakaoIcon from '../../assets/img/kakao-icon.png';
 
 const InQuiryModal = ({ setIsInquiryModalOpen }) => {
   return (
@@ -20,7 +20,15 @@ const InQuiryModal = ({ setIsInquiryModalOpen }) => {
             <img src={xIcon} alt="" className="" />
           </button>
         </div>
-        <Preparing />
+        <a
+          href="https://open.kakao.com/o/sPmeloFf"
+          className="kakaoOpenChatButton"
+          target="_blank"
+          rel="noreferrer"
+        >
+          <img src={kakaoIcon} alt="" className="" />
+          <div className="">오픈채팅</div>
+        </a>
       </div>
     </InquiryModalContainer>
   );

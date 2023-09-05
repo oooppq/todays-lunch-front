@@ -8,13 +8,14 @@ import smallPencilIcon from '../../assets/img/detail-small-pencil-icon.svg';
 import defaultImage from '../../assets/img/default-image.png';
 import smallHeartIcon from '../../assets/img/detail-small-heart-icon.svg';
 import dishIcon from '../../assets/img/detail-dish-icon.svg';
-import pencilIcon from '../../assets/img/detail-review-icon.svg';
+import pencilIcon from '../../assets/img/detail-review-icon.png';
 import heartIcon from '../../assets/img/detail-heart-icon.svg';
 import coloredHeartIcon from '../../assets/img/colored-heart-icon.svg';
 import rouletteIcon from '../../assets/img/detail-roulette-icon.svg';
 import coloredRouletteIcon from '../../assets/img/colored-roulette-icon.svg';
 import { handleGoBack } from './detail.helpers';
 import { useRoulette, useShare, useWish } from '../../libs/common.helpers';
+import CroppedImage from '../../components/CroppedImage';
 
 const DetailTop = ({ restaurant, tab, changeTab }) => {
   const navigate = useNavigate();
@@ -43,11 +44,17 @@ const DetailTop = ({ restaurant, tab, changeTab }) => {
       </div>
       {isShareModalOpen && <ShareModal />}
       <div className="restInfo">
-        <img
-          className="restImg"
+        <CroppedImage
+          style={{
+            display: 'block',
+            width: '164px',
+            height: '164px',
+            margin: '0 auto',
+            borderRadius: '3px',
+          }}
           src={restaurant.imageUrl || defaultImage}
-          alt=""
         />
+
         <div className="title">{restaurant.restaurantName}</div>
         <div className="reviewWish">
           <div className="reviewDiv">
@@ -80,7 +87,7 @@ const DetailTop = ({ restaurant, tab, changeTab }) => {
           }}
           aria-hidden="true"
         >
-          <img src={pencilIcon} alt="" />
+          <img src={pencilIcon} alt="" width={40} height={40} />
         </li>
         <li
           className="navLi"

@@ -19,7 +19,7 @@ const DetailMain = ({
   const { contributors } = restaurant;
 
   return (
-    <>
+    <div className="detailMain">
       <DetailInfo
         restaurantData={restaurant}
         menuData={menuData}
@@ -28,7 +28,7 @@ const DetailMain = ({
       />
       <DetailMap mapData={mapData} />
       <DetailContributor contributors={contributors} />
-    </>
+    </div>
   );
 };
 

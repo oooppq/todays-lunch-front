@@ -6,6 +6,7 @@ import { ParticipatingRestaurantLi } from './participatingRestaurant.style';
 import reviewIcon from '../../../assets/img/mypage-review-icon.svg';
 import defaultImage from '../../../assets/img/default-image.png';
 import { convertNum } from '../../../libs/utils';
+import CroppedImage from '../../../components/CroppedImage';
 // import rouletteIcon from '../../../assets/img/restaurant-roulette-icon.svg';
 // import coloredWishIcon from '../../../assets/img/restaurant-colored-heart-icon.svg';
 // import coloredRouletteIcon from '../../../assets/img/restaurant-colored-roulette-icon.svg';
@@ -19,11 +20,15 @@ const ParticipatingRestaurantElem = ({ restaurant }) => {
         navigate(`/restaurants/${restaurant.id}`);
       }}
     >
-      <img
+      <CroppedImage
         src={restaurant.imageUrl || defaultImage}
-        alt=""
-        className="restImg"
+        style={{
+          width: '50px',
+          height: '50px',
+          marginRight: '10px',
+        }}
       />
+
       <div className="restInfo">
         <div className="restTitle">{restaurant.restaurantName}</div>
         <div className="restTags">
