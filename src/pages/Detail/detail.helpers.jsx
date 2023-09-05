@@ -274,7 +274,12 @@ export const useMenuPhoto = (id) => {
             Authorization: `${accessToken}`,
           },
         }),
-      { onSuccess: () => queryClient.invalidateQueries(['menuPhotos', id]) }
+      {
+        onSuccess: () => {
+          queryClient.invalidateQueries(['menuPhotos', id]);
+          queryClient.invalidateQueries(['menus'], { exact: false });
+        },
+      }
     );
 
   const deleteMenuPhoto = (navigate, photoId) => {
