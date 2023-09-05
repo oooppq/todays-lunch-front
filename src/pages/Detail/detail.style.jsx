@@ -372,7 +372,7 @@ export const DetailContributorContainer = styled.div`
   }
   .contributors {
     padding: 0;
-    margin: 15px 0 0 54px;
+    margin: 15px 0 0 40px;
     display: flex;
     list-style: none;
     .contributorLi {
@@ -382,11 +382,6 @@ export const DetailContributorContainer = styled.div`
       display: flex;
       flex-direction: column;
       align-items: center;
-      .profileImg {
-        width: 41.7px;
-        height: 45.73px;
-        margin-bottom: 5px;
-      }
     }
   }
 `;

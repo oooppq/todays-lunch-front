@@ -61,6 +61,7 @@ const DetailReviewElement = ({ restaurantId, review }) => {
           height: '34px',
           width: '34px',
           marginRight: '10px',
+          borderRadius: '50%',
         }}
       />
 

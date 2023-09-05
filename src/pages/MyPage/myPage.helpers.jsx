@@ -9,7 +9,7 @@ import {
 } from 'react-query';
 import { useSelector } from 'react-redux';
 import { useAuth } from '../../libs/userAuth.helpers';
-import { authStates, flattenPages } from '../../libs/utils';
+import { CompressImage, authStates, flattenPages } from '../../libs/utils';
 import { useInputValidation } from '../Join/join.helpers';
 
 const SERVER_URL = import.meta.env.VITE_API_BASE_URL;
@@ -436,20 +436,15 @@ export const useProfileChange = (userInfo) => {
     else setIsNicknameError(true);
   };
 
-  const handleProfileChange = (event) => {
+  const handleProfileChange = async (event) => {
     // const reader = new FileReader();
     if (event.target.files && event.target.files.length) {
-      const fd = new FormData();
-      fd.append('icon', event.target.files[0]);
-      patchProfileImage(fd);
-      // reader.readAsDataURL(event.target.files[0]);
-      // reader.onloadend = () => {
-      //   if (reader.result) {
-      //     const fd = new FormData();
-      //     fd.append('icon', reader.result.toString());
-      //     patchProfileImage(fd);
-      //   }
-      // };
+      const compressedFile = await CompressImage(event.target.files[0]);
+      if (compressedFile) {
+        const fd = new FormData();
+        fd.append('icon', compressedFile);
+        patchProfileImage(fd);
+      }
     }
   };
 

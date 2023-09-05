@@ -12,6 +12,7 @@ import {
 import fullStarIcon from '../../assets/img/full-star-icon.svg';
 import emptyStarIcon from '../../assets/img/empty-star-icon.svg';
 import { useAuth } from '../../libs/userAuth.helpers';
+import { CompressImage } from '../../libs/utils';
 
 const SERVER_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -284,11 +285,15 @@ export const useMenuPhoto = (id) => {
     }
   };
 
-  const handleAddMenuPhoto = (event) => {
+  const handleAddMenuPhoto = async (event) => {
     if (event.target.files && event.target.files.length) {
-      const fd = new FormData();
-      fd.append('menu-image', event.target.files[0]);
-      addMenuPhotoRequest(fd);
+      const compressedFile = await CompressImage(event.target.files[0]);
+      if (compressedFile) {
+        const fd = new FormData();
+        fd.append('menu-image', compressedFile);
+
+        addMenuPhotoRequest(fd);
+      }
     }
   };
 

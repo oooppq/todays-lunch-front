@@ -68,6 +68,7 @@ export const MyPageTop = styled.div`
       }
       .changeProfileImgBtn {
         position: absolute;
+        z-index: 55;
         bottom: -3px;
         right: -3px;
         width: 22px;

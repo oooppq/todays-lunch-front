@@ -2,6 +2,7 @@
 import React from 'react';
 import { DetailContributorContainer } from './detail.style';
 import defaultIcon from '../../assets/img/detail-default-icon.svg';
+import CroppedImage from '../../components/CroppedImage';
 
 const DetailContributor = ({ contributors }) => {
   return (
@@ -10,11 +11,16 @@ const DetailContributor = ({ contributors }) => {
       <ul className="contributors">
         {contributors.map((user) => (
           <li key={user.id} className="contributorLi">
-            <img
-              className="profileImg"
-              src={user.profileImage || defaultIcon}
-              alt=""
+            <CroppedImage
+              src={user.icon || defaultIcon}
+              style={{
+                marginBottom: '5px',
+                width: '45px',
+                height: '45px',
+                borderRadius: '50%',
+              }}
             />
+            {/* <img className="profileImg" src={user.icon || defaultIcon} alt="" /> */}
             <div className="nickName">{user.nickname}</div>
           </li>
         ))}

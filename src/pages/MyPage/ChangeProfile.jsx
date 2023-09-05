@@ -2,6 +2,7 @@
 import React from 'react';
 import defaultIcon from '../../assets/img/default-icon.svg';
 import cameraIcon from '../../assets/img/empty-camera-icon.svg';
+import CroppedImage from '../../components/CroppedImage';
 
 const ChangeProfile = ({
   userInfo,
@@ -20,11 +21,15 @@ const ChangeProfile = ({
           <div className="changeProfileImgBtn">
             <img src={cameraIcon} alt="" className="" />
           </div>
-          <img
+          <CroppedImage
+            src={userInfo.icon || defaultIcon}
+            style={{ width: '55px', height: '55px', borderRadius: '50%' }}
+          />
+          {/* <img
             src={userInfo.icon || defaultIcon}
             alt=""
             className="profileImg"
-          />
+          /> */}
           <input
             id="profileImgInput"
             type="file"

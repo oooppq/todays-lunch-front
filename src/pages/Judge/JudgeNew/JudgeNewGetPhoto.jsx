@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import cameraIcon from '../../../assets/img/camera-icon.svg';
 import xIcon from '../../../assets/img/x-icon.svg';
 import { setRestaurantImage } from '../../../redux/judgeNew';
+import { CompressImage } from '../../../libs/utils';
 
 const JudgeNewGetPhoto = () => {
   const dispatch = useDispatch();
@@ -40,18 +41,19 @@ const JudgeNewGetPhoto = () => {
             id="input-file"
             type="file"
             accept="image/* .heic .heif"
-            onChange={(e) => {
+            onChange={async (e) => {
               if (e.target.files && e.target.files.length) {
-                dispatch(setRestaurantImage(e.target.files[0]));
-
-                const reader = new FileReader();
-                reader.readAsDataURL(e.target.files[0]);
-                reader.onloadend = () => {
-                  if (reader.result) {
-                    // dispatch(setRestaurantImage(reader.result.toString()));
-                    setImg(reader.result.toString());
-                  }
-                };
+                const compressedFile = await CompressImage(e.target.files[0]);
+                if (compressedFile) {
+                  dispatch(setRestaurantImage(compressedFile));
+                  const reader = new FileReader();
+                  reader.readAsDataURL(compressedFile);
+                  reader.onloadend = () => {
+                    if (reader.result) {
+                      setImg(reader.result.toString());
+                    }
+                  };
+                }
               }
             }}
           />
