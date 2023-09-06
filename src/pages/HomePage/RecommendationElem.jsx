@@ -36,9 +36,11 @@ const RecommendationElem = ({ restaurant }) => {
         />
 
         <div className="infoUpInner">
-          <div className="lowestPrice">
-            {convertNum(restaurant.lowestPrice)}원 ~
-          </div>
+          {restaurant.lowestPrice && (
+            <div className="lowestPrice">
+              {convertNum(restaurant.lowestPrice)}원 ~
+            </div>
+          )}
         </div>
       </RecommendationInfoUp>
       <RecommendationInfoDown>

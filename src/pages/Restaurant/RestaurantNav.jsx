@@ -105,11 +105,16 @@ const RestaurantNav = ({
             isWhole
           />
           <Dropdown
-            data={locTag.filter(
-              (tag) =>
-                restaurantState.selectedLocCat &&
-                tag.loc_category_id === restaurantState.selectedLocCat.id
-            )}
+            data={
+              restaurantState.selectedLocCat
+                ? // ? locTag.filter(
+                  //     (tag) =>
+                  //       // tag.location_Category_id === restaurantState.selectedLocCat.id
+
+                  //   )
+                  locTag
+                : []
+            }
             selected={restaurantState.selectedLocTag}
             setSelected={(toSelect) => {
               changeSelectedLocTag(toSelect);

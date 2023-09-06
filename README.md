@@ -1,11 +1,30 @@
-## 페이지 미리보기
+<h1 align="center">
+  점메추 Front Github
+  <br>
+</h1>
+<br>
 
-<img width="306" alt="스크린샷 2023-04-08 오후 2 17 18" src="https://user-images.githubusercontent.com/81559230/230704608-72fe2bd2-0805-45d4-8add-b954696d3950.png"><img width="306" alt="스크린샷 2023-04-08 오후 2 17 39" src="https://user-images.githubusercontent.com/81559230/230704623-7f8d4f04-bbcb-4468-86b0-0735af3c1cc3.png">
-<img width="305" alt="스크린샷 2023-04-08 오후 2 17 52" src="https://user-images.githubusercontent.com/81559230/230704634-731c1fa7-c852-4210-8486-62030206f68d.png"><img width="306" alt="스크린샷 2023-04-08 오후 2 18 06" src="https://user-images.githubusercontent.com/81559230/230704639-9d29493f-71bd-4578-b07a-b902311b020c.png">
-<img width="306" alt="스크린샷 2023-04-08 오후 2 18 23" src="https://user-images.githubusercontent.com/81559230/230704648-3e0c98da-960e-46f8-9e47-697350be123f.png"><img width="307" alt="스크린샷 2023-04-08 오후 2 18 53" src="https://user-images.githubusercontent.com/81559230/230704666-47e6c95a-f384-48f3-8288-b5fded343ea0.png">
+<div align=center>
+ <img src="https://img.shields.io/badge/javascript-blue?logo=javascript&logoColor=f5f5f5"/>
+ <img src="https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white"/>
+ <img src="https://img.shields.io/badge/-ReactJs-61DAFB?logo=react&logoColor=white"/>
+ <img src="https://img.shields.io/badge/Redux-764ABC?logo=redux&logoColor=white"/>
+ <img src="https://img.shields.io/badge/reactquery-FF4154?logo=reactquery&logoColor=white"/>
+ <img src="https://img.shields.io/badge/styled-component-DB7093?logo=styledcomponents&logoColor=white"/>
+ <img src="https://img.shields.io/badge/vite-646CFF?logo=vite&logoColor=white"/>
+ <img src="https://img.shields.io/badge/amazons3-569A31?logo=amazons3&logoColor=white"/>
+ <img src="https://img.shields.io/badge/githubactions-2088FF?logo=githubactions&logoColor=white"/>
+</div>
 
-## 점메추
+<h4 align="center">서강대생을 위한 맛집 위키백과, 점메추</h4>
 
-- 대학생들의 점심 메뉴 선정을 도와주기 위한 서비스
-- 학교 근처 맛집을 유저가 직접 등록할 수 있는 맛집 위키!
-- 메뉴 선택을 도와주기 위해 룰렛 기능 제공
+## URLs
+
+- [점메추](https://todays-lunch.me)
+- [노션](https://www.notion.so/odg-portfolio/47f70167d2ca49bc9cf569dcc7636306?pvs=4)
+- [BE Github](https://github.com/jongmee/todays-lunch-server)
+
+## Contect
+
+- 이메일: oooppq@naver.com
+- 오픈채팅: https://open.kakao.com/o/sPmeloFf

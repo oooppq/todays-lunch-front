@@ -67,7 +67,9 @@ const DetailTop = ({ restaurant, tab, changeTab }) => {
           </div>
         </div>
         <div className="rate">{Number(restaurant.rating).toFixed(1)}</div>
-        <div className="bestReview">"{restaurant.bestReview}"</div>
+        {restaurant.bestReview && (
+          <div className="bestReview">"{restaurant.bestReview}"</div>
+        )}
       </div>
 
       <ul className="navUl">
