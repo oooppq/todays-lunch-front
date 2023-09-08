@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useState } from 'react';
 import { LoginBodyContainer } from './login.style';
 import jmcIcon from '../../assets/img/user-jmc-icon.svg';
 import { useLoginHandler } from './login.helpers';
@@ -12,6 +12,7 @@ const LoginBody = ({ authState, login, refresh }) => {
     handlePasswordChange,
     handleLogin,
   } = useLoginHandler(login, refresh);
+  const [isInit, setIsInit] = useState(true);
 
   return (
     <LoginBodyContainer>
@@ -34,8 +35,22 @@ const LoginBody = ({ authState, login, refresh }) => {
           placeholder="password"
           onChange={handlePasswordChange}
         />
-        <LoginError authState={authState} isInputMissing={isInputMissing} />
-        <button className="loginBtn" type="button" onClick={handleLogin}>
+        <LoginError
+          isInit={isInit}
+          authState={authState}
+          isInputMissing={isInputMissing}
+        />
+        {/* {!isInit && (
+          
+        )} */}
+        <button
+          className="loginBtn"
+          type="button"
+          onClick={(e) => {
+            handleLogin(e);
+            setIsInit(false);
+          }}
+        >
           로그인
         </button>
       </div>
